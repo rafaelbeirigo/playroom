@@ -9,9 +9,9 @@ class Peca:
 
 class Tabuleiro:
     """Tabuleiro onde as peças são posicionadas"""
-    def __init__(self, num_lin, num_col):
-	self.num_lin = num_lin
-	self.num_col = num_col
+    def __init__(self, linhas, colunas):
+	self.linhas = linhas
+	self.colunas = colunas
 	
 class Ambiente:
     """Ambiente, composto do tabuleiro e das peças"""
