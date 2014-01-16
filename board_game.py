@@ -1,6 +1,6 @@
 import Tkinter as tk
 class GameBoard(tk.Frame):
-    def __init__(self, parent, rows=8, columns=8, size=32, color1="white", color2="blue"):
+    def __init__(self, parent, rows=5, columns=5, size=32, color1="white", color2="blue"):
         '''size is the size of a square, in pixels'''
 
         self.rows = rows
@@ -85,7 +85,28 @@ if __name__ == "__main__":
     board = GameBoard(root)
     board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
     player1 = tk.PhotoImage(data=imagedata)
-    board.addpiece("player1", player1, 0,0)
     player2 = tk.PhotoImage(file="/home/rafaelbeirigo/sand_box/icons/gif/br.gif")
+    ball = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif")
+    bell = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif")
+    eye = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif")
+    hand = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif")
+    play = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif")
+    stop = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif")
+    switch = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif")
+    target = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
+    toy_monkey = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif")
+
+    # board.addpiece("ball", ball, 0,0)
+    # board.addpiece("bell", bell, 0,0)
+    # board.addpiece("eye", eye, 0,0)
+    # board.addpiece("hand", hand, 0,0)
+    # board.addpiece("play", play, 0,0)
+    # board.addpiece("stop", stop, 0,0)
+    # board.addpiece("switch", switch, 0,0)
+    # board.addpiece("target", target, 0,0)
+    # board.addpiece("toy-monkey", toy_monkey, 0,0)
+    
+    board.addpiece("player1", player1, 0,0)
     board.addpiece("player2", player2, 2,2)
+
     root.mainloop()
