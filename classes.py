@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# coding=UTF-8
+
 class Peca:
     """Peças presentes no tabuleiro incluindo as relativas ao agente (
     Mão, sino, olho, etc.)"""
