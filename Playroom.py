@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # coding=UTF-8
 
-from classes import *
-from board_game import *
+from Tabuleiro import *
+from Peca import *
 
 root = tk.Tk()
 board = GameBoard(root)
