@@ -13,7 +13,7 @@ class Tabuleiro(tk.Frame):
         self.size = size
         self.color1 = color1
         self.color2 = color1
-        self.pieces = []
+        self.pieces = {}
 
         canvas_width = columns * size
         canvas_height = rows * size
@@ -27,10 +27,10 @@ class Tabuleiro(tk.Frame):
         # changes the window size
         self.canvas.bind("<Configure>", self.refresh)
 
-    def addpiece(self, name, image, row=0, column=0):
+    def addpiece(self, peca):
         '''Add a piece to the playing board'''
-        self.canvas.create_image(0,0, image=image, tags=(name, "piece"), anchor="c")
-        self.placepiece(name, row, column)
+        self.canvas.create_image(0,0, image=peca.imagem, tags=(peca.nome, "peça"), anchor="c")
+        self.placepiece(peca.nome, peca.linha, peca.coluna)
 
     def placepiece(self, name, row, column):
         '''Place a piece at the given row/column'''
@@ -66,24 +66,24 @@ if __name__ == "__main__":
     board = Tabuleiro(root)
     board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
 
-    ball = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif")
-    bell = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif")
-    eye = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif")
-    hand = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif")
-    play = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif")
-    stop = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif")
-    switch = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif")
-    target = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
-    toy_monkey = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif")
+    ball = Peca(nome = "bola", imagem=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"))
+    # bell = Pecatk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif")
+    # eye = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif")
+    # hand = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif")
+    # play = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif")
+    # stop = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif")
+    # switch = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif")
+    # target = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
+    # toy_monkey = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif")
 
-    board.addpiece("ball", ball, 0,0)
-    board.addpiece("bell", bell, 0,1)
-    board.addpiece("eye", eye, 0,2)
-    board.addpiece("hand", hand, 0,3)
-    board.addpiece("play", play, 0,4)
-    board.addpiece("stop", stop, 1,0)
-    board.addpiece("switch", switch, 1,1)
-    board.addpiece("target", target, 1,2)
-    board.addpiece("toy-monkey", toy_monkey, 1,3)
+    board.addpiece(ball)
+    # board.addpiece("bell", bell, 0,1)
+    # board.addpiece("eye", eye, 0,2)
+    # board.addpiece("hand", hand, 0,3)
+    # board.addpiece("play", play, 0,4)
+    # board.addpiece("stop", stop, 1,0)
+    # board.addpiece("switch", switch, 1,1)
+    # board.addpiece("target", target, 1,2)
+    # board.addpiece("toy-monkey", toy_monkey, 1,3)
     
     root.mainloop()
