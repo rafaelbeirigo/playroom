@@ -13,7 +13,7 @@ class Tabuleiro(tk.Frame):
         self.size = size
         self.color1 = color1
         self.color2 = color1
-        self.pieces = {}
+        self.pieces = []
 
         canvas_width = columns * size
         canvas_height = rows * size
