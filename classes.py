@@ -1,7 +1,8 @@
 class Peca:
     """Peças presentes no tabuleiro incluindo as relativas ao agente (
     Mão, sino, olho, etc.)"""
-    def __init__(self):
+    def __init__(self, imagem=None):
+        self.imagem = imagem
 	self.lin = 0
 	self.col = 0
 	# TODO: As ações inerentes variam de acordo com regras do domínio
