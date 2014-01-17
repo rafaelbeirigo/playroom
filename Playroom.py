@@ -1,31 +1,32 @@
 #!/usr/bin/python
 # coding=UTF-8
 
+import Tkinter as tk
 from Tabuleiro import *
 from Peca import *
 
 root = tk.Tk()
-board = GameBoard(root)
-board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
+tabuleiro = Tabuleiro(root)
+tabuleiro.pack(side="top", fill="both", expand="true", padx=4, pady=4)
 
-ball = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif")
-bell = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif")
-eye = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif")
-hand = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif")
-play = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif")
-stop = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif")
-switch = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif")
-target = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
-toy_monkey = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif")
+ball = Peca(nome = "bola", imagem=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"))
+bell = Peca(nome = "sino", imagem=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), linha=0, coluna=1)
+eye = Peca(nome = "eye", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), linha=0, coluna=2)
+hand = Peca(nome = "hand", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), linha=0, coluna=3)
+play = Peca(nome = "play", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), linha=0, coluna=4)
+stop = Peca(nome = "stop", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), linha=1, coluna=0)
+switch = Peca(nome = "switch", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), linha=1, coluna=1)
+target = Peca(nome = "target", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), linha=1, coluna=2)
+toy_monkey = Peca(nome = "toy_monkey", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), linha=1, coluna=3)
 
-board.addpiece("ball", ball, 0,0)
-board.addpiece("bell", bell, 0,1)
-board.addpiece("eye", eye, 0,2)
-board.addpiece("hand", hand, 0,3)
-board.addpiece("play", play, 0,4)
-board.addpiece("stop", stop, 1,0)
-board.addpiece("switch", switch, 1,1)
-board.addpiece("target", target, 1,2)
-board.addpiece("toy-monkey", toy_monkey, 1,3)
+tabuleiro.addpiece(ball)
+tabuleiro.addpiece(bell)
+tabuleiro.addpiece(eye)
+tabuleiro.addpiece(hand)
+tabuleiro.addpiece(play)
+tabuleiro.addpiece(stop)
+tabuleiro.addpiece(switch)
+tabuleiro.addpiece(target)
+tabuleiro.addpiece(toy_monkey)
 
 root.mainloop()
