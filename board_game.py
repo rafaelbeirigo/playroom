@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# coding=UTF-8
 import Tkinter as tk
 class GameBoard(tk.Frame):
     def __init__(self, parent, rows=5, columns=5, size=150, color1="white", color2="blue"):
