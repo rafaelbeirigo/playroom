@@ -2,6 +2,7 @@
 # coding=UTF-8
 
 import Tkinter as tk
+from Peca import *
 
 class Tabuleiro(tk.Frame):
     """Tabuleiro onde as peças são posicionadas"""
