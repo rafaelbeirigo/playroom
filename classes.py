@@ -4,8 +4,8 @@ class Peca:
     def __init__(self):
 	self.lin = 0
 	self.col = 0
-	# TODO: As ações disponíveis variam de acordo com regras do domínio
-	self.acoes_disponiveis = {}
+	# TODO: As ações inerentes variam de acordo com regras do domínio
+	self.acoes_inerentes = {}
 
 class Tabuleiro:
     """Tabuleiro onde as peças são posicionadas"""
