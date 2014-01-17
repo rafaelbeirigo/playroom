@@ -18,3 +18,4 @@ class Ambiente:
 
 
 class Agente:
+    """Classe referente ao agente aprendiz"""
