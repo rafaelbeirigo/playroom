@@ -56,36 +56,11 @@ class GameBoard(tk.Frame):
         self.canvas.tag_lower("square")
 
 
-# image comes from the silk icon set which is under a Creative Commons
-# license. For more information see http://www.famfamfam.com/lab/icons/silk/
-imagedata = '''
-    R0lGODlhEAAQAOeSAKx7Fqx8F61/G62CILCJKriIHM+HALKNMNCIANKKANOMALuRK7WOVLWPV9eR
-    ANiSANuXAN2ZAN6aAN+bAOCcAOKeANCjKOShANKnK+imAOyrAN6qSNaxPfCwAOKyJOKyJvKyANW0
-    R/S1APW2APW3APa4APe5APm7APm8APq8AO28Ke29LO2/LO2/L+7BM+7BNO6+Re7CMu7BOe7DNPHA
-    P+/FOO/FO+jGS+/FQO/GO/DHPOjBdfDIPPDJQPDISPDKQPDKRPDIUPHLQ/HLRerMV/HMR/LNSOvH
-    fvLOS/rNP/LPTvLOVe/LdfPRUfPRU/PSU/LPaPPTVPPUVfTUVvLPe/LScPTWWfTXW/TXXPTXX/XY
-    Xu/SkvXZYPfVdfXaY/TYcfXaZPXaZvbWfvTYe/XbbvHWl/bdaPbeavvadffea/bebvffbfbdfPvb
-    e/fgb/Pam/fgcvfgePTbnfbcl/bfivfjdvfjePbemfjelPXeoPjkePbfmvffnvbfofjlgffjkvfh
-    nvjio/nnhvfjovjmlvzlmvrmpvrrmfzpp/zqq/vqr/zssvvvp/vvqfvvuPvvuvvwvfzzwP//////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////yH+FUNyZWF0ZWQgd2l0aCBU
-    aGUgR0lNUAAh+QQBCgD/ACwAAAAAEAAQAAAIzAD/CRxIsKDBfydMlBhxcGAKNIkgPTLUpcPBJIUa
-    +VEThswfPDQKokB0yE4aMFiiOPnCJ8PAE20Y6VnTQMsUBkWAjKFyQaCJRYLcmOFipYmRHzV89Kkg
-    kESkOme8XHmCREiOGC/2TBAowhGcAyGkKBnCwwKAFnciCAShKA4RAhyK9MAQwIMMOQ8EdhBDKMuN
-    BQMEFPigAsoRBQM1BGLjRIiOGSxWBCmToCCMOXSW2HCBo8qWDQcvMMkzCNCbHQga/qMgAYIDBQZU
-    yxYYEAA7
-'''
-
 if __name__ == "__main__":
     root = tk.Tk()
     board = GameBoard(root)
     board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
-    player1 = tk.PhotoImage(data=imagedata)
-    player2 = tk.PhotoImage(file="/home/rafaelbeirigo/sand_box/icons/gif/br.gif")
+
     ball = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif")
     bell = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif")
     eye = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif")
@@ -106,7 +81,4 @@ if __name__ == "__main__":
     board.addpiece("target", target, 1,2)
     board.addpiece("toy-monkey", toy_monkey, 1,3)
     
-    board.addpiece("player1", player1, 0,0)
-    board.addpiece("player2", player2, 2,2)
-
     root.mainloop()
