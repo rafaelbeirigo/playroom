@@ -1,12 +1,12 @@
 class Peca:
     """Peças presentes no tabuleiro incluindo as relativas ao agente (
     Mão, sino, olho, etc.)"""
-    def __init__(self, imagem=None):
+    def __init__(self, imagem=None, linha=0, coluna=0, acoes_inerentes=None):
         self.imagem = imagem
-	self.lin = 0
-	self.col = 0
+	self.linha = linha
+	self.coluna = coluna
 	# TODO: As ações inerentes variam de acordo com regras do domínio
-	self.acoes_inerentes = {}
+	self.acoes_inerentes = acoes_inerentes
 
 class Tabuleiro:
     """Tabuleiro onde as peças são posicionadas"""
