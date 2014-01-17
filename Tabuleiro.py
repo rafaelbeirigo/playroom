@@ -13,7 +13,7 @@ class Tabuleiro(tk.Frame):
         self.size = size
         self.color1 = color1
         self.color2 = color1
-        self.pieces = {}
+        self.pieces = []
 
         canvas_width = columns * size
         canvas_height = rows * size
@@ -30,14 +30,15 @@ class Tabuleiro(tk.Frame):
     def addpiece(self, peca):
         '''Add a piece to the playing board'''
         self.canvas.create_image(0,0, image=peca.imagem, tags=(peca.nome, "peça"), anchor="c")
-        self.placepiece(peca.nome, peca.linha, peca.coluna)
+        self.placepiece(peca)
+        self.pieces.append(peca)
 
-    def placepiece(self, name, row, column):
+    def placepiece(self, peca):
+        # name, row, column):
         '''Place a piece at the given row/column'''
-        self.pieces[name] = (row, column)
-        x0 = (column * self.size) + int(self.size/2)
-        y0 = (row * self.size) + int(self.size/2)
-        self.canvas.coords(name, x0, y0)
+        x0 = (peca.coluna * self.size) + int(self.size/2)
+        y0 = (peca.linha * self.size) + int(self.size/2)
+        self.canvas.coords(peca.nome, x0, y0)
 
     def refresh(self, event):
         '''Redraw the board, possibly in response to window being resized'''
@@ -55,8 +56,8 @@ class Tabuleiro(tk.Frame):
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-        for name in self.pieces:
-            self.placepiece(name, self.pieces[name][0], self.pieces[name][1])
+        for peca in self.pieces:
+            self.placepiece(peca)
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
