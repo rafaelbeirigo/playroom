@@ -5,11 +5,14 @@ import Tkinter as tk
 from Board import *
 from Piece import *
 
-def move_eye_to_marker(eye, marker):
-    eye.row = marker.row
-    eye.column = marker.column
+def move_piece_to_piece(piece_to_move, destination_piece):
+    piece_to_move.row = destination_piece.row
+    piece_to_move.column = destination_piece.column
     
-    board.placepiece(eye)
+    board.placepiece(piece_to_move)
+
+def move_eye_to_marker():
+    move_piece_to_piece(eye, target)
 
 def move_piece(piece, direction):
     if direction == 'north':
@@ -42,7 +45,7 @@ def key(event):
         action = 'east'
 
     if event.keysym == '1':
-        move_eye_to_marker(eye, target)
+        move_eye_to_marker()
         
     piece = target
     move_piece(piece, action)
@@ -50,9 +53,6 @@ def key(event):
     
 root = tk.Tk()
 root.bind_all('<Key>', key)
-
-# b = Button(root, text="Start!", command=movement_test)
-# b.pack()
 
 board = Board(root)
 board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
