@@ -4,12 +4,23 @@
 import Tkinter as tk
 from Board import *
 from Piece import *
+from random import randint
 
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
     piece_to_move.column = destination_piece.column
     
     board.placepiece(piece_to_move)
+
+def move_eye_to_random_object():
+    random_index = randint(0, len(non_agent_pieces) - 1)
+    move_piece_to_piece(eye, non_agent_pieces[random_index])
+
+def move_hand_to_eye():
+    move_piece_to_piece(hand, eye)
+
+def move_marker_to_eye():
+    move_piece_to_piece(target, eye)
 
 def move_eye_to_marker():
     move_piece_to_piece(eye, target)
@@ -65,6 +76,12 @@ def key(event):
         move_eye_to_marker()
     if event.keysym == '2':
         move_eye_to_hand()
+    if event.keysym == '4':
+        move_eye_to_random_object()
+    if event.keysym == '5':
+        move_hand_to_eye()
+    if event.keysym == '6':
+        move_marker_to_eye()
         
     piece = hand
     move_piece(piece, action)
@@ -85,15 +102,12 @@ switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/
 target = Piece(name = "target", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
-board.addpiece(ball)
-board.addpiece(bell)
-board.addpiece(play)
-board.addpiece(stop)
-board.addpiece(switch)
-board.addpiece(toy_monkey)
+agent_pieces = [eye, hand, target]
+non_agent_pieces = [ball, bell, play, stop, switch, toy_monkey]
 
-board.addpiece(eye)
-board.addpiece(hand)
-board.addpiece(target)
+for piece in non_agent_pieces:
+    board.addpiece(piece)
+for piece in agent_pieces:
+    board.addpiece(piece)
 
 root.mainloop()
