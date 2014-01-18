@@ -5,6 +5,12 @@ import Tkinter as tk
 from Board import *
 from Piece import *
 
+def move_eye_to_marker(eye, marker):
+    eye.row = marker.row
+    eye.column = marker.column
+    
+    board.placepiece(eye)
+
 def move_piece(piece, direction):
     if direction == 'north':
         piece.row -= 1
@@ -25,6 +31,7 @@ def move_piece(piece, direction):
         piece.column = board.columns - 1
 
 def key(event):
+    action = ''
     if event.keysym == 'Up':
         action = 'north'
     if event.keysym == 'Down':
@@ -34,6 +41,9 @@ def key(event):
     if event.keysym == 'Right':
         action = 'east'
 
+    if event.keysym == '1':
+        move_eye_to_marker(eye, target)
+        
     piece = target
     move_piece(piece, action)
     board.placepiece(piece)
