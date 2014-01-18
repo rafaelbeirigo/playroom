@@ -26,7 +26,6 @@ def move_piece(piece, direction):
 
 def key(event):
     action = ''
-    
     if event.keysym == 'Up':
         action = 'north'
     if event.keysym == 'Down':
