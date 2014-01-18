@@ -1,13 +1,12 @@
 #!/usr/bin/python
 # coding=UTF-8
 
-class Peca:
-    """Peças presentes no tabuleiro incluindo as relativas ao agente (
-    Mão, sino, olho, etc.)"""
-    def __init__(self, nome=None, imagem=None, linha=0, coluna=0, acoes_inerentes=None):
-        self.nome = nome
-        self.imagem = imagem
-	self.linha = linha
-	self.coluna = coluna
+class Piece:
+    """Pieces present on the board (including those pertaining to the agent)"""
+    def __init__(self, name=None, image=None, row=0, column=0, inherent_actions=None):
+        self.name = name
+        self.image = image
+	self.row = row
+	self.column = column
 	# TODO: As ações inerentes variam de acordo com regras do domínio
-	self.acoes_inerentes = acoes_inerentes
+	self.inherent_actions = inherent_actions

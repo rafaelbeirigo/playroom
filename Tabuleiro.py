@@ -2,10 +2,10 @@
 # coding=UTF-8
 
 import Tkinter as tk
-from Peca import *
+from Piece import *
 
-class Tabuleiro(tk.Frame):
-    """Tabuleiro onde as peças são posicionadas"""
+class Board(tk.Frame):
+    """Board where the pieces are put"""
     def __init__(self, parent, rows=5, columns=5, size=150, color1="white", color2="blue"):
         '''size is the size of a square, in pixels'''
 
@@ -30,16 +30,16 @@ class Tabuleiro(tk.Frame):
 
     def addpiece(self, peca):
         '''Add a piece to the playing board'''
-        self.canvas.create_image(0,0, image=peca.imagem, tags=(peca.nome, "peça"), anchor="c")
+        self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
         self.placepiece(peca)
         self.pieces.append(peca)
 
     def placepiece(self, peca):
         # name, row, column):
         '''Place a piece at the given row/column'''
-        x0 = (peca.coluna * self.size) + int(self.size/2)
-        y0 = (peca.linha * self.size) + int(self.size/2)
-        self.canvas.coords(peca.nome, x0, y0)
+        x0 = (peca.column * self.size) + int(self.size/2)
+        y0 = (peca.row * self.size) + int(self.size/2)
+        self.canvas.coords(peca.name, x0, y0)
 
     def refresh(self, event):
         '''Redraw the board, possibly in response to window being resized'''
@@ -65,18 +65,18 @@ class Tabuleiro(tk.Frame):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    board = Tabuleiro(root)
+    board = Board(root)
     board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
 
-    ball = Peca(nome = "bola", imagem=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"))
-    bell = Peca(nome = "sino", imagem=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), linha=0, coluna=1)
-    eye = Peca(nome = "eye", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), linha=0, coluna=2)
-    hand = Peca(nome = "hand", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), linha=0, coluna=3)
-    play = Peca(nome = "play", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), linha=0, coluna=4)
-    stop = Peca(nome = "stop", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), linha=1, coluna=0)
-    switch = Peca(nome = "switch", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), linha=1, coluna=1)
-    target = Peca(nome = "target", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), linha=1, coluna=2)
-    toy_monkey = Peca(nome = "toy_monkey", imagem = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), linha=1, coluna=3)
+    ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"))
+    bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
+    eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), row=0, column=2)
+    hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), row=0, column=3)
+    play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), row=0, column=4)
+    stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), row=1, column=0)
+    switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1)
+    target = Piece(name = "target", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
+    toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
     board.addpiece(ball)
     board.addpiece(bell)
@@ -86,6 +86,6 @@ if __name__ == "__main__":
     board.addpiece(stop)
     board.addpiece(switch)
     board.addpiece(target)
-    board.addpiece(toy-monkey)
+    board.addpiece(toy_monkey)
     
     root.mainloop()
