@@ -61,16 +61,35 @@ def move_piece(piece, direction):
 
     board.placepiece(piece)
 
+def move_piece_by_name(name, direction):
+    if name == 'eye':
+        move_piece(eye, direction)
+    elif name == 'hand':
+        move_piece(hand, direction)
+    elif name == 'target':
+        move_piece(target, direction)
+
+current_piece_to_move_using_keys = 'target'
 def key(event):
-    action = ''
-    if event.keysym == 'Up':
-        action = 'north'
-    if event.keysym == 'Down':
-        action = 'south'
-    if event.keysym == 'Left':
-        action = 'west'
-    if event.keysym == 'Right':
-        action = 'east'
+    global current_piece_to_move_using_keys
+    if event.keysym == 'e':
+        current_piece_to_move_using_keys = 'eye'
+    if event.keysym == 'h':
+        current_piece_to_move_using_keys = 'hand'
+    if event.keysym == 'm':
+        current_piece_to_move_using_keys = 'target'
+
+    direction = ''
+    if event.keysym in ['Up', 'Down', 'Left', 'Right']:
+        if event.keysym == 'Up':
+            direction = 'north'
+        if event.keysym == 'Down':
+            direction = 'south'
+        if event.keysym == 'Left':
+            direction = 'west'
+        if event.keysym == 'Right':
+            direction = 'east'
+        move_piece_by_name(current_piece_to_move_using_keys, direction)
 
     if event.keysym == '1':
         move_eye_to_marker()
@@ -82,12 +101,8 @@ def key(event):
         move_hand_to_eye()
     if event.keysym == '6':
         move_marker_to_eye()
-        
-    piece = hand
-    move_piece(piece, action)
-    
+
 root = tk.Tk()
-root.bind_all('<Key>', key)
 
 board = Board(root)
 board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
@@ -110,4 +125,5 @@ for piece in non_agent_pieces:
 for piece in agent_pieces:
     board.addpiece(piece)
 
+root.bind_all('<Key>', key)
 root.mainloop()
