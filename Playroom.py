@@ -69,6 +69,15 @@ def move_piece_by_name(name, direction):
     elif name == 'marker':
         move_piece(marker, direction)
 
+def update_state():
+    global state
+    
+    for piece in non_agent_pieces:
+        for agent_piece in agent_pieces:
+            if piece.row == agent_piece.row and piece.column == agent_piece.column:
+                state[agent_piece.name] = piece
+    print state
+
 current_piece_to_move_using_keys = 'marker'
 def key(event):
     global current_piece_to_move_using_keys
@@ -125,7 +134,8 @@ for piece in non_agent_pieces:
 for piece in agent_pieces:
     board.addpiece(piece)
 
-state = []
+state = {}
+state = {'eye': None, 'hand': None, 'marker': None}
 
 update_state()
 
