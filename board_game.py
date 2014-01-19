@@ -73,7 +73,7 @@ if __name__ == "__main__":
     play = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif")
     stop = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif")
     switch = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif")
-    target = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
+    marker = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif")
     toy_monkey = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif")
 
     board.addpiece("ball", ball, 0,0)
@@ -83,7 +83,7 @@ if __name__ == "__main__":
     board.addpiece("play", play, 0,4)
     board.addpiece("stop", stop, 1,0)
     board.addpiece("switch", switch, 1,1)
-    board.addpiece("target", target, 1,2)
+    board.addpiece("marker", marker, 1,2)
     board.addpiece("toy-monkey", toy_monkey, 1,3)
     
     root.mainloop()

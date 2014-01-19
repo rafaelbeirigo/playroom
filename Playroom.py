@@ -20,10 +20,10 @@ def move_hand_to_eye():
     move_piece_to_piece(hand, eye)
 
 def move_marker_to_eye():
-    move_piece_to_piece(target, eye)
+    move_piece_to_piece(marker, eye)
 
 def move_eye_to_marker():
-    move_piece_to_piece(eye, target)
+    move_piece_to_piece(eye, marker)
 
 def move_eye_to_hand():
     move_piece_to_piece(eye, hand)
@@ -66,10 +66,10 @@ def move_piece_by_name(name, direction):
         move_piece(eye, direction)
     elif name == 'hand':
         move_piece(hand, direction)
-    elif name == 'target':
-        move_piece(target, direction)
+    elif name == 'marker':
+        move_piece(marker, direction)
 
-current_piece_to_move_using_keys = 'target'
+current_piece_to_move_using_keys = 'marker'
 def key(event):
     global current_piece_to_move_using_keys
     if event.keysym == 'e':
@@ -77,7 +77,7 @@ def key(event):
     if event.keysym == 'h':
         current_piece_to_move_using_keys = 'hand'
     if event.keysym == 'm':
-        current_piece_to_move_using_keys = 'target'
+        current_piece_to_move_using_keys = 'marker'
 
     direction = ''
     if event.keysym in ['Up', 'Down', 'Left', 'Right']:
@@ -114,10 +114,10 @@ hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/cien
 play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), row=0, column=4)
 stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), row=1, column=0)
 switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1)
-target = Piece(name = "target", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
+marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
-agent_pieces = [eye, hand, target]
+agent_pieces = [eye, hand, marker]
 non_agent_pieces = [ball, bell, play, stop, switch, toy_monkey]
 
 for piece in non_agent_pieces:
