@@ -125,5 +125,9 @@ for piece in non_agent_pieces:
 for piece in agent_pieces:
     board.addpiece(piece)
 
+state = []
+
+update_state()
+
 root.bind_all('<Key>', key)
 root.mainloop()
