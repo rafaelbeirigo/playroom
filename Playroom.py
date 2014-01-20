@@ -209,6 +209,41 @@ def key(event):
 
 root = tk.Tk()
 
+# bottomframe = Frame(root)
+# bottomframe.pack( side = BOTTOM )
+
+# redbutton = Button(frame, text="Red", fg="red")
+# redbutton.pack( side = LEFT)
+
+# greenbutton = Button(frame, text="Brown", fg="brown")
+# greenbutton.pack( side = LEFT )
+
+# bluebutton = Button(frame, text="Blue", fg="blue")
+# bluebutton.pack( side = LEFT )
+
+# blackbutton = Button(bottomframe, text="Black", fg="black")
+# blackbutton.pack( side = BOTTOM)
+
+# Enviroment characteristics
+env_charact_frame = tk.Frame(root)
+env_charact_frame.pack(side = TOP)
+
+light_label_text = tk.StringVar()
+light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED )
+light_label.pack(side = LEFT)
+
+bell_sound_label_text = tk.StringVar()
+bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED )
+bell_sound_label.pack(side = LEFT)
+
+music_label_text = tk.StringVar()
+music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED )
+music_label.pack(side = LEFT)
+
+toy_monkey_sound_label_text = tk.StringVar()
+toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED )
+toy_monkey_sound_label.pack(side = LEFT)
+
 board = Board(root)
 board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
 
