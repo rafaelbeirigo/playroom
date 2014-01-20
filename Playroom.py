@@ -6,6 +6,9 @@ from Board import *
 from Piece import *
 from random import randint
 
+def update_state():
+    pass
+
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
     piece_to_move.column = destination_piece.column
