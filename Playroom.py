@@ -219,7 +219,44 @@ def update_environment_labels():
 
     toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ', ' +
                                     'step: ' + str(toy_monkey_sound['step']))
-        
+
+def create_action_buttons():
+    action_buttons_frame = tk.Frame(central_frame)
+    action_buttons_frame.pack(side=tk.RIGHT)
+    
+    # Agent
+    move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north')
+    move_eye_one_step_north_button.pack(side=tk.TOP)
+    move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south')
+    move_eye_one_step_south_button.pack(side=tk.TOP)
+    move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east')
+    move_eye_one_step_east_button.pack(side=tk.TOP)
+    move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west')
+    move_eye_one_step_west_button.pack(side=tk.TOP)
+    move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker')
+    move_eye_to_marker_button.pack(side=tk.TOP)
+    move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object')
+    move_eye_to_random_object_button.pack(side=tk.TOP)
+
+    move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye')
+    move_hand_to_eye_button.pack(side=tk.TOP)
+
+    kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball')
+    kick_ball_button.pack(side=tk.TOP)
+
+    push_block_button = tk.Button(action_buttons_frame, text='push_block')
+    push_block_button.pack(side=tk.TOP)
+    press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block')
+    press_blue_block_button.pack(side=tk.TOP)
+    press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block')
+    press_red_block_button.pack(side=tk.TOP)
+
+    flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch')
+    flick_switch_button.pack(side=tk.TOP)
+
+    move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye')
+    move_marker_to_eye_button.pack(side=tk.TOP)
+
 root = tk.Tk()
 
 # bottomframe = Frame(root)
@@ -239,26 +276,29 @@ root = tk.Tk()
 
 # Enviroment characteristics
 env_charact_frame = tk.Frame(root)
-env_charact_frame.pack(side = TOP)
+env_charact_frame.pack(side = tk.TOP)
 
 light_label_text = tk.StringVar()
 light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4 )
-light_label.pack(side = LEFT)
+light_label.pack(side = tk.LEFT)
 
 bell_sound_label_text = tk.StringVar()
 bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-bell_sound_label.pack(side = LEFT)
+bell_sound_label.pack(side = tk.LEFT)
 
 music_label_text = tk.StringVar()
 music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
-music_label.pack(side = LEFT)
+music_label.pack(side = tk.LEFT)
 
 toy_monkey_sound_label_text = tk.StringVar()
 toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-toy_monkey_sound_label.pack(side = LEFT)
+toy_monkey_sound_label.pack(side = tk.LEFT)
 
-board = Board(root)
-board.pack(side="top", fill="both", expand="true", padx=4, pady=4)
+central_frame = tk.Frame(root)
+central_frame.pack()
+
+board = Board(central_frame)
+board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
 bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
@@ -286,6 +326,8 @@ update_state()
 available_actions = []
 
 update_environment_labels()
+
+create_action_buttons()
 
 root.bind_all('<Key>', key)
 root.mainloop()
