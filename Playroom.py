@@ -6,6 +6,37 @@ from Board import *
 from Piece import *
 from random import randint
 
+def square_is_occuppied(square):
+    for piece in non_agent_pieces:
+        if piece.row == square[0] and \
+          piece.column == square[1]:
+          return True
+    return False
+
+def get_adj_squares(piece):
+    adj_squares = []
+    for row_inc in range(-1, 2):
+        for col_inc in range(-1, 2):
+            row = piece.row + row_inc
+            column = piece.column + col_inc
+            
+            # only legal rows
+            if ( row >= 0 and row < board.rows ):
+
+                # only legal columns
+                if ( column >= 0 and column < board.columns ):
+
+                    # not the piece square
+                    if ( row_inc != 0 or col_inc != 0 ):
+
+                        # only unnoccupied squares count
+                        if not ( square_is_occuppied ( ( row, column ) ) ):
+                            adj_squares.append( (row, column ) )
+    return adj_squares
+
+def push_block(block):
+    adj_sqares = get_adj_squares(block)
+
 def turn_music_on():
     pass
 
@@ -129,7 +160,12 @@ def key(event):
         move_hand_to_eye()
     if event.keysym == '6':
         move_marker_to_eye()
-
+    if event.keysym == 'p':
+        adj_squares = get_adj_squares(eye)
+        print 'entrei'
+        for adj_square in adj_squares:
+            print adj_square
+            
 root = tk.Tk()
 
 board = Board(root)
