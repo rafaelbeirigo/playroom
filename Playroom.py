@@ -6,6 +6,8 @@ from Board import *
 from Piece import *
 from random import randint
 
+light_state = "on"
+
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
         if piece.row == square[0] and \
