@@ -6,22 +6,23 @@ from Board import *
 from Piece import *
 from random import randint
 
-light_state = "on"
+# Environment characteristics
+light = {'state':'on', 'step':0}
 
 def turn_light(new_light_state):
-    global light_state
-    light_state = new_light_state
-    if new_light_state == "on":
-        print "Light was turned on"
+    global light
+    light['state'] = new_light_state
+    if new_light_state == 'on':
+        print 'Light was turned on'
     else:
-        print "Light was turned off"
+        print 'Light was turned off'
 
 def flick_switch():
-    global light_state
-    if light_state == "on":
-        turn_light("off")
+    global light
+    if light['state'] == 'on':
+        turn_light('off')
     else:
-        turn_light("on")
+        turn_light('on')
 
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
