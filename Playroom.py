@@ -6,13 +6,23 @@ from Board import *
 from Piece import *
 from random import randint
 
+def on_same_cell(piece1, piece2):
+    return piece1.row == piece2.row and \
+           piece1.colum == piece2.column:
+
+def get_actions_from_pieces():
+    if on_same_cell(eye, hand):
+        for piece in non_agent_pieces:
+            if on_same_cell(piece, eye)
+                return piece.get_actions()
+
 def update_state():
     pass
 
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
     piece_to_move.column = destination_piece.column
-    
+
     board.placepiece(piece_to_move)
 
 def move_eye_to_random_object():
@@ -33,7 +43,7 @@ def move_eye_to_hand():
 
 def move_eye_one_step_north():
     move_piece(eye, 'north')
-    
+
 def move_eye_one_step_south():
     move_piece(eye, 'south')
 
