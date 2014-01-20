@@ -45,6 +45,12 @@ def push_block(block):
         random_index = randint(0, len(adj_squares) - 1)
         move_piece_to_square(block, adj_squares[random_index])
 
+def push_blue_block():
+    push_block(play)
+    
+def push_red_block():
+    push_block(stop)
+    
 def turn_music_on():
     pass
 
@@ -174,10 +180,9 @@ def key(event):
         for adj_square in adj_squares:
             print adj_square
     if event.keysym == 'b':
-        push_block(play)
+        push_blue_block()
     if event.keysym == 'r':
-        push_block(stop)
-    
+        push_red_block()    
             
 root = tk.Tk()
 
