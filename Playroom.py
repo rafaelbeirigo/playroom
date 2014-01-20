@@ -142,5 +142,7 @@ state = []
 
 update_state()
 
+available_actions = []
+
 root.bind_all('<Key>', key)
 root.mainloop()
