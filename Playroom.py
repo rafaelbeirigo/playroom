@@ -7,10 +7,10 @@ from Piece import *
 from random import randint
 
 # Environment characteristics
-light = {'state':'on', 'step':0}
-bell_sound = {'state':'on', 'step':0}
-music = {'state':'on', 'step':0}
-toy_monkey_sound = {'state':'on', 'step':0}
+light = {'state':'ON', 'step':0}
+bell_sound = {'state':'ON', 'step':0}
+music = {'state':'ON', 'step':0}
+toy_monkey_sound = {'state':'ON', 'step':0}
 
 def turn_light(new_light_state):
     global light
@@ -208,17 +208,17 @@ def key(event):
         flick_switch()
 
 def update_environment_labels():
-    light_label_text.set('Light: ' + light['state'] + ' | ' +
-                         'Step: ' + str(light['step']))
+    light_label_text.set('Light: ' + light['state'] + ', ' +
+                         'step: ' + str(light['step']))
 
-    bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ' | ' +
-                              'Step: ' + str(bell_sound['step']))
+    bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ', ' +
+                              'step: ' + str(bell_sound['step']))
 
-    music_label_text.set('Music: ' + music_label['state'] + ' | ' +
-                         'Step: ' + str(music['step']))
+    music_label_text.set('Music: ' + music['state'] + ', ' +
+                         'step: ' + str(music['step']))
 
-    toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ' | ' +
-                                    'Step: ' + str(toy_monkey_sound['step']))
+    toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ', ' +
+                                    'step: ' + str(toy_monkey_sound['step']))
         
 root = tk.Tk()
 
@@ -242,19 +242,19 @@ env_charact_frame = tk.Frame(root)
 env_charact_frame.pack(side = TOP)
 
 light_label_text = tk.StringVar()
-light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED )
+light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4 )
 light_label.pack(side = LEFT)
 
 bell_sound_label_text = tk.StringVar()
-bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED )
+bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 bell_sound_label.pack(side = LEFT)
 
 music_label_text = tk.StringVar()
-music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED )
+music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
 music_label.pack(side = LEFT)
 
 toy_monkey_sound_label_text = tk.StringVar()
-toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED )
+toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 toy_monkey_sound_label.pack(side = LEFT)
 
 board = Board(root)
