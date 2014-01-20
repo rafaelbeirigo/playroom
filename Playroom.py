@@ -34,8 +34,16 @@ def get_adj_squares(piece):
                             adj_squares.append( (row, column ) )
     return adj_squares
 
+def move_piece_to_square(piece, square):
+    piece.row = square[0]
+    piece.column = square[1]
+    board.placepiece(piece)
+
 def push_block(block):
-    adj_sqares = get_adj_squares(block)
+    adj_squares = get_adj_squares(block)
+    if len(adj_squares) > 0:
+        random_index = randint(0, len(adj_squares) - 1)
+        move_piece_to_square(block, adj_squares[random_index])
 
 def turn_music_on():
     pass
@@ -165,6 +173,11 @@ def key(event):
         print 'entrei'
         for adj_square in adj_squares:
             print adj_square
+    if event.keysym == 'b':
+        push_block(play)
+    if event.keysym == 'r':
+        push_block(stop)
+    
             
 root = tk.Tk()
 
