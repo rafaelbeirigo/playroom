@@ -6,6 +6,9 @@ from Board import *
 from Piece import *
 from random import randint
 
+def kick_ball():
+    move_piece_to_piece(ball, marker)
+    
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
            piece1.colum == piece2.column
