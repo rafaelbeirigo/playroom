@@ -8,6 +8,9 @@ from random import randint
 
 # Environment characteristics
 light = {'state':'on', 'step':0}
+bell_sound = {'state':'on', 'step':0}
+music = {'state':'on', 'step':0}
+toy_monkey_sound = {'state':'on', 'step':0}
 
 def turn_light(new_light_state):
     global light
