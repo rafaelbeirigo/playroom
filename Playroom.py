@@ -8,6 +8,21 @@ from random import randint
 
 light_state = "on"
 
+def turn_light(new_light_state):
+    global light_state
+    light_state = new_light_state
+    if new_light_state == "on":
+        print "Light was turned on"
+    else:
+        print "Light was turned off"
+
+def flick_switch():
+    global light_state
+    if light_state == "on":
+        turn_light("off")
+    else:
+        turn_light("on")
+
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
         if piece.row == square[0] and \
@@ -21,7 +36,7 @@ def get_adj_squares(piece):
         for col_inc in range(-1, 2):
             row = piece.row + row_inc
             column = piece.column + col_inc
-            
+
             # only legal rows
             if ( row >= 0 and row < board.rows ):
 
@@ -49,10 +64,10 @@ def push_block(block):
 
 def push_blue_block():
     push_block(play)
-    
+
 def push_red_block():
     push_block(stop)
-    
+
 def turn_music_on():
     pass
 
@@ -61,13 +76,13 @@ def turn_music_off():
 
 def press_blue_block():
     turn_music_on()
-    
+
 def press_red_block():
     turn_music_off()
-    
+
 def kick_ball():
     move_piece_to_piece(ball, marker)
-    
+
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
            piece1.colum == piece2.column
@@ -184,8 +199,10 @@ def key(event):
     if event.keysym == 'b':
         push_blue_block()
     if event.keysym == 'r':
-        push_red_block()    
-            
+        push_red_block()
+    if event.keysym == 'f':
+        flick_switch()
+
 root = tk.Tk()
 
 board = Board(root)
