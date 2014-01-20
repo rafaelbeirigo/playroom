@@ -6,6 +6,18 @@ from Board import *
 from Piece import *
 from random import randint
 
+def turn_music_on():
+    pass
+
+def turn_music_off():
+    pass
+
+def press_blue_block():
+    turn_music_on()
+    
+def press_red_block():
+    turn_music_off()
+    
 def kick_ball():
     move_piece_to_piece(ball, marker)
     
