@@ -207,6 +207,19 @@ def key(event):
     if event.keysym == 'f':
         flick_switch()
 
+def update_environment_labels():
+    light_label_text.set('Light: ' + light['state'] + ' | ' +
+                         'Step: ' + str(light['step']))
+
+    bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ' | ' +
+                              'Step: ' + str(bell_sound['step']))
+
+    music_label_text.set('Music: ' + music_label['state'] + ' | ' +
+                         'Step: ' + str(music['step']))
+
+    toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ' | ' +
+                                    'Step: ' + str(toy_monkey_sound['step']))
+        
 root = tk.Tk()
 
 # bottomframe = Frame(root)
@@ -270,6 +283,8 @@ state = []
 update_state()
 
 available_actions = []
+
+update_environment_labels()
 
 root.bind_all('<Key>', key)
 root.mainloop()
