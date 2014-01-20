@@ -8,3 +8,6 @@ class Piece:
         self.image = image
 	self.row = row
 	self.column = column
+
+    def get_actions():
+        return []
