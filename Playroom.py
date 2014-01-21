@@ -250,7 +250,8 @@ def update_environment_labels():
     # w = Label(parent, image=photo)
     # w.photo = photo
     # w.pack()
-
+    global step
+    
     light_label_text.set('Light: ' + light['state'] + ', ' +
                          'step: ' + str(light['step']))
     light_label['image'] = light_label_images[light['state']]
@@ -267,6 +268,8 @@ def update_environment_labels():
                                     'step: ' + str(toy_monkey_sound['step']))
     toy_monkey_sound_label['image'] = toy_monkey_sound_label_images[toy_monkey_sound['state']]
 
+    step_count_label_text.set('Steps: ' + str(step))
+    
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
     action_buttons_frame.pack(side=tk.RIGHT)
@@ -452,6 +455,10 @@ available_actions = []
 update_environment_labels()
 
 create_action_buttons()
+
+step_count_label_text = tk.StringVar()
+step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
+step_count_label.pack(side = tk.LEFT)
 
 root.bind_all('<Key>', key)
 root.mainloop()
