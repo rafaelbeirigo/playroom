@@ -233,6 +233,9 @@ def key(event):
         for action in all_possible_actions:
             print 'Executing action: ' + action
             execute_action(action)
+    if event.keysym == 'B':
+        update_available_actions()
+        enable_disable_action_buttons()
             
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
@@ -254,39 +257,64 @@ def create_action_buttons():
     # Agent
     move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north', command=move_eye_one_step_north)
     move_eye_one_step_north_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_one_step_north_button)
+    
     move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south', command=move_eye_one_step_south)
     move_eye_one_step_south_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_one_step_south_button)
+    
     move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east', command=move_eye_one_step_east)
     move_eye_one_step_east_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_one_step_east_button)
+    
     move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west', command=move_eye_one_step_west)
     move_eye_one_step_west_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_one_step_west_button)
+    
     move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker', command=move_eye_to_marker)
     move_eye_to_marker_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_to_marker_button)
+    
     move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object', command=move_eye_to_random_object)
     move_eye_to_random_object_button.pack(side=tk.TOP)
-
+    action_buttons.append(move_eye_to_random_object_button)
+    
     move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye', command=move_hand_to_eye)
     move_hand_to_eye_button.pack(side=tk.TOP)
-
+    action_buttons.append(move_hand_to_eye_button)
+    
     move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye', command=move_marker_to_eye)
     move_marker_to_eye_button.pack(side=tk.TOP)
-
+    action_buttons.append(move_marker_to_eye_button)
+    
     kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball', command=kick_ball)
     kick_ball_button.pack(side=tk.TOP)
-
+    action_buttons.append(kick_ball_button)
+    
     press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block', command=press_blue_block)
     press_blue_block_button.pack(side=tk.TOP)
+    action_buttons.append(press_blue_block_button)
+    
     push_blue_block_button = tk.Button(action_buttons_frame, text='push_blue_block', command=push_blue_block)
     push_blue_block_button.pack(side=tk.TOP)
-
+    action_buttons.append(push_blue_block_button)
+    
     press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block', command=press_red_block)
     press_red_block_button.pack(side=tk.TOP)
+    action_buttons.append(press_red_block_button)
+    
     push_red_block_button = tk.Button(action_buttons_frame, text='push_red_block', command=push_red_block)
     push_red_block_button.pack(side=tk.TOP)
-
+    action_buttons.append(push_red_block_button)
+    
     flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch', command=flick_switch)
     flick_switch_button.pack(side=tk.TOP)
+    action_buttons.append(flick_switch_button)
 
+def update_available_actions():
+    global available_actions
+    available_actions = get_available_actions()
+    
 def get_available_actions():
     available_actions = []
     available_actions_agent = get_actions_from_agent()
@@ -296,6 +324,14 @@ def get_available_actions():
 def execute_action(action):
     all_possible_actions[action]()
 
+def enable_disable_action_buttons():
+    for button in action_buttons:
+        print button['text']
+        if button['text'] in available_actions:
+            button['state'] = 'normal'
+        else:
+            button['state'] = 'disabled'
+        
 root = tk.Tk()
 
 # bottomframe = Frame(root)
@@ -341,8 +377,8 @@ board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
 bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
-play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), row=0, column=4, actions=['press_blue_block', 'push_block'])
-stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), row=1, column=0, actions=['press_red_block', 'push_block'])
+play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
@@ -379,6 +415,8 @@ all_possible_actions = {
     'flick_switch':flick_switch,
     'move_marker_to_eye':move_marker_to_eye,
 }
+
+action_buttons = []
 
 available_actions = []
 
