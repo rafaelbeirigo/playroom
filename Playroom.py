@@ -91,6 +91,19 @@ def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
            piece1.colum == piece2.column
 
+def get_actions_from_agent():
+    return [
+        'move_eye_to_hand',
+        'move_eye_to_marker',
+        'move_eye_one_step_north',
+        'move_eye_one_step_south',
+        'move_eye_one_step_east',
+        'move_eye_one_step_west',
+        'move_eye_to_random_object',
+        'move_hand_to_eye',
+        'move_marker_to_eye'
+        ]
+    
 def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
@@ -331,6 +344,8 @@ available_actions = []
 update_environment_labels()
 
 create_action_buttons()
+
+print get_actions_from_agent()
 
 root.bind_all('<Key>', key)
 root.mainloop()
