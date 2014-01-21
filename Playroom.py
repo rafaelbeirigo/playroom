@@ -16,10 +16,7 @@ step = 0
 def turn_light(new_light_state):
     global light
     light['state'] = new_light_state
-    if new_light_state == 'ON':
-        print 'Light was turned ON'
-    else:
-        print 'Light was turned OFF'
+    light['step'] = step
 
 def flick_switch():
     global light
