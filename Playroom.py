@@ -6,6 +6,8 @@ from Board import *
 from Piece import *
 from random import randint
 from PIL.ImageTk import PhotoImage
+from random import choice
+from time import sleep
 
 # Environment characteristics
 light = {'state':'ON', 'step':0}
@@ -246,10 +248,6 @@ def key(event):
         execute_action
             
 def update_environment_labels():
-    # photo = PhotoImage(file="icon.gif")
-    # w = Label(parent, image=photo)
-    # w.photo = photo
-    # w.pack()
     global step
     
     light_label_text.set('Light: ' + light['state'] + ', ' +
@@ -346,12 +344,24 @@ def execute_action(action):
 
 def enable_disable_action_buttons():
     for button in action_buttons:
-        print button['text']
         if button['text'] in available_actions:
             button['state'] = 'normal'
         else:
             button['state'] = 'disabled'
-        
+
+def random_actions():
+    global step
+    num_steps = 1000
+    for cur_step in range(num_steps):
+        step += 1
+        update_environment_labels()
+        enable_disable_action_buttons()
+        update_available_actions()
+        action = choice(available_actions)
+        execute_action(action)
+        root.update_idletasks()
+        sleep(.1)
+
 root = tk.Tk()
 
 # bottomframe = Frame(root)
@@ -400,6 +410,10 @@ toy_monkey_sound_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/cienc
 toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
 toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 toy_monkey_sound_label.pack(side = tk.LEFT)
+
+step_count_label_text = tk.StringVar()
+step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
+step_count_label.pack(side = tk.LEFT)
 
 central_frame = tk.Frame(root)
 central_frame.pack()
@@ -456,9 +470,8 @@ update_environment_labels()
 
 create_action_buttons()
 
-step_count_label_text = tk.StringVar()
-step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
-step_count_label.pack(side = tk.LEFT)
+random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
+random_actions_button.pack(side=tk.TOP)
 
 root.bind_all('<Key>', key)
 root.mainloop()
