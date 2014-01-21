@@ -289,8 +289,8 @@ def get_available_actions():
     available_actions_piece = get_actions_from_pieces()
     return available_actions_agent + available_actions_piece
 
-def execute_action():
-    pass
+def execute_action(action):
+
 
 root = tk.Tk()
 
@@ -357,6 +357,24 @@ for piece in agent_pieces:
 state = []
 
 update_state()
+
+all_possible_actions = {
+    'kick_ball':kick_ball,
+    'move_eye_to_hand':move_eye_to_hand,
+    'move_eye_to_marker':move_eye_to_marker,
+    'move_eye_one_step_north':move_eye_one_step_north,
+    'move_eye_one_step_south':move_eye_one_step_south,
+    'move_eye_one_step_east':move_eye_one_step_east,
+    'move_eye_one_step_west':move_eye_one_step_west,
+    'move_eye_to_random_object':move_eye_to_random_object,
+    'move_hand_to_eye':move_hand_to_eye,
+    'press_blue_block':press_blue_block,
+    'press_red_block':press_red_block,
+    'push_red_block':push_red_block,
+    'push_blue_block':push_blue_block,
+    'flick_switch':flick_switch,
+    'move_marker_to_eye':move_marker_to_eye,
+}
 
 available_actions = []
 
