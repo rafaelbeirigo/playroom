@@ -238,14 +238,12 @@ def key(event):
         for action in all_possible_actions:
             print 'Executing action: ' + action
             execute_action(action)
-<<<<<<< HEAD
     if event.keysym == 'B':
         update_available_actions()
         enable_disable_action_buttons()
-=======
     if event.keysym == 'l':
         update_environment_labels()
->>>>>>> execute_action
+        execute_action
             
 def update_environment_labels():
     # photo = PhotoImage(file="icon.gif")
