@@ -229,7 +229,11 @@ def key(event):
     if event.keysym == 'A':
         print 'All available actions: '
         print get_available_actions()
-
+    if event.keysym == 'z':
+        for action in all_possible_actions:
+            print 'Executing action: ' + action
+            execute_action(action)
+            
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
                          'step: ' + str(light['step']))
@@ -290,7 +294,7 @@ def get_available_actions():
     return available_actions_agent + available_actions_piece
 
 def execute_action(action):
-
+    all_possible_actions[action]()
 
 root = tk.Tk()
 
