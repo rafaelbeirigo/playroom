@@ -11,6 +11,7 @@ light = {'state':'ON', 'step':0}
 bell_sound = {'state':'ON', 'step':0}
 music = {'state':'ON', 'step':0}
 toy_monkey_sound = {'state':'ON', 'step':0}
+step = 0
 
 def turn_light(new_light_state):
     global light
@@ -73,10 +74,16 @@ def push_red_block():
     push_block(stop)
 
 def turn_music_on():
-    pass
+    global music
+    global step
+    music['state'] = 'ON'
+    music['step'] = step
 
 def turn_music_off():
-    pass
+    global music
+    global step
+    music['state'] = 'OFF'
+    music['step'] = step
 
 def press_blue_block():
     turn_music_on()
@@ -233,6 +240,8 @@ def key(event):
         for action in all_possible_actions:
             print 'Executing action: ' + action
             execute_action(action)
+    if event.keysym == 'l':
+        update_environment_labels()
             
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
