@@ -103,12 +103,13 @@ def get_actions_from_agent():
         'move_hand_to_eye',
         'move_marker_to_eye'
         ]
-    
+
 def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
                 return piece.get_actions()
+    return []
 
 def update_state():
     pass
@@ -225,6 +226,9 @@ def key(event):
 
         print 'Actions from pieces: '
         print get_actions_from_pieces()
+    if event.keysym == 'A':
+        print 'All available actions: '
+        print get_available_actions()
 
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
@@ -242,7 +246,7 @@ def update_environment_labels():
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
     action_buttons_frame.pack(side=tk.RIGHT)
-    
+
     # Agent
     move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north', command=move_eye_one_step_north)
     move_eye_one_step_north_button.pack(side=tk.TOP)
@@ -278,6 +282,15 @@ def create_action_buttons():
 
     flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch', command=flick_switch)
     flick_switch_button.pack(side=tk.TOP)
+
+def get_available_actions():
+    available_actions = []
+    available_actions_agent = get_actions_from_agent()
+    available_actions_piece = get_actions_from_pieces()
+    return available_actions_agent + available_actions_piece
+
+def execute_action():
+    pass
 
 root = tk.Tk()
 
