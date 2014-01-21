@@ -16,17 +16,17 @@ step = 0
 def turn_light(new_light_state):
     global light
     light['state'] = new_light_state
-    if new_light_state == 'on':
-        print 'Light was turned on'
+    if new_light_state == 'ON':
+        print 'Light was turned ON'
     else:
-        print 'Light was turned off'
+        print 'Light was turned OFF'
 
 def flick_switch():
     global light
-    if light['state'] == 'on':
-        turn_light('off')
+    if light['state'] == 'ON':
+        turn_light('OFF')
     else:
-        turn_light('on')
+        turn_light('ON')
 
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
