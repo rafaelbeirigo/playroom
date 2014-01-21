@@ -93,6 +93,8 @@ def press_red_block():
 
 def kick_ball():
     move_piece_to_piece(ball, marker)
+    if on_same_cell(ball, bell):
+        turn_bell('ON')
 
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
@@ -118,8 +120,32 @@ def get_actions_from_pieces():
                 return piece.get_actions()
     return []
 
+def turn_bell(new_state):
+    global bell
+    global step
+    bell_sound['state'] = new_state
+    bell_sound['step'] = step
+
 def update_bell_sound_state():
-    pass
+    # only turns of, it is turned on using
+    # kick_ball function
+    global bell_sound
+    global step
+
+    print 'Updating bell state...'
+    print 'Bell state: ' + bell_sound['state']
+    print 'Bell step: ' + str(bell_sound['step'])
+    print 'Step: ' + str(step)
+    if bell_sound['state'] == 'ON':
+        print 'Bell was on'
+        if step > bell_sound['step']:
+            print 'It was turned on the step: ' + str(bell_sound['step'])
+            print 'The current step is: ' + str(step)
+            turn_bell('OFF')
+        else:
+            print 'It was turned on this same step'
+    else:
+        print 'Bell was off'
 
 def turn_toy_monkey(new_state):
     global toy_monkey_sound
@@ -268,6 +294,22 @@ def key(event):
         execute_action
     if event.keysym == 't':
         update_toy_monkey_sound_state()
+    if event.keysym == 'E':
+        update_bell_sound_state()
+        update_environment_labels()
+        root.update_idletasks()
+
+        global step
+        step += 1
+        print 'Sleeping for 1 sec...'
+        sleep(1)
+        print 'Woke up'
+
+        update_bell_sound_state()
+        print 'New Bell state: ' + bell_sound['state']
+        
+        update_environment_labels()
+        root.update_idletasks()
 
 def update_environment_labels():
     global step
