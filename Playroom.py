@@ -89,7 +89,7 @@ def kick_ball():
 
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
-           piece1.colum == piece2.column
+           piece1.column == piece2.column
 
 def get_actions_from_agent():
     return [
@@ -219,6 +219,12 @@ def key(event):
         push_red_block()
     if event.keysym == 'f':
         flick_switch()
+    if event.keysym == 'a':
+        print 'Actions from agent: '
+        print get_actions_from_agent()
+
+        print 'Actions from pieces: '
+        print get_actions_from_pieces()
 
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
@@ -344,8 +350,6 @@ available_actions = []
 update_environment_labels()
 
 create_action_buttons()
-
-print get_actions_from_agent()
 
 root.bind_all('<Key>', key)
 root.mainloop()
