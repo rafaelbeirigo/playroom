@@ -10,5 +10,5 @@ class Piece:
 	self.column = column
         self.actions = actions
 
-    def get_actions():
+    def get_actions(self):
         return self.actions
