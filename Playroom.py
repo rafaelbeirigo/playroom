@@ -5,6 +5,7 @@ import Tkinter as tk
 from Board import *
 from Piece import *
 from random import randint
+from PIL.ImageTk import PhotoImage
 
 # Environment characteristics
 light = {'state':'ON', 'step':0}
@@ -241,17 +242,26 @@ def key(event):
         update_environment_labels()
             
 def update_environment_labels():
+    # photo = PhotoImage(file="icon.gif")
+    # w = Label(parent, image=photo)
+    # w.photo = photo
+    # w.pack()
+
     light_label_text.set('Light: ' + light['state'] + ', ' +
                          'step: ' + str(light['step']))
-
+    light_label['image'] = light_label_images[light['state']]
+    
     bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ', ' +
                               'step: ' + str(bell_sound['step']))
+    bell_sound_label['image'] = bell_sound_label_images[bell_sound['state']]
 
     music_label_text.set('Music: ' + music['state'] + ', ' +
                          'step: ' + str(music['step']))
+    music_label['image'] = music_label_images[music['state']]
 
     toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ', ' +
                                     'step: ' + str(toy_monkey_sound['step']))
+    toy_monkey_sound_label['image'] = toy_monkey_sound_label_images[toy_monkey_sound['state']]
 
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
@@ -324,18 +334,30 @@ env_charact_frame = tk.Frame(root)
 env_charact_frame.pack(side = tk.TOP)
 
 light_label_text = tk.StringVar()
-light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4 )
+light_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/light_on.gif')
+light_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/light_off.gif')
+light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
+light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
 light_label.pack(side = tk.LEFT)
 
 bell_sound_label_text = tk.StringVar()
+bell_sound_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/bell_on.gif')
+bell_sound_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/bell_off.gif')
+bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
 bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 bell_sound_label.pack(side = tk.LEFT)
 
 music_label_text = tk.StringVar()
+music_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/music_on.gif')
+music_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/music_off.gif')
+music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
 music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
 music_label.pack(side = tk.LEFT)
 
 toy_monkey_sound_label_text = tk.StringVar()
+toy_monkey_sound_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/toy-monkey_on.gif')
+toy_monkey_sound_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/toy-monkey_off.gif')
+toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
 toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 toy_monkey_sound_label.pack(side = tk.LEFT)
 
