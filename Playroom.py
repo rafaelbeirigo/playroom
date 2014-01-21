@@ -118,6 +118,26 @@ def get_actions_from_pieces():
                 return piece.get_actions()
     return []
 
+def update_bell_sound_state():
+    pass
+
+def turn_toy_monkey(new_state):
+    global toy_monkey_sound
+    toy_monkey_sound['state'] = new_state
+    toy_monkey_sound['step'] = step
+
+def update_toy_monkey_sound_state():
+    global toy_monkey_sound
+    if toy_monkey_sound['state'] == 'ON':
+        if light['state'] == 'ON' or \
+           music['state'] == 'OFF':
+           turn_toy_monkey('OFF')
+    else:
+        if light['state'] == 'OFF' and \
+           music['state'] == 'ON' and \
+           bell_sound['state'] == 'ON':
+           turn_toy_monkey('ON')
+
 def update_state():
     pass
 
@@ -246,14 +266,16 @@ def key(event):
     if event.keysym == 'l':
         update_environment_labels()
         execute_action
-            
+    if event.keysym == 't':
+        update_toy_monkey_sound_state()
+
 def update_environment_labels():
     global step
-    
+
     light_label_text.set('Light: ' + light['state'] + ', ' +
                          'step: ' + str(light['step']))
     light_label['image'] = light_label_images[light['state']]
-    
+
     bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ', ' +
                               'step: ' + str(bell_sound['step']))
     bell_sound_label['image'] = bell_sound_label_images[bell_sound['state']]
@@ -267,7 +289,7 @@ def update_environment_labels():
     toy_monkey_sound_label['image'] = toy_monkey_sound_label_images[toy_monkey_sound['state']]
 
     step_count_label_text.set('Steps: ' + str(step))
-    
+
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
     action_buttons_frame.pack(side=tk.RIGHT)
@@ -276,55 +298,55 @@ def create_action_buttons():
     move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north', command=move_eye_one_step_north)
     move_eye_one_step_north_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_north_button)
-    
+
     move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south', command=move_eye_one_step_south)
     move_eye_one_step_south_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_south_button)
-    
+
     move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east', command=move_eye_one_step_east)
     move_eye_one_step_east_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_east_button)
-    
+
     move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west', command=move_eye_one_step_west)
     move_eye_one_step_west_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_west_button)
-    
+
     move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker', command=move_eye_to_marker)
     move_eye_to_marker_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_marker_button)
-    
+
     move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object', command=move_eye_to_random_object)
     move_eye_to_random_object_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_random_object_button)
-    
+
     move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye', command=move_hand_to_eye)
     move_hand_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_hand_to_eye_button)
-    
+
     move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye', command=move_marker_to_eye)
     move_marker_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_marker_to_eye_button)
-    
+
     kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball', command=kick_ball)
     kick_ball_button.pack(side=tk.TOP)
     action_buttons.append(kick_ball_button)
-    
+
     press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block', command=press_blue_block)
     press_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(press_blue_block_button)
-    
+
     push_blue_block_button = tk.Button(action_buttons_frame, text='push_blue_block', command=push_blue_block)
     push_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(push_blue_block_button)
-    
+
     press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block', command=press_red_block)
     press_red_block_button.pack(side=tk.TOP)
     action_buttons.append(press_red_block_button)
-    
+
     push_red_block_button = tk.Button(action_buttons_frame, text='push_red_block', command=push_red_block)
     push_red_block_button.pack(side=tk.TOP)
     action_buttons.append(push_red_block_button)
-    
+
     flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch', command=flick_switch)
     flick_switch_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_button)
@@ -332,7 +354,7 @@ def create_action_buttons():
 def update_available_actions():
     global available_actions
     available_actions = get_available_actions()
-    
+
 def get_available_actions():
     available_actions = []
     available_actions_agent = get_actions_from_agent()
