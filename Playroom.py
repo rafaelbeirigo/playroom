@@ -272,7 +272,7 @@ def key(event):
     if event.keysym == 'E':
         if move_hand_to_eye_button['state'] == 'normal':
             move_hand_to_eye_click()
-    if event.keysym == 'e':
+    if event.keysym == 'w':
         if move_marker_to_eye_button['state'] == 'normal':
             move_marker_to_eye_click()
     if event.keysym == 'k':
