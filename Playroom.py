@@ -320,21 +320,7 @@ def key(event):
         execute_action
     if event.keysym == 't':
         update_toy_monkey_sound_state()
-    if event.keysym == 'E':
-        update_bell_sound_state()
-        update_environment_labels()
-        root.update_idletasks()
 
-        global step
-        step += 1
-        print 'Sleeping for 1 sec...'
-        sleep(1)
-        print 'Woke up'
-
-        update_bell_sound_state()
-        print 'New Bell state: ' + bell_sound['state']
-
-        update_environment_labels()
     update_screen()
 
 def update_environment_variables():
