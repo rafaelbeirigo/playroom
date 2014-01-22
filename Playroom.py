@@ -14,6 +14,8 @@ light = {'state':'ON', 'step':0}
 bell_sound = {'state':'ON', 'step':0}
 music = {'state':'ON', 'step':0}
 toy_monkey_sound = {'state':'ON', 'step':0}
+environment_variables = [light, bell_sound, music, toy_monkey_sound]
+
 step = 0
 
 def turn_light(new_light_state):
@@ -311,6 +313,9 @@ def key(event):
         update_environment_labels()
         root.update_idletasks()
 
+def update_environment_variables():
+    global step
+    
 def update_environment_labels():
     global step
 
