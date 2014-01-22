@@ -270,6 +270,8 @@ def key(event):
         move_hand_to_eye()
     if event.keysym == 'e':
         move_marker_to_eye()
+    if event.keysym == 'k':
+        kick_ball()
     if event.keysym == 'b':
         press_blue_block()
     if event.keysym == 'B':
