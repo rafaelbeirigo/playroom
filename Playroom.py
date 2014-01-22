@@ -296,7 +296,7 @@ def key(event):
             execute_action(action)
     if event.keysym == 'B':
         update_available_actions()
-        enable_disable_action_buttons()
+        update_action_buttons_state()
     if event.keysym == 'l':
         update_environment_variables()
         update_environment_labels()
@@ -316,15 +316,15 @@ def key(event):
 
         update_bell_sound_state()
         print 'New Bell state: ' + bell_sound['state']
-        
+
         update_environment_labels()
-        root.update_idletasks()
+    update_screen()
 
 def update_environment_variables():
     global environment_variables
     for variable in environment_variables:
         variable['update_function']()
-    
+
 def update_environment_labels():
     global step
 
@@ -345,6 +345,12 @@ def update_environment_labels():
     toy_monkey_sound_label['image'] = toy_monkey_sound_label_images[toy_monkey_sound['state']]
 
     step_count_label_text.set('Steps: ' + str(step))
+
+def update_screen():
+    update_environment_variables()
+    update_environment_labels()
+    update_action_buttons_state()
+    root.update_idletasks()
 
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
@@ -420,7 +426,7 @@ def get_available_actions():
 def execute_action(action):
     all_possible_actions[action]()
 
-def enable_disable_action_buttons():
+def update_action_buttons_state():
     for button in action_buttons:
         if button['text'] in available_actions:
             button['state'] = 'normal'
@@ -433,7 +439,7 @@ def random_actions():
     for cur_step in range(num_steps):
         step += 1
         update_environment_labels()
-        enable_disable_action_buttons()
+        update_action_buttons_state()
         update_available_actions()
         action = choice(available_actions)
         execute_action(action)
