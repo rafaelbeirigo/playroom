@@ -332,13 +332,13 @@ def update_environment_labels():
                          'step: ' + str(light['step']))
     light_label['image'] = light_label_images[light['state']]
 
-    bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ', ' +
-                              'step: ' + str(bell_sound['step']))
-    bell_sound_label['image'] = bell_sound_label_images[bell_sound['state']]
-
     music_label_text.set('Music: ' + music['state'] + ', ' +
                          'step: ' + str(music['step']))
     music_label['image'] = music_label_images[music['state']]
+
+    bell_sound_label_text.set('Bell: ' + bell_sound['state'] + ', ' +
+                              'step: ' + str(bell_sound['step']))
+    bell_sound_label['image'] = bell_sound_label_images[bell_sound['state']]
 
     toy_monkey_sound_label_text.set('Toy Monkey: ' + toy_monkey_sound['state'] + ', ' +
                                     'step: ' + str(toy_monkey_sound['step']))
