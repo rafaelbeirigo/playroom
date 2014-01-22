@@ -447,6 +447,90 @@ def random_actions():
         root.update_idletasks()
         sleep(.1)
 
+def move_eye_one_step_north_click():
+    global step
+    move_eye_one_step_north()
+    step += 1
+    update_screen()
+
+def move_eye_one_step_south_click():
+    global step
+    move_eye_one_step_south()
+    step += 1
+    update_screen()
+
+def move_eye_one_step_east_click():
+    global step
+    move_eye_one_step_east()
+    step += 1
+    update_screen()
+
+def move_eye_one_step_west_click():
+    global step
+    move_eye_one_step_west()
+    step += 1
+    update_screen()
+
+def move_eye_to_marker_click():
+    global step
+    move_eye_to_marker()
+    step += 1
+    update_screen()
+
+def move_eye_to_random_object_click():
+    global step
+    move_eye_to_random_object()
+    step += 1
+    update_screen()
+
+def move_hand_to_eye_click():
+    global step
+    move_hand_to_eye()
+    step += 1
+    update_screen()
+
+def move_marker_to_eye_click():
+    global step
+    move_marker_to_eye()
+    step += 1
+    update_screen()
+
+def kick_ball_click():
+    global step
+    kick_ball()
+    step += 1
+    update_screen()
+
+def press_blue_block_click():
+    global step
+    press_blue_block()
+    step += 1
+    update_screen()
+
+def push_blue_block_click():
+    global step
+    push_blue_block()
+    step += 1
+    update_screen()
+
+def press_red_block_click():
+    global step
+    press_red_block()
+    step += 1
+    update_screen()
+
+def push_red_block_click():
+    global step
+    push_red_block()
+    step += 1
+    update_screen()
+
+def flick_switch_click():
+    global step
+    flick_switch()
+    step += 1
+    update_screen()
+
 root = tk.Tk()
 
 # bottomframe = Frame(root)
