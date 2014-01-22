@@ -271,7 +271,11 @@ def key(event):
     if event.keysym == '6':
         move_marker_to_eye()
     if event.keysym == 'b':
+        press_blue_block()
+    if event.keysym == 'b':
         push_blue_block()
+    if event.keysym == 'r':
+        press_red_block()
     if event.keysym == 'r':
         push_red_block()
     if event.keysym == 'f':
