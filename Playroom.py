@@ -27,7 +27,7 @@ def update_bell_sound_state():
     print 'Step: ' + str(step)
     if bell_sound['state'] == 'ON':
         print 'Bell was on'
-        if step > bell_sound['step']:
+        if step > bell_sound['step'] + 1:
             print 'It was turned on the step: ' + str(bell_sound['step'])
             print 'The current step is: ' + str(step)
             turn_bell('OFF')
@@ -259,6 +259,8 @@ def key(event):
         if event.keysym == 'Right':
             direction = 'east'
         move_piece_by_name(current_piece_to_move_using_keys, direction)
+        global step
+        step += 1
         update_screen()
 
     if event.keysym == 'H':
