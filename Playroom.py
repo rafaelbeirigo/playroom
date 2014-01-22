@@ -261,27 +261,38 @@ def key(event):
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
     if event.keysym == 'H':
-        move_eye_to_hand_click()
+        if move_eye_to_hand_button['state'] == 'normal':
+            move_eye_to_hand_click()
     if event.keysym == 'M':
-        move_eye_to_marker_click()
+        if move_eye_to_marker_button['state'] == 'normal':
+            move_eye_to_marker_click()
     if event.keysym == 'O':
-        move_eye_to_random_object_click()
+        if move_eye_to_random_object_button['state'] == 'normal':
+            move_eye_to_random_object_click()
     if event.keysym == 'E':
-        move_hand_to_eye_click()
+        if move_hand_to_eye_button['state'] == 'normal':
+            move_hand_to_eye_click()
     if event.keysym == 'e':
-        move_marker_to_eye_click()
+        if move_marker_to_eye_button['state'] == 'normal':
+            move_marker_to_eye_click()
     if event.keysym == 'k':
-        kick_ball_click()
+        if kick_ball_button['state'] == 'normal':
+            kick_ball_click()
     if event.keysym == 'b':
-        press_blue_block_click()
+        if press_blue_block_button['state'] == 'normal':
+            press_blue_block_click()
     if event.keysym == 'B':
-        push_blue_block_click()
+        if push_blue_block_button['state'] == 'normal':
+            push_blue_block_click()
     if event.keysym == 'r':
-        press_red_block_click()
+        if press_red_block_button['state'] == 'normal':
+            press_red_block_click()
     if event.keysym == 'R':
-        push_red_block_click()
+        if push_red_block_button['state'] == 'normal':
+            push_red_block_click()
     if event.keysym == 'f':
-        flick_switch_click()
+        if flick_switch_button['state'] == 'normal':
+            flick_switch_click()
     if event.keysym == 'p':
         adj_squares = get_adj_squares(eye)
         print 'entrei'
@@ -363,62 +374,77 @@ def create_action_buttons():
     action_buttons_frame.pack(side=tk.RIGHT)
 
     # Agent
+    global move_eye_one_step_north_button
     move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north', command=move_eye_one_step_north_click)
     move_eye_one_step_north_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_north_button)
 
+    global move_eye_one_step_south_button
     move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south', command=move_eye_one_step_south_click)
     move_eye_one_step_south_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_south_button)
 
+    global move_eye_one_step_east_button
     move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east', command=move_eye_one_step_east_click)
     move_eye_one_step_east_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_east_button)
 
+    global move_eye_one_step_west_button
     move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west', command=move_eye_one_step_west_click)
     move_eye_one_step_west_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_west_button)
 
+    global move_eye_to_marker_button
     move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker', command=move_eye_to_marker_click)
     move_eye_to_marker_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_marker_button)
 
+    global move_eye_to_hand_button
     move_eye_to_hand_button = tk.Button(action_buttons_frame, text='move_eye_to_hand', command=move_eye_to_hand_click)
     move_eye_to_hand_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_hand_button)
 
+    global move_eye_to_random_object_button
     move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object', command=move_eye_to_random_object_click)
     move_eye_to_random_object_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_random_object_button)
 
+    global move_hand_to_eye_button
     move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye', command=move_hand_to_eye_click)
     move_hand_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_hand_to_eye_button)
 
+    global move_marker_to_eye_button
     move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye', command=move_marker_to_eye_click)
     move_marker_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_marker_to_eye_button)
 
+    global kick_ball_button
     kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball', command=kick_ball_click)
     kick_ball_button.pack(side=tk.TOP)
     action_buttons.append(kick_ball_button)
 
+    global press_blue_block_button
     press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block', command=press_blue_block_click)
     press_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(press_blue_block_button)
 
+    global push_blue_block_button
     push_blue_block_button = tk.Button(action_buttons_frame, text='push_blue_block', command=push_blue_block_click)
     push_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(push_blue_block_button)
 
+    global press_red_block_button
     press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block', command=press_red_block_click)
     press_red_block_button.pack(side=tk.TOP)
     action_buttons.append(press_red_block_button)
 
+    global push_red_block_button
     push_red_block_button = tk.Button(action_buttons_frame, text='push_red_block', command=push_red_block_click)
     push_red_block_button.pack(side=tk.TOP)
     action_buttons.append(push_red_block_button)
 
+    global flick_switch_button
     flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch', command=flick_switch_click)
     flick_switch_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_button)
@@ -542,10 +568,11 @@ def push_red_block_click():
     update_screen()
 
 def flick_switch_click():
-    global step
-    flick_switch()
-    step += 1
-    update_screen()
+    if flick_switch_button['state'] == 'normal':
+        global step
+        flick_switch()
+        step += 1
+        update_screen()
 
 root = tk.Tk()
 
