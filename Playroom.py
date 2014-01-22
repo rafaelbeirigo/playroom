@@ -427,6 +427,7 @@ def execute_action(action):
     all_possible_actions[action]()
 
 def update_action_buttons_state():
+    update_available_actions()
     for button in action_buttons:
         if button['text'] in available_actions:
             button['state'] = 'normal'
