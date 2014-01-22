@@ -313,6 +313,12 @@ def key(event):
         update_environment_labels()
         root.update_idletasks()
 
+def update_light_state():
+    pass
+
+def update_music_state():
+    pass
+
 def update_environment_variables():
     global step
     
