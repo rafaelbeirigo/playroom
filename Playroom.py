@@ -260,27 +260,27 @@ def key(event):
             direction = 'east'
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
-    if event.keysym == 'E':
-        move_eye_to_marker()
     if event.keysym == '':
         move_eye_to_hand()
+    if event.keysym == 'E':
+        move_eye_to_marker()
     if event.keysym == '4':
         move_eye_to_random_object()
     if event.keysym == '5':
         move_hand_to_eye()
     if event.keysym == '6':
         move_marker_to_eye()
-    if event.keysym == 'p':
-        adj_squares = get_adj_squares(eye)
-        print 'entrei'
-        for adj_square in adj_squares:
-            print adj_square
     if event.keysym == 'b':
         push_blue_block()
     if event.keysym == 'r':
         push_red_block()
     if event.keysym == 'f':
         flick_switch()
+    if event.keysym == 'p':
+        adj_squares = get_adj_squares(eye)
+        print 'entrei'
+        for adj_square in adj_squares:
+            print adj_square
     if event.keysym == 'a':
         print 'Actions from agent: '
         print get_actions_from_agent()
