@@ -465,7 +465,9 @@ def execute_action(action):
 def update_action_buttons_state():
     update_available_actions()
     for button in action_buttons:
-        if button['text'] in available_actions:
+        # Remove keyboard shortcut hint before searching
+        function_name = button['text'][:button['text'].find(' ')]
+        if function_name in available_actions:
             button['state'] = 'normal'
         else:
             button['state'] = 'disabled'
