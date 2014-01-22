@@ -375,77 +375,77 @@ def create_action_buttons():
 
     # Agent
     global move_eye_one_step_north_button
-    move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north', command=move_eye_one_step_north_click)
+    move_eye_one_step_north_button = tk.Button(action_buttons_frame, text='move_eye_one_step_north (Up)', command=move_eye_one_step_north_click)
     move_eye_one_step_north_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_north_button)
 
     global move_eye_one_step_south_button
-    move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south', command=move_eye_one_step_south_click)
+    move_eye_one_step_south_button = tk.Button(action_buttons_frame, text='move_eye_one_step_south (Down)', command=move_eye_one_step_south_click)
     move_eye_one_step_south_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_south_button)
 
     global move_eye_one_step_east_button
-    move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east', command=move_eye_one_step_east_click)
+    move_eye_one_step_east_button = tk.Button(action_buttons_frame, text='move_eye_one_step_east (Right)', command=move_eye_one_step_east_click)
     move_eye_one_step_east_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_east_button)
 
     global move_eye_one_step_west_button
-    move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west', command=move_eye_one_step_west_click)
+    move_eye_one_step_west_button = tk.Button(action_buttons_frame, text='move_eye_one_step_west (Left)', command=move_eye_one_step_west_click)
     move_eye_one_step_west_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_one_step_west_button)
 
     global move_eye_to_marker_button
-    move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker', command=move_eye_to_marker_click)
+    move_eye_to_marker_button = tk.Button(action_buttons_frame, text='move_eye_to_marker (M)', command=move_eye_to_marker_click)
     move_eye_to_marker_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_marker_button)
 
     global move_eye_to_hand_button
-    move_eye_to_hand_button = tk.Button(action_buttons_frame, text='move_eye_to_hand', command=move_eye_to_hand_click)
+    move_eye_to_hand_button = tk.Button(action_buttons_frame, text='move_eye_to_hand (H)', command=move_eye_to_hand_click)
     move_eye_to_hand_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_hand_button)
 
     global move_eye_to_random_object_button
-    move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object', command=move_eye_to_random_object_click)
+    move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object (O)', command=move_eye_to_random_object_click)
     move_eye_to_random_object_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_random_object_button)
 
     global move_hand_to_eye_button
-    move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye', command=move_hand_to_eye_click)
+    move_hand_to_eye_button = tk.Button(action_buttons_frame, text='move_hand_to_eye (E)', command=move_hand_to_eye_click)
     move_hand_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_hand_to_eye_button)
 
     global move_marker_to_eye_button
-    move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye', command=move_marker_to_eye_click)
+    move_marker_to_eye_button = tk.Button(action_buttons_frame, text='move_marker_to_eye (w)', command=move_marker_to_eye_click)
     move_marker_to_eye_button.pack(side=tk.TOP)
     action_buttons.append(move_marker_to_eye_button)
 
     global kick_ball_button
-    kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball', command=kick_ball_click)
+    kick_ball_button = tk.Button(action_buttons_frame, text='kick_ball (k)', command=kick_ball_click)
     kick_ball_button.pack(side=tk.TOP)
     action_buttons.append(kick_ball_button)
 
     global press_blue_block_button
-    press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block', command=press_blue_block_click)
+    press_blue_block_button = tk.Button(action_buttons_frame, text='press_blue_block (b)', command=press_blue_block_click)
     press_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(press_blue_block_button)
 
     global push_blue_block_button
-    push_blue_block_button = tk.Button(action_buttons_frame, text='push_blue_block', command=push_blue_block_click)
+    push_blue_block_button = tk.Button(action_buttons_frame, text='push_blue_block (B)', command=push_blue_block_click)
     push_blue_block_button.pack(side=tk.TOP)
     action_buttons.append(push_blue_block_button)
 
     global press_red_block_button
-    press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block', command=press_red_block_click)
+    press_red_block_button = tk.Button(action_buttons_frame, text='press_red_block (r)', command=press_red_block_click)
     press_red_block_button.pack(side=tk.TOP)
     action_buttons.append(press_red_block_button)
 
     global push_red_block_button
-    push_red_block_button = tk.Button(action_buttons_frame, text='push_red_block', command=push_red_block_click)
+    push_red_block_button = tk.Button(action_buttons_frame, text='push_red_block (R)', command=push_red_block_click)
     push_red_block_button.pack(side=tk.TOP)
     action_buttons.append(push_red_block_button)
 
     global flick_switch_button
-    flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch', command=flick_switch_click)
+    flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch (f)', command=flick_switch_click)
     flick_switch_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_button)
 
