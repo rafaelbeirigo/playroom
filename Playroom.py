@@ -9,7 +9,7 @@ from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
 
-# Environment characteristics
+# Environment variables
 light = {'state':'ON', 'step':0}
 bell_sound = {'state':'ON', 'step':0}
 music = {'state':'ON', 'step':0}
