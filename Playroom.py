@@ -260,23 +260,23 @@ def key(event):
             direction = 'east'
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
-    if event.keysym == '':
+    if event.keysym == 'H':
         move_eye_to_hand()
-    if event.keysym == 'E':
+    if event.keysym == 'M':
         move_eye_to_marker()
-    if event.keysym == '4':
+    if event.keysym == 'O':
         move_eye_to_random_object()
-    if event.keysym == '5':
+    if event.keysym == 'E':
         move_hand_to_eye()
-    if event.keysym == '6':
+    if event.keysym == 'e':
         move_marker_to_eye()
     if event.keysym == 'b':
         press_blue_block()
-    if event.keysym == 'b':
+    if event.keysym == 'B':
         push_blue_block()
     if event.keysym == 'r':
         press_red_block()
-    if event.keysym == 'r':
+    if event.keysym == 'R':
         push_red_block()
     if event.keysym == 'f':
         flick_switch()
