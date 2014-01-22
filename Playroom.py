@@ -260,9 +260,9 @@ def key(event):
             direction = 'east'
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
-    if event.keysym == '1':
+    if event.keysym == 'E':
         move_eye_to_marker()
-    if event.keysym == '2':
+    if event.keysym == '':
         move_eye_to_hand()
     if event.keysym == '4':
         move_eye_to_random_object()
@@ -377,6 +377,10 @@ def create_action_buttons():
     move_eye_to_marker_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_marker_button)
 
+    move_eye_to_hand_button = tk.Button(action_buttons_frame, text='move_eye_to_hand', command=move_eye_to_hand_click)
+    move_eye_to_hand_button.pack(side=tk.TOP)
+    action_buttons.append(move_eye_to_hand_button)
+
     move_eye_to_random_object_button = tk.Button(action_buttons_frame, text='move_eye_to_random_object', command=move_eye_to_random_object_click)
     move_eye_to_random_object_button.pack(side=tk.TOP)
     action_buttons.append(move_eye_to_random_object_button)
@@ -468,6 +472,12 @@ def move_eye_one_step_east_click():
 def move_eye_one_step_west_click():
     global step
     move_eye_one_step_west()
+    step += 1
+    update_screen()
+
+def move_eye_to_hand_click():
+    global step
+    move_eye_to_hand()
     step += 1
     update_screen()
 
