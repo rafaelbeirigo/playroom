@@ -248,16 +248,15 @@ def key(event):
     if event.keysym == 'm':
         current_piece_to_move_using_keys = 'marker'
 
-    direction = ''
     if event.keysym in ['Up', 'Down', 'Left', 'Right']:
         if event.keysym == 'Up':
-            direction = 'north'
+            move_eye_one_step_north_click()
         if event.keysym == 'Down':
-            direction = 'south'
+            move_eye_one_step_south_click()
         if event.keysym == 'Left':
-            direction = 'west'
+            move_eye_one_step_west_click()
         if event.keysym == 'Right':
-            direction = 'east'
+            move_eye_one_step_east_click()
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
     if event.keysym == 'H':
