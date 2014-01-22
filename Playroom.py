@@ -261,27 +261,27 @@ def key(event):
         move_piece_by_name(current_piece_to_move_using_keys, direction)
 
     if event.keysym == 'H':
-        move_eye_to_hand()
+        move_eye_to_hand_click()
     if event.keysym == 'M':
-        move_eye_to_marker()
+        move_eye_to_marker_click()
     if event.keysym == 'O':
-        move_eye_to_random_object()
+        move_eye_to_random_object_click()
     if event.keysym == 'E':
-        move_hand_to_eye()
+        move_hand_to_eye_click()
     if event.keysym == 'e':
-        move_marker_to_eye()
+        move_marker_to_eye_click()
     if event.keysym == 'k':
-        kick_ball()
+        kick_ball_click()
     if event.keysym == 'b':
-        press_blue_block()
+        press_blue_block_click()
     if event.keysym == 'B':
-        push_blue_block()
+        push_blue_block_click()
     if event.keysym == 'r':
-        press_red_block()
+        press_red_block_click()
     if event.keysym == 'R':
-        push_red_block()
+        push_red_block_click()
     if event.keysym == 'f':
-        flick_switch()
+        flick_switch_click()
     if event.keysym == 'p':
         adj_squares = get_adj_squares(eye)
         print 'entrei'
