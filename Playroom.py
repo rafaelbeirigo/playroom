@@ -298,6 +298,7 @@ def key(event):
         update_available_actions()
         enable_disable_action_buttons()
     if event.keysym == 'l':
+        update_environment_variables()
         update_environment_labels()
         execute_action
     if event.keysym == 't':
@@ -320,7 +321,9 @@ def key(event):
         root.update_idletasks()
 
 def update_environment_variables():
-    global step
+    global environment_variables
+    for variable in environment_variables:
+        variable['update_function']()
     
 def update_environment_labels():
     global step
