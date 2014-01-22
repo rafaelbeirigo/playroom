@@ -9,11 +9,50 @@ from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
 
+def update_light_state():
+    pass
+
+def update_music_state():
+    pass
+
+def update_bell_sound_state():
+    # only turns of, it is turned on using
+    # kick_ball function
+    global bell_sound
+    global step
+
+    print 'Updating bell state...'
+    print 'Bell state: ' + bell_sound['state']
+    print 'Bell step: ' + str(bell_sound['step'])
+    print 'Step: ' + str(step)
+    if bell_sound['state'] == 'ON':
+        print 'Bell was on'
+        if step > bell_sound['step']:
+            print 'It was turned on the step: ' + str(bell_sound['step'])
+            print 'The current step is: ' + str(step)
+            turn_bell('OFF')
+        else:
+            print 'It was turned on this same step'
+    else:
+        print 'Bell was off'
+
+def update_toy_monkey_sound_state():
+    global toy_monkey_sound
+    if toy_monkey_sound['state'] == 'ON':
+        if light['state'] == 'ON' or \
+           music['state'] == 'OFF':
+           turn_toy_monkey('OFF')
+    else:
+        if light['state'] == 'OFF' and \
+           music['state'] == 'ON' and \
+           bell_sound['state'] == 'ON':
+           turn_toy_monkey('ON')
+
 # Environment variables
-light = {'state':'ON', 'step':0}
-bell_sound = {'state':'ON', 'step':0}
-music = {'state':'ON', 'step':0}
-toy_monkey_sound = {'state':'ON', 'step':0}
+light = {'state':'ON', 'step':0, 'update_function':update_light_state}
+music = {'state':'ON', 'step':0, 'update_function':update_music_state}
+bell_sound = {'state':'ON', 'step':0, 'update_function':update_bell_sound_state}
+toy_monkey_sound = {'state':'ON', 'step':0, 'update_function':update_toy_monkey_sound_state}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
@@ -128,43 +167,10 @@ def turn_bell(new_state):
     bell_sound['state'] = new_state
     bell_sound['step'] = step
 
-def update_bell_sound_state():
-    # only turns of, it is turned on using
-    # kick_ball function
-    global bell_sound
-    global step
-
-    print 'Updating bell state...'
-    print 'Bell state: ' + bell_sound['state']
-    print 'Bell step: ' + str(bell_sound['step'])
-    print 'Step: ' + str(step)
-    if bell_sound['state'] == 'ON':
-        print 'Bell was on'
-        if step > bell_sound['step']:
-            print 'It was turned on the step: ' + str(bell_sound['step'])
-            print 'The current step is: ' + str(step)
-            turn_bell('OFF')
-        else:
-            print 'It was turned on this same step'
-    else:
-        print 'Bell was off'
-
 def turn_toy_monkey(new_state):
     global toy_monkey_sound
     toy_monkey_sound['state'] = new_state
     toy_monkey_sound['step'] = step
-
-def update_toy_monkey_sound_state():
-    global toy_monkey_sound
-    if toy_monkey_sound['state'] == 'ON':
-        if light['state'] == 'ON' or \
-           music['state'] == 'OFF':
-           turn_toy_monkey('OFF')
-    else:
-        if light['state'] == 'OFF' and \
-           music['state'] == 'ON' and \
-           bell_sound['state'] == 'ON':
-           turn_toy_monkey('ON')
 
 def update_state():
     pass
@@ -312,12 +318,6 @@ def key(event):
         
         update_environment_labels()
         root.update_idletasks()
-
-def update_light_state():
-    pass
-
-def update_music_state():
-    pass
 
 def update_environment_variables():
     global step
