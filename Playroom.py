@@ -677,4 +677,7 @@ random_actions_button = tk.Button(root, text='random_actions', command=random_ac
 random_actions_button.pack(side=tk.TOP)
 
 root.bind_all('<Key>', key)
+
+update_screen()
+
 root.mainloop()
