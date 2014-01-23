@@ -643,12 +643,14 @@ step_count_label_text = tk.StringVar()
 step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
 step_count_label.pack(side = tk.LEFT)
 
+state_frame = tk.Frame(root)
+state_frame.pack(side=tk.TOP)
 state_label_text = tk.StringVar()
-state_label = tk.Label( env_charact_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
-state_label.pack(side = tk.LEFT)
+state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
+state_label.pack(side=tk.TOP)
 
 central_frame = tk.Frame(root)
-central_frame.pack()
+central_frame.pack(side=tk.TOP)
 
 board = Board(central_frame)
 board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
