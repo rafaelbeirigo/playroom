@@ -488,16 +488,18 @@ def update_action_buttons_state():
 
 def random_actions():
     global step
-    num_steps = 1000
+    num_steps = 10000
     for cur_step in range(num_steps):
         step += 1
-        update_environment_labels()
-        update_action_buttons_state()
+
         update_available_actions()
         action = choice(available_actions)
         execute_action(action)
-        root.update_idletasks()
-        sleep(.1)
+
+        update_state()
+
+        update_screen()
+        #sleep(.1)
 
 def move_eye_one_step_north_click():
     global step
