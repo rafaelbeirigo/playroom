@@ -180,10 +180,12 @@ def same_cell_to_tuple(ag_piece):
     return same_cell
 
 def update_state():
+    global state
     under_eye = same_cell_to_tuple(eye)
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
-    return (under_eye, under_hand, under_marker)
+    state = (under_eye, under_hand, under_marker)
+    return state
 
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
@@ -365,7 +367,12 @@ def update_environment_labels():
 
     step_count_label_text.set('Steps: ' + str(step))
 
+    state_label_text.set('State: [eye:'    + str(state[0]) +'], ' + 
+                                '[hand:'   + str(state[1]) +'], ' +
+                                '[marker:' + str(state[2]) +']')
+
 def update_screen():
+    update_state()
     update_environment_variables()
     update_environment_labels()
     update_action_buttons_state()
@@ -685,6 +692,11 @@ available_actions = []
 update_environment_labels()
 
 create_action_buttons()
+
+state_label_text = tk.StringVar()
+state_label = tk.Label( root, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
+state_label.pack(side = tk.LEFT)
+
 
 random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
 random_actions_button.pack(side=tk.TOP)
