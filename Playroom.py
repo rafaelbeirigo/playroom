@@ -172,8 +172,18 @@ def turn_toy_monkey(new_state):
     toy_monkey_sound['state'] = new_state
     toy_monkey_sound['step'] = step
 
+def same_cell_to_tuple(ag_piece):
+    same_cell = ()
+    for piece in non_agent_pieces:
+        if on_same_cell(piece, ag_piece):
+            same_cell += (piece.name,)
+    return same_cell
+
 def update_state():
-    pass
+    under_eye = same_cell_to_tuple(eye)
+    under_hand = same_cell_to_tuple(hand)
+    under_marker = same_cell_to_tuple(marker)
+    return (under_eye, under_hand, under_marker)
 
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
@@ -323,6 +333,9 @@ def key(event):
         execute_action
     if event.keysym == 't':
         update_toy_monkey_sound_state()
+    if event.keysym == 'u':
+        print 'State:'
+        print str(update_state())
 
     update_screen()
 
@@ -643,7 +656,7 @@ for piece in non_agent_pieces:
 for piece in agent_pieces:
     board.addpiece(piece)
 
-state = []
+state = ()
 
 update_state()
 
