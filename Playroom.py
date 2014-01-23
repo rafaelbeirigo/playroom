@@ -173,10 +173,15 @@ def turn_toy_monkey(new_state):
     toy_monkey_sound['step'] = step
 
 def same_cell_to_tuple(ag_piece):
+    global light
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            same_cell += (piece.name,)
+            if light['state'] == 'OFF' and \
+              piece in [play, stop]:
+                same_cell += ('gray_block',)
+            else:
+                same_cell += (piece.name,)
     return same_cell
 
 def update_state():
@@ -638,6 +643,10 @@ step_count_label_text = tk.StringVar()
 step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
 step_count_label.pack(side = tk.LEFT)
 
+state_label_text = tk.StringVar()
+state_label = tk.Label( env_charact_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
+state_label.pack(side = tk.LEFT)
+
 central_frame = tk.Frame(root)
 central_frame.pack()
 
@@ -692,11 +701,6 @@ available_actions = []
 update_environment_labels()
 
 create_action_buttons()
-
-state_label_text = tk.StringVar()
-state_label = tk.Label( root, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
-state_label.pack(side = tk.LEFT)
-
 
 random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
 random_actions_button.pack(side=tk.TOP)
