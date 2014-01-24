@@ -133,6 +133,7 @@ def kick_ball():
     move_piece_to_piece(ball, marker)
     if on_same_cell(ball, bell):
         turn_bell('ON')
+        move_piece_rand_adj(bell)
 
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
