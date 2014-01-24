@@ -153,13 +153,14 @@ def get_actions_from_agent():
         ]
 
 def get_actions_from_pieces():
+    actions = []
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
                 if not (piece in [play, stop] and \
                         light['state'] == 'OFF'):
-                    return piece.get_actions()
-    return []
+                    actions += piece.get_actions()
+    return actions
 
 def turn_bell(new_state):
     global bell
