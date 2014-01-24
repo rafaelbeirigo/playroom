@@ -28,6 +28,11 @@ class Board(tk.Frame):
         # changes the window size
         self.canvas.bind("<Configure>", self.refresh)
 
+    def updatepieceimage(self, peca):
+        self.canvas.delete(peca.name)
+        self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
+        self.placepiece(peca)
+    
     def addpiece(self, peca):
         '''Add a piece to the playing board'''
         self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
