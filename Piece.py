@@ -12,3 +12,6 @@ class Piece:
 
     def get_actions(self):
         return self.actions
+
+    def set_image(self, image):
+        self.image = image
