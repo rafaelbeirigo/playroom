@@ -99,17 +99,17 @@ def move_piece_to_square(piece, square):
     piece.column = square[1]
     board.placepiece(piece)
 
-def push_block(block):
+def move_piece_rand_adj(block):
     adj_squares = get_adj_squares(block)
     if len(adj_squares) > 0:
         random_index = randint(0, len(adj_squares) - 1)
         move_piece_to_square(block, adj_squares[random_index])
 
 def push_blue_block():
-    push_block(play)
+    move_piece_rand_adj(play)
 
 def push_red_block():
-    push_block(stop)
+    move_piece_rand_adj(stop)
 
 def turn_music_on():
     global music
