@@ -28,23 +28,23 @@ class Board(tk.Frame):
         # changes the window size
         self.canvas.bind("<Configure>", self.refresh)
 
-    def updatepieceimage(self, peca):
-        self.canvas.delete(peca.name)
-        self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
-        self.placepiece(peca)
+    def updatepieceimage(self, piece):
+        self.canvas.delete(piece.name)
+        self.canvas.create_image(0,0, image=piece.image, tags=(piece.name, "peça"), anchor="c")
+        self.placepiece(piece)
     
-    def addpiece(self, peca):
+    def addpiece(self, piece):
         '''Add a piece to the playing board'''
-        self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
-        self.placepiece(peca)
-        self.pieces.append(peca)
+        self.canvas.create_image(0,0, image=piece.image, tags=(piece.name, "peça"), anchor="c")
+        self.placepiece(piece)
+        self.pieces.append(piece)
 
-    def placepiece(self, peca):
+    def placepiece(self, piece):
         # name, row, column):
         '''Place a piece at the given row/column'''
-        x0 = (peca.column * self.size) + int(self.size/2)
-        y0 = (peca.row * self.size) + int(self.size/2)
-        self.canvas.coords(peca.name, x0, y0)
+        x0 = (piece.column * self.size) + int(self.size/2)
+        y0 = (piece.row * self.size) + int(self.size/2)
+        self.canvas.coords(piece.name, x0, y0)
 
     def refresh(self, event):
         '''Redraw the board, possibly in response to window being resized'''
@@ -62,8 +62,8 @@ class Board(tk.Frame):
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-        for peca in self.pieces:
-            self.placepiece(peca)
+        for piece in self.pieces:
+            self.placepiece(piece)
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
