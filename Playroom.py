@@ -374,10 +374,29 @@ def update_environment_labels():
                                 '[hand:'   + str(state[1]) +'], ' +
                                 '[marker:' + str(state[2]) +']')
 
+def update_blocks_color():
+    global light
+    if light['state'] == 'ON':
+        play.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
+        board.updatepieceimage(play)
+
+        stop.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
+        board.updatepieceimage(stop)
+    elif light['state'] == 'OFF':
+        play.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        board.updatepieceimage(play)
+
+        stop.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        board.updatepieceimage(stop)
+    board.canvas.tag_raise('hand')
+    board.canvas.tag_raise('eye')
+    board.canvas.tag_raise('marker')
+
 def update_screen():
     update_state()
     update_environment_variables()
     update_environment_labels()
+    update_blocks_color()
     update_action_buttons_state()
     root.update_idletasks()
 
