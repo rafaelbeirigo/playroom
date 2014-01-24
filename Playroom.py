@@ -604,11 +604,10 @@ def push_red_block_click():
     update_screen()
 
 def flick_switch_click():
-    if flick_switch_button['state'] == 'normal':
-        global step
-        flick_switch()
-        step += 1
-        update_screen()
+    global step
+    flick_switch()
+    step += 1
+    update_screen()
 
 root = tk.Tk()
 
