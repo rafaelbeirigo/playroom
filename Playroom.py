@@ -21,20 +21,9 @@ def update_bell_sound_state():
     global bell_sound
     global step
 
-    print 'Updating bell state...'
-    print 'Bell state: ' + bell_sound['state']
-    print 'Bell step: ' + str(bell_sound['step'])
-    print 'Step: ' + str(step)
     if bell_sound['state'] == 'ON':
-        print 'Bell was on'
         if step > bell_sound['step'] + 1:
-            print 'It was turned on the step: ' + str(bell_sound['step'])
-            print 'The current step is: ' + str(step)
             turn_bell('OFF')
-        else:
-            print 'It was turned on this same step'
-    else:
-        print 'Bell was off'
 
 def update_toy_monkey_sound_state():
     global toy_monkey_sound
