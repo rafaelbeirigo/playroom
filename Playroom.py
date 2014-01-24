@@ -91,10 +91,7 @@ def get_adj_squares(piece):
 
                     # not the piece square
                     if ( row_inc != 0 or col_inc != 0 ):
-
-                        # only unnoccupied squares count
-                        if not ( square_is_occuppied ( ( row, column ) ) ):
-                            adj_squares.append( (row, column ) )
+                        adj_squares.append( (row, column ) )
     return adj_squares
 
 def move_piece_to_square(piece, square):
