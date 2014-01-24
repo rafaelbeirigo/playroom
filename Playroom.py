@@ -106,7 +106,7 @@ def move_piece_rand_adj(block):
         move_piece_to_square(block, adj_squares[random_index])
 
 def push_blue_block():
-    move_piece_rand_adj(play)
+    move_piece_rand_adj(blue_block)
 
 def push_red_block():
     move_piece_rand_adj(stop)
@@ -157,7 +157,7 @@ def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                if not (piece in [play, stop] and \
+                if not (piece in [blue_block, stop] and \
                         light['state'] == 'OFF'):
                     actions += piece.get_actions()
     return actions
@@ -179,7 +179,7 @@ def same_cell_to_tuple(ag_piece):
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
             if light['state'] == 'OFF' and \
-              piece in [play, stop]:
+              piece in [blue_block, stop]:
                 same_cell += ('gray_block',)
             else:
                 same_cell += (piece.name,)
@@ -380,14 +380,14 @@ def update_environment_labels():
 def update_blocks_color():
     global light
     if light['state'] == 'ON':
-        play.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
-        board.updatepieceimage(play)
+        blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
+        board.updatepieceimage(blue_block)
 
         stop.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
         board.updatepieceimage(stop)
     elif light['state'] == 'OFF':
-        play.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
-        board.updatepieceimage(play)
+        blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        board.updatepieceimage(blue_block)
 
         stop.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
         board.updatepieceimage(stop)
@@ -676,7 +676,7 @@ board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
 bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
-play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
 stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
@@ -686,7 +686,7 @@ eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/cienci
 marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [ball, bell, play, stop, switch, toy_monkey]
+non_agent_pieces = [ball, bell, blue_block, stop, switch, toy_monkey]
 
 for piece in non_agent_pieces:
     board.addpiece(piece)
