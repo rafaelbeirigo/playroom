@@ -612,25 +612,16 @@ def get_Q_value(key):
     return Q[key]
 
 def q_learning_simple():
-    myAgent = self.Agent
-    myMDP = self.MDP
-    A = self.MDP.A
+    global Q
 
-    self.initializeQ()
-    Q = self.Q
+    alpha            = 0.9
+    gamma            = 0.9
+    epsilon          = 0.1
+    epsilonIncrement = 0.0
 
-    alpha            = self.alpha
-    gamma            = self.gamma
-    gammaPRQL        = self.gammaPRQL
-    epsilon          = self.epsilon
-    epsilonIncrement = self.epsilonIncrement
-
-    W2 = 0
-    Ws = []
     for k in range(self.K):
         W = 0
-        myAgent.setInitialState()
-        #myAgent.state = '1'
+        myAgent.state = '1'
         for h in range(self.H):
             # TODO: remover os '---'
             # ---Observe the current state s
