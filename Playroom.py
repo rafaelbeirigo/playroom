@@ -619,16 +619,15 @@ def q_learning_simple():
     epsilon          = 0.1
     epsilonIncrement = 0.0
 
+    goals = [('0', '0')]
+
     for k in range(self.K):
-        W = 0
         state = ('0', '0')
         for h in range(self.H):
-            # TODO: remover os '---'
-            # ---Observe the current state s
             s = state
 
             # if a goal state is reached the episode ends
-            if s in myMDP.G: break
+            if s in goals: break
 
             # ---Following epsilon-greedy strategy,
             # ---Select an action a and execute it
@@ -657,17 +656,7 @@ def q_learning_simple():
             # ---s=s'
             state = s2
 
-            if gammaPRQL != None:
-                # accumulate gamma on W (this value is used only in PRQLearning)
-                W = float(W) + pow(gammaPRQL, h) * r
-
         epsilon = epsilon + epsilonIncrement
-
-        W2 = ( (W2 * k) + W ) / (k + 1)
-        Ws.append(W2)
-
-    self.Q = Q
-    return W2, Ws
 
 root = tk.Tk()
 
