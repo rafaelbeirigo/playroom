@@ -598,6 +598,11 @@ def flick_switch_click():
     step += 1
     update_screen()
 
+##############
+# Q-Learning #
+##############
+Q = {}
+
 root = tk.Tk()
 
 # bottomframe = Frame(root)
