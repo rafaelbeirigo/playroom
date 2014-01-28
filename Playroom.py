@@ -621,6 +621,8 @@ def q_learning_simple():
 
     goals = [('0', '0')]
 
+    available_actions = ['move_eye_one_step_north','move_eye_one_step_south','move_eye_one_step_east','move_eye_one_step_west']
+    
     for k in range(self.K):
         state = ('0', '0')
         for h in range(self.H):
