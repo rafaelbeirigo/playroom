@@ -621,11 +621,11 @@ def q_learning_simple():
 
     for k in range(self.K):
         W = 0
-        myAgent.state = '1'
+        state = ('0', '0')
         for h in range(self.H):
             # TODO: remover os '---'
             # ---Observe the current state s
-            s = myAgent.state
+            s = state
 
             # if a goal state is reached the episode ends
             if s in myMDP.G: break
@@ -637,12 +637,12 @@ def q_learning_simple():
             randomNumber = random()
             if randomNumber <= epsilon:
                 # random
-                a = myAgent.selectRandomAction()
+                a = selectRandomAction()
             else:
                 # greedy
-                a = myAgent.selectBestAction(s, source = 'Q-Table', Q = Q)
+                a = selectBestAction(s, source = 'Q-Table', Q = Q)
 
-            s2, r = myAgent.executeAction(a)
+            s2, r = executeAction(a)
 
             # TODO: manter um vetor V com os maximos
             maxValue = -1.0
@@ -655,7 +655,7 @@ def q_learning_simple():
                       float(alpha) * (float(r) + float(gamma) * float(maxValue))
 
             # ---s=s'
-            myAgent.state = s2
+            state = s2
 
             if gammaPRQL != None:
                 # accumulate gamma on W (this value is used only in PRQLearning)
