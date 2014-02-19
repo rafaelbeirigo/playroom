@@ -604,7 +604,7 @@ def flick_switch_click():
 Q = {}
 Q_default_value = 0
 
-def get_Q_value(state_key, action_key):
+def fix_Q_value(state_key, action_key):
     global Q
     global Q_default_value
 
@@ -614,6 +614,11 @@ def get_Q_value(state_key, action_key):
     if not (action_key in Q[state_key].keys()):
         Q[state_key][action_key] = Q_default_value
 
+def get_Q_value(state_key, action_key):
+    global Q
+
+    fix_Q_value(state_key, action_key)
+    
     return Q[state_key][action_key]
 
 def q_learning_simple():
