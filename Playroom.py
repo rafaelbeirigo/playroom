@@ -614,6 +614,13 @@ def fix_Q_value(state_key, action_key):
     if not (action_key in Q[state_key].keys()):
         Q[state_key][action_key] = Q_default_value
 
+def set_Q_value(state_key, action_key, new_value):
+    global Q
+
+    fix_Q_value(state_key, action_key)
+    
+    Q[state_key][action_key] = new_value
+
 def get_Q_value(state_key, action_key):
     global Q
 
