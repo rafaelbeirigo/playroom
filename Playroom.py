@@ -628,6 +628,9 @@ def get_Q_value(state_key, action_key):
     
     return Q[state_key][action_key]
 
+def state_is_goal():
+    return light['state'] == 'ON'
+
 def q_learning_simple():
     global Q
 
@@ -639,8 +642,6 @@ def q_learning_simple():
     episodes = 1000
     steps = 1000
         
-    goals = [('0', '0')]
-
     available_actions = ['move_eye_one_step_north','move_eye_one_step_south','move_eye_one_step_east','move_eye_one_step_west']
     
     for episode in range(episodes):
@@ -649,7 +650,7 @@ def q_learning_simple():
             s = state
 
             # if a goal state is reached the episode ends
-            if s in goals: break
+            if state_is_goal(): break
 
             # Following epsilon-greedy strategy, Select an action a
             # and execute it. Receive immediate reward r. Observe the
