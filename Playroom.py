@@ -650,10 +650,9 @@ def q_learning_simple():
             # if a goal state is reached the episode ends
             if s in goals: break
 
-            # ---Following epsilon-greedy strategy,
-            # ---Select an action a and execute it
-            # ---Receive immediate reward r
-            # ---Observe the new state s2
+            # Following epsilon-greedy strategy, Select an action a
+            # and execute it. Receive immediate reward r. Observe the
+            # new state s2
             randomNumber = random()
             if randomNumber <= epsilon:
                 # random
@@ -670,11 +669,11 @@ def q_learning_simple():
                 if Q[s2][a2] > maxValue:
                     maxValue = Q[s2][a2]
 
-            # ---Update the table entry for Q(s, a)
+            # Update the table entry for Q(s, a)
             Q[s][a] = (1.0 - float(alpha)) * float(Q[s][a]) + \
                       float(alpha) * (float(r) + float(gamma) * float(maxValue))
 
-            # ---s=s'
+            # s=s'
             state = s2
 
         epsilon = epsilon + epsilonIncrement
