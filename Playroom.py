@@ -631,6 +631,10 @@ def get_Q_value(state_key, action_key):
 def state_is_goal():
     return light['state'] == 'ON'
 
+def select_random_action():
+    global available_actions
+    return choice(available_actions)
+
 def q_learning_simple():
     global Q
 
@@ -656,7 +660,7 @@ def q_learning_simple():
             randomNumber = random()
             if randomNumber <= epsilon:
                 # random
-                a = selectRandomAction()
+                a = select_random_action()
             else:
                 # greedy
                 a = selectBestAction(s, source = 'Q-Table', Q = Q)
