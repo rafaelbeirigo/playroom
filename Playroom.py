@@ -706,6 +706,7 @@ def setup_new_episode():
 
 def q_learning_simple():
     global Q
+    global step
 
     alpha            = 0.9
     gamma            = 0.9
@@ -717,7 +718,7 @@ def q_learning_simple():
 
     for episode in range(episodes):
         setup_new_episode()
-        for step in range(steps):
+        for current_step in range(steps):
             update_state()
             update_screen()
 
