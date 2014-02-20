@@ -720,6 +720,7 @@ def q_learning_simple():
         setup_new_episode()
         for current_step in range(steps):
             update_state()
+            update_environment_variables()
             update_screen()
 
             # if a goal state is reached the episode ends
@@ -741,6 +742,8 @@ def q_learning_simple():
 
             root.update_idletasks()
             # sleep(.01)
+
+            step += 1
 
         #     # TODO: manter um vetor V com os maximos
         #     maxValue = -1.0
