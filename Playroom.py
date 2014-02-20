@@ -685,20 +685,20 @@ def q_learning_simple():
 
             execute_action(a)
 
-            # TODO: manter um vetor V com os maximos
-            maxValue = -1.0
-            for a2 in A:
-                if Q[s2][a2] > maxValue:
-                    maxValue = Q[s2][a2]
+        #     # TODO: manter um vetor V com os maximos
+        #     maxValue = -1.0
+        #     for a2 in A:
+        #         if Q[s2][a2] > maxValue:
+        #             maxValue = Q[s2][a2]
 
-            # Update the table entry for Q(s, a)
-            Q[s][a] = (1.0 - float(alpha)) * float(Q[s][a]) + \
-                      float(alpha) * (float(r) + float(gamma) * float(maxValue))
+        #     # Update the table entry for Q(s, a)
+        #     Q[s][a] = (1.0 - float(alpha)) * float(Q[s][a]) + \
+        #               float(alpha) * (float(r) + float(gamma) * float(maxValue))
 
-            # s=s'
-            state = s2
+        #     # s=s'
+        #     state = s2
 
-        epsilon = epsilon + epsilonIncrement
+        # epsilon = epsilon + epsilonIncrement
 
 root = tk.Tk()
 
@@ -820,6 +820,9 @@ random_actions_button.pack(side=tk.TOP)
 
 set_random_initial_state_button = tk.Button(root, text='set_random_initial_state', command=set_random_initial_state)
 set_random_initial_state_button.pack(side=tk.TOP)
+
+q_learning_simple_button = tk.Button(root, text='q_learning_simple', command=q_learning_simple)
+q_learning_simple_button.pack(side=tk.TOP)
 
 root.bind_all('<Key>', key)
 
