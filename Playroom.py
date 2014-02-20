@@ -634,6 +634,9 @@ def state_is_goal():
 
 def select_random_action():
     global available_actions
+
+    update_available_actions()
+
     return choice(available_actions)
 
 def set_random_initial_state():
