@@ -683,7 +683,7 @@ def q_learning_simple():
                 # greedy
                 a = selectBestAction(s, source = 'Q-Table', Q = Q)
 
-            s2, r = executeAction(a)
+            execute_action(a)
 
             # TODO: manter um vetor V com os maximos
             maxValue = -1.0
