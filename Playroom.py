@@ -662,7 +662,7 @@ def q_learning_simple():
     steps = 1000
         
     for episode in range(episodes):
-        state = ('0', '0')
+        set_random_initial_state()
         for step in range(steps):
             s = state
 
