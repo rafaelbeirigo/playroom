@@ -8,6 +8,7 @@ from random import randint
 from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
+from itertools import product
 
 def update_light_state():
     pass
@@ -635,6 +636,20 @@ def select_random_action():
     global available_actions
     return choice(available_actions)
 
+def set_random_initial_state():
+    global all_pieces
+    global board
+    
+    board_squares = list(product(range(5), range(5)))
+
+    for piece in all_pieces:
+        board_square = choice(board_squares)
+        
+        piece.row = board_square[0]
+        piece.column = board_square[1]
+
+        board.placepiece(piece)
+
 def q_learning_simple():
     global Q
 
@@ -760,6 +775,7 @@ marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/
 
 agent_pieces = [hand, eye, marker]
 non_agent_pieces = [ball, bell, blue_block, red_block, switch, toy_monkey]
+all_pieces = agent_pieces + non_agent_pieces
 
 for piece in non_agent_pieces:
     board.addpiece(piece)
@@ -798,6 +814,9 @@ create_action_buttons()
 
 random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
 random_actions_button.pack(side=tk.TOP)
+
+set_random_initial_state_button = tk.Button(root, text='set_random_initial_state', command=set_random_initial_state)
+set_random_initial_state_button.pack(side=tk.TOP)
 
 root.bind_all('<Key>', key)
 
