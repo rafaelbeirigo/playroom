@@ -364,7 +364,7 @@ def update_environment_labels():
 
     step_count_label_text.set('Steps: ' + str(step))
 
-    state_label_text.set('State: [eye:'    + str(state[0]) +'], ' + 
+    state_label_text.set('State: [eye:'    + str(state[0]) +'], ' +
                                 '[hand:'   + str(state[1]) +'], ' +
                                 '[marker:' + str(state[2]) +']')
 
@@ -620,14 +620,14 @@ def set_Q_value(state_key, action_key, new_value):
     global Q
 
     fix_Q_value(state_key, action_key)
-    
+
     Q[state_key][action_key] = new_value
 
 def get_Q_value(state_key, action_key):
     global Q
 
     fix_Q_value(state_key, action_key)
-    
+
     return Q[state_key][action_key]
 
 def state_is_goal():
@@ -643,16 +643,66 @@ def select_random_action():
 def set_random_initial_state():
     global all_pieces
     global board
-    
+
     board_squares = list(product(range(5), range(5)))
 
     for piece in all_pieces:
         board_square = choice(board_squares)
-        
+
         piece.row = board_square[0]
         piece.column = board_square[1]
 
         board.placepiece(piece)
+
+def position_pieces_like_article():
+    global ball
+    global bell
+    global blue_block
+    global red_block
+    global switch
+    global toy_monkey
+    global hand
+    global eye
+    global marker
+    global board
+    global all_pieces
+
+    ball.row = 1
+    ball.column = 0
+
+    bell.row = 1
+    bell.column = 4
+
+    blue_block.row = 4
+    blue_block.column = 0
+
+    red_block.row = 4
+    red_block.column = 4
+
+    switch.row = 2
+    switch.column = 2
+
+    toy_monkey.row = 1
+    toy_monkey.column = 2
+
+    hand.row = 0
+    hand.column = 3
+
+    eye.row = 1
+    eye.column = 3
+
+    marker.row = 2
+    marker.column = 4
+
+    for piece in all_pieces:
+        board.placepiece(piece)
+
+def setup_new_episode():
+    global step
+
+    step = 0
+    turn_light('OFF')
+    position_pieces_like_article()
 
 def q_learning_simple():
     global Q
@@ -664,11 +714,12 @@ def q_learning_simple():
 
     episodes = 1000
     steps = 1000
-        
+
     for episode in range(episodes):
-        set_random_initial_state()
+        setup_new_episode()
         for step in range(steps):
             update_state()
+            update_screen()
 
             # if a goal state is reached the episode ends
             if state_is_goal(): break
@@ -688,8 +739,8 @@ def q_learning_simple():
             execute_action(a)
 
             root.update_idletasks()
-            sleep(.1)
-            
+            # sleep(.01)
+
         #     # TODO: manter um vetor V com os maximos
         #     maxValue = -1.0
         #     for a2 in A:
@@ -829,9 +880,11 @@ set_random_initial_state_button.pack(side=tk.TOP)
 q_learning_simple_button = tk.Button(root, text='q_learning_simple', command=q_learning_simple)
 q_learning_simple_button.pack(side=tk.TOP)
 
+position_pieces_like_article_button = tk.Button(root, text='position_pieces_like_article', command=position_pieces_like_article)
+position_pieces_like_article_button.pack(side=tk.TOP)
+
 root.bind_all('<Key>', key)
 
 update_screen()
 
 root.mainloop()
-
