@@ -5,6 +5,7 @@ import Tkinter as tk
 from Board import *
 from Piece import *
 from random import randint
+from random import random
 from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
@@ -681,7 +682,8 @@ def q_learning_simple():
                 a = select_random_action()
             else:
                 # greedy
-                a = selectBestAction(s, source = 'Q-Table', Q = Q)
+                # a = selectBestAction(s, source = 'Q-Table', Q = Q)
+                pass
 
             execute_action(a)
 
