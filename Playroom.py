@@ -685,6 +685,9 @@ def q_learning_simple():
 
             execute_action(a)
 
+            root.update_idletasks()
+            sleep(.1)
+            
         #     # TODO: manter um vetor V com os maximos
         #     maxValue = -1.0
         #     for a2 in A:
