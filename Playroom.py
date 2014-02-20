@@ -659,7 +659,7 @@ def q_learning_simple():
 
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 0.1
+    epsilon          = 1.0
     epsilonIncrement = 0.0
 
     episodes = 1000
