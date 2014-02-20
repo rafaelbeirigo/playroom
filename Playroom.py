@@ -664,7 +664,7 @@ def q_learning_simple():
     for episode in range(episodes):
         set_random_initial_state()
         for step in range(steps):
-            s = state
+            update_state()
 
             # if a goal state is reached the episode ends
             if state_is_goal(): break
