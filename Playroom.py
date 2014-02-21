@@ -770,6 +770,7 @@ def q_learning_simple():
     filename = '/home/rafaelbeirigo/' + now_str.replace(':', '-')[:19] + '.log'
     print 'Logging to: ' + filename
 
+    global_step_count = 0
     for episode in range(episodes):
         print "Episódio: " + str(episode)
         setup_new_episode()
@@ -811,7 +812,8 @@ def q_learning_simple():
                 set_Q_max(s, Q_s_a_new)
 
             step += 1
-                
+            global_step_count += 1
+                        
             root.update_idletasks()
             # sleep(.01)
 
