@@ -774,6 +774,7 @@ def q_learning_simple():
     for episode in range(episodes):
         print "Episódio: " + str(episode)
         setup_new_episode()
+        start_step = global_step_count
         for current_step in range(steps):
             update_state()
             update_environment_variables()
@@ -816,6 +817,18 @@ def q_learning_simple():
                         
             root.update_idletasks()
             # sleep(.01)
+
+        # Here an episode just ended
+        episode_number = episode
+        end_step = global_step_count
+        duration = end_step - start_step
+
+        last_start_step = end_step
+                
+        f = open(filename, 'w')
+        f.write('Hello File!\n')
+        f.close()
+
 
         # epsilon = epsilon + epsilonIncrement
 
