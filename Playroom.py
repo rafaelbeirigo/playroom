@@ -10,6 +10,7 @@ from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
 from itertools import product
+from datetime import datetime
 
 def update_light_state():
     pass
@@ -764,6 +765,10 @@ def q_learning_simple():
 
     episodes = 100000
     steps = 1000
+
+    now_str = str(datetime.now())
+    filename = '/home/rafaelbeirigo/' + now_str.replace(':', '-')[:19] + '.log'
+    print 'Logging to: ' + filename
 
     for episode in range(episodes):
         print "Episódio: " + str(episode)
