@@ -630,6 +630,27 @@ def get_Q_value(state_key, action_key):
 
     return Q[state_key][action_key]
 
+def fix_Q_max(state_key):
+    global Q_max
+    global Q_default_value
+
+    if not (state_key in Q_max.keys()):
+        Q_max[state_key] = Q_default_value
+
+def set_Q_max(state_key, new_max):
+    global Q_max
+
+    fix_Q_max(state_key)
+
+    Q_max[state_key] = new_max
+
+def get_Q_max(state_key):
+    global Q_max
+
+    fix_Q_max(state_key)
+
+    return Q_max[state_key]
+
 def state_is_goal():
     return light['state'] == 'ON'
 
@@ -774,11 +795,11 @@ def q_learning_simple():
 
             step += 1
 
-        #     # TODO: manter um vetor V com os maximos
-        #     maxValue = -1.0
-        #     for a2 in A:
-        #         if Q[s2][a2] > maxValue:
-        #             maxValue = Q[s2][a2]
+            # TODO: manter um vetor V com os maximos
+            maxValue = -1.0
+            for a2 in A:
+                if Q[s2][a2] > maxValue:
+                    maxValue = Q[s2][a2]
 
         #     # Update the table entry for Q(s, a)
         #     Q[s][a] = (1.0 - float(alpha)) * float(Q[s][a]) + \
