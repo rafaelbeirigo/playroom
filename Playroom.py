@@ -818,11 +818,14 @@ def q_learning_simple():
 
         # Here an episode just ended
         episode_number = episode
-        end_step = global_step_count
+        end_step = global_step_count - 1
         duration = end_step - start_step
                 
-        f = open(filename, 'w')
-        f.write('Hello File!\n')
+        f = open(filename, 'a')
+        f.write(str(episode_number) + '\t' + \
+                str(start_step) + '\t' + \
+                str(end_step) + '\t' + \
+                str(duration) + '\to\n')
         f.close()
 
 
