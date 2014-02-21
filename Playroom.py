@@ -707,6 +707,7 @@ def setup_new_episode():
 def q_learning_simple():
     global Q
     global step
+    global state
 
     alpha            = 0.9
     gamma            = 0.9
@@ -738,7 +739,9 @@ def q_learning_simple():
                 # a = selectBestAction(s, source = 'Q-Table', Q = Q)
                 pass
 
+            s = state
             execute_action(a)
+            s2 = state
 
             root.update_idletasks()
             # sleep(.01)
