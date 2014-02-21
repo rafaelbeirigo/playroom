@@ -605,6 +605,7 @@ def flick_switch_click():
 ##############
 Q = {}
 Q_default_value = 0
+Q_max = {}
 
 def fix_Q_value(state_key, action_key):
     global Q
@@ -789,24 +790,21 @@ def q_learning_simple():
             execute_action(a)
             s2 = state
             r = get_reward()
+
+            Q_s_a_old = get_Q_value(s, a)
+            Q_max_s2 = get_Q_max(s2)
             
-            root.update_idletasks()
-            # sleep(.01)
+            # Update the table entry for Q(s, a)
+            Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
+                               alpha  * (r + gamma * Q_max_s2)
+
+            if Q_s_a_new > get_Q_max(s):
+                set_Q_max(s, Q_s_a_new)
 
             step += 1
-
-            # TODO: manter um vetor V com os maximos
-            maxValue = -1.0
-            for a2 in A:
-                if Q[s2][a2] > maxValue:
-                    maxValue = Q[s2][a2]
-
-        #     # Update the table entry for Q(s, a)
-        #     Q[s][a] = (1.0 - float(alpha)) * float(Q[s][a]) + \
-        #               float(alpha) * (float(r) + float(gamma) * float(maxValue))
-
-        #     # s=s'
-        #     state = s2
+                
+            root.update_idletasks()
+            # sleep(.01)
 
         # epsilon = epsilon + epsilonIncrement
 
