@@ -762,7 +762,7 @@ def q_learning_simple():
     epsilon          = 0.1
     epsilonIncrement = 0.0
 
-    episodes = 10
+    episodes = 10000
     steps = 1000
 
     now_str = str(datetime.now())
@@ -818,7 +818,7 @@ def q_learning_simple():
         # Here an episode just ended
         episode_number = episode
         end_step = global_step_count - 1
-        duration = end_step - start_step
+        duration = end_step - start_step + 1
                 
         f = open(filename, 'a')
         f.write(str(episode_number) + '\t' + \
@@ -826,7 +826,6 @@ def q_learning_simple():
                 str(end_step) + '\t' + \
                 str(duration) + '\to\n')
         f.close()
-
 
         # epsilon = epsilon + epsilonIncrement
 
