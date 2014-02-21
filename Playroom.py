@@ -748,7 +748,6 @@ def setup_new_episode():
 
 def get_reward():
     if state_is_goal():
-        print 'reward!!!'
         return 1
     else:
         return 0
