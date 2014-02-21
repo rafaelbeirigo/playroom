@@ -759,13 +759,14 @@ def q_learning_simple():
 
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 0.0
+    epsilon          = 0.1
     epsilonIncrement = 0.0
 
-    episodes = 1000
+    episodes = 1000000
     steps = 1000
 
     for episode in range(episodes):
+        print "Episódio: " + str(episode)
         setup_new_episode()
         for current_step in range(steps):
             update_state()
@@ -773,7 +774,9 @@ def q_learning_simple():
             update_screen()
 
             # if a goal state is reached the episode ends
-            if state_is_goal(): break
+            if state_is_goal():
+                print "Cheguei ao goal em (steps): " + str(current_step - 1)
+                break
 
             # Following epsilon-greedy strategy, Select an action a
             # and execute it. Receive immediate reward r. Observe the
