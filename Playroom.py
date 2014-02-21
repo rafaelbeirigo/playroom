@@ -763,8 +763,8 @@ def q_learning_simple():
     epsilon          = 0.1
     epsilonIncrement = 0.0
 
-    episodes = 100000
-    steps = 1000
+    episodes = 10
+    steps = 100
 
     now_str = str(datetime.now())
     filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
