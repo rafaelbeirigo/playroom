@@ -772,7 +772,6 @@ def q_learning_simple():
 
     global_step_count = 0
     for episode in range(episodes):
-        print "Episódio: " + str(episode)
         setup_new_episode()
         start_step = global_step_count
         for current_step in range(steps):
@@ -782,7 +781,6 @@ def q_learning_simple():
 
             # if a goal state is reached the episode ends
             if state_is_goal():
-                print "Cheguei ao goal em (steps): " + str(current_step - 1)
                 break
 
             # Following epsilon-greedy strategy, Select an action a
