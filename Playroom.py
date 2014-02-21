@@ -704,6 +704,13 @@ def setup_new_episode():
     turn_light('OFF')
     position_pieces_like_article()
 
+def get_reward():
+    if state_is_goal():
+        print 'reward!!!'
+        return 1
+    else:
+        return 0
+
 def q_learning_simple():
     global Q
     global step
@@ -742,7 +749,8 @@ def q_learning_simple():
             s = state
             execute_action(a)
             s2 = state
-
+            r = get_reward()
+            
             root.update_idletasks()
             # sleep(.01)
 
