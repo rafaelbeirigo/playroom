@@ -640,6 +640,25 @@ def select_random_action():
 
     return choice(available_actions)
 
+def select_best_action():
+    global available_actions
+    global state
+    
+    update_available_actions()
+
+    best_value = 0
+    best_actions = []
+    for action in available_actions:
+        Q_value = get_Q_value(state, action)
+        if Q_value >= best_value:
+            if Q_value > best_value:
+                best_value = Q_value
+                del best_actions[:]; best_actions = []
+                
+            best_actions.append(action)
+
+    return choice(best_actions)
+
 def set_random_initial_state():
     global all_pieces
     global board
@@ -718,7 +737,7 @@ def q_learning_simple():
 
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 1.0
+    epsilon          = 0.0
     epsilonIncrement = 0.0
 
     episodes = 1000
@@ -738,13 +757,12 @@ def q_learning_simple():
             # and execute it. Receive immediate reward r. Observe the
             # new state s2
             randomNumber = random()
-            if randomNumber <= epsilon:
+            if randomNumber < epsilon:
                 # random
                 a = select_random_action()
             else:
                 # greedy
-                # a = selectBestAction(s, source = 'Q-Table', Q = Q)
-                pass
+                a = select_best_action()
 
             s = state
             execute_action(a)
