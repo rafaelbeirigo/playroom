@@ -604,7 +604,7 @@ def flick_switch_click():
 # Q-Learning #
 ##############
 Q = {}
-Q_default_value = 0
+Q_default_value = 0.0
 Q_max = {}
 
 def fix_Q_value(state_key, action_key):
@@ -762,7 +762,7 @@ def q_learning_simple():
     epsilon          = 0.1
     epsilonIncrement = 0.0
 
-    episodes = 1000000
+    episodes = 100000
     steps = 1000
 
     for episode in range(episodes):
@@ -800,6 +800,7 @@ def q_learning_simple():
             # Update the table entry for Q(s, a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
                                alpha  * (r + gamma * Q_max_s2)
+            set_Q_value(s, a, Q_s_a_new)
 
             if Q_s_a_new > get_Q_max(s):
                 set_Q_max(s, Q_s_a_new)
