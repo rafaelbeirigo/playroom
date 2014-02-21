@@ -767,7 +767,7 @@ def q_learning_simple():
     steps = 1000
 
     now_str = str(datetime.now())
-    filename = '/home/rafaelbeirigo/' + now_str.replace(':', '-')[:19] + '.log'
+    filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
     print 'Logging to: ' + filename
 
     global_step_count = 0
@@ -820,8 +820,6 @@ def q_learning_simple():
         episode_number = episode
         end_step = global_step_count
         duration = end_step - start_step
-
-        last_start_step = end_step
                 
         f = open(filename, 'w')
         f.write('Hello File!\n')
