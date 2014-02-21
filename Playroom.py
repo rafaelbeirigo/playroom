@@ -666,7 +666,7 @@ def select_random_action():
 def select_best_action():
     global available_actions
     global state
-    
+
     update_available_actions()
 
     best_value = 0
@@ -677,7 +677,7 @@ def select_best_action():
             if Q_value > best_value:
                 best_value = Q_value
                 del best_actions[:]; best_actions = []
-                
+
             best_actions.append(action)
 
     return choice(best_actions)
@@ -800,7 +800,7 @@ def q_learning_simple():
 
             Q_s_a_old = get_Q_value(s, a)
             Q_max_s2 = get_Q_max(s2)
-            
+
             # Update the table entry for Q(s, a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
                                alpha  * (r + gamma * Q_max_s2)
@@ -811,7 +811,7 @@ def q_learning_simple():
 
             step += 1
             global_step_count += 1
-                        
+
             root.update_idletasks()
             # sleep(.01)
 
@@ -819,7 +819,7 @@ def q_learning_simple():
         episode_number = episode
         end_step = global_step_count - 1
         duration = end_step - start_step + 1
-                
+
         f = open(filename, 'a')
         f.write(str(episode_number) + '\t' + \
                 str(start_step) + '\t' + \
