@@ -762,7 +762,7 @@ def q_learning_simple():
     epsilon          = 0.1
     epsilonIncrement = 0.0
 
-    episodes = 100000
+    episodes = 1000000
     steps = 1000
 
     now_str = str(datetime.now())
