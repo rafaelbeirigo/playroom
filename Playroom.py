@@ -776,7 +776,7 @@ def q_learning_simple():
         for current_step in range(steps):
             update_state()
             update_environment_variables()
-            update_screen()
+            # update_screen()
 
             # if a goal state is reached the episode ends
             if state_is_goal():
@@ -812,7 +812,7 @@ def q_learning_simple():
             step += 1
             global_step_count += 1
 
-            root.update_idletasks()
+            # root.update_idletasks()
             # sleep(.01)
 
         # Here an episode just ended
