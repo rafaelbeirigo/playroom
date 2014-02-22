@@ -28,18 +28,23 @@ class Board(tk.Frame):
         # changes the window size
         self.canvas.bind("<Configure>", self.refresh)
 
-    def addpiece(self, peca):
+    def updatepieceimage(self, piece):
+        self.canvas.delete(piece.name)
+        self.canvas.create_image(0,0, image=piece.image, tags=(piece.name, "peça"), anchor="c")
+        self.placepiece(piece)
+    
+    def addpiece(self, piece):
         '''Add a piece to the playing board'''
-        self.canvas.create_image(0,0, image=peca.image, tags=(peca.name, "peça"), anchor="c")
-        self.placepiece(peca)
-        self.pieces.append(peca)
+        self.canvas.create_image(0,0, image=piece.image, tags=(piece.name, "peça"), anchor="c")
+        self.placepiece(piece)
+        self.pieces.append(piece)
 
-    def placepiece(self, peca):
+    def placepiece(self, piece):
         # name, row, column):
         '''Place a piece at the given row/column'''
-        x0 = (peca.column * self.size) + int(self.size/2)
-        y0 = (peca.row * self.size) + int(self.size/2)
-        self.canvas.coords(peca.name, x0, y0)
+        x0 = (piece.column * self.size) + int(self.size/2)
+        y0 = (piece.row * self.size) + int(self.size/2)
+        self.canvas.coords(piece.name, x0, y0)
 
     def refresh(self, event):
         '''Redraw the board, possibly in response to window being resized'''
@@ -57,8 +62,8 @@ class Board(tk.Frame):
                 y2 = y1 + self.size
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline="black", fill=color, tags="square")
                 color = self.color1 if color == self.color2 else self.color2
-        for peca in self.pieces:
-            self.placepiece(peca)
+        for piece in self.pieces:
+            self.placepiece(piece)
         self.canvas.tag_raise("piece")
         self.canvas.tag_lower("square")
 
@@ -72,8 +77,8 @@ if __name__ == "__main__":
     bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
     eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), row=0, column=2)
     hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), row=0, column=3)
-    play = Piece(name = "play", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/play.gif"), row=0, column=4)
-    stop = Piece(name = "stop", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/stop.gif"), row=1, column=0)
+    blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4)
+    red_block = Piece(name = "red_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0)
     switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1)
     marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
     toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
@@ -82,8 +87,8 @@ if __name__ == "__main__":
     board.addpiece(bell)
     board.addpiece(eye)
     board.addpiece(hand)
-    board.addpiece(play)
-    board.addpiece(stop)
+    board.addpiece(blue_block)
+    board.addpiece(red_block)
     board.addpiece(switch)
     board.addpiece(marker)
     board.addpiece(toy_monkey)
