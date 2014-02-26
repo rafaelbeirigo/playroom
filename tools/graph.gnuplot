@@ -24,10 +24,10 @@ set ytics 1 nomirror
 set multiplot
 
 # Axes
-set xrange [-0.5:50]
+# set xrange [-0.5:50]
 set xlabel "Training Time (hours)"
 
-set yrange [3:13]
+# set yrange [3:13]
 set ylabel "Episode Duration (seconds)"
 
 # Plot Data
