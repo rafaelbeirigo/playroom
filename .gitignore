@@ -40,3 +40,8 @@ nosetests.xml
 \#*
 .\#*
 TAGS
+
+/logs/
+/tools/hist
+/tools/kwyzipper
+/tools/winsum
