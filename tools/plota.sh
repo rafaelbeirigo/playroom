@@ -8,7 +8,7 @@ PNG_FILE=$EPS_FILE.png
 
 get_eps () {
     echo 'Cating...'
-    cat $KWY_FILE | winsum 900 0.01 30 > 1.out
+    cat $KWY_FILE | ./winsum 900 0.01 30 > 1.out
     echo 'Copying...'
     cp 1.out $OUT_FILE
     echo 'Gnuploting'
