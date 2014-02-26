@@ -96,8 +96,8 @@ main( int argc, char* argv[] )
   prev = sum;
   while ( !cin.eof() ) {
     if ( ccount % coarse == 0 )
-      cout << start / 10.0 / 3600 << " "
-	   << prev / 10.0 / windowSize << endl;
+      cout << start << " "
+	   << prev / windowSize << endl;
     
     sum -= q[ i ];
     cin >> iDummy;
