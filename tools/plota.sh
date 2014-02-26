@@ -12,7 +12,7 @@ get_eps () {
     echo 'Copying...'
     cp 1.out $OUT_FILE
     echo 'Gnuploting'
-    gnuplot graph.gnuplot
+    cat graph.gnuplot <(echo \"$OUT_FILE\") | gnuplot
     echo 'Moving...'
     mv graph.eps $EPS_FILE
 }
