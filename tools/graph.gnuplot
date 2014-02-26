@@ -25,10 +25,10 @@ set multiplot
 
 # Axes
 # set xrange [-0.5:50]
-set xlabel "Training Time (hours)"
+set xlabel "Training Time (steps)"
 
 # set yrange [3:13]
-set ylabel "Episode Duration (seconds)"
+set ylabel "Episode Duration (steps)"
 
 # Plot Data
 plot \
