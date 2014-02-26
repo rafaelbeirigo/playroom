@@ -32,4 +32,4 @@ set ylabel "Episode Duration (seconds)"
 
 # Plot Data
 plot \
-     "/home/rafaelbeirigo/ciencia/rcss/keepaway/logs/201303121238-LTI-PROJETO-TM.kwy.out"    title '4v3 From Scratch - PRQL', \
+     "/home/rafaelbeirigo/ciencia/playroom/logs/2014-02-22-20-11-38.log.out"    title 'Q-Learning Simples'
