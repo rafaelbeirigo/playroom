@@ -795,6 +795,7 @@ def q_learning_simple():
 
             s = state
             execute_action(a)
+            update_state()
             s2 = state
             r = get_reward()
 
