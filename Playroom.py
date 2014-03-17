@@ -772,9 +772,9 @@ def q_learning_simple():
     global_step_count = 0
     for episode in range(episodes):
         setup_new_episode()
+        update_state()
         start_step = global_step_count
         for current_step in range(steps):
-            update_state()
             update_environment_variables()
             update_screen()
 
@@ -794,8 +794,10 @@ def q_learning_simple():
                 a = select_best_action()
 
             s = state
+
             execute_action(a)
             update_state()
+
             s2 = state
             r = get_reward()
 
