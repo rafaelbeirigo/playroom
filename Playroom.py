@@ -697,35 +697,35 @@ def set_random_initial_state():
         board.placepiece(piece)
 
 def position_pieces_like_article():
-    global ball
-    global bell
-    global blue_block
-    global red_block
+    # global ball
+    # global bell
+    # global blue_block
+    # global red_block
     global switch
-    global toy_monkey
+    # global toy_monkey
     global hand
     global eye
     global marker
     global board
     global all_pieces
 
-    ball.row = 1
-    ball.column = 0
+    # ball.row = 1
+    # ball.column = 0
 
-    bell.row = 1
-    bell.column = 4
+    # bell.row = 1
+    # bell.column = 4
 
-    blue_block.row = 4
-    blue_block.column = 0
+    # blue_block.row = 4
+    # blue_block.column = 0
 
-    red_block.row = 4
-    red_block.column = 4
+    # red_block.row = 4
+    # red_block.column = 4
 
     switch.row = 2
     switch.column = 2
 
-    toy_monkey.row = 1
-    toy_monkey.column = 2
+    # toy_monkey.row = 1
+    # toy_monkey.column = 2
 
     hand.row = 0
     hand.column = 3
