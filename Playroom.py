@@ -393,7 +393,7 @@ def update_screen():
     update_environment_labels()
     # update_blocks_color()
     update_action_buttons_state()
-    # root.update_idletasks()
+    root.update_idletasks()
 
 def create_action_buttons():
     action_buttons_frame = tk.Frame(central_frame)
