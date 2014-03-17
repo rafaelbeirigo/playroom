@@ -757,7 +757,7 @@ def q_learning_simple():
     global step
     global state
 
-    alpha            = 0.1
+    alpha            = 0.9
     gamma            = 0.9
     epsilon          = 0.1
     epsilonIncrement = 0.0
