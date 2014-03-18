@@ -759,8 +759,8 @@ def q_learning_simple():
 
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 0.1
-    epsilonIncrement = 0.0
+    epsilon          = 1.0
+    epsilonIncrement = -0.0001
 
     episodes = 10000
     steps = 100
@@ -835,7 +835,7 @@ def q_learning_simple():
                 str(duration) + '\to\n')
         f.close()
 
-        # epsilon = epsilon + epsilonIncrement
+        epsilon = epsilon + epsilonIncrement
 
 root = tk.Tk()
 
