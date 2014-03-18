@@ -391,7 +391,7 @@ def update_screen():
     update_state()
     update_environment_variables()
     update_environment_labels()
-    # update_blocks_color()
+    update_blocks_color()
     update_action_buttons_state()
     # root.update_idletasks()
 
