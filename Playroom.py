@@ -764,7 +764,7 @@ def q_learning_simple():
     alpha            = 0.9
     gamma            = 0.9
     epsilon          = 1.0
-    epsilonIncrement = -0.0001
+    epsilonIncrement = -1.0 / episodes
 
     now_str = str(datetime.now())
     filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
