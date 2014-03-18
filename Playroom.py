@@ -170,11 +170,11 @@ def same_cell_to_tuple(ag_piece):
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            # if light['state'] == 'OFF' and \
-            #   piece in [blue_block, red_block]:
-            #     same_cell += ('gray_block',)
-            # else:
-            same_cell += (piece.name,)
+            if light['state'] == 'OFF' and \
+              piece in [blue_block]:
+                same_cell += ('gray_block',)
+            else:
+                same_cell += (piece.name,)
     return same_cell
 
 def update_state():
