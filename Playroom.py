@@ -802,7 +802,12 @@ def q_learning_simple():
             r = get_reward()
 
             Q_s_a_old = get_Q_value(s, a)
-            Q_max_s2 = get_Q_max(s2)
+
+            # Goal is an absorbing state
+            if r > 0:
+                Q_max_s2 = 0
+            else:
+                Q_max_s2 = get_Q_max(s2)
 
             # Update the table entry for Q(s, a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
