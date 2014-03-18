@@ -654,7 +654,7 @@ def get_Q_max(state_key):
     return Q_max[state_key]
 
 def state_is_goal():
-    return light['state'] == 'ON'
+    return music['state'] == 'ON'
 
 def select_random_action():
     global available_actions
