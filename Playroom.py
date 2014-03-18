@@ -758,13 +758,13 @@ def q_learning_simple():
     global step
     global state
 
+    episodes = 1000000
+    steps = 1000
+
     alpha            = 0.9
     gamma            = 0.9
     epsilon          = 1.0
     epsilonIncrement = -0.0001
-
-    episodes = 1000000
-    steps = 1000
 
     now_str = str(datetime.now())
     filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
