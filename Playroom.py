@@ -699,7 +699,7 @@ def set_random_initial_state():
 def position_pieces_like_article():
     # global ball
     # global bell
-    # global blue_block
+    global blue_block
     # global red_block
     global switch
     # global toy_monkey
@@ -715,8 +715,8 @@ def position_pieces_like_article():
     # bell.row = 1
     # bell.column = 4
 
-    # blue_block.row = 4
-    # blue_block.column = 0
+    blue_block.row = 4
+    blue_block.column = 0
 
     # red_block.row = 4
     # red_block.column = 4
