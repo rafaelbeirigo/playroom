@@ -42,7 +42,7 @@ def update_toy_monkey_sound_state():
 
 # Environment variables
 light = {'state':'OFF', 'step':0, 'update_function':update_light_state}
-music = {'state':'ON', 'step':0, 'update_function':update_music_state}
+music = {'state':'OFF', 'step':0, 'update_function':update_music_state}
 bell_sound = {'state':'ON', 'step':0, 'update_function':update_bell_sound_state}
 toy_monkey_sound = {'state':'ON', 'step':0, 'update_function':update_toy_monkey_sound_state}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
