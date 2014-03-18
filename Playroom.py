@@ -744,6 +744,7 @@ def setup_new_episode():
 
     step = 0
     turn_light('OFF')
+    turn_music_off()
     position_pieces_like_article()
 
 def get_reward():
