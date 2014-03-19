@@ -914,7 +914,7 @@ eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/cienci
 marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch]
+non_agent_pieces = []
 all_pieces = agent_pieces + non_agent_pieces
 
 for piece in non_agent_pieces:
