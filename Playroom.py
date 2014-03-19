@@ -178,10 +178,8 @@ def same_cell_to_tuple(ag_piece):
 
 def update_state():
     global state
-    under_eye = same_cell_to_tuple(eye)
-    under_hand = same_cell_to_tuple(hand)
-    under_marker = same_cell_to_tuple(marker)
-    state = (under_eye, under_hand, under_marker)
+    global eye
+    state = ( (eye.row,), (eye.column, ) )
     return state
 
 def move_piece_to_piece(piece_to_move, destination_piece):
@@ -364,9 +362,8 @@ def update_environment_labels():
 
     step_count_label_text.set('Steps: ' + str(step))
 
-    state_label_text.set('State: [eye:'    + str(state[0]) +'], ' +
-                                '[hand:'   + str(state[1]) +'], ' +
-                                '[marker:' + str(state[2]) +']')
+    state_label_text.set('State: [row:'    + str(state[0]) +'], ' +
+                                '[column:'   + str(state[1]) +']')
 
 def update_blocks_color():
     global light
