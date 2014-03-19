@@ -933,7 +933,6 @@ all_possible_actions = {
     'move_eye_one_step_south':move_eye_one_step_south,
     'move_eye_one_step_east':move_eye_one_step_east,
     'move_eye_one_step_west':move_eye_one_step_west,
-    'move_eye_to_random_object':move_eye_to_random_object,
     'move_hand_to_eye':move_hand_to_eye,
     'move_marker_to_eye':move_marker_to_eye,
     'kick_ball':kick_ball,
