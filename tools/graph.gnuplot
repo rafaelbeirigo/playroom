@@ -18,9 +18,9 @@ set title ""
 set style data lines
 set key bottom right
 set border 3
-set xtics nomirror
-set grid ytics
-set ytics 1 nomirror
+#set xtics nomirror
+#set grid ytics
+#set ytics 1 nomirror
 set multiplot
 
 # Axes
