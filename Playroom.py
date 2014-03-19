@@ -179,10 +179,12 @@ def same_cell_to_tuple(ag_piece):
 
 def update_state():
     global state
+    global light
     under_eye = same_cell_to_tuple(eye)
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
-    state = (under_eye, under_hand, under_marker)
+    light_status = (light['state'],)
+    state = (under_eye, under_hand, under_marker, light_status)
     return state
 
 def move_piece_to_piece(piece_to_move, destination_piece):
