@@ -650,7 +650,8 @@ def get_Q_max(state_key):
     return Q_max[state_key]
 
 def state_is_goal():
-    return light['state'] == 'ON'
+    global eye
+    return eye.row == 0 and eye.column == 0
 
 def select_random_action():
     global available_actions
