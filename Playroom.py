@@ -906,7 +906,7 @@ board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 # bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
 # blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
 # red_block = Piece(name = "red_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
-switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
+# switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 # toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
 hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), row=0, column=3)
