@@ -723,8 +723,8 @@ def position_pieces_like_article():
     hand.row = 0
     hand.column = 3
 
-    eye.row = 1
-    eye.column = 3
+    eye.row = choice(range(5))
+    eye.column = choice(range(5))
 
     marker.row = 2
     marker.column = 4
