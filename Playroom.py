@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # coding=UTF-8
 
-teste
-
 import Tkinter as tk
 from Board import *
 from Piece import *
