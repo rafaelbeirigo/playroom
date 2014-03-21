@@ -149,7 +149,7 @@ def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                if not (piece in [blue_block] and \
+                if not (piece in [blue_block, red_block] and \
                         light['state'] == 'OFF'):
                         actions += piece.get_actions()
     return actions
