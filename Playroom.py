@@ -660,7 +660,9 @@ def get_Q_max(state_key):
     return Q_max[state_key]
 
 def state_is_goal():
-    return music['state'] == 'ON'
+    global step
+    return music['state'] == 'OFF' and \
+           music['step'] == step
 
 def select_random_action():
     global available_actions
