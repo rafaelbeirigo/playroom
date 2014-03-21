@@ -136,10 +136,8 @@ def on_same_cell(piece1, piece2):
 def get_actions_from_agent():
     return [
         'move_eye_to_hand',
-        'move_eye_to_marker',
         'move_eye_to_random_object',
-        'move_hand_to_eye',
-        'move_marker_to_eye'
+        'move_hand_to_eye'
         ]
 
 def get_actions_from_pieces():
