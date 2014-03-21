@@ -700,7 +700,7 @@ def position_pieces_like_article():
     # global ball
     # global bell
     global blue_block
-    # global red_block
+    global red_block
     global switch
     # global toy_monkey
     global hand
@@ -718,8 +718,8 @@ def position_pieces_like_article():
     blue_block.row = 4
     blue_block.column = 0
 
-    # red_block.row = 4
-    # red_block.column = 4
+    red_block.row = 4
+    red_block.column = 4
 
     switch.row = 2
     switch.column = 2
