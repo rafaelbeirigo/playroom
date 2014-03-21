@@ -375,14 +375,14 @@ def update_blocks_color():
         blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
         board.updatepieceimage(blue_block)
 
-        # red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
-        # board.updatepieceimage(red_block)
+        red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
+        board.updatepieceimage(red_block)
     elif light['state'] == 'OFF':
         blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
         board.updatepieceimage(blue_block)
 
-        # red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
-        # board.updatepieceimage(red_block)
+        red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        board.updatepieceimage(red_block)
     board.canvas.tag_raise('hand')
     board.canvas.tag_raise('eye')
     board.canvas.tag_raise('marker')
