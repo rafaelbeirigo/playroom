@@ -747,10 +747,14 @@ def position_pieces_like_article():
 
 def setup_new_episode():
     global step
+    global music
 
     step = 0
     turn_light('OFF')
-    turn_music_off()
+
+    music['state'] = 'OFF'
+    music['step'] = -1
+
     position_pieces_like_article()
 
 def get_reward():
