@@ -765,7 +765,7 @@ def q_learning_simple():
     global step
     global state
 
-    episodes = 100000
+    episodes = 1000000
     steps = 100
 
     alpha            = 0.9
