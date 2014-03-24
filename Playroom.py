@@ -656,7 +656,7 @@ def get_Q_max(state_key):
 def state_is_goal():
     global step
     return music['state'] == 'OFF' and \
-           music['step'] == step
+           music['step'] == step - 1
 
 def select_random_action():
     global available_actions
@@ -754,7 +754,8 @@ def setup_new_episode():
     position_pieces_like_article()
 
 def get_reward():
-    if state_is_goal():
+    if music['state'] == 'OFF' and \
+       music['step'] != None:
         return 1
     else:
         return 0
