@@ -749,7 +749,7 @@ def setup_new_episode():
     turn_light('OFF')
 
     music['state'] = 'OFF'
-    music['step'] = -1
+    music['step'] = None
 
     position_pieces_like_article()
 
