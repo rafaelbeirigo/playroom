@@ -753,6 +753,10 @@ def get_reward():
     else:
         return 0
 
+def saveobject(obj, filename):
+    with open(filename, 'wb') as output:
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
 def q_learning_simple():
     global Q
     global step
