@@ -2,6 +2,7 @@
 # coding=UTF-8
 
 import Tkinter as tk
+import pickle
 from Board import *
 from Piece import *
 from random import randint
