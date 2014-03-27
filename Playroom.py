@@ -813,16 +813,26 @@ def q_learning_simple():
             if state_is_goal():
                 break
 
-            # Following epsilon-greedy strategy, Select an action a
-            # and execute it. Receive immediate reward r. Observe the
-            # new state s2
-            randomNumber = random()
-            if randomNumber < epsilon:
-                # random
-                a = select_random_action()
+            if current_option == 'flick_switch_option':
+                a = select_best_action(Q_flick_switch)
+            else if current_option == None:
+                # Following epsilon-greedy strategy, Select an action a
+                # and execute it. Receive immediate reward r. Observe the
+                # new state s2
+                randomNumber = random()
+                if randomNumber < epsilon:
+                    # random
+                    a = select_random_action()
+                else:
+                    # greedy
+                    a = select_best_action(Q)
+
+                # Tests if the selected action is an option
+                if a == 'flick_switch_option':
+                    current_option = a
             else:
-                # greedy
-                a = select_best_action(Q)
+                print "ERRO: Tentou executar uma option que não existia: " + current_option
+
 
             s = state
 
