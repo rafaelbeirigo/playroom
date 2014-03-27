@@ -795,7 +795,7 @@ def q_learning_simple():
     steps = 100
 
     now_str = str(datetime.now())
-    filename = '/home/rafaelbeirigo/ciencia/playroom/logs/' + now_str.replace(':', '-')[:19] + '.log'
+    filename = '/home/rafaelbeirigo/ciencia/playroom/logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
     print 'Logging to: ' + filename
 
     global_step_count = 0
