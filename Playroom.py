@@ -624,6 +624,8 @@ Q = {}
 Q_default_value = 0.0
 Q_max = {}
 
+Q_flick_switch = loadobject('flick_switch_option.q')
+    
 def fix_Q_value(state_key, action_key):
     global Q
     global Q_default_value
@@ -784,6 +786,7 @@ def print_Q(Q):
     
 def q_learning_simple():
     global Q
+    global Q_flick_switch
     global step
     global state
 
@@ -799,9 +802,6 @@ def q_learning_simple():
     filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
     print 'Logging to: ' + filename
 
-    Q_flick_switch = loadobject('flick_switch_option.q')
-    print Q_flick_switch
-    
     global_step_count = 0
     for episode in range(episodes):
         setup_new_episode()
