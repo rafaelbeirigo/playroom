@@ -805,6 +805,7 @@ def q_learning_simple():
         setup_new_episode()
         update_state()
         start_step = global_step_count
+        current_option = None
         for current_step in range(steps):
             update_environment_variables()
 
