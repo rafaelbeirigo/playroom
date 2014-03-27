@@ -610,6 +610,12 @@ def flick_switch_click():
     step += 1
     update_screen()
 
+def flick_switch_option_click():
+    global step
+    flick_switch_option()
+    step += 1
+    update_screen()
+
 ##############
 # Q-Learning #
 ##############
