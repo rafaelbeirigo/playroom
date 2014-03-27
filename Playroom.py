@@ -626,25 +626,24 @@ Q_max = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
     
-def fix_Q_value(state_key, action_key):
-    global Q
+def fix_Q_value(state_key, action_key, my_Q):
     global Q_default_value
 
-    if not (state_key in Q.keys()):
-        Q[state_key] = {}
+    if not (state_key in my_Q.keys()):
+        my_Q[state_key] = {}
 
-    if not (action_key in Q[state_key].keys()):
-        Q[state_key][action_key] = Q_default_value
+    if not (action_key in my_Q[state_key].keys()):
+        my_Q[state_key][action_key] = Q_default_value
 
 def set_Q_value(state_key, action_key, new_value):
     global Q
 
-    fix_Q_value(state_key, action_key)
+    fix_Q_value(state_key, action_key, my_Q)
 
     Q[state_key][action_key] = new_value
 
 def get_Q_value(state_key, action_key, my_Q):
-    fix_Q_value(state_key, action_key)
+    fix_Q_value(state_key, action_key, my_Q)
 
     return my_Q[state_key][action_key]
 
