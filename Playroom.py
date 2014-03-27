@@ -13,6 +13,14 @@ from time import sleep
 from itertools import product
 from datetime import datetime
 
+def saveobject(obj, filename):
+    with open(filename, 'wb') as output:
+        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
+
+def loadobject(filename):
+    with open(filename, 'rb') as input:
+       return pickle.load(input)
+
 def update_light_state():
     pass
 
@@ -764,14 +772,6 @@ def get_reward():
         return 1
     else:
         return 0
-
-def saveobject(obj, filename):
-    with open(filename, 'wb') as output:
-        pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
-
-def loadobject(filename):
-    with open(filename, 'rb') as input:
-       return pickle.load(input)
 
 def print_Q(Q):
     for x in Q:
