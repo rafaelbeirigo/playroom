@@ -774,7 +774,7 @@ def q_learning_simple():
 
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 1.0
+    epsilon          = 0.0
     epsilonIncrement = -0.0001
 
     episodes = 10000
@@ -785,6 +785,7 @@ def q_learning_simple():
     print 'Logging to: ' + filename
 
     Q = loadobject('flick_switch_option.q')
+    print Q
     
     global_step_count = 0
     for episode in range(episodes):
@@ -814,24 +815,24 @@ def q_learning_simple():
             execute_action(a)
             update_state()
 
-            s2 = state
-            r = get_reward()
+            # s2 = state
+            # r = get_reward()
 
-            Q_s_a_old = get_Q_value(s, a)
+            # Q_s_a_old = get_Q_value(s, a)
 
-            # Goal is an absorbing state
-            if r > 0:
-                Q_max_s2 = 0
-            else:
-                Q_max_s2 = get_Q_max(s2)
+            # # Goal is an absorbing state
+            # if r > 0:
+            #     Q_max_s2 = 0
+            # else:
+            #     Q_max_s2 = get_Q_max(s2)
 
-            # Update the table entry for Q(s, a)
-            Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
-                               alpha  * (r + gamma * Q_max_s2)
-            set_Q_value(s, a, Q_s_a_new)
+            # # Update the table entry for Q(s, a)
+            # Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
+            #                    alpha  * (r + gamma * Q_max_s2)
+            # set_Q_value(s, a, Q_s_a_new)
 
-            if Q_s_a_new > get_Q_max(s):
-                set_Q_max(s, Q_s_a_new)
+            # if Q_s_a_new > get_Q_max(s):
+            #     set_Q_max(s, Q_s_a_new)
 
             step += 1
             global_step_count += 1
