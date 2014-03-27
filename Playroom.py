@@ -50,10 +50,10 @@ def update_toy_monkey_sound_state():
            turn_toy_monkey('ON')
 
 # Environment variables
-light = {'state':'OFF', 'step':0, 'update_function':update_light_state}
-music = {'state':'ON', 'step':0, 'update_function':update_music_state}
-bell_sound = {'state':'ON', 'step':0, 'update_function':update_bell_sound_state}
-toy_monkey_sound = {'state':'ON', 'step':0, 'update_function':update_toy_monkey_sound_state}
+light                 = {'state':'OFF', 'step':0, 'update_function':update_light_state}
+music                 = {'state':'ON', 'step':0, 'update_function':update_music_state}
+bell_sound            = {'state':'ON', 'step':0, 'update_function':update_bell_sound_state}
+toy_monkey_sound      = {'state':'ON', 'step':0, 'update_function':update_toy_monkey_sound_state}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
@@ -814,8 +814,13 @@ def q_learning_simple():
                 break
 
             if current_option == 'flick_switch_option':
-                a = select_best_action(Q_flick_switch)
-            elif current_option == None:
+                # option stops its execution with fixed probability
+                if random() > 0.1:
+                    a = select_best_action(Q_flick_switch)
+                else:
+                    current_option = None
+                    
+            if current_option == None:
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
                 # new state s2
@@ -830,9 +835,6 @@ def q_learning_simple():
                 # Tests if the selected action is an option
                 if a == 'flick_switch_option':
                     current_option = a
-            else:
-                print "ERRO: Tentou executar uma option que não existia: " + current_option
-
 
             s = state
 
