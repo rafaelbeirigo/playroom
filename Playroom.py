@@ -635,12 +635,10 @@ def fix_Q_value(state_key, action_key, my_Q):
     if not (action_key in my_Q[state_key].keys()):
         my_Q[state_key][action_key] = Q_default_value
 
-def set_Q_value(state_key, action_key, new_value):
-    global Q
-
+def set_Q_value(state_key, action_key, new_value, my_Q):
     fix_Q_value(state_key, action_key, my_Q)
 
-    Q[state_key][action_key] = new_value
+    my_Q[state_key][action_key] = new_value
 
 def get_Q_value(state_key, action_key, my_Q):
     fix_Q_value(state_key, action_key, my_Q)
@@ -841,7 +839,7 @@ def q_learning_simple():
             # Update the table entry for Q(s, a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
                                alpha  * (r + gamma * Q_max_s2)
-            set_Q_value(s, a, Q_s_a_new)
+            set_Q_value(s, a, Q_s_a_new, Q)
 
             if Q_s_a_new > get_Q_max(s):
                 set_Q_max(s, Q_s_a_new)
