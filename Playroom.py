@@ -757,6 +757,12 @@ def saveobject(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 
+def print_Q(Q):
+    for x in Q:
+        print (x)
+        for y in Q[x]:
+            print (y,':',Q[x][y])
+    
 def q_learning_simple():
     global Q
     global step
