@@ -643,12 +643,10 @@ def set_Q_value(state_key, action_key, new_value):
 
     Q[state_key][action_key] = new_value
 
-def get_Q_value(state_key, action_key):
-    global Q
-
+def get_Q_value(state_key, action_key, my_Q):
     fix_Q_value(state_key, action_key)
 
-    return Q[state_key][action_key]
+    return my_Q[state_key][action_key]
 
 def fix_Q_max(state_key):
     global Q_max
@@ -681,7 +679,7 @@ def select_random_action():
 
     return choice(available_actions)
 
-def select_best_action():
+def select_best_action(my_Q):
     global available_actions
     global state
 
@@ -690,7 +688,7 @@ def select_best_action():
     best_value = 0
     best_actions = []
     for action in available_actions:
-        Q_value = get_Q_value(state, action)
+        Q_value = get_Q_value(state, action, my_Q)
         if Q_value >= best_value:
             if Q_value > best_value:
                 best_value = Q_value
@@ -823,7 +821,7 @@ def q_learning_simple():
                 a = select_random_action()
             else:
                 # greedy
-                a = select_best_action()
+                a = select_best_action(Q)
 
             s = state
 
@@ -833,7 +831,7 @@ def q_learning_simple():
             s2 = state
             r = get_reward()
 
-            Q_s_a_old = get_Q_value(s, a)
+            Q_s_a_old = get_Q_value(s, a, Q)
 
             # Goal is an absorbing state
             if r > 0:
