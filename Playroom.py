@@ -145,7 +145,8 @@ def get_actions_from_agent():
         'move_eye_one_step_west',
         'move_eye_to_random_object',
         'move_hand_to_eye',
-        'move_marker_to_eye'
+        'move_marker_to_eye',
+        'flick_switch_option'
         ]
 
 def get_actions_from_pieces():
