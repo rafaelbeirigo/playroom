@@ -74,7 +74,7 @@ def flick_switch_option():
     global Q_flick_switch
     a = select_best_action(Q_flick_switch)
     execute_action(a)
-    
+
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
         if piece.row == square[0] and \
@@ -635,7 +635,7 @@ Q_default_value = 0.0
 Q_max = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
-    
+
 def fix_Q_value(state_key, action_key, my_Q):
     global Q_default_value
 
@@ -781,7 +781,7 @@ def print_Q(Q):
         for y in Q[x]:
             print (y,':',Q[x][y])
         print
-    
+
 def q_learning_simple():
     global Q
     global Q_flick_switch
@@ -815,7 +815,7 @@ def q_learning_simple():
 
             if current_option == 'flick_switch_option':
                 a = select_best_action(Q_flick_switch)
-            else if current_option == None:
+            elif current_option == None:
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
                 # new state s2
@@ -857,6 +857,24 @@ def q_learning_simple():
 
             if Q_s_a_new > get_Q_max(s):
                 set_Q_max(s, Q_s_a_new)
+
+            ##########
+            # OPTION #
+            ##########
+            if current_option == 'flick_switch_option':
+                # Update the table entry for Q(s, flick_switch_option)
+                Q_s_o_old = get_Q_value(s, current_option, Q)
+
+                # Goal is an absorbing state
+                if r > 0:
+                    Q_s2_o = 0
+                else:
+                    Q_s2_o = get_Q_value(s2, current_option, Q)
+                
+                Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
+                                   alpha  * (r + gamma * Q_s2_o)
+                                   
+                set_Q_value(s, current_option, Q_s_o_new, Q)
 
             step += 1
             global_step_count += 1
