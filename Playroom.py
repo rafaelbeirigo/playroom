@@ -863,6 +863,7 @@ def q_learning_simple():
         f.close()
 
         epsilon = epsilon + epsilonIncrement
+    print_Q(Q)
 
 root = tk.Tk()
 
