@@ -784,6 +784,9 @@ def q_learning_simple():
     filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
     print 'Logging to: ' + filename
 
+    Q_flick_switch = loadobject('flick_switch_option.q')
+    print Q_flick_switch
+    
     global_step_count = 0
     for episode in range(episodes):
         setup_new_episode()
