@@ -481,7 +481,7 @@ def create_action_buttons():
     action_buttons.append(flick_switch_button)
 
     global flick_switch_option_button
-    flick_switch_option_button = tk.Button(action_buttons_frame, text='flick_switch_option', command=flick_switch_option_click)
+    flick_switch_option_button = tk.Button(action_buttons_frame, text='flick_switch_option ', command=flick_switch_option_click)
     flick_switch_option_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_option_button)
 
