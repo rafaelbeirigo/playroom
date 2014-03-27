@@ -62,6 +62,9 @@ def flick_switch():
     else:
         turn_light('ON')
 
+def flick_switch_option():
+    pass
+
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
         if piece.row == square[0] and \
@@ -475,6 +478,11 @@ def create_action_buttons():
     flick_switch_button = tk.Button(action_buttons_frame, text='flick_switch (f)', command=flick_switch_click)
     flick_switch_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_button)
+
+    global flick_switch_option_button
+    flick_switch_option_button = tk.Button(action_buttons_frame, text='flick_switch_option', command=flick_switch_option_click)
+    flick_switch_option_button.pack(side=tk.TOP)
+    action_buttons.append(flick_switch_option_button)
 
 def update_available_actions():
     global available_actions
@@ -956,6 +964,7 @@ all_possible_actions = {
     'press_red_block':press_red_block,
     'push_blue_block':push_blue_block,
     'flick_switch':flick_switch,
+    'flick_switch_option':flick_switch_option,
 }
 
 action_buttons = []
