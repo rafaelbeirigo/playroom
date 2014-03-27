@@ -71,8 +71,10 @@ def flick_switch():
         turn_light('ON')
 
 def flick_switch_option():
-    pass
-
+    global Q_flick_switch
+    a = select_best_action(Q_flick_switch)
+    execute_action(a)
+    
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
         if piece.row == square[0] and \
