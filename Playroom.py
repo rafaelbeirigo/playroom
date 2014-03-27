@@ -778,6 +778,7 @@ def print_Q(Q):
         print (x)
         for y in Q[x]:
             print (y,':',Q[x][y])
+        print
     
 def q_learning_simple():
     global Q
@@ -794,7 +795,7 @@ def q_learning_simple():
     steps = 100
 
     now_str = str(datetime.now())
-    filename = '/home/rafaelbeirigo/ciencia/playroom/' + now_str.replace(':', '-')[:19] + '.log'
+    filename = '/home/rafaelbeirigo/ciencia/playroom/logs/' + now_str.replace(':', '-')[:19] + '.log'
     print 'Logging to: ' + filename
 
     global_step_count = 0
