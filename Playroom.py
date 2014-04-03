@@ -58,6 +58,12 @@ environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
 
+def is_on(status_var):
+    return status_var['state'] == 'ON'
+
+def is_off(status_var):
+    return status_var['state'] == 'OFF'
+
 def turn_light(new_light_state):
     global light
     light['state'] = new_light_state
