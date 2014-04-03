@@ -158,13 +158,15 @@ def get_actions_from_agent():
         'flick_switch_option'
         ]
 
+def is_block(piece):
+    return piece in [blue_block, red_block]
+
 def get_actions_from_pieces():
     actions = []
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                # if not ( piece in [blue_block, red_block] and \
-                #         is_off(light) ):
+                # if not ( is_block(piece) and is_off(light) ):
                 actions += piece.get_actions()
     return actions
 
@@ -173,8 +175,7 @@ def same_cell_to_tuple(ag_piece):
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            # if is_off(light) and \
-            #   piece in [blue_block, red_block]:
+            # if ( is_block(piece) and is_off(light) ):
             #     same_cell += ('gray_block',)
             # else:
             same_cell += (piece.name,)
