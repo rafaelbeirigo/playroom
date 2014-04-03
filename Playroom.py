@@ -31,7 +31,6 @@ def update_bell_sound_state():
     # only turns of, it is turned on using
     # kick_ball function
     global bell_sound
-    global step
 
     if is_on(bell_sound):
         if step > bell_sound['step'] + 1:
@@ -39,6 +38,7 @@ def update_bell_sound_state():
 
 def update_toy_monkey_sound_state():
     global toy_monkey_sound
+
     if is_on(toy_monkey_sound):
         if is_on(light) or is_off(music):
             turn_off(toy_monkey_sound)
@@ -76,6 +76,8 @@ def turn_off(status_var):
         turn(status_var, 'OFF')
 
 def flick_switch():
+    global light
+
     if is_on(light):
         turn_off(light)
     else:
@@ -83,13 +85,14 @@ def flick_switch():
 
 def flick_switch_option():
     global Q_flick_switch
+
     a = select_best_action(Q_flick_switch)
     execute_action(a)
 
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
-        if piece.row == square[0] and \
-          piece.column == square[1]:
+        if piece.row    == square[0] and \
+           piece.column == square[1]:
           return True
     return False
 
@@ -123,18 +126,30 @@ def move_piece_rand_adj(block):
         move_piece_to_square(block, adj_squares[random_index])
 
 def push_blue_block():
+    global blue_block
+
     move_piece_rand_adj(blue_block)
 
 def push_red_block():
+    global red_block
+
     move_piece_rand_adj(red_block)
 
 def press_blue_block():
+    global music
+
     turn_on(music)
 
 def press_red_block():
+    global music
+
     turn_off(music)
 
 def kick_ball():
+    global ball
+    global bell
+    global bell_sound
+
     move_piece_to_piece(ball, marker)
     if on_same_cell(ball, bell):
         turn_on(bell_sound)
@@ -171,7 +186,6 @@ def get_actions_from_pieces():
     return actions
 
 def same_cell_to_tuple(ag_piece):
-    global light
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
@@ -183,10 +197,13 @@ def same_cell_to_tuple(ag_piece):
 
 def update_state():
     global state
+
     under_eye = same_cell_to_tuple(eye)
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
+
     state = (under_eye, under_hand, under_marker)
+
     return state
 
 def move_piece_to_piece(piece_to_move, destination_piece):
@@ -196,31 +213,49 @@ def move_piece_to_piece(piece_to_move, destination_piece):
     board.placepiece(piece_to_move)
 
 def move_eye_to_random_object():
+    global eye
+
     random_index = randint(0, len(non_agent_pieces) - 1)
     move_piece_to_piece(eye, non_agent_pieces[random_index])
 
 def move_hand_to_eye():
+    global hand
+
     move_piece_to_piece(hand, eye)
 
 def move_marker_to_eye():
+    global marker
+
     move_piece_to_piece(marker, eye)
 
 def move_eye_to_marker():
+    global eye
+
     move_piece_to_piece(eye, marker)
 
 def move_eye_to_hand():
+    global eye
+
     move_piece_to_piece(eye, hand)
 
 def move_eye_one_step_north():
+    global eye
+
     move_piece(eye, 'north')
 
 def move_eye_one_step_south():
+    global eye
+
     move_piece(eye, 'south')
 
 def move_eye_one_step_east():
+    global eye
+
     move_piece(eye, 'east')
 
 def move_eye_one_step_west():
+    global eye
+
     move_piece(eye, 'west')
 
 def move_piece(piece, direction):
@@ -245,6 +280,10 @@ def move_piece(piece, direction):
     board.placepiece(piece)
 
 def move_piece_by_name(name, direction):
+    global eye
+    global hand
+    global marker
+
     if name == 'eye':
         move_piece(eye, direction)
     elif name == 'hand':
@@ -255,6 +294,7 @@ def move_piece_by_name(name, direction):
 current_piece_to_move_using_keys = 'marker'
 def key(event):
     global current_piece_to_move_using_keys
+
     if event.keysym == 'e':
         current_piece_to_move_using_keys = 'eye'
     if event.keysym == 'h':
