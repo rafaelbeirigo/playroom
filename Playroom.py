@@ -64,6 +64,18 @@ def is_on(status_var):
 def is_off(status_var):
     return status_var['state'] == 'OFF'
 
+def turn(status_var, new_status):
+    status_var['state'] = new_status
+    status_var['step'] = step
+
+def turn_on(status_var):
+    if is_off(status_var):
+        turn(status_var, 'ON')
+
+def turn_off(status_var):
+    if is_on(status_var):
+        turn(status_var, 'OFF')
+
 def turn_light(new_light_state):
     global light
     light['state'] = new_light_state
@@ -777,13 +789,13 @@ def setup_new_episode():
 
     light['state'] = 'OFF'
     light['step'] = -1
-    
+
     music['state'] = 'OFF'
     music['step'] = -1
-    
+
     bell_sound['state'] = 'OFF'
     bell_sound['step'] = -1
-    
+
     toy_monkey_sound['state'] = 'OFF'
     toy_monkey_sound['step'] = -1
 
@@ -839,7 +851,7 @@ def q_learning_simple():
                     a = select_best_action(Q_flick_switch)
                 else:
                     current_option = None
-                    
+
             if current_option == None:
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
@@ -892,10 +904,10 @@ def q_learning_simple():
                     Q_s2_o = 0
                 else:
                     Q_s2_o = get_Q_value(s2, current_option, Q)
-                
+
                 Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
                                    alpha  * (r + gamma * Q_s2_o)
-                                   
+
                 set_Q_value(s, current_option, Q_s_o_new, Q)
 
             step += 1
