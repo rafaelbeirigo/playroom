@@ -50,10 +50,10 @@ def update_toy_monkey_sound_state():
            turn_toy_monkey('ON')
 
 # Environment variables
-light                 = {'state':'OFF', 'step':0, 'update_function':update_light_state}
-music                 = {'state':'ON', 'step':0, 'update_function':update_music_state}
-bell_sound            = {'state':'ON', 'step':0, 'update_function':update_bell_sound_state}
-toy_monkey_sound      = {'state':'ON', 'step':0, 'update_function':update_toy_monkey_sound_state}
+light                 = {'state':'OFF', 'step':-1, 'update_function':update_light_state}
+music                 = {'state':'OFF', 'step':-1, 'update_function':update_music_state}
+bell_sound            = {'state':'OFF', 'step':-1, 'update_function':update_bell_sound_state}
+toy_monkey_sound      = {'state':'OFF', 'step':-1, 'update_function':update_toy_monkey_sound_state}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
@@ -766,7 +766,19 @@ def setup_new_episode():
     global step
 
     step = 0
-    turn_light('OFF')
+
+    light['state'] = 'OFF'
+    light['step'] = -1
+    
+    music['state'] = 'OFF'
+    music['step'] = -1
+    
+    bell_sound['state'] = 'OFF'
+    bell_sound['step'] = -1
+    
+    toy_monkey_sound['state'] = 'OFF'
+    toy_monkey_sound['step'] = -1
+
     position_pieces_like_article()
 
 def get_reward():
