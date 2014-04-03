@@ -751,21 +751,14 @@ def position_pieces_like_article():
         board.placepiece(piece)
 
 def setup_new_episode():
-    global step
+    step = -1
+
+    turn_off(light)
+    turn_off(music)
+    turn_off(bell_sound)
+    turn_off(toy_monkey_sound)
 
     step = 0
-
-    light['state'] = 'OFF'
-    light['step'] = -1
-
-    music['state'] = 'OFF'
-    music['step'] = -1
-
-    bell_sound['state'] = 'OFF'
-    bell_sound['step'] = -1
-
-    toy_monkey_sound['state'] = 'OFF'
-    toy_monkey_sound['step'] = -1
 
     position_pieces_like_article()
 
