@@ -135,20 +135,6 @@ def push_blue_block():
 def push_red_block():
     move_piece_rand_adj(red_block)
 
-def turn_music_on():
-    global music
-    global step
-    if ( is_off(music) ):
-        music['state'] = 'ON'
-        music['step'] = step
-
-def turn_music_off():
-    global music
-    global step
-    if ( is_on(music) ):
-        music['state'] = 'OFF'
-        music['step'] = step
-
 def press_blue_block():
     turn_on(music)
 
