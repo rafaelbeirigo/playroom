@@ -35,7 +35,7 @@ def update_bell_sound_state():
 
     if is_on(bell_sound):
         if step > bell_sound['step'] + 1:
-            turn_bell('OFF')
+            turn_off(bell_sound)
 
 def update_toy_monkey_sound_state():
     global toy_monkey_sound
@@ -158,7 +158,7 @@ def press_red_block():
 def kick_ball():
     move_piece_to_piece(ball, marker)
     if on_same_cell(ball, bell):
-        turn_bell('ON')
+        turn_on(bell_sound)
         move_piece_rand_adj(bell)
 
 def on_same_cell(piece1, piece2):
@@ -188,12 +188,6 @@ def get_actions_from_pieces():
                 #         is_off(light) ):
                 actions += piece.get_actions()
     return actions
-
-def turn_bell(new_state):
-    global bell
-    global step
-    bell_sound['state'] = new_state
-    bell_sound['step'] = step
 
 def turn_toy_monkey(new_state):
     global toy_monkey_sound
