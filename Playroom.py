@@ -150,10 +150,10 @@ def turn_music_off():
         music['step'] = step
 
 def press_blue_block():
-    turn_music_on()
+    turn_on(music)
 
 def press_red_block():
-    turn_music_off()
+    turn_off(music)
 
 def kick_ball():
     move_piece_to_piece(ball, marker)
