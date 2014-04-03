@@ -120,14 +120,16 @@ def push_red_block():
 def turn_music_on():
     global music
     global step
-    music['state'] = 'ON'
-    music['step'] = step
+    if ( music['state'] == 'OFF' ):
+        music['state'] = 'ON'
+        music['step'] = step
 
 def turn_music_off():
     global music
     global step
-    music['state'] = 'OFF'
-    music['step'] = step
+    if ( music['state'] == 'ON' ):
+        music['state'] = 'OFF'
+        music['step'] = step
 
 def press_blue_block():
     turn_music_on()
