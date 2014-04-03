@@ -33,20 +33,20 @@ def update_bell_sound_state():
     global bell_sound
     global step
 
-    if bell_sound['state'] == 'ON':
+    if is_on(bell_sound):
         if step > bell_sound['step'] + 1:
             turn_bell('OFF')
 
 def update_toy_monkey_sound_state():
     global toy_monkey_sound
-    if toy_monkey_sound['state'] == 'ON':
-        if light['state'] == 'ON' or \
-           music['state'] == 'OFF':
+    if is_on(toy_monkey_sound):
+        if is_on(light) or \
+           is_off(music):
            turn_toy_monkey('OFF')
     else:
-        if light['state'] == 'OFF' and \
-           music['state'] == 'ON' and \
-           bell_sound['state'] == 'ON':
+        if is_off(light) and \
+           is_on(music) and \
+           is_on(bell_sound):
            turn_toy_monkey('ON')
 
 # Environment variables
@@ -71,7 +71,7 @@ def turn_light(new_light_state):
 
 def flick_switch():
     global light
-    if light['state'] == 'ON':
+    if is_on(light):
         turn_light('OFF')
     else:
         turn_light('ON')
@@ -126,14 +126,14 @@ def push_red_block():
 def turn_music_on():
     global music
     global step
-    if ( music['state'] == 'OFF' ):
+    if ( is_off(music) ):
         music['state'] = 'ON'
         music['step'] = step
 
 def turn_music_off():
     global music
     global step
-    if ( music['state'] == 'ON' ):
+    if ( is_on(music) ):
         music['state'] = 'OFF'
         music['step'] = step
 
@@ -172,8 +172,8 @@ def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                # if not (piece in [blue_block, red_block] and \
-                #         light['state'] == 'OFF'):
+                # if not ( piece in [blue_block, red_block] and \
+                #         is_off(light) ):
                 actions += piece.get_actions()
     return actions
 
@@ -193,7 +193,7 @@ def same_cell_to_tuple(ag_piece):
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            # if light['state'] == 'OFF' and \
+            # if is_off(light) and \
             #   piece in [blue_block, red_block]:
             #     same_cell += ('gray_block',)
             # else:
@@ -394,13 +394,13 @@ def update_environment_labels():
 
 def update_blocks_color():
     global light
-    if light['state'] == 'ON':
+    if is_on(light):
         blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
         board.updatepieceimage(blue_block)
 
         red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
         board.updatepieceimage(red_block)
-    elif light['state'] == 'OFF':
+    elif is_off(light):
         blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
         board.updatepieceimage(blue_block)
 
@@ -685,7 +685,7 @@ def get_Q_max(state_key):
     return Q_max[state_key]
 
 def state_is_goal():
-    return light['state'] == 'ON'
+    return is_on(light)
 
 def select_random_action():
     global available_actions
