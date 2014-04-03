@@ -40,14 +40,13 @@ def update_bell_sound_state():
 def update_toy_monkey_sound_state():
     global toy_monkey_sound
     if is_on(toy_monkey_sound):
-        if is_on(light) or \
-           is_off(music):
-           turn_toy_monkey('OFF')
+        if is_on(light) or is_off(music):
+            turn_off(toy_monkey_sound)
     else:
         if is_off(light) and \
            is_on(music) and \
            is_on(bell_sound):
-           turn_toy_monkey('ON')
+            turn_on(toy_monkey_sound)
 
 # Environment variables
 light                 = {'state':'OFF', 'step':-1, 'update_function':update_light_state}
@@ -168,11 +167,6 @@ def get_actions_from_pieces():
                 #         is_off(light) ):
                 actions += piece.get_actions()
     return actions
-
-def turn_toy_monkey(new_state):
-    global toy_monkey_sound
-    toy_monkey_sound['state'] = new_state
-    toy_monkey_sound['step'] = step
 
 def same_cell_to_tuple(ag_piece):
     global light
