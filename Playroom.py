@@ -76,17 +76,11 @@ def turn_off(status_var):
     if is_on(status_var):
         turn(status_var, 'OFF')
 
-def turn_light(new_light_state):
-    global light
-    light['state'] = new_light_state
-    light['step'] = step
-
 def flick_switch():
-    global light
     if is_on(light):
-        turn_light('OFF')
+        turn_off(light)
     else:
-        turn_light('ON')
+        turn_on(light)
 
 def flick_switch_option():
     global Q_flick_switch
