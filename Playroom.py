@@ -753,16 +753,21 @@ def position_pieces_like_article():
         board.placepiece(piece)
 
 def setup_new_episode():
-    step = -1
+    light['state'] = 'OFF'
+    light['step'] = -1
 
-    turn_off(light)
-    turn_off(music)
-    turn_off(bell_sound)
-    turn_off(toy_monkey_sound)
+    music['state'] = 'OFF'
+    music['step'] = -1
 
-    step = 0
+    bell_sound['state'] = 'OFF'
+    bell_sound['step'] = -1
+
+    toy_monkey_sound['state'] = 'OFF'
+    toy_monkey_sound['step'] = -1
 
     position_pieces_like_article()
+
+    step = 0
 
 def get_reward():
     if state_is_goal():
@@ -781,7 +786,7 @@ def get_log_filename():
     now_str = str(datetime.now())
     filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
     return filename
-    
+
 def q_learning_simple():
     global step
 
