@@ -120,14 +120,16 @@ def push_red_block():
 def turn_music_on():
     global music
     global step
-    music['state'] = 'ON'
-    music['step'] = step
+    if ( music['state'] == 'OFF' ):
+        music['state'] = 'ON'
+        music['step'] = step
 
 def turn_music_off():
     global music
     global step
-    music['state'] = 'OFF'
-    music['step'] = step
+    if ( music['state'] == 'ON' ):
+        music['state'] = 'OFF'
+        music['step'] = step
 
 def press_blue_block():
     turn_music_on()
@@ -164,9 +166,9 @@ def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                # if not (piece in [blue_block, red_block] and \
-                #         light['state'] == 'OFF'):
-                actions += piece.get_actions()
+                if not (piece in [blue_block, red_block] and \
+                        light['state'] == 'OFF'):
+                        actions += piece.get_actions()
     return actions
 
 def turn_bell(new_state):
@@ -185,19 +187,23 @@ def same_cell_to_tuple(ag_piece):
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            # if light['state'] == 'OFF' and \
-            #   piece in [blue_block, red_block]:
-            #     same_cell += ('gray_block',)
-            # else:
-            same_cell += (piece.name,)
+            if light['state'] == 'OFF' and \
+              piece in [blue_block, red_block]:
+                same_cell += ('gray_block',)
+            else:
+                same_cell += (piece.name,)
     return same_cell
 
 def update_state():
     global state
+    global light
+    global music
     under_eye = same_cell_to_tuple(eye)
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
-    state = (under_eye, under_hand, under_marker)
+    light_status = (light['state'],)
+    music_status = (music['state'],)
+    state = (under_eye, under_hand, under_marker, light_status, music_status)
     return state
 
 def move_piece_to_piece(piece_to_move, destination_piece):
@@ -406,7 +412,7 @@ def update_screen():
     update_state()
     update_environment_variables()
     update_environment_labels()
-    # update_blocks_color()
+    update_blocks_color()
     update_action_buttons_state()
     # root.update_idletasks()
 
@@ -677,7 +683,9 @@ def get_Q_max(state_key):
     return Q_max[state_key]
 
 def state_is_goal():
-    return light['state'] == 'ON'
+    global step
+    return music['state'] == 'OFF' and \
+           music['step'] == step
 
 def select_random_action():
     global available_actions
@@ -722,8 +730,8 @@ def set_random_initial_state():
 def position_pieces_like_article():
     # global ball
     # global bell
-    # global blue_block
-    # global red_block
+    global blue_block
+    global red_block
     global switch
     # global toy_monkey
     global hand
@@ -738,11 +746,11 @@ def position_pieces_like_article():
     # bell.row = 1
     # bell.column = 4
 
-    # blue_block.row = 4
-    # blue_block.column = 0
+    blue_block.row = 4
+    blue_block.column = 0
 
-    # red_block.row = 4
-    # red_block.column = 4
+    red_block.row = 4
+    red_block.column = 4
 
     switch.row = 2
     switch.column = 2
@@ -764,20 +772,13 @@ def position_pieces_like_article():
 
 def setup_new_episode():
     global step
+    global music
 
     step = 0
+    turn_light('OFF')
 
-    light['state'] = 'OFF'
-    light['step'] = -1
-    
     music['state'] = 'OFF'
     music['step'] = -1
-    
-    bell_sound['state'] = 'OFF'
-    bell_sound['step'] = -1
-    
-    toy_monkey_sound['state'] = 'OFF'
-    toy_monkey_sound['step'] = -1
 
     position_pieces_like_article()
 
@@ -800,13 +801,13 @@ def q_learning_simple():
     global step
     global state
 
+    episodes = 10000
+    steps = 2000
+
     alpha            = 0.9
     gamma            = 0.9
     epsilon          = 1.0
-    epsilonIncrement = -0.0001
-
-    episodes = 10000
-    steps = 100
+    epsilonIncrement = -1.0 / episodes
 
     now_str = str(datetime.now())
     filename = '/home/rafaelbeirigo/ciencia/playroom/logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
@@ -975,8 +976,8 @@ board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 # ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
 # bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
-# blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
-# red_block = Piece(name = "red_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+red_block = Piece(name = "red_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 # toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
@@ -985,7 +986,7 @@ eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/cienci
 marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch]
+non_agent_pieces = [switch, blue_block, red_block]
 all_pieces = agent_pieces + non_agent_pieces
 
 for piece in non_agent_pieces:
