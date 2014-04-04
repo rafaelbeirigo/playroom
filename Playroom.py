@@ -393,9 +393,32 @@ def update_screen():
     update_action_buttons_state()
     # root.update_idletasks()
 
+def create_test_buttons():
+    test_buttons_frame = tk.Frame(right_frame)
+    test_buttons_frame.pack(side=tk.TOP)
+
+    separator = tk.Frame(right_frame, height=5, bd=1)#, relief=tk.SUNKEN)
+    separator.pack(fill=tk.X, padx=5, pady=5)
+
+    global random_actions_button
+    random_actions_button = tk.Button(test_buttons_frame, text='random_actions', fg="white", bg="blue", command=random_actions)
+    random_actions_button.pack(side=tk.TOP)
+
+    global set_random_initial_state_button
+    set_random_initial_state_button = tk.Button(test_buttons_frame, text='set_random_initial_state', fg="white", bg="blue", command=set_random_initial_state)
+    set_random_initial_state_button.pack(side=tk.TOP)
+
+    global q_learning_simple_button
+    q_learning_simple_button = tk.Button(test_buttons_frame, text='q_learning_simple', fg="white", bg="blue", command=q_learning_simple)
+    q_learning_simple_button.pack(side=tk.TOP)
+
+    global position_pieces_like_article_button
+    position_pieces_like_article_button = tk.Button(test_buttons_frame, text='position_pieces_like_article', fg="white", bg="blue", command=position_pieces_like_article)
+    position_pieces_like_article_button.pack(side=tk.TOP)
+
 def create_action_buttons():
-    action_buttons_frame = tk.Frame(central_frame)
-    action_buttons_frame.pack(side=tk.RIGHT)
+    action_buttons_frame = tk.Frame(right_frame)
+    action_buttons_frame.pack(side=tk.TOP)
 
     # Agent
     global move_eye_one_step_north_button
@@ -919,9 +942,15 @@ state_label.pack(side=tk.TOP)
 # Board Frame and itself #
 ##########################
 central_frame = tk.Frame(root)
-central_frame.pack(side=tk.TOP)
+central_frame.pack(side=tk.LEFT)
 board = Board(central_frame)
 board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
+
+###############
+# Right Frame #
+###############
+right_frame = tk.Frame(root)
+right_frame.pack(side=tk.RIGHT)
 
 ####################
 # Non-agent Pieces #
@@ -975,6 +1004,9 @@ all_possible_actions = {
     'flick_switch_option':flick_switch_option,
 }
 
+# Buttons mostly used for test purposes
+create_test_buttons()
+
 # Each possible primitive action has a button associated to it and
 # they are all present in action_buttons, filled in
 # create_action_buttons
@@ -985,21 +1017,6 @@ create_action_buttons()
 available_actions = []
 
 update_environment_labels()
-
-#################################################
-# Some buttons (mostly used for tests purposes) #
-#################################################
-random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
-random_actions_button.pack(side=tk.TOP)
-
-set_random_initial_state_button = tk.Button(root, text='set_random_initial_state', command=set_random_initial_state)
-set_random_initial_state_button.pack(side=tk.TOP)
-
-q_learning_simple_button = tk.Button(root, text='q_learning_simple', command=q_learning_simple)
-q_learning_simple_button.pack(side=tk.TOP)
-
-position_pieces_like_article_button = tk.Button(root, text='position_pieces_like_article', command=position_pieces_like_article)
-position_pieces_like_article_button.pack(side=tk.TOP)
 
 # Associate keys to buttons
 root.bind_all('<Key>', key)
