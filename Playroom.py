@@ -787,6 +787,13 @@ def get_log_filename():
     filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
     return filename
 
+def git_commit_and_tag(text):
+    from subprocess import call
+
+    call(['git', 'commit -a -m \'' + text + '\''])
+    ## call('git' 'tag' + text)
+    exit
+        
 def q_learning_simple():
     global step
 
@@ -800,6 +807,11 @@ def q_learning_simple():
 
     filename = get_log_filename()
     print 'Logging to: ' + filename
+
+    # Git: commit (if that is the case) and tag (always succeed),
+    # using the experiment's log filename. This way it is possible to
+    # track the version that generated each result
+    git_commit_and_tag(filename)
 
     global_step_count = 0
     for episode in range(episodes):
