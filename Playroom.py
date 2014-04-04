@@ -778,6 +778,11 @@ def print_Q(Q):
             print (y,':',Q[x][y])
         print
 
+def get_log_filename():
+    now_str = str(datetime.now())
+    filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
+    return filename
+    
 def q_learning_simple():
     global step
 
@@ -789,8 +794,7 @@ def q_learning_simple():
     episodes = 10000
     steps = 100
 
-    now_str = str(datetime.now())
-    filename = '/home/rafaelbeirigo/ciencia/playroom/logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
+    filename = get_log_filename()
     print 'Logging to: ' + filename
 
     global_step_count = 0
