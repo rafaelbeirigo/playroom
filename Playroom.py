@@ -811,7 +811,7 @@ def q_learning_simple():
     # Git: commit (if that is the case) and tag (always succeed),
     # using the experiment's log filename. This way it is possible to
     # track the version that generated each result
-    git_commit_and_tag(filename)
+    git_commit_and_tag(filename[5:])
 
     global_step_count = 0
     for episode in range(episodes):
