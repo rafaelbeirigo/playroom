@@ -112,11 +112,11 @@ def move_piece_to_square(piece, square):
     piece.column = square[1]
     board.placepiece(piece)
 
-def move_piece_rand_adj(block):
-    adj_squares = get_adj_squares(block)
+def move_piece_rand_adj(piece):
+    adj_squares = get_adj_squares(piece)
     if len(adj_squares) > 0:
         random_index = randint(0, len(adj_squares) - 1)
-        move_piece_to_square(block, adj_squares[random_index])
+        move_piece_to_square(piece, adj_squares[random_index])
 
 def push_blue_block():
     move_piece_rand_adj(blue_block)
