@@ -115,8 +115,7 @@ def move_piece_to_square(piece, square):
 def move_piece_rand_adj(piece):
     adj_squares = get_adj_squares(piece)
     if len(adj_squares) > 0:
-        random_index = randint(0, len(adj_squares) - 1)
-        move_piece_to_square(piece, adj_squares[random_index])
+        move_piece_to_square(piece, choice(adj_squares))
 
 def push_blue_block():
     move_piece_rand_adj(blue_block)
