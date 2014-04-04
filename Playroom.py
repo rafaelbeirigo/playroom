@@ -790,8 +790,8 @@ def get_log_filename():
 def git_commit_and_tag(text):
     from subprocess import call
 
-    call(['git', 'commit -a -m \'' + text + '\''])
-    ## call('git' 'tag' + text)
+    call(['git', 'commit', '-a', '-m', '\'' + text + '\''])
+    call(['git', 'tag', '\'' + text + '\''])
     exit
         
 def q_learning_simple():
