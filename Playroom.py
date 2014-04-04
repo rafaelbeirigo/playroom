@@ -28,17 +28,13 @@ def update_music_state():
     pass
 
 def update_bell_sound_state():
-    # only turns of, it is turned on using
-    # kick_ball function
-    global bell_sound
-
+    # Only turns the bell_sound off; it is turned on using kick_ball
+    # function
     if is_on(bell_sound):
         if step > bell_sound['step'] + 1:
             turn_off(bell_sound)
 
 def update_toy_monkey_sound_state():
-    global toy_monkey_sound
-
     if is_on(toy_monkey_sound):
         if is_on(light) or is_off(music):
             turn_off(toy_monkey_sound)
@@ -76,16 +72,12 @@ def turn_off(status_var):
         turn(status_var, 'OFF')
 
 def flick_switch():
-    global light
-
     if is_on(light):
         turn_off(light)
     else:
         turn_on(light)
 
 def flick_switch_option():
-    global Q_flick_switch
-
     a = select_best_action(Q_flick_switch)
     execute_action(a)
 
@@ -115,6 +107,7 @@ def get_adj_squares(piece):
     return adj_squares
 
 def move_piece_to_square(piece, square):
+    # each square is a tuple (row, column)
     piece.row = square[0]
     piece.column = square[1]
     board.placepiece(piece)
@@ -126,30 +119,18 @@ def move_piece_rand_adj(block):
         move_piece_to_square(block, adj_squares[random_index])
 
 def push_blue_block():
-    global blue_block
-
     move_piece_rand_adj(blue_block)
 
 def push_red_block():
-    global red_block
-
     move_piece_rand_adj(red_block)
 
 def press_blue_block():
-    global music
-
     turn_on(music)
 
 def press_red_block():
-    global music
-
     turn_off(music)
 
 def kick_ball():
-    global ball
-    global bell
-    global bell_sound
-
     move_piece_to_piece(ball, marker)
     if on_same_cell(ball, bell):
         turn_on(bell_sound)
@@ -213,49 +194,31 @@ def move_piece_to_piece(piece_to_move, destination_piece):
     board.placepiece(piece_to_move)
 
 def move_eye_to_random_object():
-    global eye
-
     random_index = randint(0, len(non_agent_pieces) - 1)
     move_piece_to_piece(eye, non_agent_pieces[random_index])
 
 def move_hand_to_eye():
-    global hand
-
     move_piece_to_piece(hand, eye)
 
 def move_marker_to_eye():
-    global marker
-
     move_piece_to_piece(marker, eye)
 
 def move_eye_to_marker():
-    global eye
-
     move_piece_to_piece(eye, marker)
 
 def move_eye_to_hand():
-    global eye
-
     move_piece_to_piece(eye, hand)
 
 def move_eye_one_step_north():
-    global eye
-
     move_piece(eye, 'north')
 
 def move_eye_one_step_south():
-    global eye
-
     move_piece(eye, 'south')
 
 def move_eye_one_step_east():
-    global eye
-
     move_piece(eye, 'east')
 
 def move_eye_one_step_west():
-    global eye
-
     move_piece(eye, 'west')
 
 def move_piece(piece, direction):
@@ -280,10 +243,6 @@ def move_piece(piece, direction):
     board.placepiece(piece)
 
 def move_piece_by_name(name, direction):
-    global eye
-    global hand
-    global marker
-
     if name == 'eye':
         move_piece(eye, direction)
     elif name == 'hand':
@@ -374,7 +333,6 @@ def key(event):
     if event.keysym == 'l':
         update_environment_variables()
         update_environment_labels()
-        execute_action
     if event.keysym == 't':
         update_toy_monkey_sound_state()
     if event.keysym == 'u':
@@ -384,13 +342,10 @@ def key(event):
     update_screen()
 
 def update_environment_variables():
-    global environment_variables
     for variable in environment_variables:
         variable['update_function']()
 
 def update_environment_labels():
-    global step
-
     light_label_text.set('Light: ' + light['state'] + ', ' +
                          'step: ' + str(light['step']))
     light_label['image'] = light_label_images[light['state']]
@@ -414,7 +369,6 @@ def update_environment_labels():
                                 '[marker:' + str(state[2]) +']')
 
 def update_blocks_color():
-    global light
     if is_on(light):
         blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
         board.updatepieceimage(blue_block)
@@ -526,13 +480,11 @@ def create_action_buttons():
 
 def update_available_actions():
     global available_actions
+
     available_actions = get_available_actions()
 
 def get_available_actions():
-    available_actions = []
-    available_actions_agent = get_actions_from_agent()
-    available_actions_piece = get_actions_from_pieces()
-    return available_actions_agent + available_actions_piece
+    return get_actions_from_agent() + get_actions_from_pieces()
 
 def execute_action(action):
     all_possible_actions[action]()
@@ -549,6 +501,7 @@ def update_action_buttons_state():
 
 def random_actions():
     global step
+
     num_steps = 1000
     for cur_step in range(num_steps):
         step += 1
@@ -562,96 +515,112 @@ def random_actions():
 
 def move_eye_one_step_north_click():
     global step
+
     move_eye_one_step_north()
     step += 1
     update_screen()
 
 def move_eye_one_step_south_click():
     global step
+
     move_eye_one_step_south()
     step += 1
     update_screen()
 
 def move_eye_one_step_east_click():
     global step
+
     move_eye_one_step_east()
     step += 1
     update_screen()
 
 def move_eye_one_step_west_click():
     global step
+
     move_eye_one_step_west()
     step += 1
     update_screen()
 
 def move_eye_to_hand_click():
     global step
+
     move_eye_to_hand()
     step += 1
     update_screen()
 
 def move_eye_to_marker_click():
     global step
+
     move_eye_to_marker()
     step += 1
     update_screen()
 
 def move_eye_to_random_object_click():
     global step
+
     move_eye_to_random_object()
     step += 1
     update_screen()
 
 def move_hand_to_eye_click():
     global step
+
     move_hand_to_eye()
     step += 1
     update_screen()
 
 def move_marker_to_eye_click():
     global step
+
     move_marker_to_eye()
     step += 1
     update_screen()
 
 def kick_ball_click():
     global step
+
     kick_ball()
     step += 1
     update_screen()
 
 def press_blue_block_click():
     global step
+
     press_blue_block()
     step += 1
     update_screen()
 
 def push_blue_block_click():
     global step
+
     push_blue_block()
     step += 1
     update_screen()
 
 def press_red_block_click():
     global step
+
     press_red_block()
     step += 1
     update_screen()
 
 def push_red_block_click():
     global step
+
     push_red_block()
     step += 1
     update_screen()
 
 def flick_switch_click():
     global step
+
     flick_switch()
     step += 1
     update_screen()
 
 def flick_switch_option_click():
     global step
+
     flick_switch_option()
     step += 1
     update_screen()
@@ -666,8 +635,6 @@ Q_max = {}
 Q_flick_switch = loadobject('flick_switch_option.q')
 
 def fix_Q_value(state_key, action_key, my_Q):
-    global Q_default_value
-
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
@@ -685,22 +652,15 @@ def get_Q_value(state_key, action_key, my_Q):
     return my_Q[state_key][action_key]
 
 def fix_Q_max(state_key):
-    global Q_max
-    global Q_default_value
-
     if not (state_key in Q_max.keys()):
         Q_max[state_key] = Q_default_value
 
 def set_Q_max(state_key, new_max):
-    global Q_max
-
     fix_Q_max(state_key)
 
     Q_max[state_key] = new_max
 
 def get_Q_max(state_key):
-    global Q_max
-
     fix_Q_max(state_key)
 
     return Q_max[state_key]
@@ -709,16 +669,11 @@ def state_is_goal():
     return is_on(light)
 
 def select_random_action():
-    global available_actions
-
     update_available_actions()
 
     return choice(available_actions)
 
 def select_best_action(my_Q):
-    global available_actions
-    global state
-
     update_available_actions()
 
     best_value = 0
@@ -735,32 +690,16 @@ def select_best_action(my_Q):
     return choice(best_actions)
 
 def set_random_initial_state():
-    global all_pieces
-    global board
-
     board_squares = list(product(range(5), range(5)))
-
     for piece in all_pieces:
-        board_square = choice(board_squares)
+        board_square = choice(board_squares) # each board square is a tuple (row, column)
 
-        piece.row = board_square[0]
+        piece.row = board_square[0] # the first position of the tuple
         piece.column = board_square[1]
 
         board.placepiece(piece)
 
 def position_pieces_like_article():
-    # global ball
-    # global bell
-    # global blue_block
-    # global red_block
-    global switch
-    # global toy_monkey
-    global hand
-    global eye
-    global marker
-    global board
-    global all_pieces
-
     # ball.row = 1
     # ball.column = 0
 
@@ -817,10 +756,7 @@ def print_Q(Q):
         print
 
 def q_learning_simple():
-    global Q
-    global Q_flick_switch
     global step
-    global state
 
     alpha            = 0.9
     gamma            = 0.9
@@ -932,22 +868,9 @@ def q_learning_simple():
 
 root = tk.Tk()
 
-# bottomframe = Frame(root)
-# bottomframe.pack( side = BOTTOM )
-
-# redbutton = Button(frame, text="Red", fg="red")
-# redbutton.pack( side = LEFT)
-
-# greenbutton = Button(frame, text="Brown", fg="brown")
-# greenbutton.pack( side = LEFT )
-
-# bluebutton = Button(frame, text="Blue", fg="blue")
-# bluebutton.pack( side = LEFT )
-
-# blackbutton = Button(bottomframe, text="Black", fg="black")
-# blackbutton.pack( side = BOTTOM)
-
-# Enviroment characteristics
+########################################################
+# Status Frame and Lables (Enviroment characteristics) #
+########################################################
 env_charact_frame = tk.Frame(root)
 env_charact_frame.pack(side = tk.TOP)
 
@@ -983,18 +906,26 @@ step_count_label_text = tk.StringVar()
 step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
 step_count_label.pack(side = tk.LEFT)
 
+#########################
+# State Frame and Lable #
+#########################
 state_frame = tk.Frame(root)
 state_frame.pack(side=tk.TOP)
 state_label_text = tk.StringVar()
 state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
 state_label.pack(side=tk.TOP)
 
+##########################
+# Board Frame and itself #
+##########################
 central_frame = tk.Frame(root)
 central_frame.pack(side=tk.TOP)
-
 board = Board(central_frame)
 board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
+####################
+# Non-agent Pieces #
+####################
 # ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
 # bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
 # blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
@@ -1002,10 +933,16 @@ board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 # toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
 
+################
+# Agent Pieces #
+################
 hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), row=0, column=3)
 eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), row=0, column=2)
 marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
 
+################
+# Pieces Lists #
+################
 agent_pieces = [hand, eye, marker]
 non_agent_pieces = [switch]
 all_pieces = agent_pieces + non_agent_pieces
@@ -1038,14 +975,20 @@ all_possible_actions = {
     'flick_switch_option':flick_switch_option,
 }
 
+# Each possible primitive action has a button associated to it and
+# they are all present in action_buttons, filled in
+# create_action_buttons
 action_buttons = []
+create_action_buttons()
 
+# Filled in update_available_actions
 available_actions = []
 
 update_environment_labels()
 
-create_action_buttons()
-
+#################################################
+# Some buttons (mostly used for tests purposes) #
+#################################################
 random_actions_button = tk.Button(root, text='random_actions', command=random_actions)
 random_actions_button.pack(side=tk.TOP)
 
@@ -1058,6 +1001,7 @@ q_learning_simple_button.pack(side=tk.TOP)
 position_pieces_like_article_button = tk.Button(root, text='position_pieces_like_article', command=position_pieces_like_article)
 position_pieces_like_article_button.pack(side=tk.TOP)
 
+# Associate keys to buttons
 root.bind_all('<Key>', key)
 
 update_screen()
