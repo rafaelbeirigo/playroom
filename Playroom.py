@@ -706,9 +706,9 @@ def select_best_action(my_Q):
     for action in available_actions:
         Q_value = get_Q(my_Q, state, action)
         if Q_value >= best_value:
-            if Q_value > best_value:
-                best_value = Q_value
-                del best_actions[:]; best_actions = []
+            # if Q_value > best_value:
+            #     best_value = Q_value
+            #     del best_actions[:]; best_actions = []
 
             best_actions.append(action)
 
