@@ -41,14 +41,12 @@ class Board(tk.Frame):
         self.pieces.append(piece)
 
     def placepiece(self, piece):
-        # name, row, column):
         '''Place a piece at the given row/column'''
-        if not self.update_screen: 
-            pass
-
-        x0 = (piece.column * self.size) + int(self.size/2)
-        y0 = (piece.row * self.size) + int(self.size/2)
-        self.canvas.coords(piece.name, x0, y0)
+        if self.update_screen:
+            print 'vou plaçar as piça'
+            x0 = (piece.column * self.size) + int(self.size/2)
+            y0 = (piece.row * self.size) + int(self.size/2)
+            self.canvas.coords(piece.name, x0, y0)
 
     def refresh(self, event):
         '''Redraw the board, possibly in response to window being resized'''

@@ -799,6 +799,9 @@ def git_commit_and_tag(text):
 def q_learning_simple():
     global step
 
+    # Saves resources
+    board.update_screen = False
+
     # Learning parameters
     alpha            = 0.9
     gamma            = 0.9
@@ -981,7 +984,7 @@ state_label.pack(side=tk.TOP)
 ##########################
 central_frame = tk.Frame(root)
 central_frame.pack(side=tk.LEFT)
-board = Board(central_frame, update_screen=False)
+board = Board(central_frame)
 board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 ###############
