@@ -656,7 +656,7 @@ Vx = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
-def fix_Q(state_key, action_key, my_Q):
+def fix_Q(my_Q, state_key, action_key):
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
@@ -664,12 +664,12 @@ def fix_Q(state_key, action_key, my_Q):
         my_Q[state_key][action_key] = Q_default_value
 
 def set_Q(state_key, action_key, new_value, my_Q):
-    fix_Q(state_key, action_key, my_Q)
+    fix_Q(my_Q, state_key, action_key)
 
     my_Q[state_key][action_key] = new_value
 
 def get_Q(state_key, action_key, my_Q):
-    fix_Q(state_key, action_key, my_Q)
+    fix_Q(my_Q, state_key, action_key)
 
     return my_Q[state_key][action_key]
 
