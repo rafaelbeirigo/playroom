@@ -678,11 +678,13 @@ def fix_Vx(state_key):
     if not (state_key in Vx.keys()):
         Vx[state_key] = Q_default_value
 
+# Vx refers to V^*
 def set_Vx(state_key, new_max):
     fix_Vx(state_key)
 
     Vx[state_key] = new_max
 
+# Vx refers to V^*
 def get_Vx(state_key):
     fix_Vx(state_key)
 
@@ -793,9 +795,12 @@ def git_commit_and_tag(text):
 
     call(['git', 'commit', '-a', '-m', text])
     call(['git', 'tag', text])
-        
+
 def q_learning_simple():
     global step
+
+    # Saves resources
+    board.update_screen = False
 
     # Learning parameters
     alpha            = 0.9
@@ -824,6 +829,7 @@ def q_learning_simple():
         update_state()
         start_step = global_step_count
         current_option = None
+        reached_goal = 'n'
         for current_step in range(steps):
             update_environment_variables()
 
@@ -905,6 +911,9 @@ def q_learning_simple():
             step += 1
             global_step_count += 1
 
+        if state_is_goal():
+            reached_goal = 'y'
+
         # Here an episode just ended
         episode_number = episode
         end_step = global_step_count - 1
@@ -914,7 +923,8 @@ def q_learning_simple():
         f.write(str(episode_number) + '\t' + \
                 str(start_step) + '\t' + \
                 str(end_step) + '\t' + \
-                str(duration) + '\to\n')
+                str(duration) + '\t' + \
+                reached_goal + '\n')
         f.close()
 
         epsilon = epsilon + epsilonIncrement
