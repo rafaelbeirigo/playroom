@@ -663,12 +663,12 @@ def fix_Q(my_Q, state_key, action_key):
     if not (action_key in my_Q[state_key].keys()):
         my_Q[state_key][action_key] = Q_default_value
 
-def set_Q(state_key, action_key, new_value, my_Q):
+def set_Q(my_Q, state_key, action_key, new_value):
     fix_Q(my_Q, state_key, action_key)
 
     my_Q[state_key][action_key] = new_value
 
-def get_Q(state_key, action_key, my_Q):
+def get_Q(my_Q, state_key, action_key):
     fix_Q(my_Q, state_key, action_key)
 
     return my_Q[state_key][action_key]
@@ -702,7 +702,7 @@ def select_best_action(my_Q):
     best_value = 0
     best_actions = []
     for action in available_actions:
-        Q_value = get_Q(state, action, my_Q)
+        Q_value = get_Q(my_Q, state, action)
         if Q_value >= best_value:
             if Q_value > best_value:
                 best_value = Q_value
@@ -865,7 +865,7 @@ def q_learning_simple():
             s2 = state                    # the new state, after the execution of the action
             r = get_reward()
 
-            Q_s_a_old = get_Q(s, a, Q)   # current (will be the "old" one when updating Q) value of Q(s,a)
+            Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
             # reward received is greater than zero the agent must have
@@ -879,7 +879,7 @@ def q_learning_simple():
             # Update the table entry for Q(s,a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
                                alpha  * (r + gamma * Vx_s2)
-            set_Q(s, a, Q_s_a_new, Q)
+            set_Q(Q, s, a, Q_s_a_new)
 
             if Q_s_a_new > get_Vx(s):
                 set_Vx(s, Q_s_a_new)
@@ -889,18 +889,18 @@ def q_learning_simple():
             ##########
             if current_option == 'flick_switch_option':
                 # Update the table entry for Q(s, flick_switch_option)
-                Q_s_o_old = get_Q(s, current_option, Q)
+                Q_s_o_old = get_Q(Q, s, current_option)
 
                 # Goal is an absorbing state
                 if r > 0:
                     Q_s2_o = 0
                 else:
-                    Q_s2_o = get_Q(s2, current_option, Q)
+                    Q_s2_o = get_Q(Q, s2, current_option)
 
                 Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
                                    alpha  * (r + gamma * Q_s2_o)
 
-                set_Q(s, current_option, Q_s_o_new, Q)
+                set_Q(Q, s, current_option, Q_s_o_new)
 
             step += 1
             global_step_count += 1
