@@ -652,40 +652,41 @@ def flick_switch_option_click():
 ##############
 Q = {}
 Q_default_value = 0.0
-Q_max = {}
+Vx = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
-def fix_Q_value(state_key, action_key, my_Q):
+def fix_Q(state_key, action_key, my_Q):
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
     if not (action_key in my_Q[state_key].keys()):
         my_Q[state_key][action_key] = Q_default_value
 
-def set_Q_value(state_key, action_key, new_value, my_Q):
-    fix_Q_value(state_key, action_key, my_Q)
+def set_Q(state_key, action_key, new_value, my_Q):
+    fix_Q(state_key, action_key, my_Q)
 
     my_Q[state_key][action_key] = new_value
 
-def get_Q_value(state_key, action_key, my_Q):
-    fix_Q_value(state_key, action_key, my_Q)
+def get_Q(state_key, action_key, my_Q):
+    fix_Q(state_key, action_key, my_Q)
 
     return my_Q[state_key][action_key]
 
-def fix_Q_max(state_key):
-    if not (state_key in Q_max.keys()):
-        Q_max[state_key] = Q_default_value
+# Vx refers to V^*
+def fix_Vx(state_key):
+    if not (state_key in Vx.keys()):
+        Vx[state_key] = Q_default_value
 
-def set_Q_max(state_key, new_max):
-    fix_Q_max(state_key)
+def set_Vx(state_key, new_max):
+    fix_Vx(state_key)
 
-    Q_max[state_key] = new_max
+    Vx[state_key] = new_max
 
-def get_Q_max(state_key):
-    fix_Q_max(state_key)
+def get_Vx(state_key):
+    fix_Vx(state_key)
 
-    return Q_max[state_key]
+    return Vx[state_key]
 
 def state_is_goal():
     return is_on(light)
@@ -701,7 +702,7 @@ def select_best_action(my_Q):
     best_value = 0
     best_actions = []
     for action in available_actions:
-        Q_value = get_Q_value(state, action, my_Q)
+        Q_value = get_Q(state, action, my_Q)
         if Q_value >= best_value:
             if Q_value > best_value:
                 best_value = Q_value
@@ -796,6 +797,7 @@ def git_commit_and_tag(text):
 def q_learning_simple():
     global step
 
+    # Learning parameters
     alpha            = 0.9
     gamma            = 0.9
     epsilon          = 1.0
@@ -804,6 +806,7 @@ def q_learning_simple():
     episodes = 10000
     steps = 100
 
+    # Log stuff
     filename = get_log_filename()
     print 'Logging to: ' + filename
 
@@ -812,6 +815,9 @@ def q_learning_simple():
     # track the version that generated each result
     git_commit_and_tag(filename[5:])
 
+    # "global_step_count" is used to keep track of the total number of
+    # steps. The global variable "step" is reset at the beginning of
+    # each episode
     global_step_count = 0
     for episode in range(episodes):
         setup_new_episode()
@@ -825,6 +831,8 @@ def q_learning_simple():
             if state_is_goal():
                 break
 
+            # The option is followed in a full greedy manner, although
+            # there is a probability of stopping the use of the option
             if current_option == 'flick_switch_option':
                 # option stops its execution with fixed probability
                 if random() > 0.1:
@@ -832,12 +840,13 @@ def q_learning_simple():
                 else:
                     current_option = None
 
+            # This test has to be made as the option may have just be
+            # abandoned on the previous "if"
             if current_option == None:
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
                 # new state s2
-                randomNumber = random()
-                if randomNumber < epsilon:
+                if random() < epsilon:    # random() gives a number in the interval [0, 1).
                     # random
                     a = select_random_action()
                 else:
@@ -848,47 +857,50 @@ def q_learning_simple():
                 if a == 'flick_switch_option':
                     current_option = a
 
-            s = state
+            s = state                     # the current state
 
             execute_action(a)
             update_state()
 
-            s2 = state
+            s2 = state                    # the new state, after the execution of the action
             r = get_reward()
 
-            Q_s_a_old = get_Q_value(s, a, Q)
+            Q_s_a_old = get_Q(s, a, Q)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
-            # Goal is an absorbing state
+            # Makes sure that the goal is an absorbing state: if the
+            # reward received is greater than zero the agent must have
+            # reached the goal state (rewards are only awarded when
+            # the agent reaches the goal)
             if r > 0:
-                Q_max_s2 = 0
+                Vx_s2 = 0
             else:
-                Q_max_s2 = get_Q_max(s2)
+                Vx_s2 = get_Vx(s2)
 
-            # Update the table entry for Q(s, a)
+            # Update the table entry for Q(s,a)
             Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
-                               alpha  * (r + gamma * Q_max_s2)
-            set_Q_value(s, a, Q_s_a_new, Q)
+                               alpha  * (r + gamma * Vx_s2)
+            set_Q(s, a, Q_s_a_new, Q)
 
-            if Q_s_a_new > get_Q_max(s):
-                set_Q_max(s, Q_s_a_new)
+            if Q_s_a_new > get_Vx(s):
+                set_Vx(s, Q_s_a_new)
 
             ##########
             # OPTION #
             ##########
             if current_option == 'flick_switch_option':
                 # Update the table entry for Q(s, flick_switch_option)
-                Q_s_o_old = get_Q_value(s, current_option, Q)
+                Q_s_o_old = get_Q(s, current_option, Q)
 
                 # Goal is an absorbing state
                 if r > 0:
                     Q_s2_o = 0
                 else:
-                    Q_s2_o = get_Q_value(s2, current_option, Q)
+                    Q_s2_o = get_Q(s2, current_option, Q)
 
                 Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
                                    alpha  * (r + gamma * Q_s2_o)
 
-                set_Q_value(s, current_option, Q_s_o_new, Q)
+                set_Q(s, current_option, Q_s_o_new, Q)
 
             step += 1
             global_step_count += 1
