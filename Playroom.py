@@ -701,6 +701,7 @@ def select_random_action():
 def select_best_action(my_Q):
     update_available_actions()
 
+    get_Vx(state)
     best_value = 0
     best_actions = []
     for action in available_actions:
