@@ -981,7 +981,7 @@ state_label.pack(side=tk.TOP)
 ##########################
 central_frame = tk.Frame(root)
 central_frame.pack(side=tk.LEFT)
-board = Board(central_frame)
+board = Board(central_frame, update_screen=False)
 board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 ###############

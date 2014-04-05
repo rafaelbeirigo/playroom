@@ -6,7 +6,7 @@ from Piece import *
 
 class Board(tk.Frame):
     """Board where the pieces are put"""
-    def __init__(self, parent, rows=5, columns=5, size=150, color1="white", color2="blue"):
+    def __init__(self, parent, rows=5, columns=5, size=150, color1="white", color2="blue", update_screen=True):
         '''size is the size of a square, in pixels'''
 
         self.rows = rows
@@ -15,6 +15,7 @@ class Board(tk.Frame):
         self.color1 = color1
         self.color2 = color1
         self.pieces = []
+        self.update_screen = update_screen
 
         canvas_width = columns * size
         canvas_height = rows * size
@@ -42,6 +43,9 @@ class Board(tk.Frame):
     def placepiece(self, piece):
         # name, row, column):
         '''Place a piece at the given row/column'''
+        if not self.update_screen: 
+            pass
+
         x0 = (piece.column * self.size) + int(self.size/2)
         y0 = (piece.row * self.size) + int(self.size/2)
         self.canvas.coords(piece.name, x0, y0)
