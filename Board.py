@@ -43,7 +43,6 @@ class Board(tk.Frame):
     def placepiece(self, piece):
         '''Place a piece at the given row/column'''
         if self.update_screen:
-            print 'vou plaçar as piça'
             x0 = (piece.column * self.size) + int(self.size/2)
             y0 = (piece.row * self.size) + int(self.size/2)
             self.canvas.coords(piece.name, x0, y0)
