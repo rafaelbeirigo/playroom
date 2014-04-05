@@ -369,16 +369,16 @@ def update_environment_labels():
 
 def update_blocks_color():
     if is_on(light):
-        blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"))
+        blue_block.set_image(tk.PhotoImage(file="img/blue_block.gif"))
         board.updatepieceimage(blue_block)
 
-        red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"))
+        red_block.set_image(tk.PhotoImage(file="img/red_block.gif"))
         board.updatepieceimage(red_block)
     elif is_off(light):
-        blue_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        blue_block.set_image(tk.PhotoImage(file="img/gray_block.gif"))
         board.updatepieceimage(blue_block)
 
-        red_block.set_image(tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/gray_block.gif"))
+        red_block.set_image(tk.PhotoImage(file="img/gray_block.gif"))
         board.updatepieceimage(red_block)
     board.canvas.tag_raise('hand')
     board.canvas.tag_raise('eye')
@@ -935,29 +935,29 @@ env_charact_frame = tk.Frame(root)
 env_charact_frame.pack(side = tk.TOP)
 
 light_label_text = tk.StringVar()
-light_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/light_on.gif')
-light_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/light_off.gif')
+light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
+light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
 light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
 light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
 light_label.pack(side = tk.LEFT)
 
 bell_sound_label_text = tk.StringVar()
-bell_sound_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/bell_on.gif')
-bell_sound_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/bell_off.gif')
+bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
+bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
 bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
 bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 bell_sound_label.pack(side = tk.LEFT)
 
 music_label_text = tk.StringVar()
-music_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/music_on.gif')
-music_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/music_off.gif')
+music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
+music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
 music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
 music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
 music_label.pack(side = tk.LEFT)
 
 toy_monkey_sound_label_text = tk.StringVar()
-toy_monkey_sound_label_image_on = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/toy-monkey_on.gif')
-toy_monkey_sound_label_image_off = tk.PhotoImage(file='/home/rafaelbeirigo/ciencia/playroom/img/labels/toy-monkey_off.gif')
+toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
+toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
 toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
 toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
 toy_monkey_sound_label.pack(side = tk.LEFT)
@@ -992,19 +992,19 @@ right_frame.pack(side=tk.RIGHT)
 ####################
 # Non-agent Pieces #
 ####################
-# ball = Piece(name = "ball", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/ball.gif"), actions=['kick_ball'])
-# bell = Piece(name = "bell", image=tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/bell.gif"), row=0, column=1)
-# blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
-# red_block = Piece(name = "red_block", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
-switch = Piece(name = "switch", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/switch.gif"), row=1, column=1, actions=['flick_switch'])
-# toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/toy-monkey.gif"), row=1, column=3)
+# ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
+# bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
+# blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+# red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
+# toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
 
 ################
 # Agent Pieces #
 ################
-hand = Piece(name = "hand", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/hand.gif"), row=0, column=3)
-eye = Piece(name = "eye", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/eye.gif"), row=0, column=2)
-marker = Piece(name = "marker", image = tk.PhotoImage(file="/home/rafaelbeirigo/ciencia/playroom/img/target.gif"), row=1, column=2)
+hand = Piece(name = "hand", image = tk.PhotoImage(file="img/hand.gif"), row=0, column=3)
+eye = Piece(name = "eye", image = tk.PhotoImage(file="img/eye.gif"), row=0, column=2)
+marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), row=1, column=2)
 
 ################
 # Pieces Lists #
