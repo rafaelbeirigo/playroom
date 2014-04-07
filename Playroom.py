@@ -182,7 +182,9 @@ def update_state():
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
 
-    state = (under_eye, under_hand, under_marker)
+    light_status = light['state']
+
+    state = (under_eye, under_hand, under_marker, light_status)
 
     return state
 
