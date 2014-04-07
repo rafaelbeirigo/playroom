@@ -805,7 +805,7 @@ def map_state(old_state):
     for under_thing in old_state[:3]:
         new_under_thing = ()
         for thing in under_thing:
-            if thing != 'gray_block':
+            if not ( thing in ['gray_block', 'blue_block'] ):
                 new_under_thing += (thing,)
         new_state += (new_under_thing,)
     return new_state
