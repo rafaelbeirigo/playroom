@@ -161,8 +161,8 @@ def get_actions_from_pieces():
     if on_same_cell(eye, hand):
         for piece in non_agent_pieces:
             if on_same_cell(piece, eye):
-                # if not ( is_block(piece) and is_off(light) ):
-                actions += piece.get_actions()
+                if not ( is_block(piece) and is_off(light) ):
+                    actions += piece.get_actions()
     return actions
 
 def same_cell_to_tuple(ag_piece):
