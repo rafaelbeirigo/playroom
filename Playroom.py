@@ -1010,7 +1010,8 @@ marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), ro
 # Pieces Lists #
 ################
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch]
+non_agent_pieces = [switch, blue_block]
+
 all_pieces = agent_pieces + non_agent_pieces
 
 for piece in non_agent_pieces:
