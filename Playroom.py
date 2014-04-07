@@ -78,7 +78,7 @@ def flick_switch():
         turn_on(light)
 
 def flick_switch_option():
-    a = select_best_action(Q_flick_switch)
+    a = select_best_action(Q_flick_switch, map_state(state))
     execute_action(a)
 
 def square_is_occuppied(square):
@@ -700,13 +700,13 @@ def select_random_action():
 
     return choice(available_actions)
 
-def select_best_action(my_Q):
+def select_best_action(my_Q, my_state):
     update_available_actions()
 
     best_value = 0
     best_actions = []
     for action in available_actions:
-        Q_value = get_Q(my_Q, state, action)
+        Q_value = get_Q(my_Q, my_state, action)
         if Q_value >= best_value:
             if Q_value > best_value:
                 best_value = Q_value
@@ -856,7 +856,8 @@ def q_learning_simple():
             if current_option == 'flick_switch_option':
                 # option stops its execution with fixed probability
                 if random() > 0.1:
-                    a = select_best_action(Q_flick_switch)
+                    a = select_best_action(Q_flick_switch,
+                                           map_state(state))
                 else:
                     current_option = None
 
@@ -871,7 +872,7 @@ def q_learning_simple():
                     a = select_random_action()
                 else:
                     # greedy
-                    a = select_best_action(Q)
+                    a = select_best_action(Q, state)
 
                 # Tests if the selected action is an option
                 if a == 'flick_switch_option':
