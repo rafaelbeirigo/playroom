@@ -945,6 +945,9 @@ def q_learning_simple():
         epsilon = epsilon + epsilonIncrement
     print_Q(Q)
 
+    # Returns to original configuration
+    board.update_screen = True
+
 root = tk.Tk()
 
 ########################################################
