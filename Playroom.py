@@ -727,8 +727,8 @@ def position_pieces_like_article():
     # bell.row = 1
     # bell.column = 4
 
-    # blue_block.row = 4
-    # blue_block.column = 0
+    blue_block.row = 4
+    blue_block.column = 0
 
     # red_block.row = 4
     # red_block.column = 4
