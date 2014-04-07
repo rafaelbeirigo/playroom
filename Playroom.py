@@ -691,7 +691,7 @@ def get_Vx(state_key):
     return Vx[state_key]
 
 def state_is_goal():
-    return is_on(light)
+    return is_on(music)
 
 def select_random_action():
     update_available_actions()
