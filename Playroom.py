@@ -855,7 +855,7 @@ def q_learning_simple():
             # there is a probability of stopping the use of the option
             if current_option == 'flick_switch_option':
                 # option stops its execution with fixed probability
-                if random() > 0.1:
+                if random() > 0.2:
                     a = select_best_action(Q_flick_switch,
                                            map_state(state))
                 else:
