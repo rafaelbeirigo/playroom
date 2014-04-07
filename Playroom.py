@@ -798,6 +798,18 @@ def git_commit_and_tag(text):
     call(['git', 'commit', '-a', '-m', text])
     call(['git', 'tag', text])
 
+def map_state(old_state):
+    # Remove 'gray_block' from state description
+    # Get only the first 3 positions (eye, hand, marker)
+    new_state = ()
+    for under_thing in old_state[:3]:
+        new_under_thing = ()
+        for thing in under_thing:
+            if thing != 'gray_block':
+                new_under_thing += (thing,)
+        new_state += (new_under_thing,)
+    return new_state
+
 def q_learning_simple():
     global step
 
