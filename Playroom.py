@@ -994,7 +994,7 @@ right_frame.pack(side=tk.RIGHT)
 ####################
 # ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
 # bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
-# blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
 # red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 # toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
