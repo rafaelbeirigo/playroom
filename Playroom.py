@@ -819,8 +819,8 @@ def q_learning_simple():
     # Learning parameters
     alpha            = 0.9
     gamma            = 0.9
-    epsilon          = 1.0
-    epsilonIncrement = -0.0001
+    epsilon          = 0.1
+    epsilonIncrement = 0.0
 
     episodes = 10000
     steps = 100
