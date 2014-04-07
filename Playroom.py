@@ -154,7 +154,7 @@ def get_actions_from_agent():
         ]
 
 def is_block(piece):
-    return piece in [blue_block, red_block]
+    return piece in [blue_block]
 
 def get_actions_from_pieces():
     actions = []
@@ -169,10 +169,10 @@ def same_cell_to_tuple(ag_piece):
     same_cell = ()
     for piece in non_agent_pieces:
         if on_same_cell(piece, ag_piece):
-            # if ( is_block(piece) and is_off(light) ):
-            #     same_cell += ('gray_block',)
-            # else:
-            same_cell += (piece.name,)
+            if ( is_block(piece) and is_off(light) ):
+                same_cell += ('gray_block',)
+            else:
+                same_cell += (piece.name,)
     return same_cell
 
 def update_state():
