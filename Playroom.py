@@ -1052,6 +1052,9 @@ def add_I(my_O, salient_event, s):
 def set_BETA(my_O, salient_event, s, new_value):
     set_1dic(my_O[salient_event]['BETA'][s], new_value)
 
+def get_P(my_O, salient_event, s2, s):
+    return get_2dic(my_O[salient_event]['P'], s2, s)
+
 def imrl():
     global step
 
@@ -1154,7 +1157,7 @@ def imrl():
                     set_BETA(O, salient_event, s2, 1)
 
                 # //— set intrinsic reward value
-                r_i2 = tau * ( 1 - get_2dic(O[salient_event]['P'], s2, s) )
+                r_i2 = tau * ( 1 - get_P(O, salient_event, s2, s) )
             else:
                 r_i2 = 0
 
