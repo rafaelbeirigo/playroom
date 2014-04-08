@@ -1045,6 +1045,9 @@ def fix_O(my_O, salient_event):
         # model
         my_O[salient_event]['P'] = {}
 
+def set_BETA(my_O, salient_event, s, new_value):
+    set_1dic(my_O[salient_event]['BETA'][s], new_value)
+
 def imrl():
     global step
 
@@ -1056,6 +1059,9 @@ def imrl():
     gamma            = 0.9
     epsilon          = 0.1
     epsilonIncrement = 0.0
+
+    # imrl parameters
+    tau = 0.9
 
     episodes = 10000
     steps = 100
@@ -1135,7 +1141,7 @@ def imrl():
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()): 
                     # Create option o_e in skill-KB;
-                    fix_O(O, salient_event)
+                     fix_O(O, salient_event)
 
                     # Add s_t to I^{o_e} // initialize initiation set
                     O[salient_event]['I'].append(s)
@@ -1143,6 +1149,26 @@ def imrl():
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
                     set_1dic(O[salient_event]['BETA'], s2, 1)
 
+                # //— set intrinsic reward value
+                r_i2 = tau * ( 1 - get_2dic(O[salient_event]['P'], s2, s) )
+            else:
+                r_i2 = 0
+
+            # //- Update all option models
+            for salient_event in O.keys(): # For each option o = o_e in skill-KB (O)
+                # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
+                if s2 in O[salient_event]['I']:
+                    if not (s in O[salient_event]['I']):
+                        O[salient_event]['I'].append(s)
+
+                # If a_t is greedy action for o in state s_t
+                if a in select_best_actions(O[salient_event]['Q']):
+                    # //— update option transition probability model
+                    arg1 = get_2dic( O[salient_event]['P'], s2,  s )
+
+                    arg2 = gamma * ( 1 - get_1dic(O[salient_event]['BETA'][s2]) * \
+                                     get_2dic( O[salient_event]['P'], s2,  s ))
+                    
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
