@@ -1230,6 +1230,18 @@ def imrl():
                     set_R(O, salient_event, s, new_R)
 
             # //— Q-learning update of behavior action-value function
+            # arg1
+            arg1 = get_Q(Q, s, a)
+
+            # arg2
+            arg2 = r_e + r_i + gamma * get_Vx(s2)
+
+            # calculates the new value
+            new_Q = alpha_sum(arg1, arg2, alpha)
+
+            # sets the new value
+            set_Q(Q, s, a, new_Q)
+
             # Parei aqui
             
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
