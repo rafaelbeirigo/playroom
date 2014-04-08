@@ -1046,7 +1046,157 @@ def fix_O(my_O, salient_event):
         my_O['P'] = {}
 
 def imrl():
-    pass
+    global step
+
+    # Saves resources
+    board.update_screen = False
+
+    # Learning parameters
+    alpha            = 0.9
+    gamma            = 0.9
+    epsilon          = 0.1
+    epsilonIncrement = 0.0
+
+    episodes = 10000
+    steps = 100
+
+    # Log stuff
+    filename = get_log_filename()
+    print 'Logging to: ' + filename
+
+    # Git: commit (if that is the case) and tag (always succeed),
+    # using the experiment's log filename. This way it is possible to
+    # track the version that generated each result
+    git_commit_and_tag(filename[5:])
+
+    # "global_step_count" is used to keep track of the total number of
+    # steps. The global variable "step" is reset at the beginning of
+    # each episode
+    global_step_count = 0
+    for episode in range(episodes):
+        setup_new_episode()
+        update_state()
+        start_step = global_step_count
+        current_option = None
+        reached_goal = 'n'
+        for current_step in range(steps):
+            update_environment_variables()
+
+            # if a goal state is reached the episode ends
+            if state_is_goal():
+                break
+
+            # The option is followed in a full greedy manner, although
+            # there is a probability of stopping the use of the option
+            if current_option == 'flick_switch_option':
+                # option stops its execution with fixed probability
+                if is_off(light):
+                    a = select_best_action(Q_flick_switch,
+                                           map_state(state))
+                else:
+                    current_option = None
+
+            # This test has to be made as the option may have just be
+            # abandoned on the previous "if"
+            if current_option == None:
+                # Following epsilon-greedy strategy, Select an action a
+                # and execute it. Receive immediate reward r. Observe the
+                # new state s2
+                if random() < epsilon:    # random() gives a number in the interval [0, 1).
+                    # random
+                    a = select_random_action()
+                else:
+                    # greedy
+                    a = select_best_action(Q, state)
+
+                # Tests if the selected action is an option
+                if a == 'flick_switch_option':
+                    current_option = a
+
+            s = state                     # the current state
+
+            execute_action(a)
+            update_state()
+
+            s2 = state                    # the new state, after the execution of the action
+            r = get_reward()
+
+            # Deal with special case if next state is salient
+            if is_salient_event():        # If s_{t+1} is a salient event e
+                salient_event = state[3:]
+
+                print '=============================================='
+                print 'a: ' + a
+                print 'state: ' + str(state)
+                print 'salient_event: ' + str(salient_event)
+                print '=============================================='
+
+                # If option for e, o_e , does not exist in O (skill-KB)
+                if not (salient_event in O.keys()): 
+                    # Create option o_e in skill-KB;
+                    fix_O(O, salient_event)
+
+            Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
+
+            # Makes sure that the goal is an absorbing state: if the
+            # reward received is greater than zero the agent must have
+            # reached the goal state (rewards are only awarded when
+            # the agent reaches the goal)
+            if r > 0:
+                Vx_s2 = 0
+            else:
+                Vx_s2 = get_Vx(s2)
+
+            # Update the table entry for Q(s,a)
+            Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
+                               alpha  * (r + gamma * Vx_s2)
+            set_Q(Q, s, a, Q_s_a_new)
+
+            if Q_s_a_new > get_Vx(s):
+                set_Vx(s, Q_s_a_new)
+
+            ##########
+            # OPTION #
+            ##########
+            if current_option == 'flick_switch_option':
+                # Update the table entry for Q(s, flick_switch_option)
+                Q_s_o_old = get_Q(Q, s, current_option)
+
+                # Goal is an absorbing state
+                if r > 0:
+                    Q_s2_o = 0
+                else:
+                    Q_s2_o = get_Q(Q, s2, current_option)
+
+                Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
+                                   alpha  * (r + gamma * Q_s2_o)
+
+                set_Q(Q, s, current_option, Q_s_o_new)
+
+            step += 1
+            global_step_count += 1
+
+        if state_is_goal():
+            reached_goal = 'y'
+
+        # Here an episode just ended
+        episode_number = episode
+        end_step = global_step_count - 1
+        duration = end_step - start_step + 1
+
+        f = open(filename, 'a')
+        f.write(str(episode_number) + '\t' + \
+                str(start_step) + '\t' + \
+                str(end_step) + '\t' + \
+                str(duration) + '\t' + \
+                reached_goal + '\n')
+        f.close()
+
+        epsilon = epsilon + epsilonIncrement
+    print_Q(Q)
+
+    # Returns to original configuration
+    board.update_screen = True
 
 root = tk.Tk()
 
