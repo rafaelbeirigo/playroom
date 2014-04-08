@@ -1127,7 +1127,8 @@ def imrl():
 
                 print '=============================================='
                 print 'a: ' + a
-                print 'state: ' + str(state)
+                print 'old state: ' + str(s)
+                print 'new state: ' + str(s2)
                 print 'salient_event: ' + str(salient_event)
                 print '=============================================='
 
