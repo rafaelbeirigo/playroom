@@ -1047,6 +1047,7 @@ def fix_O(my_O, salient_event):
 
 def imrl():
     global step
+    global O
 
     # Saves resources
     board.update_screen = False
