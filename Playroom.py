@@ -1223,9 +1223,15 @@ def imrl():
                     arg2 = r_e + gamma * (1 - get_BETA(O, salient_event, s2) *
                                           get_R(O, salient_event, s2))
 
-                    # sets the new value
+                    # calculates the new value
                     new_R = alpha_sum(arg1, arg2, alpha)
 
+                    # sets the new value
+                    set_R(O, salient_event, s, new_R)
+
+            # //— Q-learning update of behavior action-value function
+            # Parei aqui
+            
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
@@ -1245,6 +1251,7 @@ def imrl():
             if Q_s_a_new > get_Vx(s):
                 set_Vx(s, Q_s_a_new)
 
+            print 'tadam'
             ##########
             # OPTION #
             ##########
