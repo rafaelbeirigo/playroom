@@ -1025,9 +1025,9 @@ def get_2dic(dic, key1, key2):
     return dic[key1][key2]
 
 def fix_O(my_O, salient_event):
-    if not (salient_event_key in my_O.keys()):
+    if not (salient_event in my_O.keys()):
         # Creates an entry to the option
-        my_O[salient_event_key] = {}
+        my_O[salient_event] = {}
 
         # Creates an entry to the option's Q-table
         my_O['Q'] = {}
