@@ -1140,8 +1140,8 @@ def imrl():
                     # Add s_t to I^{o_e} // initialize initiation set
                     O[salient_event]['I'].append(s)
 
-                    # Set β oe (st+1 ) = 1 // set termination probability
-
+                    # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
+                    set_1dic(O[salient_event]['BETA'], s2, 1)
 
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
