@@ -953,6 +953,39 @@ def q_learning_simple():
 ############
 O = {}
 
+def fix_1dic(dic, key):
+    """ Fixes a one-dimension dictionary: receives a key and, if the
+    entry does not exist in the dictionary, creates it initializing
+    with zero"""
+
+    if not (key in dic.keys()):
+        dic[key] = 0
+
+def fix_2dic(dic, key1, key2):
+    """ Fixes a two-dimension dictionary: receives the keys and, if
+    the entry does not exist in the dictionary, creates it
+    initializing with zero"""
+
+    if not (key1 in dic.keys()):
+        dic[key1] = {}
+
+    fix_1dic(dic[key1], key2)
+
+def set_1dic(dic, key, new_value):
+    """Sets the value of a one-dimensional dictionary entry"""
+
+    fix_1dic(dic, key)
+
+    dic[key] = new_value
+
+def get_1dic(dic, key):
+    """Gets the value of a one-dimensional dictionary entry. If the
+    entry does not exist, creates it with a value of zero."""
+
+    fix_1dic(dic, key)
+
+    return dic[key]
+
 def fix_O(my_O, salient_event):
     if not (salient_event_key in my_O.keys()):
         # Creates an entry to the option
@@ -964,7 +997,7 @@ def fix_O(my_O, salient_event):
         # Creates an entry to the option's initiation set
         my_O['I'] = []
 
-        # Creates an entry to the option's Beta function 
+        # Creates an entry to the option's Beta function
         my_O['BETA'] = {}
 
         # Creates an entry to the option's Reward function
