@@ -993,6 +993,14 @@ def get_1dic(dic, key):
 
     return dic[key]
 
+def get_2dic(dic, key1, key2):
+    """Gets the value of a two-dimensional dictionary entry. If the
+    entry does not exist, creates it with a value of zero."""
+
+    fix_2dic(dic, key1, key2)
+
+    return dic[key1][key2]
+
 def fix_O(my_O, salient_event):
     if not (salient_event_key in my_O.keys()):
         # Creates an entry to the option
