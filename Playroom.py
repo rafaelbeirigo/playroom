@@ -1064,6 +1064,12 @@ def set_P(my_O, salient_event, s2, s, new_value):
 def get_P(my_O, salient_event, s2, s):
     return get_2dic(my_O[salient_event]['P'], s2, s)
 
+def delta(a, b):
+    if a == b:
+        return 1
+    else:
+        return 0
+
 def imrl():
     global step
 
