@@ -175,6 +175,15 @@ def same_cell_to_tuple(ag_piece):
                 same_cell += (piece.name,)
     return same_cell
 
+def is_salient_event():
+    for variable in environment_variables:
+        # If the variable step is equal to the current step, it means
+        # the variable state was changed
+        if variable['step'] == step:
+            return True
+
+    return False
+
 def update_state():
     global state
 
