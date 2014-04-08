@@ -1147,12 +1147,12 @@ def imrl():
             if is_salient_event():        # If s_{t+1} is a salient event e
                 salient_event = state[3:]
 
-                print '=============================================='
-                print 'a: ' + a
-                print 'old state: ' + str(s)
-                print 'new state: ' + str(s2)
-                print 'salient_event: ' + str(salient_event)
-                print '=============================================='
+                # print '=============================================='
+                # print 'a: ' + a
+                # print 'old state: ' + str(s)
+                # print 'new state: ' + str(s2)
+                # print 'salient_event: ' + str(salient_event)
+                # print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()): 
@@ -1181,7 +1181,7 @@ def imrl():
                     add_I(O, salient_event, s)
 
                 # If a_t is greedy action for o in state s_t
-                if a in select_best_actions(O[salient_event]['Q']):
+                if a in select_best_actions(O[salient_event]['Q'], s):
                     # //— update option transition probability model
                     # for each state reachable by the option
                     for x in get_I(O, salient_event):
