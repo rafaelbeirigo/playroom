@@ -1058,6 +1058,12 @@ def set_BETA(my_O, salient_event, s, new_value):
 def get_BETA(my_O, salient_event, s):
     return get_1dic(my_O[salient_event]['BETA'], s)
 
+def set_R(my_O, salient_event, s, new_value):
+    set_1dic(my_O[salient_event]['R'], s, new_value)
+
+def get_R(my_O, salient_event, s):
+    return get_1dic(my_O[salient_event]['R'], s)
+
 def set_P(my_O, salient_event, s2, s, new_value):
     set_2dic(my_O[salient_event]['P'], s2, s, new_value)
 
@@ -1161,7 +1167,7 @@ def imrl():
                 # print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
-                if not (salient_event in O.keys()): 
+                if not (salient_event in O.keys()):
                     # Create option o_e in skill-KB;
                     fix_O(O, salient_event)
 
@@ -1206,7 +1212,20 @@ def imrl():
 
                         # sets the new value
                         set_P(O, salient_event, x, s, new_p)
-                    
+
+                    # //— update option reward model
+                    r_e = r
+
+                    # arg1
+                    arg1 = get_R(O, salient_event, s)
+
+                    # arg2
+                    arg2 = r_e + gamma * (1 - get_BETA(O, salient_event, s2) *
+                                          get_R(O, salient_event, s2))
+
+                    # sets the new value
+                    new_R = alpha_sum(arg1, arg2, alpha)
+
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
