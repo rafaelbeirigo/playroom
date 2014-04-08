@@ -412,6 +412,12 @@ def create_test_buttons():
     separator = tk.Frame(right_frame, height=5, bd=1)#, relief=tk.SUNKEN)
     separator.pack(fill=tk.X, padx=5, pady=5)
 
+    global imrl_button
+
+    imrl_button = tk.Button(test_buttons_frame, text='imrl',
+                            fg="white", bg="blue", command=imrl)
+    imrl_button.pack(side=tk.TOP)
+
     global random_actions_button
     random_actions_button = tk.Button(test_buttons_frame, text='random_actions', fg="white", bg="blue", command=random_actions)
     random_actions_button.pack(side=tk.TOP)
