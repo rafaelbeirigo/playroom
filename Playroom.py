@@ -978,6 +978,13 @@ def set_1dic(dic, key, new_value):
 
     dic[key] = new_value
 
+def set_2dic(dic, key1, key2, new_value):
+    """Sets the value of a two-dimensional dictionary entry"""
+
+    fix_2dic(dic, key1, key2)
+
+    dic[key1][key2] = new_value
+
 def get_1dic(dic, key):
     """Gets the value of a one-dimensional dictionary entry. If the
     entry does not exist, creates it with a value of zero."""
