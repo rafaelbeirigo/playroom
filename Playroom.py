@@ -1137,6 +1137,12 @@ def imrl():
                     # Create option o_e in skill-KB;
                     fix_O(O, salient_event)
 
+                    # Add s_t to I^{o_e} // initialize initiation set
+                    O[salient_event]['I'].append(s)
+
+                    # Set β oe (st+1 ) = 1 // set termination probability
+
+
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
