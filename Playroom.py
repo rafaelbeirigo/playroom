@@ -948,6 +948,10 @@ def q_learning_simple():
     # Returns to original configuration
     board.update_screen = True
 
+############
+# Playroom #
+############
+    
 root = tk.Tk()
 
 ########################################################
