@@ -1176,6 +1176,8 @@ def imrl():
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
                     set_BETA(O, salient_event, s2, 1)
+                else:
+                    print 'já tinha'
 
                 # //— set intrinsic reward value
                 r_i2 = tau * ( 1 - get_P(O, salient_event, s2, s) )
@@ -1251,7 +1253,6 @@ def imrl():
             if Q_s_a_new > get_Vx(s):
                 set_Vx(s, Q_s_a_new)
 
-            print 'tadam'
             ##########
             # OPTION #
             ##########
