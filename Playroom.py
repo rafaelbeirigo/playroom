@@ -700,7 +700,7 @@ def select_random_action():
 
     return choice(available_actions)
 
-def select_best_action(my_Q, my_state):
+def select_best_actions(my_Q, my_state):
     update_available_actions()
 
     best_value = 0
@@ -714,7 +714,10 @@ def select_best_action(my_Q, my_state):
 
             best_actions.append(action)
 
-    return choice(best_actions)
+    return best_actions
+
+def select_best_action(my_Q, my_state):
+    return choice(select_best_actions(my_Q, my_state))
 
 def set_random_initial_state():
     board_squares = list(product(range(5), range(5)))
