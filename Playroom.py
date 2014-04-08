@@ -1030,20 +1030,20 @@ def fix_O(my_O, salient_event):
         my_O[salient_event] = {}
 
         # Creates an entry to the option's Q-table
-        my_O['Q'] = {}
+        my_O[salient_event]['Q'] = {}
 
         # Creates an entry to the option's initiation set
-        my_O['I'] = []
+        my_O[salient_event]['I'] = []
 
         # Creates an entry to the option's Beta function
-        my_O['BETA'] = {}
+        my_O[salient_event]['BETA'] = {}
 
         # Creates an entry to the option's Reward function
-        my_O['R'] = {}
+        my_O[salient_event]['R'] = {}
 
         # Creates an entry to the option's transition probability
         # model
-        my_O['P'] = {}
+        my_O[salient_event]['P'] = {}
 
 def imrl():
     global step
