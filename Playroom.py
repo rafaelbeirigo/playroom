@@ -953,6 +953,27 @@ def q_learning_simple():
 ############
 O = {}
 
+def fix_O(my_O, salient_event):
+    if not (salient_event_key in my_O.keys()):
+        # Creates an entry to the option
+        my_O[salient_event_key] = {}
+
+        # Creates an entry to the option's Q-table
+        my_O['Q'] = {}
+
+        # Creates an entry to the option's initiation set
+        my_O['I'] = []
+
+        # Creates an entry to the option's Beta function 
+        my_O['BETA'] = {}
+
+        # Creates an entry to the option's Reward function
+        my_O['R'] = {}
+
+        # Creates an entry to the option's transition probability
+        # model
+        my_O['P'] = {}
+
 root = tk.Tk()
 
 ########################################################
