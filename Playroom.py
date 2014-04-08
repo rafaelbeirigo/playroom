@@ -729,6 +729,9 @@ def set_random_initial_state():
 
         board.placepiece(piece)
 
+def alpha_sum(x, y, alpha):
+    return (1 - alpha) * x + alpha * y
+
 def position_pieces_like_article():
     # ball.row = 1
     # ball.column = 0
