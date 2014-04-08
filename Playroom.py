@@ -1053,7 +1053,7 @@ def add_I(my_O, salient_event, s):
         my_O[salient_event]['I'].append(s)
 
 def set_BETA(my_O, salient_event, s, new_value):
-    set_1dic(my_O[salient_event]['BETA'][s], new_value)
+    set_1dic(my_O[salient_event]['BETA'], s, new_value)
 
 def get_BETA(my_O, salient_event, s):
     return get_1dic(my_O[salient_event]['BETA'], s)
