@@ -1045,12 +1045,21 @@ def fix_O(my_O, salient_event):
         # model
         my_O[salient_event]['P'] = {}
 
+def get_I(my_O, salient_event):
+    return my_O[salient_event]['I']
+
 def add_I(my_O, salient_event, s):
-    if not (s in my_O[salient_event]['I']):
+    if not (s in get_I(my_O, salient_event)):
         my_O[salient_event]['I'].append(s)
 
 def set_BETA(my_O, salient_event, s, new_value):
     set_1dic(my_O[salient_event]['BETA'][s], new_value)
+
+def get_BETA(my_O, salient_event, s):
+    return get_1dic(my_O[salient_event]['BETA'], s)
+
+def set_P(my_O, salient_event, s2, s, new_value):
+    set_2dic(my_O[salient_event]['P'], s2, s, new_value)
 
 def get_P(my_O, salient_event, s2, s):
     return get_2dic(my_O[salient_event]['P'], s2, s)
@@ -1163,18 +1172,34 @@ def imrl():
 
             # //- Update all option models
             for salient_event in O.keys(): # For each option o = o_e in skill-KB (O)
-                # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
-                if s2 in O[salient_event]['I']:
-                    if not (s in O[salient_event]['I']):
-                        O[salient_event]['I'].append(s)
+                # Here the salient event being there means the option
+                # has been already created
+
+                if s2 in get_I(O, salient_event):
+                    # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
+                    # initiation set
+                    add_I(O, salient_event, s)
 
                 # If a_t is greedy action for o in state s_t
                 if a in select_best_actions(O[salient_event]['Q']):
                     # //— update option transition probability model
-                    arg1 = get_2dic( O[salient_event]['P'], s2,  s )
+                    # for each state reachable by the option
+                    for x in get_I(O, salient_event):
+                        # arg1
+                        arg1 = get_P(O, salient_event, s2, s)
 
-                    arg2 = gamma * ( 1 - get_1dic(O[salient_event]['BETA'][s2]) * \
-                                     get_2dic( O[salient_event]['P'], s2,  s ))
+                        # arg2
+                        beta_s2 = get_BETA(O, salient_event, s2)
+                        p_x_s2 = get_P(O, salient_event, x, s2)
+                        arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
+                               gamma * beta_s2 * delta(s2, x)
+
+                        # gets the alpha sum (as described in the
+                        # article)
+                        new_p = alpha_sum(arg1, arg2, alpha)
+
+                        # sets the new value
+                        set_P(O, salient_event, x, s, new_p)
                     
             Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
