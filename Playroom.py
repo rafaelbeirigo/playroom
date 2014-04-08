@@ -1159,12 +1159,12 @@ def imrl():
             if is_salient_event():        # If s_{t+1} is a salient event e
                 salient_event = state[3:]
 
-                # print '=============================================='
-                # print 'a: ' + a
-                # print 'old state: ' + str(s)
-                # print 'new state: ' + str(s2)
-                # print 'salient_event: ' + str(salient_event)
-                # print '=============================================='
+                print '=============================================='
+                print 'a: ' + a
+                print 'old state: ' + str(s)
+                print 'new state: ' + str(s2)
+                print 'salient_event: ' + str(salient_event)
+                print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()):
@@ -1176,8 +1176,6 @@ def imrl():
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
                     set_BETA(O, salient_event, s2, 1)
-                else:
-                    print 'já tinha'
 
                 # //— set intrinsic reward value
                 r_i2 = tau * ( 1 - get_P(O, salient_event, s2, s) )
