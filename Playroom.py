@@ -1045,6 +1045,10 @@ def fix_O(my_O, salient_event):
         # model
         my_O[salient_event]['P'] = {}
 
+def add_I(my_O, salient_event, s):
+    if not (s in my_O[salient_event]['I']):
+        my_O[salient_event]['I'].append(s)
+
 def set_BETA(my_O, salient_event, s, new_value):
     set_1dic(my_O[salient_event]['BETA'][s], new_value)
 
@@ -1141,13 +1145,13 @@ def imrl():
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()): 
                     # Create option o_e in skill-KB;
-                     fix_O(O, salient_event)
+                    fix_O(O, salient_event)
 
                     # Add s_t to I^{o_e} // initialize initiation set
-                    O[salient_event]['I'].append(s)
+                    add_I(O, salient_event, s)
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                    set_1dic(O[salient_event]['BETA'], s2, 1)
+                    set_BETA(O, salient_event, s2, 1)
 
                 # //— set intrinsic reward value
                 r_i2 = tau * ( 1 - get_2dic(O[salient_event]['P'], s2, s) )
