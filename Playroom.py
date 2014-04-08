@@ -1159,12 +1159,12 @@ def imrl():
             if is_salient_event():        # If s_{t+1} is a salient event e
                 salient_event = state[3:]
 
-                # print '=============================================='
-                # print 'a: ' + a
-                # print 'old state: ' + str(s)
-                # print 'new state: ' + str(s2)
-                # print 'salient_event: ' + str(salient_event)
-                # print '=============================================='
+                print '=============================================='
+                print 'a: ' + a
+                print 'old state: ' + str(s)
+                print 'new state: ' + str(s2)
+                print 'salient_event: ' + str(salient_event)
+                print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()):
@@ -1176,8 +1176,6 @@ def imrl():
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
                     set_BETA(O, salient_event, s2, 1)
-                else:
-                    print 'já tinha'
 
                 # //— set intrinsic reward value
                 r_i2 = tau * ( 1 - get_P(O, salient_event, s2, s) )
@@ -1189,9 +1187,9 @@ def imrl():
                 # Here the salient event being there means the option
                 # has been already created
 
+                # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
+                # initiation set
                 if s2 in get_I(O, salient_event):
-                    # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
-                    # initiation set
                     add_I(O, salient_event, s)
 
                 # If a_t is greedy action for o in state s_t
@@ -1200,7 +1198,7 @@ def imrl():
                     # for each state reachable by the option
                     for x in get_I(O, salient_event):
                         # arg1
-                        arg1 = get_P(O, salient_event, s2, s)
+                        arg1 = get_P(O, salient_event, x, s)
 
                         # arg2
                         beta_s2 = get_BETA(O, salient_event, s2)
@@ -1208,8 +1206,7 @@ def imrl():
                         arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
                                gamma * beta_s2 * delta(s2, x)
 
-                        # gets the alpha sum (as described in the
-                        # article)
+                        # calculates the new value
                         new_p = alpha_sum(arg1, arg2, alpha)
 
                         # sets the new value
@@ -1222,8 +1219,9 @@ def imrl():
                     arg1 = get_R(O, salient_event, s)
 
                     # arg2
-                    arg2 = r_e + gamma * (1 - get_BETA(O, salient_event, s2) *
-                                          get_R(O, salient_event, s2))
+                    beta_s2 = get_BETA(O, salient_event, s2)
+                    R_s2 = get_R(O, salient_event, s2)
+                    arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
 
                     # calculates the new value
                     new_R = alpha_sum(arg1, arg2, alpha)
