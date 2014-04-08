@@ -192,8 +192,10 @@ def update_state():
     under_marker = same_cell_to_tuple(marker)
 
     light_status = light['state']
+    music_status = music['state']
 
-    state = (under_eye, under_hand, under_marker, light_status)
+    state = (under_eye, under_hand, under_marker,
+             light_status, music_status)
 
     return state
 
