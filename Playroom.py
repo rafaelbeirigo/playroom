@@ -7,25 +7,29 @@ from Board import *
 from Piece import *
 from random import randint
 from random import random
-from PIL.ImageTk import PhotoImage
 from random import choice
 from time import sleep
 from itertools import product
 from datetime import datetime
 
+
 def saveobject(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
 
+
 def loadobject(filename):
     with open(filename, 'rb') as input:
-       return pickle.load(input)
+        return pickle.load(input)
+
 
 def update_light_state():
     pass
 
+
 def update_music_state():
     pass
+
 
 def update_bell_sound_state():
     # Only turns the bell_sound off; it is turned on using kick_ball
@@ -33,6 +37,7 @@ def update_bell_sound_state():
     if is_on(bell_sound):
         if step > bell_sound['step'] + 1:
             turn_off(bell_sound)
+
 
 def update_toy_monkey_sound_state():
     if is_on(toy_monkey_sound):
@@ -45,31 +50,38 @@ def update_toy_monkey_sound_state():
             turn_on(toy_monkey_sound)
 
 # Environment variables
-light                 = {'state':'OFF', 'step':-1, 'update_function':update_light_state}
-music                 = {'state':'OFF', 'step':-1, 'update_function':update_music_state}
-bell_sound            = {'state':'OFF', 'step':-1, 'update_function':update_bell_sound_state}
-toy_monkey_sound      = {'state':'OFF', 'step':-1, 'update_function':update_toy_monkey_sound_state}
+light = {'state': 'OFF', 'step': -1, 'update_function': update_light_state}
+music = {'state': 'OFF', 'step': -1, 'update_function': update_music_state}
+bell_sound = {'state': 'OFF', 'step': -1, 'update_function': update_bell_sound_state}
+toy_monkey_sound = {'state': 'OFF', 'step': -1, 'update_function': \
+                    update_toy_monkey_sound_state}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
 
+
 def is_on(status_var):
     return status_var['state'] == 'ON'
 
+
 def is_off(status_var):
     return status_var['state'] == 'OFF'
+
 
 def turn(status_var, new_status):
     status_var['state'] = new_status
     status_var['step'] = step
 
+
 def turn_on(status_var):
     if is_off(status_var):
         turn(status_var, 'ON')
 
+
 def turn_off(status_var):
     if is_on(status_var):
         turn(status_var, 'OFF')
+
 
 def flick_switch():
     if is_on(light):
@@ -77,9 +89,11 @@ def flick_switch():
     else:
         turn_on(light)
 
+
 def flick_switch_option():
     a = select_best_action(Q_flick_switch, map_state(state))
     execute_action(a)
+
 
 def square_is_occuppied(square):
     for piece in non_agent_pieces:
@@ -87,6 +101,7 @@ def square_is_occuppied(square):
            piece.column == square[1]:
           return True
     return False
+
 
 def get_adj_squares(piece):
     adj_squares = []
@@ -106,28 +121,35 @@ def get_adj_squares(piece):
                         adj_squares.append( (row, column ) )
     return adj_squares
 
+
 def move_piece_to_square(piece, square):
     # each square is a tuple (row, column)
     piece.row = square[0]
     piece.column = square[1]
     board.placepiece(piece)
 
+
 def move_piece_rand_adj(piece):
     adj_squares = get_adj_squares(piece)
     if len(adj_squares) > 0:
         move_piece_to_square(piece, choice(adj_squares))
 
+
 def push_blue_block():
     move_piece_rand_adj(blue_block)
+
 
 def push_red_block():
     move_piece_rand_adj(red_block)
 
+
 def press_blue_block():
     turn_on(music)
 
+
 def press_red_block():
     turn_off(music)
+
 
 def kick_ball():
     move_piece_to_piece(ball, marker)
@@ -135,9 +157,11 @@ def kick_ball():
         turn_on(bell_sound)
         move_piece_rand_adj(bell)
 
+
 def on_same_cell(piece1, piece2):
     return piece1.row == piece2.row and \
            piece1.column == piece2.column
+
 
 def get_actions_from_agent():
     return [
@@ -153,8 +177,10 @@ def get_actions_from_agent():
         'flick_switch_option'
         ]
 
+
 def is_block(piece):
     return piece in [blue_block]
+
 
 def get_actions_from_pieces():
     actions = []
@@ -164,6 +190,7 @@ def get_actions_from_pieces():
                 if not ( is_block(piece) and is_off(light) ):
                     actions += piece.get_actions()
     return actions
+
 
 def same_cell_to_tuple(ag_piece):
     same_cell = ()
@@ -175,6 +202,7 @@ def same_cell_to_tuple(ag_piece):
                 same_cell += (piece.name,)
     return same_cell
 
+
 def is_salient_event():
     for variable in environment_variables:
         # If the variable step is equal to the current step, it means
@@ -183,6 +211,7 @@ def is_salient_event():
             return True
 
     return False
+
 
 def update_state():
     global state
@@ -199,39 +228,50 @@ def update_state():
 
     return state
 
+
 def move_piece_to_piece(piece_to_move, destination_piece):
     piece_to_move.row = destination_piece.row
     piece_to_move.column = destination_piece.column
 
     board.placepiece(piece_to_move)
 
+
 def move_eye_to_random_object():
     random_index = randint(0, len(non_agent_pieces) - 1)
     move_piece_to_piece(eye, non_agent_pieces[random_index])
 
+
 def move_hand_to_eye():
     move_piece_to_piece(hand, eye)
+
 
 def move_marker_to_eye():
     move_piece_to_piece(marker, eye)
 
+
 def move_eye_to_marker():
     move_piece_to_piece(eye, marker)
+
 
 def move_eye_to_hand():
     move_piece_to_piece(eye, hand)
 
+
 def move_eye_one_step_north():
     move_piece(eye, 'north')
+
 
 def move_eye_one_step_south():
     move_piece(eye, 'south')
 
+
 def move_eye_one_step_east():
     move_piece(eye, 'east')
 
+
 def move_eye_one_step_west():
     move_piece(eye, 'west')
+
 
 def move_piece(piece, direction):
     if direction == 'north':
@@ -254,6 +294,7 @@ def move_piece(piece, direction):
 
     board.placepiece(piece)
 
+
 def move_piece_by_name(name, direction):
     if name == 'eye':
         move_piece(eye, direction)
@@ -263,6 +304,7 @@ def move_piece_by_name(name, direction):
         move_piece(marker, direction)
 
 current_piece_to_move_using_keys = 'marker'
+
 def key(event):
     global current_piece_to_move_using_keys
 
@@ -353,9 +395,11 @@ def key(event):
 
     update_screen()
 
+
 def update_environment_variables():
     for variable in environment_variables:
         variable['update_function']()
+
 
 def update_environment_labels():
     light_label_text.set('Light: ' + light['state'] + ', ' +
@@ -380,6 +424,7 @@ def update_environment_labels():
                                 '[hand:'   + str(state[1]) +'], ' +
                                 '[marker:' + str(state[2]) +']')
 
+
 def update_blocks_color():
     if is_on(light):
         blue_block.set_image(tk.PhotoImage(file="img/blue_block.gif"))
@@ -397,6 +442,7 @@ def update_blocks_color():
     board.canvas.tag_raise('eye')
     board.canvas.tag_raise('marker')
 
+
 def update_screen():
     update_state()
     update_environment_variables()
@@ -404,6 +450,7 @@ def update_screen():
     update_blocks_color()
     update_action_buttons_state()
     # root.update_idletasks()
+
 
 def create_test_buttons():
     test_buttons_frame = tk.Frame(right_frame)
@@ -433,6 +480,7 @@ def create_test_buttons():
     global position_pieces_like_article_button
     position_pieces_like_article_button = tk.Button(test_buttons_frame, text='position_pieces_like_article', fg="white", bg="blue", command=position_pieces_like_article)
     position_pieces_like_article_button.pack(side=tk.TOP)
+
 
 def create_action_buttons():
     action_buttons_frame = tk.Frame(right_frame)
@@ -519,16 +567,20 @@ def create_action_buttons():
     flick_switch_option_button.pack(side=tk.TOP)
     action_buttons.append(flick_switch_option_button)
 
+
 def update_available_actions():
     global available_actions
 
     available_actions = get_available_actions()
 
+
 def get_available_actions():
     return get_actions_from_agent() + get_actions_from_pieces()
 
+
 def execute_action(action):
     all_possible_actions[action]()
+
 
 def update_action_buttons_state():
     update_available_actions()
@@ -539,6 +591,7 @@ def update_action_buttons_state():
             button['state'] = 'normal'
         else:
             button['state'] = 'disabled'
+
 
 def random_actions():
     global step
@@ -554,12 +607,14 @@ def random_actions():
         root.update_idletasks()
         sleep(.1)
 
+
 def move_eye_one_step_north_click():
     global step
 
     move_eye_one_step_north()
     step += 1
     update_screen()
+
 
 def move_eye_one_step_south_click():
     global step
@@ -568,12 +623,14 @@ def move_eye_one_step_south_click():
     step += 1
     update_screen()
 
+
 def move_eye_one_step_east_click():
     global step
 
     move_eye_one_step_east()
     step += 1
     update_screen()
+
 
 def move_eye_one_step_west_click():
     global step
@@ -582,12 +639,14 @@ def move_eye_one_step_west_click():
     step += 1
     update_screen()
 
+
 def move_eye_to_hand_click():
     global step
 
     move_eye_to_hand()
     step += 1
     update_screen()
+
 
 def move_eye_to_marker_click():
     global step
@@ -596,12 +655,14 @@ def move_eye_to_marker_click():
     step += 1
     update_screen()
 
+
 def move_eye_to_random_object_click():
     global step
 
     move_eye_to_random_object()
     step += 1
     update_screen()
+
 
 def move_hand_to_eye_click():
     global step
@@ -610,12 +671,14 @@ def move_hand_to_eye_click():
     step += 1
     update_screen()
 
+
 def move_marker_to_eye_click():
     global step
 
     move_marker_to_eye()
     step += 1
     update_screen()
+
 
 def kick_ball_click():
     global step
@@ -624,12 +687,14 @@ def kick_ball_click():
     step += 1
     update_screen()
 
+
 def press_blue_block_click():
     global step
 
     press_blue_block()
     step += 1
     update_screen()
+
 
 def push_blue_block_click():
     global step
@@ -638,12 +703,14 @@ def push_blue_block_click():
     step += 1
     update_screen()
 
+
 def press_red_block_click():
     global step
 
     press_red_block()
     step += 1
     update_screen()
+
 
 def push_red_block_click():
     global step
@@ -652,12 +719,14 @@ def push_red_block_click():
     step += 1
     update_screen()
 
+
 def flick_switch_click():
     global step
 
     flick_switch()
     step += 1
     update_screen()
+
 
 def flick_switch_option_click():
     global step
@@ -675,6 +744,7 @@ Vx = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
+
 def fix_Q(my_Q, state_key, action_key):
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
@@ -682,10 +752,12 @@ def fix_Q(my_Q, state_key, action_key):
     if not (action_key in my_Q[state_key].keys()):
         my_Q[state_key][action_key] = Q_default_value
 
+
 def set_Q(my_Q, state_key, action_key, new_value):
     fix_Q(my_Q, state_key, action_key)
 
     my_Q[state_key][action_key] = new_value
+
 
 def get_Q(my_Q, state_key, action_key):
     fix_Q(my_Q, state_key, action_key)
@@ -693,29 +765,35 @@ def get_Q(my_Q, state_key, action_key):
     return my_Q[state_key][action_key]
 
 # Vx refers to V^*
+
 def fix_Vx(state_key):
     if not (state_key in Vx.keys()):
         Vx[state_key] = Q_default_value
 
 # Vx refers to V^*
+
 def set_Vx(state_key, new_max):
     fix_Vx(state_key)
 
     Vx[state_key] = new_max
 
 # Vx refers to V^*
+
 def get_Vx(state_key):
     fix_Vx(state_key)
 
     return Vx[state_key]
 
+
 def state_is_goal():
     return is_on(music)
+
 
 def select_random_action():
     update_available_actions()
 
     return choice(available_actions)
+
 
 def select_best_actions(my_Q, my_state):
     update_available_actions()
@@ -733,8 +811,10 @@ def select_best_actions(my_Q, my_state):
 
     return best_actions
 
+
 def select_best_action(my_Q, my_state):
     return choice(select_best_actions(my_Q, my_state))
+
 
 def set_random_initial_state():
     board_squares = list(product(range(5), range(5)))
@@ -746,8 +826,10 @@ def set_random_initial_state():
 
         board.placepiece(piece)
 
+
 def alpha_sum(x, y, alpha):
     return (1 - alpha) * x + alpha * y
+
 
 def position_pieces_like_article():
     # ball.row = 1
@@ -780,6 +862,7 @@ def position_pieces_like_article():
     for piece in all_pieces:
         board.placepiece(piece)
 
+
 def setup_new_episode():
     light['state'] = 'OFF'
     light['step'] = -1
@@ -797,11 +880,13 @@ def setup_new_episode():
 
     step = 0
 
+
 def get_reward():
     if state_is_goal():
         return 1
     else:
         return 0
+
 
 def print_Q(Q):
     for x in Q:
@@ -810,16 +895,19 @@ def print_Q(Q):
             print (y,':',Q[x][y])
         print
 
+
 def get_log_filename():
     now_str = str(datetime.now())
     filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
     return filename
+
 
 def git_commit_and_tag(text):
     from subprocess import call
 
     call(['git', 'commit', '-a', '-m', text])
     call(['git', 'tag', text])
+
 
 def map_state(old_state):
     # Remove 'gray_block' from state description
@@ -832,6 +920,7 @@ def map_state(old_state):
                 new_under_thing += (thing,)
         new_state += (new_under_thing,)
     return new_state
+
 
 def q_learning_simple():
     global step
@@ -976,6 +1065,7 @@ def q_learning_simple():
 ############
 O = {}
 
+
 def fix_1dic(dic, key):
     """ Fixes a one-dimension dictionary: receives a key and, if the
     entry does not exist in the dictionary, creates it initializing
@@ -983,6 +1073,7 @@ def fix_1dic(dic, key):
 
     if not (key in dic.keys()):
         dic[key] = 0
+
 
 def fix_2dic(dic, key1, key2):
     """ Fixes a two-dimension dictionary: receives the keys and, if
@@ -994,6 +1085,7 @@ def fix_2dic(dic, key1, key2):
 
     fix_1dic(dic[key1], key2)
 
+
 def set_1dic(dic, key, new_value):
     """Sets the value of a one-dimensional dictionary entry"""
 
@@ -1001,12 +1093,14 @@ def set_1dic(dic, key, new_value):
 
     dic[key] = new_value
 
+
 def set_2dic(dic, key1, key2, new_value):
     """Sets the value of a two-dimensional dictionary entry"""
 
     fix_2dic(dic, key1, key2)
 
     dic[key1][key2] = new_value
+
 
 def get_1dic(dic, key):
     """Gets the value of a one-dimensional dictionary entry. If the
@@ -1016,6 +1110,7 @@ def get_1dic(dic, key):
 
     return dic[key]
 
+
 def get_2dic(dic, key1, key2):
     """Gets the value of a two-dimensional dictionary entry. If the
     entry does not exist, creates it with a value of zero."""
@@ -1023,6 +1118,7 @@ def get_2dic(dic, key1, key2):
     fix_2dic(dic, key1, key2)
 
     return dic[key1][key2]
+
 
 def fix_O(my_O, salient_event):
     if not (salient_event in my_O.keys()):
@@ -1045,36 +1141,46 @@ def fix_O(my_O, salient_event):
         # model
         my_O[salient_event]['P'] = {}
 
+
 def get_I(my_O, salient_event):
     return my_O[salient_event]['I']
+
 
 def add_I(my_O, salient_event, s):
     if not (s in get_I(my_O, salient_event)):
         my_O[salient_event]['I'].append(s)
 
+
 def set_BETA(my_O, salient_event, s, new_value):
     set_1dic(my_O[salient_event]['BETA'], s, new_value)
+
 
 def get_BETA(my_O, salient_event, s):
     return get_1dic(my_O[salient_event]['BETA'], s)
 
+
 def set_R(my_O, salient_event, s, new_value):
     set_1dic(my_O[salient_event]['R'], s, new_value)
+
 
 def get_R(my_O, salient_event, s):
     return get_1dic(my_O[salient_event]['R'], s)
 
+
 def set_P(my_O, salient_event, s2, s, new_value):
     set_2dic(my_O[salient_event]['P'], s2, s, new_value)
 
+
 def get_P(my_O, salient_event, s2, s):
     return get_2dic(my_O[salient_event]['P'], s2, s)
+
 
 def delta(a, b):
     if a == b:
         return 1
     else:
         return 0
+
 
 def imrl():
     global step
@@ -1183,26 +1289,23 @@ def imrl():
                 r_i2 = 0
 
             # //- Update all option models
-            for salient_event in O.keys(): # For each option o = o_e in skill-KB (O)
-                # Here the salient event being there means the option
-                # has been already created
-
+            for o in O.keys(): # For each option o = o_e in skill-KB (O)
                 # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
                 # initiation set
-                if s2 in get_I(O, salient_event):
-                    add_I(O, salient_event, s)
+                if s2 in get_I(O, o):
+                    add_I(O, o, s)
 
                 # If a_t is greedy action for o in state s_t
-                if a in select_best_actions(O[salient_event]['Q'], s):
+                if a in select_best_actions(O[o]['Q'], s):
                     # //— update option transition probability model
                     # for each state reachable by the option
-                    for x in get_I(O, salient_event):
+                    for x in get_I(O, o):
                         # arg1
-                        arg1 = get_P(O, salient_event, x, s)
+                        arg1 = get_P(O, o, x, s)
 
                         # arg2
-                        beta_s2 = get_BETA(O, salient_event, s2)
-                        p_x_s2 = get_P(O, salient_event, x, s2)
+                        beta_s2 = get_BETA(O, o, s2)
+                        p_x_s2 = get_P(O, o, x, s2)
                         arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
                                gamma * beta_s2 * delta(s2, x)
 
@@ -1210,24 +1313,24 @@ def imrl():
                         new_p = alpha_sum(arg1, arg2, alpha)
 
                         # sets the new value
-                        set_P(O, salient_event, x, s, new_p)
+                        set_P(O, o, x, s, new_p)
 
                     # //— update option reward model
                     r_e = r
 
                     # arg1
-                    arg1 = get_R(O, salient_event, s)
+                    arg1 = get_R(O, o, s)
 
                     # arg2
-                    beta_s2 = get_BETA(O, salient_event, s2)
-                    R_s2 = get_R(O, salient_event, s2)
+                    beta_s2 = get_BETA(O, o, s2)
+                    R_s2 = get_R(O, o, s2)
                     arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
 
                     # calculates the new value
                     new_R = alpha_sum(arg1, arg2, alpha)
 
                     # sets the new value
-                    set_R(O, salient_event, s, new_R)
+                    set_R(O, o, s, new_R)
 
             # //— Q-learning update of behavior action-value function
             # arg1
@@ -1241,6 +1344,28 @@ def imrl():
 
             # sets the new value
             set_Q(Q, s, a, new_Q)
+
+            # //— SMDP-planning update of behavior action-value function
+            for o in O.keys(): # For each option o = o_e in skill-KB (O)
+                # calculates arg1
+                arg1 = get_Q(Q, s, o)
+
+                # calculates arg2
+                sum_pq = 0
+                for x in get_I(O, o):
+                    p_x_s = get_P(O, o, x, s)
+
+                    sum_pq += p_x_s * get_Vx(x)
+
+                R_o = get_R(O, o, s)
+                
+                arg2 = R_o + sum_pq
+
+                # calculates the new value
+                new_Q = alpha_sum(arg1, arg2, alpha)
+
+                # sets the new value
+                set_Q(Q, s, o, new_Q)
 
             # Parei aqui
             
