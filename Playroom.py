@@ -1351,21 +1351,31 @@ def imrl():
                 arg1 = get_Q(Q, s, o)
 
                 # calculates arg2
-                sum_pq = 0
+                sum_p_vx = 0
                 for x in get_I(O, o):
                     p_x_s = get_P(O, o, x, s)
 
-                    sum_pq += p_x_s * get_Vx(x)
+                    sum_p_vx += p_x_s * get_Vx(x)
 
                 R_o = get_R(O, o, s)
                 
-                arg2 = R_o + sum_pq
+                arg2 = R_o + sum_p_vx
 
                 # calculates the new value
                 new_Q = alpha_sum(arg1, arg2, alpha)
 
                 # sets the new value
                 set_Q(Q, s, o, new_Q)
+
+            # //— Update option action-value functions
+            for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
+                if s in get_I(O, o):
+                    # calculates arg1
+                    arg1 = get_Q(O[o]['Q'], s, a)
+
+                    # calculates arg2
+                    
+                    arg2 = r_e + 
 
             # Parei aqui
             
