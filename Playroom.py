@@ -1261,6 +1261,8 @@ def imrl():
             s2 = state                    # the new state, after the execution of the action
             r = get_reward()
 
+            r_e = r
+
             # Deal with special case if next state is salient
             if is_salient_event():        # If s_{t+1} is a salient event e
                 o = state[3:]
