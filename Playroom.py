@@ -1375,7 +1375,7 @@ def imrl():
 
                     # calculates arg2
                     
-                    arg2 = r_e + 
+                    # arg2 = r_e + 
 
             # Parei aqui
             
