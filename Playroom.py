@@ -1268,12 +1268,12 @@ def imrl():
             if is_salient_event():        # If s_{t+1} is a salient event e
                 o = state[3:]
 
-                print '=============================================='
-                print 'a: ' + a
-                print 'old state: ' + str(s)
-                print 'new state: ' + str(s2)
-                print 'o: ' + str(o)
-                print '=============================================='
+                # print '=============================================='
+                # print 'a: ' + a
+                # print 'old state: ' + str(s)
+                # print 'new state: ' + str(s2)
+                # print 'o: ' + str(o)
+                # print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (o in O.keys()):
