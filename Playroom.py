@@ -1213,6 +1213,7 @@ def imrl():
     # steps. The global variable "step" is reset at the beginning of
     # each episode
     global_step_count = 0
+    r_i2 = 0
     for episode in range(episodes):
         setup_new_episode()
         update_state()
@@ -1262,7 +1263,7 @@ def imrl():
             r = get_reward()
 
             r_e = r
-
+            r_i = r_i2
             # Deal with special case if next state is salient
             if is_salient_event():        # If s_{t+1} is a salient event e
                 o = state[3:]
