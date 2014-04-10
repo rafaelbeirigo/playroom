@@ -1147,7 +1147,7 @@ def get_I(salient_event):
 
 
 def add_I(salient_event, s):
-    if not (s in get_I(O, salient_event)):
+    if not (s in get_I(salient_event)):
         O[salient_event]['I'].append(s)
 
 
@@ -1275,16 +1275,16 @@ def imrl():
                 # If option for e, o_e , does not exist in O (skill-KB)
                 if not (salient_event in O.keys()):
                     # Create option o_e in skill-KB;
-                    fix_O(O, salient_event)
+                    fix_O(salient_event)
 
                     # Add s_t to I^{o_e} // initialize initiation set
-                    add_I(O, salient_event, s)
+                    add_I(salient_event, s)
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                    set_BETA(O, salient_event, s2, 1)
+                    set_BETA(salient_event, s2, 1)
 
                 # //— set intrinsic reward value
-                r_i2 = tau * ( 1 - get_P(O, salient_event, s2, s) )
+                r_i2 = tau * ( 1 - get_P(salient_event, s2, s) )
             else:
                 r_i2 = 0
 
@@ -1292,20 +1292,20 @@ def imrl():
             for o in O.keys(): # For each option o = o_e in skill-KB (O)
                 # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
                 # initiation set
-                if s2 in get_I(O, o):
-                    add_I(O, o, s)
+                if s2 in get_I(o):
+                    add_I(o, s)
 
                 # If a_t is greedy action for o in state s_t
                 if a in select_best_actions(O[o]['Q'], s):
                     # //— update option transition probability model
                     # for each state reachable by the option
-                    for x in get_I(O, o):
+                    for x in get_I(o):
                         # arg1
-                        arg1 = get_P(O, o, x, s)
+                        arg1 = get_P(o, x, s)
 
                         # arg2
-                        beta_s2 = get_BETA(O, o, s2)
-                        p_x_s2 = get_P(O, o, x, s2)
+                        beta_s2 = get_BETA(o, s2)
+                        p_x_s2 = get_P(o, x, s2)
                         arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
                                gamma * beta_s2 * delta(s2, x)
 
@@ -1313,24 +1313,24 @@ def imrl():
                         new_p = alpha_sum(arg1, arg2, alpha)
 
                         # sets the new value
-                        set_P(O, o, x, s, new_p)
+                        set_P(o, x, s, new_p)
 
                     # //— update option reward model
                     r_e = r
 
                     # arg1
-                    arg1 = get_R(O, o, s)
+                    arg1 = get_R(o, s)
 
                     # arg2
-                    beta_s2 = get_BETA(O, o, s2)
-                    R_s2 = get_R(O, o, s2)
+                    beta_s2 = get_BETA(o, s2)
+                    R_s2 = get_R(o, s2)
                     arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
 
                     # calculates the new value
                     new_R = alpha_sum(arg1, arg2, alpha)
 
                     # sets the new value
-                    set_R(O, o, s, new_R)
+                    set_R(o, s, new_R)
 
             # //— Q-learning update of behavior action-value function
             # arg1
@@ -1352,12 +1352,12 @@ def imrl():
 
                 # calculates arg2
                 sum_p_vx = 0
-                for x in get_I(O, o):
-                    p_x_s = get_P(O, o, x, s)
+                for x in get_I(o):
+                    p_x_s = get_P(o, x, s)
 
                     sum_p_vx += p_x_s * get_Vx(x)
 
-                R_o = get_R(O, o, s)
+                R_o = get_R(o, s)
                 
                 arg2 = R_o + sum_p_vx
 
@@ -1369,7 +1369,7 @@ def imrl():
 
             # //— Update option action-value functions
             for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-                if s in get_I(O, o):
+                if s in get_I(o):
                     # calculates arg1
                     arg1 = get_Q(O[o]['Q'], s, a)
 
