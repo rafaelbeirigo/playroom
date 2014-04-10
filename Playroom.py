@@ -1121,58 +1121,58 @@ def get_2dic(dic, key1, key2):
 
 
 def fix_O(salient_event):
-    if not (salient_event in my_O.keys()):
+    if not (salient_event in O.keys()):
         # Creates an entry to the option
-        my_O[salient_event] = {}
+        O[salient_event] = {}
 
         # Creates an entry to the option's Q-table
-        my_O[salient_event]['Q'] = {}
+        O[salient_event]['Q'] = {}
 
         # Creates an entry to the option's initiation set
-        my_O[salient_event]['I'] = []
+        O[salient_event]['I'] = []
 
         # Creates an entry to the option's Beta function
-        my_O[salient_event]['BETA'] = {}
+        O[salient_event]['BETA'] = {}
 
         # Creates an entry to the option's Reward function
-        my_O[salient_event]['R'] = {}
+        O[salient_event]['R'] = {}
 
         # Creates an entry to the option's transition probability
         # model
-        my_O[salient_event]['P'] = {}
+        O[salient_event]['P'] = {}
 
 
 def get_I(salient_event):
-    return my_O[salient_event]['I']
+    return O[salient_event]['I']
 
 
 def add_I(salient_event, s):
-    if not (s in get_I(my_O, salient_event)):
-        my_O[salient_event]['I'].append(s)
+    if not (s in get_I(O, salient_event)):
+        O[salient_event]['I'].append(s)
 
 
 def set_BETA(salient_event, s, new_value):
-    set_1dic(my_O[salient_event]['BETA'], s, new_value)
+    set_1dic(O[salient_event]['BETA'], s, new_value)
 
 
 def get_BETA(salient_event, s):
-    return get_1dic(my_O[salient_event]['BETA'], s)
+    return get_1dic(O[salient_event]['BETA'], s)
 
 
 def set_R(salient_event, s, new_value):
-    set_1dic(my_O[salient_event]['R'], s, new_value)
+    set_1dic(O[salient_event]['R'], s, new_value)
 
 
 def get_R(salient_event, s):
-    return get_1dic(my_O[salient_event]['R'], s)
+    return get_1dic(O[salient_event]['R'], s)
 
 
 def set_P(salient_event, s2, s, new_value):
-    set_2dic(my_O[salient_event]['P'], s2, s, new_value)
+    set_2dic(O[salient_event]['P'], s2, s, new_value)
 
 
 def get_P(salient_event, s2, s):
-    return get_2dic(my_O[salient_event]['P'], s2, s)
+    return get_2dic(O[salient_event]['P'], s2, s)
 
 
 def delta(a, b):
