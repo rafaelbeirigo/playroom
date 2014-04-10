@@ -1120,7 +1120,7 @@ def get_2dic(dic, key1, key2):
     return dic[key1][key2]
 
 
-def fix_O(my_O, salient_event):
+def fix_O(salient_event):
     if not (salient_event in my_O.keys()):
         # Creates an entry to the option
         my_O[salient_event] = {}
@@ -1142,36 +1142,36 @@ def fix_O(my_O, salient_event):
         my_O[salient_event]['P'] = {}
 
 
-def get_I(my_O, salient_event):
+def get_I(salient_event):
     return my_O[salient_event]['I']
 
 
-def add_I(my_O, salient_event, s):
+def add_I(salient_event, s):
     if not (s in get_I(my_O, salient_event)):
         my_O[salient_event]['I'].append(s)
 
 
-def set_BETA(my_O, salient_event, s, new_value):
+def set_BETA(salient_event, s, new_value):
     set_1dic(my_O[salient_event]['BETA'], s, new_value)
 
 
-def get_BETA(my_O, salient_event, s):
+def get_BETA(salient_event, s):
     return get_1dic(my_O[salient_event]['BETA'], s)
 
 
-def set_R(my_O, salient_event, s, new_value):
+def set_R(salient_event, s, new_value):
     set_1dic(my_O[salient_event]['R'], s, new_value)
 
 
-def get_R(my_O, salient_event, s):
+def get_R(salient_event, s):
     return get_1dic(my_O[salient_event]['R'], s)
 
 
-def set_P(my_O, salient_event, s2, s, new_value):
+def set_P(salient_event, s2, s, new_value):
     set_2dic(my_O[salient_event]['P'], s2, s, new_value)
 
 
-def get_P(my_O, salient_event, s2, s):
+def get_P(salient_event, s2, s):
     return get_2dic(my_O[salient_event]['P'], s2, s)
 
 
