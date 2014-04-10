@@ -1120,59 +1120,59 @@ def get_2dic(dic, key1, key2):
     return dic[key1][key2]
 
 
-def fix_O(salient_event):
-    if not (salient_event in O.keys()):
+def fix_O(o):
+    if not (o in O.keys()):
         # Creates an entry to the option
-        O[salient_event] = {}
+        O[o] = {}
 
         # Creates an entry to the option's Q-table
-        O[salient_event]['Q'] = {}
+        O[o]['Q'] = {}
 
         # Creates an entry to the option's initiation set
-        O[salient_event]['I'] = []
+        O[o]['I'] = []
 
         # Creates an entry to the option's Beta function
-        O[salient_event]['BETA'] = {}
+        O[o]['BETA'] = {}
 
         # Creates an entry to the option's Reward function
-        O[salient_event]['R'] = {}
+        O[o]['R'] = {}
 
         # Creates an entry to the option's transition probability
         # model
-        O[salient_event]['P'] = {}
+        O[o]['P'] = {}
 
 
-def get_I(salient_event):
-    return O[salient_event]['I']
+def get_I(o):
+    return O[o]['I']
 
 
-def add_I(salient_event, s):
-    if not (s in get_I(salient_event)):
-        O[salient_event]['I'].append(s)
+def add_I(o, s):
+    if not (s in get_I(o)):
+        O[o]['I'].append(s)
 
 
-def set_BETA(salient_event, s, new_value):
-    set_1dic(O[salient_event]['BETA'], s, new_value)
+def set_BETA(o, s, new_value):
+    set_1dic(O[o]['BETA'], s, new_value)
 
 
-def get_BETA(salient_event, s):
-    return get_1dic(O[salient_event]['BETA'], s)
+def get_BETA(o, s):
+    return get_1dic(O[o]['BETA'], s)
 
 
-def set_R(salient_event, s, new_value):
-    set_1dic(O[salient_event]['R'], s, new_value)
+def set_R(o, s, new_value):
+    set_1dic(O[o]['R'], s, new_value)
 
 
-def get_R(salient_event, s):
-    return get_1dic(O[salient_event]['R'], s)
+def get_R(o, s):
+    return get_1dic(O[o]['R'], s)
 
 
-def set_P(salient_event, s2, s, new_value):
-    set_2dic(O[salient_event]['P'], s2, s, new_value)
+def set_P(o, s2, s, new_value):
+    set_2dic(O[o]['P'], s2, s, new_value)
 
 
-def get_P(salient_event, s2, s):
-    return get_2dic(O[salient_event]['P'], s2, s)
+def get_P(o, s2, s):
+    return get_2dic(O[o]['P'], s2, s)
 
 
 def delta(a, b):
@@ -1263,28 +1263,28 @@ def imrl():
 
             # Deal with special case if next state is salient
             if is_salient_event():        # If s_{t+1} is a salient event e
-                salient_event = state[3:]
+                o = state[3:]
 
                 print '=============================================='
                 print 'a: ' + a
                 print 'old state: ' + str(s)
                 print 'new state: ' + str(s2)
-                print 'salient_event: ' + str(salient_event)
+                print 'o: ' + str(o)
                 print '=============================================='
 
                 # If option for e, o_e , does not exist in O (skill-KB)
-                if not (salient_event in O.keys()):
+                if not (o in O.keys()):
                     # Create option o_e in skill-KB;
-                    fix_O(salient_event)
+                    fix_O(o)
 
                     # Add s_t to I^{o_e} // initialize initiation set
-                    add_I(salient_event, s)
+                    add_I(o, s)
 
                     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                    set_BETA(salient_event, s2, 1)
+                    set_BETA(o, s2, 1)
 
                 # //— set intrinsic reward value
-                r_i2 = tau * ( 1 - get_P(salient_event, s2, s) )
+                r_i2 = tau * ( 1 - get_P(o, s2, s) )
             else:
                 r_i2 = 0
 
