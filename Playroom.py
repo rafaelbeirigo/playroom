@@ -757,7 +757,7 @@ def which_Q(o):
 
     
 def fix_Q(state_key, action_key, option_key=None):
-    my_Q = which_Q(o)
+    my_Q = which_Q(option_key)
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
@@ -765,15 +765,15 @@ def fix_Q(state_key, action_key, option_key=None):
         my_Q[state_key][action_key] = Q_default_value
 
 
-def set_Q(my_Q, state_key, action_key, new_value):
-    my_Q = which_Q(o)
+def set_Q(state_key, action_key, new_value, option_key=None):
+    my_Q = which_Q(option_key)
     fix_Q(my_Q, state_key, action_key)
 
     my_Q[state_key][action_key] = new_value
 
 
-def get_Q(my_Q, state_key, action_key, option_key=None):
-    my_Q = which_Q(o)
+def get_Q(state_key, action_key, option_key=None):
+    my_Q = which_Q(option_key)
     fix_Q(my_Q, state_key, action_key, option_key)
 
     return my_Q[state_key][action_key]
