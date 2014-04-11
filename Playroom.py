@@ -773,6 +773,7 @@ def set_Q(my_Q, state_key, action_key, new_value):
 
 
 def get_Q(my_Q, state_key, action_key, option_key=None):
+    my_Q = which_Q(o)
     fix_Q(my_Q, state_key, action_key, option_key)
 
     return my_Q[state_key][action_key]
