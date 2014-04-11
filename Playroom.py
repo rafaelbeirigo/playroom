@@ -1139,6 +1139,10 @@ def fix_O(o):
         # model
         O[o]['P'] = {}
 
+        # Creates an entry to the option's terminal value and
+        # initialize it.
+        O[o]['TV'] = 1
+
 
 def get_I(o):
     return O[o]['I']
@@ -1171,6 +1175,10 @@ def set_P(o, s2, s, new_value):
 
 def get_P(o, s2, s):
     return get_2dic(O[o]['P'], s2, s)
+
+
+def get_TV(o):
+    return O[o]['TV']
 
 
 def delta(a, b):
