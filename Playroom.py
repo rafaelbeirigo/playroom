@@ -779,6 +779,18 @@ def get_Q(state_key, action_key, option_key=None):
     return my_Q[state_key][action_key]
 
 
+def which_Vx(o):
+    """Returns the correct Vx depending on the variable o:
+    If o is provided, return the Vx for the option, if it is not
+    provided, return the standard Vx.
+    """
+
+    if o == None:
+        return Vx
+    else:
+        return O[o]['Vx']
+
+    
 # Vx refers to V^*
 def fix_Vx(state_key):
     if not (state_key in Vx.keys()):
