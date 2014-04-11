@@ -1155,6 +1155,9 @@ def fix_O(o):
         # Creates an entry to the option's initiation set
         O[o]['I'] = []
 
+        # Creates an entry to the option's V^*
+        O[o]['Vx'] = []
+
         # Creates an entry to the option's Beta function
         O[o]['BETA'] = {}
 
@@ -1222,7 +1225,7 @@ def get_sum_pvx(s, o):
     for x in get_I(o):
         p_x_s = get_P(o, x, s)
 
-        vx = get_Vx(x)
+        vx = get_Vx(x, o)
 
         sum_pvx += p_x_s * vx
 
@@ -1437,7 +1440,7 @@ def imrl():
 
                     # calculates arg2
                     arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
-                               + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, a, o)
+                               + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, o)
 
                     # calculates the new value
                     new_Q = alpha_sum(arg1, arg2, alpha)
