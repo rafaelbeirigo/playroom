@@ -1425,7 +1425,7 @@ def imrl():
                         arg1 = get_Q(s, o2, o2)
 
                         # calculates arg2
-                        arg2 = get_R(o2, s) + get_sum(s, o2)
+                        arg2 = get_R(o2, s) + get_sum_pvxo(s, o, o2)
 
                         # calculates the new value
                         new_Q = alpha_sum(arg1, arg2, alpha)
