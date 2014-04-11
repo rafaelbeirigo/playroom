@@ -1410,7 +1410,7 @@ def imrl():
                     arg1 = get_Q(O[o]['Q'], s, a)
 
                     # calculates arg2
-                    arg2 = r_e + gamma * get_BETA(o, s2)       * terminal_value_for_option_o \
+                    arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
                                + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, a, o)
 
                     # calculates the new value
