@@ -1180,9 +1180,25 @@ def delta(a, b):
         return 0
 
 
+def get_sum_pvx(s, o):
+    """Returns the sum used in
+    //— SMDP-planning update of behavior action-value function"""
+
+    sum_pvx = 0
+    for x in get_I(o):
+        p_x_s = get_P(o, x, s)
+
+        vx = get_Vx(x)
+
+        sum_pvx += p_x_s * vx
+
+    return sum_pvx
+
+
 def get_sum_pvxo(s, o, o2):
-    """Returns the sum used in '//— Update option action-value functions'
-    Here o2 == o' from the article."""
+    """Returns the sum used in
+    //— Update option action-value functions
+    Here o2 == o from the article."""
 
     sum_pvxo = 0
     for x in get_I(o2):
