@@ -1089,8 +1089,6 @@ def fix_2dic(dic, key1, key2):
 def set_1dic(dic, key, new_value):
     """Sets the value of a one-dimensional dictionary entry"""
 
-    fix_1dic(dic, key)
-
     dic[key] = new_value
 
 
@@ -1182,6 +1180,25 @@ def delta(a, b):
         return 0
 
 
+def get_sum_pvxo(s, o, o2):
+    """Returns the sum used in '//— Update option action-value functions'
+    Here o2 == o' from the article."""
+
+    sum_pvxo = 0
+    for x in get_I(o2):
+        p_x_s = get_P(o2, x, s)
+
+        bx = get_BETA(o, x)
+
+        tv = get_TV(o)
+
+        vx = get_Vx(s, o)
+
+        sum_pvxo += p_x_s * (bx * tv + (1 - bx) * vx)
+
+    return sum_pvxo
+
+
 def imrl():
     global step
 
@@ -1266,7 +1283,7 @@ def imrl():
             r_i = r_i2
             # Deal with special case if next state is salient
             if is_salient_event():        # If s_{t+1} is a salient event e
-                o = state[3:]
+                o = state[3:]             # the option is described using the part of the state description relative to the statuses
 
                 # print '=============================================='
                 # print 'a: ' + a
@@ -1362,6 +1379,7 @@ def imrl():
 
                 R_o = get_R(o, s)
                 
+
                 arg2 = R_o + sum_p_vx
 
                 # calculates the new value
@@ -1377,55 +1395,45 @@ def imrl():
                     arg1 = get_Q(O[o]['Q'], s, a)
 
                     # calculates arg2
-                    
-                    # arg2 = r_e + 
+                    arg2 = r_e + gamma * get_BETA(o, s2)       * terminal_value_for_option_o \
+                               + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, a, o)
 
+                    # calculates the new value
+                    new_Q = alpha_sum(arg1, arg2, alpha)
+
+                    # sets the new value
+                    set_Q(s, a, new_Q, o)
+
+                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+                    if (o != o2) and (s in get_I(o2)):
+                        # calculates arg1
+                        arg1 = get_Q(s, o2, o2)
+
+                        # calculates arg2
+                        arg2 = get_R(o2, s) + get_sum(s, o2)
+
+                        # calculates the new value
+                        new_Q = alpha_sum(arg1, arg2, alpha)
+
+                        # sets the new value
+                        set_Q(s, o2, new_Q, o)
+
+            # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
             # Parei aqui
-            
-            Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
-            # Makes sure that the goal is an absorbing state: if the
-            # reward received is greater than zero the agent must have
-            # reached the goal state (rewards are only awarded when
-            # the agent reaches the goal)
-            if r > 0:
-                Vx_s2 = 0
-            else:
-                Vx_s2 = get_Vx(s2)
 
-            # Update the table entry for Q(s,a)
-            Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
-                               alpha  * (r + gamma * Vx_s2)
-            set_Q(Q, s, a, Q_s_a_new)
+            # //— Determine next extrinsic reward
 
-            if Q_s_a_new > get_Vx(s):
-                set_Vx(s, Q_s_a_new)
 
-            ##########
-            # OPTION #
-            ##########
-            if current_option == 'flick_switch_option':
-                # Update the table entry for Q(s, flick_switch_option)
-                Q_s_o_old = get_Q(Q, s, current_option)
+            # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
 
-                # Goal is an absorbing state
-                if r > 0:
-                    Q_s2_o = 0
-                else:
-                    Q_s2_o = get_Q(Q, s2, current_option)
 
-                Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
-                                   alpha  * (r + gamma * Q_s2_o)
+            # Set st ← st+1 ; at ← at+1 ; rt ← rt+1 ; rt ← rt+1
 
-                set_Q(Q, s, current_option, Q_s_o_new)
-
-            step += 1
-            global_step_count += 1
-
+        # Here an episode just ended
         if state_is_goal():
             reached_goal = 'y'
 
-        # Here an episode just ended
         episode_number = episode
         end_step = global_step_count - 1
         duration = end_step - start_step + 1
