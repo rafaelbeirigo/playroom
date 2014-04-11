@@ -745,7 +745,23 @@ Vx = {}
 Q_flick_switch = loadobject('flick_switch_option.q')
 
 
-def fix_Q(my_Q, state_key, action_key):
+def which_Q(o):
+    """Returns the correct Q table depending on the variable o:
+    If o is provided, return the Q-table for the option, if it
+    is not provided, return the standard Q-table."""
+
+    if o == None:
+        return O[o]['Q']
+    else:
+        return Q
+
+    
+def fix_Q(state_key, action_key, option_key=None):
+    if option_key == None:
+        my_Q = Q
+    else:
+        my_Q = O[option_key]['Q']
+
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
@@ -759,19 +775,19 @@ def set_Q(my_Q, state_key, action_key, new_value):
     my_Q[state_key][action_key] = new_value
 
 
-def get_Q(my_Q, state_key, action_key):
-    fix_Q(my_Q, state_key, action_key)
+def get_Q(my_Q, state_key, action_key, option_key=None):
+    fix_Q(my_Q, state_key, action_key, option_key)
 
     return my_Q[state_key][action_key]
 
-# Vx refers to V^*
 
+# Vx refers to V^*
 def fix_Vx(state_key):
     if not (state_key in Vx.keys()):
         Vx[state_key] = Q_default_value
 
-# Vx refers to V^*
 
+# Vx refers to V^*
 def set_Vx(state_key, new_max):
     fix_Vx(state_key)
 
