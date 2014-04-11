@@ -751,17 +751,13 @@ def which_Q(o):
     is not provided, return the standard Q-table."""
 
     if o == None:
-        return O[o]['Q']
-    else:
         return Q
+    else:
+        return O[o]['Q']
 
     
 def fix_Q(state_key, action_key, option_key=None):
-    if option_key == None:
-        my_Q = Q
-    else:
-        my_Q = O[option_key]['Q']
-
+    my_Q = which_Q(o)
     if not (state_key in my_Q.keys()):
         my_Q[state_key] = {}
 
