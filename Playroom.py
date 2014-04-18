@@ -792,9 +792,10 @@ def which_Vx(o):
 
     
 # Vx refers to V^*
-def fix_Vx(state_key):
-    if not (state_key in Vx.keys()):
-        Vx[state_key] = Q_default_value
+def fix_Vx(state_key, option_key=None):
+    my_Vx = which_Vx(option_key)
+    if not (state_key in my_Vx.keys()):
+        my_Vx[state_key] = Q_default_value
 
 
 # Vx refers to V^*
@@ -803,8 +804,8 @@ def set_Vx(state_key, new_max):
 
     Vx[state_key] = new_max
 
-# Vx refers to V^*
 
+# Vx refers to V^*
 def get_Vx(state_key):
     fix_Vx(state_key)
 
