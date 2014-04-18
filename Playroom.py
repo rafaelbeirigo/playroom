@@ -755,7 +755,7 @@ def which_Q(o):
     else:
         return O[o]['Q']
 
-    
+
 def fix_Q(state_key, action_key, option_key=None):
     my_Q = which_Q(option_key)
     if not (state_key in my_Q.keys()):
@@ -790,7 +790,7 @@ def which_Vx(o):
     else:
         return O[o]['Vx']
 
-    
+
 # Vx refers to V^*
 def fix_Vx(state_key, option_key=None):
     my_Vx = which_Vx(option_key)
