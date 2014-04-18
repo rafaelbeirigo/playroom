@@ -805,10 +805,11 @@ def set_Vx(state_key, new_max, option_key=None):
 
 
 # Vx refers to V^*
-def get_Vx(state_key):
-    fix_Vx(state_key)
+def get_Vx(state_key, option_key=None):
+    fix_Vx(state_key, option_key)
 
-    return Vx[state_key]
+    my_Vx = which_Vx(option_key)
+    return my_Vx[state_key]
 
 
 def state_is_goal():
