@@ -1437,7 +1437,7 @@ def imrl():
             for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
                 if s in get_I(o):
                     # calculates arg1
-                    arg1 = get_Q(O[o]['Q'], s, a)
+                    arg1 = get_Q(s, a, o)
 
                     # calculates arg2
                     arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
