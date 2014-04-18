@@ -799,10 +799,11 @@ def fix_Vx(state_key, option_key=None):
 
 
 # Vx refers to V^*
-def set_Vx(state_key, new_max):
-    fix_Vx(state_key)
+def set_Vx(state_key, new_max, option_key=None):
+    fix_Vx(state_key, option_key)
 
-    Vx[state_key] = new_max
+    my_Vx = which_Vx(option_key)
+    my_Vx[state_key] = new_max
 
 
 # Vx refers to V^*
