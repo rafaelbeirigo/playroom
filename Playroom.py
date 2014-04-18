@@ -800,8 +800,6 @@ def fix_Vx(state_key, option_key=None):
 
 # Vx refers to V^*
 def set_Vx(state_key, new_max, option_key=None):
-    fix_Vx(state_key, option_key)
-
     my_Vx = which_Vx(option_key)
     my_Vx[state_key] = new_max
 
