@@ -1109,6 +1109,7 @@ def q_learning_simple():
 # Playroom #
 ############
 O = {}
+pieces_on_cell = {}
 
 
 def fix_1dic(dic, key):
