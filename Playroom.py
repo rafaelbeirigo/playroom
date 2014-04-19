@@ -1313,12 +1313,9 @@ def imrl():
     gamma            = 0.9
     epsilon          = 0.1
     epsilonIncrement = 0.0
-
-    # imrl parameters
     tau = 0.9
 
-    episodes = 10000
-    steps = 100
+    steps = 1e6
 
     # Log stuff
     filename = get_log_filename()
@@ -1329,219 +1326,175 @@ def imrl():
     # track the version that generated each result
     git_commit_and_tag(filename[5:])
 
-    # "global_step_count" is used to keep track of the total number of
-    # steps. The global variable "step" is reset at the beginning of
-    # each episode
-    global_step_count = 0
     r_i2 = 0
-    for episode in range(episodes):
-        setup_new_episode()
+    for current_step in range(steps):
+        s = state                     # the current state
+
+        execute_action(a)
         update_state()
-        start_step = global_step_count
-        current_option = None
-        reached_goal = 'n'
-        for current_step in range(steps):
-            update_environment_variables()
 
-            # if a goal state is reached the episode ends
-            if state_is_goal():
-                break
+        s2 = state                    # the new state, after the execution of the action
+        r = get_reward()
 
-            # The option is followed in a full greedy manner, although
-            # there is a probability of stopping the use of the option
-            if current_option == 'flick_switch_option':
-                # option stops its execution with fixed probability
-                if is_off(light):
-                    a = select_best_action(Q_flick_switch,
-                                           map_state(state))
-                else:
-                    current_option = None
+        r_e = r
+        r_i = r_i2
+        # Deal with special case if next state is salient
+        if is_salient_event():        # If s_{t+1} is a salient event e
+            o = state[3:]             # the option is described using the part of the state description relative to the statuses
 
-            # This test has to be made as the option may have just be
-            # abandoned on the previous "if"
-            if current_option == None:
-                # Following epsilon-greedy strategy, Select an action a
-                # and execute it. Receive immediate reward r. Observe the
-                # new state s2
-                if random() < epsilon:    # random() gives a number in the interval [0, 1).
-                    # random
-                    a = select_random_action()
-                else:
-                    # greedy
-                    a = select_best_action(Q, state)
+            # print '=============================================='
+            # print 'a: ' + a
+            # print 'old state: ' + str(s)
+            # print 'new state: ' + str(s2)
+            # print 'o: ' + str(o)
+            # print '=============================================='
 
-                # Tests if the selected action is an option
-                if a == 'flick_switch_option':
-                    current_option = a
+            # If option for e, o_e , does not exist in O (skill-KB)
+            if not (o in O.keys()):
+                # Create option o_e in skill-KB;
+                fix_O(o)
 
-            s = state                     # the current state
+                # Add s_t to I^{o_e} // initialize initiation set
+                add_I(o, s)
 
-            execute_action(a)
-            update_state()
+                # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
+                set_BETA(o, s2, 1)
 
-            s2 = state                    # the new state, after the execution of the action
-            r = get_reward()
+            # //— set intrinsic reward value
+            r_i2 = tau * ( 1 - get_P(o, s2, s) )
+        else:
+            r_i2 = 0
 
-            r_e = r
-            r_i = r_i2
-            # Deal with special case if next state is salient
-            if is_salient_event():        # If s_{t+1} is a salient event e
-                o = state[3:]             # the option is described using the part of the state description relative to the statuses
+        # //- Update all option models
+        for o in O.keys(): # For each option o = o_e in skill-KB (O)
+            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
+            # initiation set
+            if s2 in get_I(o):
+                add_I(o, s)
 
-                # print '=============================================='
-                # print 'a: ' + a
-                # print 'old state: ' + str(s)
-                # print 'new state: ' + str(s2)
-                # print 'o: ' + str(o)
-                # print '=============================================='
-
-                # If option for e, o_e , does not exist in O (skill-KB)
-                if not (o in O.keys()):
-                    # Create option o_e in skill-KB;
-                    fix_O(o)
-
-                    # Add s_t to I^{o_e} // initialize initiation set
-                    add_I(o, s)
-
-                    # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                    set_BETA(o, s2, 1)
-
-                # //— set intrinsic reward value
-                r_i2 = tau * ( 1 - get_P(o, s2, s) )
-            else:
-                r_i2 = 0
-
-            # //- Update all option models
-            for o in O.keys(): # For each option o = o_e in skill-KB (O)
-                # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
-                # initiation set
-                if s2 in get_I(o):
-                    add_I(o, s)
-
-                # If a_t is greedy action for o in state s_t
-                if a in select_best_actions(O[o]['Q'], s):
-                    # //— update option transition probability model
-                    # for each state reachable by the option
-                    for x in get_I(o):
-                        # arg1
-                        arg1 = get_P(o, x, s)
-
-                        # arg2
-                        beta_s2 = get_BETA(o, s2)
-                        p_x_s2 = get_P(o, x, s2)
-                        arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
-                               gamma * beta_s2 * delta(s2, x)
-
-                        # calculates the new value
-                        new_p = alpha_sum(arg1, arg2, alpha)
-
-                        # sets the new value
-                        set_P(o, x, s, new_p)
-
-                    # //— update option reward model
-                    r_e = r
-
+            # If a_t is greedy action for o in state s_t
+            if a in select_best_actions(O[o]['Q'], s):
+                # //— update option transition probability model
+                # for each state reachable by the option
+                for x in get_I(o):
                     # arg1
-                    arg1 = get_R(o, s)
+                    arg1 = get_P(o, x, s)
 
                     # arg2
                     beta_s2 = get_BETA(o, s2)
-                    R_s2 = get_R(o, s2)
-                    arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
+                    p_x_s2 = get_P(o, x, s2)
+                    arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
+                           gamma * beta_s2 * delta(s2, x)
 
                     # calculates the new value
-                    new_R = alpha_sum(arg1, arg2, alpha)
+                    new_p = alpha_sum(arg1, arg2, alpha)
 
                     # sets the new value
-                    set_R(o, s, new_R)
+                    set_P(o, x, s, new_p)
 
-            # //— Q-learning update of behavior action-value function
-            # arg1
-            arg1 = get_Q(Q, s, a)
+                # //— update option reward model
+                r_e = r
 
-            # arg2
-            arg2 = r_e + r_i + gamma * get_Vx(s2)
+                # arg1
+                arg1 = get_R(o, s)
+
+                # arg2
+                beta_s2 = get_BETA(o, s2)
+                R_s2 = get_R(o, s2)
+                arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
+
+                # calculates the new value
+                new_R = alpha_sum(arg1, arg2, alpha)
+
+                # sets the new value
+                set_R(o, s, new_R)
+
+        # //— Q-learning update of behavior action-value function
+        # arg1
+        arg1 = get_Q(Q, s, a)
+
+        # arg2
+        arg2 = r_e + r_i + gamma * get_Vx(s2)
+
+        # calculates the new value
+        new_Q = alpha_sum(arg1, arg2, alpha)
+
+        # sets the new value
+        set_Q(Q, s, a, new_Q)
+
+        # //— SMDP-planning update of behavior action-value function
+        for o in O.keys(): # For each option o = o_e in skill-KB (O)
+            # calculates arg1
+            arg1 = get_Q(Q, s, o)
+
+            # calculates arg2
+            arg2 = get_R(o, s) + get_sum_pvx(s, o)
 
             # calculates the new value
             new_Q = alpha_sum(arg1, arg2, alpha)
 
             # sets the new value
-            set_Q(Q, s, a, new_Q)
+            set_Q(Q, s, o, new_Q)
 
-            # //— SMDP-planning update of behavior action-value function
-            for o in O.keys(): # For each option o = o_e in skill-KB (O)
+        # //— Update option action-value functions
+        for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
+            if s in get_I(o):
                 # calculates arg1
-                arg1 = get_Q(Q, s, o)
+                arg1 = get_Q(s, a, o)
 
                 # calculates arg2
-                arg2 = get_R(o, s) + get_sum_pvx(s, o)
+                arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
+                           + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, o)
 
                 # calculates the new value
                 new_Q = alpha_sum(arg1, arg2, alpha)
 
                 # sets the new value
-                set_Q(Q, s, o, new_Q)
+                set_Q(s, a, new_Q, o)
 
-            # //— Update option action-value functions
-            for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-                if s in get_I(o):
+            for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+                if (o != o2) and (s in get_I(o2)):
                     # calculates arg1
-                    arg1 = get_Q(s, a, o)
+                    arg1 = get_Q(s, o2, o)
 
                     # calculates arg2
-                    arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
-                               + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, o)
+                    arg2 = get_R(o2, s) + get_sum_pvxo(s, o, o2)
 
                     # calculates the new value
                     new_Q = alpha_sum(arg1, arg2, alpha)
 
                     # sets the new value
-                    set_Q(s, a, new_Q, o)
+                    set_Q(s, o2, new_Q, o)
 
-                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-                    if (o != o2) and (s in get_I(o2)):
-                        # calculates arg1
-                        arg1 = get_Q(s, o2, o)
-
-                        # calculates arg2
-                        arg2 = get_R(o2, s) + get_sum_pvxo(s, o, o2)
-
-                        # calculates the new value
-                        new_Q = alpha_sum(arg1, arg2, alpha)
-
-                        # sets the new value
-                        set_Q(s, o2, new_Q, o)
-
-            # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
-            # Parei aqui
+        # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
+        # Parei aqui
 
 
-            # //— Determine next extrinsic reward
+        # //— Determine next extrinsic reward
 
 
-            # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
+        # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
 
 
-            # Set st ← st+1 ; at ← at+1 ; rt ← rt+1 ; rt ← rt+1
+        # Set st ← st+1 ; at ← at+1 ; rt ← rt+1 ; rt ← rt+1
 
-        # Here an episode just ended
-        if state_is_goal():
-            reached_goal = 'y'
+    # Here an episode just ended
+    if state_is_goal():
+        reached_goal = 'y'
 
-        episode_number = episode
-        end_step = global_step_count - 1
-        duration = end_step - start_step + 1
+    episode_number = episode
+    end_step = global_step_count - 1
+    duration = end_step - start_step + 1
 
-        f = open(filename, 'a')
-        f.write(str(episode_number) + '\t' + \
-                str(start_step) + '\t' + \
-                str(end_step) + '\t' + \
-                str(duration) + '\t' + \
-                reached_goal + '\n')
-        f.close()
+    f = open(filename, 'a')
+    f.write(str(episode_number) + '\t' + \
+            str(start_step) + '\t' + \
+            str(end_step) + '\t' + \
+            str(duration) + '\t' + \
+            reached_goal + '\n')
+    f.close()
 
-        epsilon = epsilon + epsilonIncrement
-    print_Q(Q)
+    epsilon = epsilon + epsilonIncrement
 
     # Returns to original configuration
     board.update_screen = True
