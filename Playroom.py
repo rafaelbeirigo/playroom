@@ -741,6 +741,7 @@ def flick_switch_option_click():
 Q = {}
 Q_default_value = 0.0
 Vx = {}
+Ax = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
@@ -1225,6 +1226,7 @@ def get_Ax(s, o=None):
 
 
 def add_Ax(s, a, o=None):
+    fix_Ax(s, o)
     which_Ax(o)[s].add(a)
 
 
