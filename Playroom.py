@@ -391,6 +391,10 @@ def key(event):
     if event.keysym == 'u':
         print 'State:'
         print str(update_state())
+    if event.keysym == '0':
+        print 'pieces_on_cell {eye}:'
+        for my_piece in pieces_on_cell[eye.row][eye.column]:
+            print my_piece.name
 
     update_screen()
 
