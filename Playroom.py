@@ -766,9 +766,9 @@ def fix_Q(state_key, action_key, option_key=None):
 
 
 def set_Q(state_key, action_key, new_value, option_key=None):
-    my_Q = which_Q(option_key)
-    fix_Q(my_Q, state_key, action_key)
+    fix_Q(state_key, action_key, option_key)
 
+    my_Q = which_Q(option_key)
     my_Q[state_key][action_key] = new_value
 
     my_Vx = which_Vx(option_key)
