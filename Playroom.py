@@ -270,6 +270,8 @@ def move_eye_one_step_west():
 
 
 def move_piece(piece, direction):
+    new_row = piece.row
+    new_col = piece.column
     if direction == 'north':
         new_row -= 1
     elif direction == 'south':
@@ -1310,7 +1312,9 @@ def add_pieces_on_cell(row, col, piece):
 def del_pieces_on_cell(row, col, piece):
     """Removes a piece from the set corresponding to [row][col]."""
 
-    pieces_on_cell[row][col].remove(piece)
+    fix_pieces_on_cell(row, col)
+    if piece in pieces_on_cell[row][col]:
+        pieces_on_cell[row][col].remove(piece)
 
 
 def get_pieces_on_cell(row, col):
@@ -1323,11 +1327,11 @@ def move_piece_to_cell(piece, row, col):
     """Moves a piece to [row][col] on the board and updates pieces_on_cell
     accordingly."""
 
-    del_pieces_on_cell(piece.row, piece.col, piece)
+    del_pieces_on_cell(piece.row, piece.column, piece)
     add_pieces_on_cell(row, col, piece)
 
     piece.row = row
-    Piece.column = col
+    piece.column = col
 
 
 def imrl():
@@ -1664,6 +1668,8 @@ update_environment_labels()
 
 # Associate keys to buttons
 root.bind_all('<Key>', key)
+
+position_pieces_like_article()
 
 update_screen()
 
