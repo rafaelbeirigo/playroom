@@ -1422,7 +1422,7 @@ def imrl():
         new_Q = alpha_sum(arg1, arg2, alpha)
 
         # sets the new value
-        set_Q(Q, s, a, new_Q)
+        set_Q(s, a, new_Q)
 
         # //— SMDP-planning update of behavior action-value function
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
@@ -1436,7 +1436,7 @@ def imrl():
             new_Q = alpha_sum(arg1, arg2, alpha)
 
             # sets the new value
-            set_Q(Q, s, o, new_Q)
+            set_Q(s, o, new_Q)
 
         # //— Update option action-value functions
         for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
