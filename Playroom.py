@@ -1502,7 +1502,7 @@ def imrl():
                 for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
                     if (o != o2) and (s in get_I(o2)):
                         # calculates arg1
-                        arg1 = get_Q(s, o2, o2)
+                        arg1 = get_Q(s, o2, o)
 
                         # calculates arg2
                         arg2 = get_R(o2, s) + get_sum_pvxo(s, o, o2)
