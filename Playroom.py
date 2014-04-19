@@ -1329,6 +1329,8 @@ def imrl():
     r_i2 = 0
     for current_step in range(steps):
         s = state                     # the current state
+        
+        a = choice(get_actions_from_agent())
 
         execute_action(a)
         update_state()
@@ -1373,7 +1375,7 @@ def imrl():
                 add_I(o, s)
 
             # If a_t is greedy action for o in state s_t
-            if a in select_best_actions(O[o]['Q'], s):
+            if a in get_Ax(s, o):
                 # //— update option transition probability model
                 # for each state reachable by the option
                 for x in get_I(o):
