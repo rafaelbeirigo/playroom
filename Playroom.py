@@ -1333,7 +1333,7 @@ def imrl():
 
         s = state                     # the current state
         
-        a = choice(get_actions_from_agent())
+        a = choice(get_actions_from_agent() + get_actions_from_pieces())
 
         execute_action(a)
         update_state()
