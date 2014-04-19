@@ -1282,10 +1282,10 @@ def get_sum_pvx(s, o):
     return sum_pvx
 
 
-def get_sum_pvxo(s, o, o2):
+def get_sum_pvxo(s, o2, o):
     """Returns the sum used in
     //— Update option action-value functions
-    Here o2 == o from the article."""
+    Here o2 == o-prime from the article."""
 
     sum_pvxo = 0
     for x in get_I(o2):
@@ -1460,7 +1460,7 @@ def imrl():
                     arg1 = get_Q(s, o2, o)
 
                     # calculates arg2
-                    arg2 = get_R(o2, s) + get_sum_pvxo(s, o, o2)
+                    arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
 
                     # calculates the new value
                     new_Q = alpha_sum(arg1, arg2, alpha)
