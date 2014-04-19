@@ -1172,7 +1172,7 @@ def fix_O(o):
         O[o]['Q'] = {}
 
         # Creates an entry to the option's initiation set
-        O[o]['I'] = []
+        O[o]['I'] = set()
 
         # Creates an entry to the option's V^*
         O[o]['Vx'] = []
@@ -1200,8 +1200,7 @@ def get_I(o):
 
 
 def add_I(o, s):
-    if not (s in get_I(o)):
-        O[o]['I'].append(s)
+    get_I(o).add(s)
 
 
 def which_Ax(o=None):
