@@ -1330,6 +1330,8 @@ def imrl():
 
     r_i2 = 0
     for current_step in range(steps):
+        print current_step
+
         s = state                     # the current state
         
         a = choice(get_actions_from_agent() + get_actions_from_pieces())
