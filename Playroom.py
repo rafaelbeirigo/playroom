@@ -1175,7 +1175,7 @@ def fix_O(o):
         O[o]['I'] = set()
 
         # Creates an entry to the option's V^*
-        O[o]['Vx'] = []
+        O[o]['Vx'] = {}
 
         # Creates an entry to the option's A^*
         O[o]['Ax'] = {}
