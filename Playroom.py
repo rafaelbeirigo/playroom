@@ -771,6 +771,24 @@ def set_Q(state_key, action_key, new_value, option_key=None):
 
     my_Q[state_key][action_key] = new_value
 
+    my_Vx = which_Vx(option_key)
+
+    # Deals with V^*(s) and A^*(s)
+    q = new_value
+    vx = get_Vx(state_key)
+    if q > vx:
+        # Sets the new best value on V^*(s)
+        set_Vx(state_key, q, option_key)
+
+        # Clears the list of best actions (a new one will be created)
+        clear_Ax(option_key)
+
+        # Adds the action to the list of best actions
+        add_Ax(option_key, action_key)
+    elif q == vx:
+        # Adds the action to the list of best actions
+        add_Ax(option_key, action_key)
+
 
 def get_Q(state_key, action_key, option_key=None):
     my_Q = which_Q(option_key)
@@ -1159,6 +1177,9 @@ def fix_O(o):
         # Creates an entry to the option's V^*
         O[o]['Vx'] = []
 
+        # Creates an entry to the option's A^*
+        O[o]['Ax'] = {}
+
         # Creates an entry to the option's Beta function
         O[o]['BETA'] = {}
 
@@ -1181,6 +1202,35 @@ def get_I(o):
 def add_I(o, s):
     if not (s in get_I(o)):
         O[o]['I'].append(s)
+
+
+def which_Ax(o=None):
+    """Returns A^*.  If the option key is provided, the A^* refers to an
+    option."""
+
+    if o == None:
+        return Ax
+    else:
+        return O[o]['Ax']
+    
+
+def fix_Ax(s, o=None):
+    my_Ax = which_Ax(o)
+    if not (s in my_Ax.keys()):
+        my_Ax[s] = set()
+
+
+def get_Ax(s, o=None):
+    fix_Ax(s, o)
+    return which_Ax(o)[s]
+
+
+def add_Ax(s, a, o=None):
+    which_Ax(o)[s].add(a)
+
+
+def clear_Ax(s, o=None):
+    which_Ax(o)[s].clear()
 
 
 def set_BETA(o, s, new_value):
