@@ -1332,6 +1332,17 @@ def get_pieces_on_cell(row, col):
     return pieces_on_cell[row][col]
 
 
+def move_piece_to_cell(piece, row, col):
+    """Moves a piece to [row][col] on the board and updates pieces_on_cell
+    accordingly."""
+
+    del_pieces_on_cell(piece.row, piece.col, piece)
+    add_pieces_on_cell(row, col, piece)
+
+    piece.row = row
+    piece.col = col
+
+
 def imrl():
     global step
 
