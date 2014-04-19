@@ -1330,8 +1330,6 @@ def imrl():
 
     r_i2 = 0
     for current_step in range(steps):
-        print O
-
         s = state                     # the current state
         
         a = choice(get_actions_from_agent() + get_actions_from_pieces())
@@ -1483,6 +1481,8 @@ def imrl():
 
 
         # Set st ← st+1 ; at ← at+1 ; rt ← rt+1 ; rt ← rt+1
+
+    print O
 
     # Here an episode just ended
     if state_is_goal():
