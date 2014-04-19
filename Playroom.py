@@ -1413,7 +1413,7 @@ def imrl():
 
         # //— Q-learning update of behavior action-value function
         # arg1
-        arg1 = get_Q(Q, s, a)
+        arg1 = get_Q(s, a)
 
         # arg2
         arg2 = r_e + r_i + gamma * get_Vx(s2)
@@ -1427,7 +1427,7 @@ def imrl():
         # //— SMDP-planning update of behavior action-value function
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
             # calculates arg1
-            arg1 = get_Q(Q, s, o)
+            arg1 = get_Q(s, o)
 
             # calculates arg2
             arg2 = get_R(o, s) + get_sum_pvx(s, o)
