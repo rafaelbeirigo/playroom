@@ -183,10 +183,9 @@ def is_block(piece):
 def get_actions_from_pieces():
     actions = []
     if on_same_cell(eye, hand):
-        for piece in non_agent_pieces:
-            if on_same_cell(piece, eye):
-                if not ( is_block(piece) and is_off(light) ):
-                    actions += piece.get_actions()
+        for piece in get_pieces_on_cell(eye.row, eye.column):
+            if not ( is_block(piece) and is_off(light) ):
+                actions += piece.get_actions()
     return actions
 
 
@@ -228,7 +227,7 @@ def update_state():
 
 
 def move_piece_to_piece(piece_to_move, destination_piece):
-    move_piece_to_cell(piece_to_move, destination_piece.row, destination_piece.col)
+    move_piece_to_cell(piece_to_move, destination_piece.row, destination_piece.column)
     board.placepiece(piece_to_move)
 
 
