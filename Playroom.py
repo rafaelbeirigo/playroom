@@ -1616,7 +1616,6 @@ all_possible_actions = {
     'press_red_block':press_red_block,
     'push_blue_block':push_blue_block,
     'flick_switch':flick_switch,
-    'flick_switch_option':flick_switch_option,
 }
 
 # Buttons mostly used for test purposes
