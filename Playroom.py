@@ -124,8 +124,7 @@ def get_adj_squares(piece):
 
 def move_piece_to_square(piece, square):
     # each square is a tuple (row, column)
-    piece.row = square[0]
-    piece.column = square[1]
+    move_piece_to_cell(piece, square[0], square[1])
     board.placepiece(piece)
 
 
@@ -229,9 +228,7 @@ def update_state():
 
 
 def move_piece_to_piece(piece_to_move, destination_piece):
-    piece_to_move.row = destination_piece.row
-    piece_to_move.column = destination_piece.column
-
+    move_piece_to_cell(piece_to_move, destination_piece.row, destination_piece.col)
     board.placepiece(piece_to_move)
 
 
@@ -274,23 +271,24 @@ def move_eye_one_step_west():
 
 def move_piece(piece, direction):
     if direction == 'north':
-        piece.row -= 1
+        new_row -= 1
     elif direction == 'south':
-        piece.row += 1
+        new_row += 1
     elif direction == 'east':
-        piece.column += 1
+        new_col += 1
     elif direction == 'west':
-        piece.column -= 1
+        new_col -= 1
 
-    if piece.row < 0:
-        piece.row = 0
-    if piece.row > board.rows - 1:
-        piece.row = board.rows - 1
-    if piece.column < 0:
-        piece.column = 0
-    if piece.column > board.columns - 1:
-        piece.column = board.columns - 1
+    if new_row < 0:
+        new_row = 0
+    if new_row > board.rows - 1:
+        new_row = board.rows - 1
+    if new_col < 0:
+        new_col = 0
+    if new_col > board.columns - 1:
+        new_col = board.columns - 1
 
+    move_piece_to_cell(piece, new_row, new_col)
     board.placepiece(piece)
 
 
@@ -866,9 +864,7 @@ def set_random_initial_state():
     for piece in all_pieces:
         board_square = choice(board_squares) # each board square is a tuple (row, column)
 
-        piece.row = board_square[0] # the first position of the tuple
-        piece.column = board_square[1]
-
+        move_piece_to_cell(piece, board_square[0], board_square[1])
         board.placepiece(piece)
 
 
@@ -877,32 +873,23 @@ def alpha_sum(x, y, alpha):
 
 
 def position_pieces_like_article():
-    # ball.row = 1
-    # ball.column = 0
+    # move_piece_to_cell(ball, 1, 0)
 
-    # bell.row = 1
-    # bell.column = 4
+    # move_piece_to_cell(bell, 1, 4)
 
-    blue_block.row = 4
-    blue_block.column = 0
+    move_piece_to_cell(blue_block, 4, 0)
 
-    # red_block.row = 4
-    # red_block.column = 4
+    # move_piece_to_cell(red_block, 4, 4)
 
-    switch.row = 2
-    switch.column = 2
+    move_piece_to_cell(switch, 2, 2)
 
-    # toy_monkey.row = 1
-    # toy_monkey.column = 2
+    # move_piece_to_cell(toy_monkey, 1, 2)
 
-    hand.row = 0
-    hand.column = 3
+    move_piece_to_cell(hand, 0, 3)
 
-    eye.row = 1
-    eye.column = 3
+    move_piece_to_cell(eye, 1, 3)
 
-    marker.row = 2
-    marker.column = 4
+    move_piece_to_cell(marker, 2, 4)
 
     for piece in all_pieces:
         board.placepiece(piece)
@@ -1340,7 +1327,7 @@ def move_piece_to_cell(piece, row, col):
     add_pieces_on_cell(row, col, piece)
 
     piece.row = row
-    piece.col = col
+    Piece.column = col
 
 
 def imrl():
