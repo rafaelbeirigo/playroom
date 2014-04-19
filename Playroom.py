@@ -1212,7 +1212,7 @@ def which_Ax(o=None):
         return Ax
     else:
         return O[o]['Ax']
-    
+
 
 def fix_Ax(s, o=None):
     my_Ax = which_Ax(o)
@@ -1305,6 +1305,33 @@ def get_sum_pvxo(s, o2, o):
     return sum_pvxo
 
 
+def fix_pieces_on_cell(row, col):
+    """Fixes the entry for pieces_on_cell[row][col]: if it does not exist
+    yet, creates it with an empty set"""
+
+    fix_2dic(pieces_on_cell, row, col)
+    if pieces_on_cell[row][col] == 0:
+        pieces_on_cell[row][col] = set() # corrects the initialization to put a set on the entry
+
+def add_pieces_on_cell(row, col, piece):
+    """Adds the piece to the set correspondig to [row][col]."""
+
+    fix_pieces_on_cell(row, col)
+    pieces_on_cell[row][col].add(piece)
+
+
+def del_pieces_on_cell(row, col, piece):
+    """Removes a piece from the set corresponding to [row][col]."""
+
+    pieces_on_cell[row][col].remove(piece)
+
+
+def get_pieces_on_cell(row, col):
+    """Gets a set of the pieces present on [row][col] on the board"""
+    fix_pieces_on_cell(row, col)
+    return pieces_on_cell[row][col]
+
+
 def imrl():
     global step
 
@@ -1334,7 +1361,7 @@ def imrl():
         print current_step
 
         s = state                     # the current state
-        
+
         a = choice(get_actions_from_agent() + get_actions_from_pieces())
 
         execute_action(a)
