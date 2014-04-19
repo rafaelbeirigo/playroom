@@ -1230,6 +1230,7 @@ def add_Ax(s, a, o=None):
 
 
 def clear_Ax(s, o=None):
+    fix_Ax(s, o)
     which_Ax(o)[s].clear()
 
 
