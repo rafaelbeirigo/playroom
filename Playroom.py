@@ -570,10 +570,10 @@ def create_action_buttons():
     action_buttons.append(flick_switch_option_button)
 
 
-def update_available_actions():
+def update_available_actions(s=None):
     global available_actions
 
-    available_actions = get_available_actions()
+    available_actions = get_available_actions(s)
 
 
 def get_available_actions(s=None):
