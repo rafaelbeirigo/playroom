@@ -1479,8 +1479,6 @@ def imrl():
                     set_P(o, x, s, new_p)
 
                 # //— update option reward model
-                r_e = r
-
                 # arg1
                 arg1 = get_R(o, s)
 
