@@ -221,6 +221,21 @@ def which_salient_event():
     return s_e
 
 
+def log_r_i(r_i):
+    """Logs the r_i received at the current step."""
+
+    global r_i_filename
+
+    if r_i_filename == None:    # Tests if it is the first time the file will be opened
+        r_i_filename = get_log_filename('-r_i')
+
+    f = open(r_i_filename, 'a')
+    f.write(str(step) + '\t' + \
+            str(r_i) + '\t' + \
+            which_salient_event() + '\n')
+    f.close()
+    
+
 def update_state():
     global state
 
@@ -952,9 +967,9 @@ def print_Q(Q):
         print
 
 
-def get_log_filename():
+def get_log_filename(suffix=''):
     now_str = str(datetime.now())
-    filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + '.log'
+    filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '.log'
     return filename
 
 
@@ -1122,7 +1137,7 @@ def q_learning_simple():
 O = {}
 pieces_on_cell = {}
 available_options = {}
-
+r_i_filename = None
 
 def fix_1dic(dic, key):
     """ Fixes a one-dimension dictionary: receives a key and, if the
