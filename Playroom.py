@@ -50,11 +50,11 @@ def update_toy_monkey_sound_state():
             turn_on(toy_monkey_sound)
 
 # Environment variables
-light = {'state': 'OFF', 'step': -1, 'update_function': update_light_state}
-music = {'state': 'OFF', 'step': -1, 'update_function': update_music_state}
-bell_sound = {'state': 'OFF', 'step': -1, 'update_function': update_bell_sound_state}
+light = {'state': 'OFF', 'step': -1, 'update_function': update_light_state, 'name': 'light'}
+music = {'state': 'OFF', 'step': -1, 'update_function': update_music_state, 'name': 'music'}
+bell_sound = {'state': 'OFF', 'step': -1, 'update_function': update_bell_sound_state, 'name': 'bell_sound'}
 toy_monkey_sound = {'state': 'OFF', 'step': -1, 'update_function': \
-                    update_toy_monkey_sound_state}
+                    update_toy_monkey_sound_state, 'name': 'toy_monkey_sound'}
 environment_variables = [light, bell_sound, music, toy_monkey_sound]
 
 step = 0
@@ -208,6 +208,17 @@ def is_salient_event():
             return True
 
     return False
+
+
+def which_salient_event():
+    """Returns which salient event ocurred at the current step."""
+
+    s_e = ''
+    for variable in environment_variables:
+        if variable['step'] == step:
+            s_e += variable['name'] + '_' + variable['state'] + ';'
+
+    return s_e
 
 
 def update_state():
