@@ -1196,6 +1196,9 @@ def get_I(o):
 def add_I(o, s):
     get_I(o).add(s)
 
+    # Add o to the list of available options in s
+    add_available_options(s, o)
+
 
 def which_Ax(o=None):
     """Returns A^*.  If the option key is provided, the A^* refers to an
