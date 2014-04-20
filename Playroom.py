@@ -1403,7 +1403,6 @@ def imrl():
     alpha            = 0.9
     gamma            = 0.9
     epsilon          = 0.1
-    epsilonIncrement = 0.0
     tau = 0.9
 
     steps = int(1e4)
@@ -1578,7 +1577,6 @@ def imrl():
         r_i = r_i2
         r_e = r_e2
         step += 1
-        epsilon = epsilon + epsilonIncrement
 
     print O
 
