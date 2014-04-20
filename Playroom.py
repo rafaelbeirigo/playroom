@@ -1419,7 +1419,7 @@ def imrl():
     step = 1
     for current_step in range(steps):
         # Obtain next state s_{t+1}
-        execute_action(a)
+        execute_action(a, s)
         s2 = update_state()
 
         # Deal with special case if next state is salient
