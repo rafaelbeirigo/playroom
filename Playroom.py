@@ -576,8 +576,11 @@ def update_available_actions():
     available_actions = get_available_actions()
 
 
-def get_available_actions():
-    return get_actions_from_agent() + get_actions_from_pieces()
+def get_available_actions(s=None):
+    if s == None:
+        return get_actions_from_agent() + get_actions_from_pieces()
+    else:
+        return get_actions_from_agent() + get_actions_from_pieces() + get_available_options(s)
 
 
 def execute_action(action):
@@ -843,21 +846,18 @@ def select_random_action():
     return choice(available_actions)
 
 
-def select_best_actions(my_Q, my_state):
-    update_available_actions()
+def select_best_actions(s, o):
+    """Returns the best actions to the state 's' according to a 'Q'.
+    If 'o' is provided, the 'Q' used is related to the option 'o'."""
 
-    best_value = 0
-    best_actions = []
-    for action in available_actions:
-        Q_value = get_Q(my_Q, my_state, action)
-        if Q_value >= best_value:
-            if Q_value > best_value:
-                best_value = Q_value
-                del best_actions[:]; best_actions = []
+    my_Ax = which_Ax(o)
 
-            best_actions.append(action)
+    fix_Ax(s, o)
 
-    return best_actions
+    if len(my_Ax) == 0:         # there is no best action yet to the state
+        return get_available_actions()
+    else:
+        return list(my_Ax)
 
 
 def select_best_action(my_Q, my_state):
