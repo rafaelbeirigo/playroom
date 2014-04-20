@@ -848,8 +848,8 @@ def state_is_goal():
     return is_on(music)
 
 
-def select_random_action():
-    update_available_actions()
+def select_random_action(s=None):
+    update_available_actions(s)
 
     return choice(available_actions)
 
@@ -1536,9 +1536,14 @@ def imrl():
                     set_Q(s, o2, new_Q, o)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
+        if random() < epsilon:    # random() gives a number in the interval [0, 1).
+            # random
+            a = select_random_action(s2)
+        else:
+            # greedy
+            a = select_best_action(Q, state)
+
         # Parei aqui
-
-
         # //— Determine next extrinsic reward
 
 
