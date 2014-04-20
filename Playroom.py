@@ -1344,6 +1344,12 @@ def fix_available_options(s):
         available_options[s] = set()
 
 
+def add_available_options(s, option):
+    """Add an option to the set of available options in 's'."""
+    fix_available_options(s)
+    available_options[s].add(option)
+
+
 def imrl():
     global step
 
