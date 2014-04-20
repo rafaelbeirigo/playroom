@@ -816,7 +816,7 @@ def set_Q(state_key, action_key, new_value, option_key=None):
         set_Vx(state_key, q, option_key)
 
         # Clears the list of best actions (a new one will be created)
-        clear_Ax(option_key)
+        clear_Ax(state_key, option_key)
 
         # Adds the action to the list of best actions
         add_Ax(option_key, action_key)
