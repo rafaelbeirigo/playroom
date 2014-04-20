@@ -191,8 +191,8 @@ def get_actions_from_pieces():
 
 def same_cell_to_tuple(ag_piece):
     same_cell = ()
-    for piece in non_agent_pieces:
-        if on_same_cell(piece, ag_piece):
+    for piece in get_pieces_on_cell(ag_piece.row, ag_piece.column):
+        if not ( piece in agent_pieces ):
             if ( is_block(piece) and is_off(light) ):
                 same_cell += ('gray_block',)
             else:
@@ -1316,8 +1316,7 @@ def del_pieces_on_cell(row, col, piece):
     """Removes a piece from the set corresponding to [row][col]."""
 
     fix_pieces_on_cell(row, col)
-    if piece in pieces_on_cell[row][col]:
-        pieces_on_cell[row][col].remove(piece)
+    pieces_on_cell[row][col].discard(piece)
 
 
 def get_pieces_on_cell(row, col):
