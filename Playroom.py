@@ -583,8 +583,16 @@ def get_available_actions(s=None):
         return get_actions_from_agent() + get_actions_from_pieces() + get_available_options(s)
 
 
-def execute_action(action):
-    all_possible_actions[action]()
+def execute_action(action, s=None):
+    if isinstance(action, str):
+        all_possible_actions[action]()
+    else:                       # it is an option (tuple)
+        if s == None:
+            print 'ERROR: s was not provided, no action will be executed this step'
+        else:
+            o = action              # the provided action is an option
+            a = select_best_action(s, o)
+            execute_action(a)
 
 
 def update_action_buttons_state():
@@ -846,7 +854,7 @@ def select_random_action():
     return choice(available_actions)
 
 
-def select_best_actions(s, o):
+def select_best_actions(s, o=None):
     """Returns the best actions to the state 's' according to a 'Q'.
     If 'o' is provided, the 'Q' used is related to the option 'o'."""
 
