@@ -615,7 +615,7 @@ def execute_action(action, s=None):
         else:
             o = action              # the provided action is an option
             a = select_best_action(s, o)
-            execute_action(a)
+            execute_action(a, s)
 
 
 def update_action_buttons_state():
