@@ -819,10 +819,10 @@ def set_Q(state_key, action_key, new_value, option_key=None):
         clear_Ax(state_key, option_key)
 
         # Adds the action to the list of best actions
-        add_Ax(option_key, action_key)
+        add_Ax(state_key, action_key, option_key)
     elif q == vx:
         # Adds the action to the list of best actions
-        add_Ax(option_key, action_key)
+        add_Ax(state_key, action_key, option_key)
 
 
 def get_Q(state_key, action_key, option_key=None):
