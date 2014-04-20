@@ -863,7 +863,7 @@ def select_best_actions(s, o=None):
     fix_Ax(s, o)
 
     if len(my_Ax) == 0:         # there is no best action yet to the state
-        return get_available_actions()
+        return get_available_actions(s)
     else:
         return list(my_Ax)
 
