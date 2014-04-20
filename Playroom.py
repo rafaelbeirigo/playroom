@@ -1350,6 +1350,12 @@ def add_available_options(s, option):
     available_options[s].add(option)
 
 
+def get_available_options(s):
+    """Gets the available options on the state 's'."""
+    fix_available_options(s)
+    return available_options[s]
+
+
 def imrl():
     global step
 
