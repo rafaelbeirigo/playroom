@@ -1402,16 +1402,16 @@ def imrl():
     epsilon          = 0.1
     tau = 0.9
 
-    steps = int(1e2)
+    steps = int(1e3)
 
-    # # Log stuff
-    # filename = get_log_filename()
-    # print 'Logging to: ' + filename
+    # Log stuff
+    filename = get_log_filename()
+    print 'Logging to: ' + filename
 
-    # # Git: commit (if that is the case) and tag (always succeed),
-    # # using the experiment's log filename. This way it is possible to
-    # # track the version that generated each result
-    # git_commit_and_tag(filename[5:])
+    # Git: commit (if that is the case) and tag (always succeed),
+    # using the experiment's log filename. This way it is possible to
+    # track the version that generated each result
+    git_commit_and_tag(filename[5:])
 
     # Variables initialization
     s = update_state()
