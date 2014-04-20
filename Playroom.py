@@ -808,8 +808,6 @@ def set_Q(state_key, action_key, new_value, option_key=None):
     my_Q = which_Q(option_key)
     my_Q[state_key][action_key] = new_value
 
-    my_Vx = which_Vx(option_key)
-
     # Deals with V^*(s) and A^*(s)
     q = new_value
     vx = get_Vx(state_key, option_key)
