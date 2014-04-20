@@ -812,7 +812,7 @@ def set_Q(state_key, action_key, new_value, option_key=None):
 
     # Deals with V^*(s) and A^*(s)
     q = new_value
-    vx = get_Vx(state_key)
+    vx = get_Vx(state_key, option_key)
     if q > vx:
         # Sets the new best value on V^*(s)
         set_Vx(state_key, q, option_key)
