@@ -1422,6 +1422,7 @@ def imrl():
     a = select_random_action(s)
     r_e = 0
     r_i = 0
+    step = 1
     for current_step in range(steps):
         print current_step
 
@@ -1453,6 +1454,8 @@ def imrl():
 
             # //— set intrinsic reward value
             r_i2 = tau * ( 1 - get_P(o, s2, s) )
+
+            log_r_i(r_i2)
         else:
             r_i2 = 0
 
@@ -1574,6 +1577,7 @@ def imrl():
         a = a2
         r_i = r_i2
         r_e = r_e2
+        step += 1
 
     print O
 
