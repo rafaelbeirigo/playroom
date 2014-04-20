@@ -1578,26 +1578,9 @@ def imrl():
         r_i = r_i2
         r_e = r_e2
         step += 1
+        epsilon = epsilon + epsilonIncrement
 
     print O
-
-    # Here an episode just ended
-    if state_is_goal():
-        reached_goal = 'y'
-
-    episode_number = episode
-    end_step = global_step_count - 1
-    duration = end_step - start_step + 1
-
-    f = open(filename, 'a')
-    f.write(str(episode_number) + '\t' + \
-            str(start_step) + '\t' + \
-            str(end_step) + '\t' + \
-            str(duration) + '\t' + \
-            reached_goal + '\n')
-    f.close()
-
-    epsilon = epsilon + epsilonIncrement
 
     # Returns to original configuration
     board.update_screen = True
