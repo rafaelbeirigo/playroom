@@ -751,7 +751,7 @@ Ax = {}
 Q_flick_switch = loadobject('flick_switch_option.q')
 
 
-def which_Q(o):
+def which_Q(o=None):
     """Returns the correct Q table depending on the variable o:
     If o is provided, return the Q-table for the option, if it
     is not provided, return the standard Q-table."""
