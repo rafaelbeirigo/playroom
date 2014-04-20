@@ -1337,6 +1337,13 @@ def move_piece_to_cell(piece, row, col):
     piece.column = col
 
 
+def fix_available_options(s):
+    """If the entry does not exist, creates it."""
+
+    if not (s in available_options.keys()):
+        available_options[s] = set()
+
+
 def imrl():
     global step
 
