@@ -860,8 +860,8 @@ def select_best_actions(s, o):
         return list(my_Ax)
 
 
-def select_best_action(my_Q, my_state):
-    return choice(select_best_actions(my_Q, my_state))
+def select_best_action(s, o=None):
+    return choice(select_best_actions(s, o))
 
 
 def set_random_initial_state():
