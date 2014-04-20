@@ -611,6 +611,7 @@ def execute_action(action, s=None):
     else:                       # it is an option (tuple)
         if s == None:
             print 'ERROR: s was not provided, no action will be executed this step'
+            print 'action: ' + str(action)
         else:
             o = action              # the provided action is an option
             a = select_best_action(s, o)
@@ -884,10 +885,10 @@ def select_best_actions(s, o=None):
 
     fix_Ax(s, o)
 
-    if len(my_Ax) == 0:         # there is no best action yet to the state
+    if len(my_Ax[s]) == 0:         # there is no best action yet to the state
         return get_available_actions(s)
     else:
-        return list(my_Ax)
+        return list(my_Ax[s])
 
 
 def select_best_action(s, o=None):
@@ -1401,16 +1402,16 @@ def imrl():
     epsilon          = 0.1
     tau = 0.9
 
-    steps = int(1e4)
+    steps = int(1e2)
 
-    # Log stuff
-    filename = get_log_filename()
-    print 'Logging to: ' + filename
+    # # Log stuff
+    # filename = get_log_filename()
+    # print 'Logging to: ' + filename
 
-    # Git: commit (if that is the case) and tag (always succeed),
-    # using the experiment's log filename. This way it is possible to
-    # track the version that generated each result
-    git_commit_and_tag(filename[5:])
+    # # Git: commit (if that is the case) and tag (always succeed),
+    # # using the experiment's log filename. This way it is possible to
+    # # track the version that generated each result
+    # git_commit_and_tag(filename[5:])
 
     # Variables initialization
     s = update_state()
@@ -1558,9 +1559,11 @@ def imrl():
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         if random() < epsilon:    # random() gives a number in the interval [0, 1).
             # random
+            print 'selecionando ação aleatória'
             a2 = select_random_action(s2)
         else:
             # greedy
+            print 'selecionando ação greedy'
             a2 = select_best_action(s2)
 
         # //— Determine next extrinsic reward
