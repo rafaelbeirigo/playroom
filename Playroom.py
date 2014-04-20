@@ -1391,22 +1391,18 @@ def imrl():
     # track the version that generated each result
     git_commit_and_tag(filename[5:])
 
-    r_i2 = 0
+    # Variables initialization
+    s = update_state()
+    a = select_random_action(s)
+    r_e = 0
+    r_i = 0
     for current_step in range(steps):
         print current_step
 
-        s = state                     # the current state
-
-        a = choice(get_actions_from_agent() + get_actions_from_pieces())
-
+        # Obtain next state s_{t+1}
         execute_action(a)
-        update_state()
+        s2 = update_state()
 
-        s2 = state                    # the new state, after the execution of the action
-        r = get_reward()
-
-        r_e = r
-        r_i = r_i2
         # Deal with special case if next state is salient
         if is_salient_event():        # If s_{t+1} is a salient event e
             o = state[3:]             # the option is described using the part of the state description relative to the statuses
@@ -1543,14 +1539,15 @@ def imrl():
             # greedy
             a2 = select_best_action(s2)
 
-        # Parei aqui
         # //— Determine next extrinsic reward
-
-
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
+        r_e2 = 0                # Initially always zero
 
-
-        # Set st ← st+1 ; at ← at+1 ; rt ← rt+1 ; rt ← rt+1
+        # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
+        s = s2
+        a = a2
+        r_i = r_i2
+        r_e = r_e2
 
     print O
 
