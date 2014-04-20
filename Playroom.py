@@ -1102,6 +1102,7 @@ def q_learning_simple():
 ############
 O = {}
 pieces_on_cell = {}
+available_options = {}
 
 
 def fix_1dic(dic, key):
