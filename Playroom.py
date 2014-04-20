@@ -803,7 +803,7 @@ def get_Q(state_key, action_key, option_key=None):
     return my_Q[state_key][action_key]
 
 
-def which_Vx(o):
+def which_Vx(o=None):
     """Returns the correct Vx depending on the variable o:
     If o is provided, return the Vx for the option, if it is not
     provided, return the standard Vx.
