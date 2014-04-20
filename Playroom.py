@@ -1538,10 +1538,10 @@ def imrl():
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         if random() < epsilon:    # random() gives a number in the interval [0, 1).
             # random
-            a = select_random_action(s2)
+            a2 = select_random_action(s2)
         else:
             # greedy
-            a = select_best_action(Q, state)
+            a2 = select_best_action(s2)
 
         # Parei aqui
         # //— Determine next extrinsic reward
