@@ -1579,6 +1579,8 @@ def imrl():
         if is_option(next_action):
             current_option = next_action
             a2 = get_action_from_option(s2, next_action)
+        else:
+            a2 = next_action
 
         # //— Determine next extrinsic reward
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
