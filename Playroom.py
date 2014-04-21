@@ -902,7 +902,11 @@ def select_best_actions(s, o=None):
 
 
 def select_best_action(s, o=None):
-    return choice(select_best_actions(s, o))
+    a = choice(select_best_actions(s, o))
+    while is_option(a):
+        a = select_best_action(s, a)
+
+    return a
 
 
 def set_random_initial_state():
