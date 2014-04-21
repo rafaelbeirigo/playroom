@@ -1415,7 +1415,7 @@ def imrl():
 
     # Variables initialization
     s = update_state()
-    a = select_random_action(s)
+    a = select_random_action()
     r_e = 0
     r_i = 0
     step = 1
