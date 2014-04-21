@@ -871,10 +871,20 @@ def state_is_goal():
     return is_on(music)
 
 
+def is_option(a):
+    """Returns true iff a is an option.
+    Primitive actions are described by strings and options by tuples."""
+    return not(isinstance(a, str))
+
+    
 def select_random_action(s=None):
     update_available_actions(s)
+    a = choice(available_actions)
 
-    return choice(available_actions)
+    while is_option(a):
+        a = select_best_action(s, a)
+
+    return a
 
 
 def select_best_actions(s, o=None):
