@@ -606,8 +606,6 @@ def get_available_actions(s=None):
 
 
 def execute_action(action, s=None):
-    print 'action: ' + str(action)
-    print 's: ' + str(s)
     if isinstance(action, str):
         all_possible_actions[action]()
     else:                       # it is an option (tuple)
@@ -1442,13 +1440,6 @@ def imrl():
         if is_salient_event():        # If s_{t+1} is a salient event e
             o = state[3:]             # the option is described using the part of the state description relative to the statuses
 
-            # print '=============================================='
-            # print 'a: ' + a
-            # print 'old state: ' + str(s)
-            # print 'new state: ' + str(s2)
-            # print 'o: ' + str(o)
-            # print '=============================================='
-
             # If option for e, o_e , does not exist in O (skill-KB)
             if not (o in O.keys()):
                 # Create option o_e in skill-KB;
@@ -1569,11 +1560,9 @@ def imrl():
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         if random() < epsilon:    # random() gives a number in the interval [0, 1).
             # random
-            print 'selecionando ação aleatória'
             a2 = select_random_action(s2)
         else:
             # greedy
-            print 'selecionando ação greedy'
             a2 = select_best_action(s2)
 
         # //— Determine next extrinsic reward
