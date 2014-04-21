@@ -1414,7 +1414,7 @@ def imrl():
     epsilon          = 0.1
     tau = 0.9
 
-    steps = int(1e4)
+    steps = int(1e5)
 
     # Log stuff
     filename = get_log_filename()
