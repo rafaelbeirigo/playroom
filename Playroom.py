@@ -606,6 +606,8 @@ def get_available_actions(s=None):
 
 
 def execute_action(action, s=None):
+    print 'action: ' + str(action)
+    print 's: ' + str(s)
     if isinstance(action, str):
         all_possible_actions[action]()
     else:                       # it is an option (tuple)
