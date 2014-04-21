@@ -795,43 +795,43 @@ def which_Q(o=None):
         return O[o]['Q']
 
 
-def fix_Q(state_key, action_key, option_key=None):
-    my_Q = which_Q(option_key)
-    if not (state_key in my_Q.keys()):
-        my_Q[state_key] = {}
+def fix_Q(s, a, o=None):
+    my_Q = which_Q(o)
+    if not (s in my_Q.keys()):
+        my_Q[s] = {}
 
-    if not (action_key in my_Q[state_key].keys()):
-        my_Q[state_key][action_key] = Q_default_value
+    if not (a in my_Q[s].keys()):
+        my_Q[s][a] = Q_default_value
 
 
-def set_Q(state_key, action_key, new_value, option_key=None):
-    fix_Q(state_key, action_key, option_key)
+def set_Q(s, a, new_value, o=None):
+    fix_Q(s, a, o)
 
-    my_Q = which_Q(option_key)
-    my_Q[state_key][action_key] = new_value
+    my_Q = which_Q(o)
+    my_Q[s][a] = new_value
 
     # Deals with V^*(s) and A^*(s)
     q = new_value
-    vx = get_Vx(state_key, option_key)
+    vx = get_Vx(s, o)
     if q > vx:
         # Sets the new best value on V^*(s)
-        set_Vx(state_key, q, option_key)
+        set_Vx(s, q, o)
 
         # Clears the list of best actions (a new one will be created)
-        clear_Ax(state_key, option_key)
+        clear_Ax(s, o)
 
         # Adds the action to the list of best actions
-        add_Ax(state_key, action_key, option_key)
+        add_Ax(s, a, o)
     elif q == vx:
         # Adds the action to the list of best actions
-        add_Ax(state_key, action_key, option_key)
+        add_Ax(s, a, o)
 
 
-def get_Q(state_key, action_key, option_key=None):
-    fix_Q(state_key, action_key, option_key)
+def get_Q(s, a, o=None):
+    fix_Q(s, a, o)
 
-    my_Q = which_Q(option_key)
-    return my_Q[state_key][action_key]
+    my_Q = which_Q(o)
+    return my_Q[s][a]
 
 
 def which_Vx(o=None):
@@ -847,24 +847,24 @@ def which_Vx(o=None):
 
 
 # Vx refers to V^*
-def fix_Vx(state_key, option_key=None):
-    my_Vx = which_Vx(option_key)
-    if not (state_key in my_Vx.keys()):
-        my_Vx[state_key] = Q_default_value
+def fix_Vx(s, o=None):
+    my_Vx = which_Vx(o)
+    if not (s in my_Vx.keys()):
+        my_Vx[s] = Q_default_value
 
 
 # Vx refers to V^*
-def set_Vx(state_key, new_max, option_key=None):
-    my_Vx = which_Vx(option_key)
-    my_Vx[state_key] = new_max
+def set_Vx(s, new_max, o=None):
+    my_Vx = which_Vx(o)
+    my_Vx[s] = new_max
 
 
 # Vx refers to V^*
-def get_Vx(state_key, option_key=None):
-    fix_Vx(state_key, option_key)
+def get_Vx(s, o=None):
+    fix_Vx(s, o)
 
-    my_Vx = which_Vx(option_key)
-    return my_Vx[state_key]
+    my_Vx = which_Vx(o)
+    return my_Vx[s]
 
 
 def state_is_goal():
@@ -1378,10 +1378,10 @@ def fix_available_options(s):
         available_options[s] = set()
 
 
-def add_available_options(s, option):
+def add_available_options(s, o):
     """Add an option to the set of available options in 's'."""
     fix_available_options(s)
-    available_options[s].add(option)
+    available_options[s].add(o)
 
 
 def get_available_options(s):
