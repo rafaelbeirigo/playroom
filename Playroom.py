@@ -1580,6 +1580,7 @@ def imrl():
             current_option = next_action
             a2 = get_action_from_option(s2, next_action)
         else:
+            current_option = None
             a2 = next_action
 
         # //— Determine next extrinsic reward
