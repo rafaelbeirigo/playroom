@@ -903,12 +903,15 @@ def select_best_actions(s, o=None):
         return list(my_Ax[s])
 
 
-def select_best_action(s, o=None):
+def get_action_from_option(s, o):
     a = choice(select_best_actions(s, o))
     while is_option(a):
         a = select_best_action(s, a)
-
     return a
+
+
+def select_best_action(s, o=None):
+    return choice(select_best_actions(s, o))
 
 
 def set_random_initial_state():
@@ -1435,6 +1438,7 @@ def imrl():
     r_e = 0
     r_i = 0
     step = 1
+    current_option = None
     for current_step in range(steps):
         # Obtain next state s_{t+1}
         execute_action(a, s)
@@ -1562,12 +1566,19 @@ def imrl():
                     set_Q(s, o2, new_Q, o)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
-        if random() < epsilon:    # random() gives a number in the interval [0, 1).
-            # random
-            a2 = select_random_action(s2)
+        if current_option == None or get_BETA(current_option, s2) == 1: # Is an option being followed (that does not terminate on the current state)
+            if random() < epsilon:    # random() gives a number in the interval [0, 1).
+                # random
+                next_action = select_random_action(s2)
+            else:
+                # greedy
+                next_action = select_best_action(s2)
         else:
-            # greedy
-            a2 = select_best_action(s2)
+            next_action = current_option # continues to follow the option
+
+        if is_option(next_action):
+            current_option = next_action
+            a2 = get_action_from_option(s2, next_action)
 
         # //— Determine next extrinsic reward
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
