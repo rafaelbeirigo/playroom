@@ -177,7 +177,7 @@ def get_actions_from_agent():
 
 
 def is_block(piece):
-    return piece in [blue_block]
+    return piece in [blue_block, red_block]
 
 
 def get_actions_from_pieces():
@@ -458,14 +458,14 @@ def update_blocks_color():
         blue_block.set_image(tk.PhotoImage(file="img/blue_block.gif"))
         board.updatepieceimage(blue_block)
 
-        # red_block.set_image(tk.PhotoImage(file="img/red_block.gif"))
-        # board.updatepieceimage(red_block)
+        red_block.set_image(tk.PhotoImage(file="img/red_block.gif"))
+        board.updatepieceimage(red_block)
     elif is_off(light):
         blue_block.set_image(tk.PhotoImage(file="img/gray_block.gif"))
         board.updatepieceimage(blue_block)
 
-        # red_block.set_image(tk.PhotoImage(file="img/gray_block.gif"))
-        # board.updatepieceimage(red_block)
+        red_block.set_image(tk.PhotoImage(file="img/gray_block.gif"))
+        board.updatepieceimage(red_block)
     board.canvas.tag_raise('hand')
     board.canvas.tag_raise('eye')
     board.canvas.tag_raise('marker')
@@ -931,7 +931,7 @@ def position_pieces_like_article():
 
     move_piece_to_cell(blue_block, 4, 0)
 
-    # move_piece_to_cell(red_block, 4, 4)
+    move_piece_to_cell(red_block, 4, 4)
 
     move_piece_to_cell(switch, 2, 2)
 
@@ -1654,7 +1654,7 @@ right_frame.pack(side=tk.RIGHT)
 # ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
 # bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
 blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
-# red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
 # toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
 
@@ -1669,7 +1669,7 @@ marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), ro
 # Pieces Lists #
 ################
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch, blue_block]
+non_agent_pieces = [switch, blue_block, red_block]
 
 all_pieces = agent_pieces + non_agent_pieces
 
