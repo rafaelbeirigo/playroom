@@ -1594,7 +1594,7 @@ def imrl():
             else:
                 # greedy
                 next_action = select_best_action(s2)
-        elif get_BETA(current_option, s2) > 0.0:
+        elif get_BETA(current_option, s2) == 1:
             current_option = None # The option will stop being followed
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
@@ -1609,6 +1609,7 @@ def imrl():
             current_option = next_action
             a2 = get_action_from_option(s2, next_action)
         else:
+            print 'BETA: ' + get_BETA(current_option, s2)
             current_option = None
             a2 = next_action
 
