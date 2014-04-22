@@ -1614,7 +1614,6 @@ def imrl():
 
         # Sets bell_sound status
         turn_bell_off()
-        update_toy_monkey_sound_state()
 
     print 'imrl finished'
 
