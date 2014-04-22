@@ -235,7 +235,7 @@ def log_r_i(r_i):
             str(r_i) + '\t' + \
             which_salient_event() + '\n')
     f.close()
-    
+
 
 def update_state():
     global state
@@ -880,7 +880,7 @@ def is_option(a):
     Primitive actions are described by strings and options by tuples."""
     return not(isinstance(a, str))
 
-    
+
 def select_random_action(s=None):
     update_available_actions(s)
     a = choice(available_actions)
@@ -975,6 +975,12 @@ def get_reward():
         return 1
     else:
         return 0
+
+
+def get_r_e():
+    """Returns the extrinsic reward."""
+    if is_on(bell_sound):
+        return 1.0
 
 
 def print_Q(Q):
