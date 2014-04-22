@@ -171,6 +171,10 @@ def get_actions_from_agent():
     return [
         'move_eye_to_hand',
         'move_eye_to_marker',
+        'move_eye_one_step_north',
+        'move_eye_one_step_south',
+        'move_eye_one_step_east',
+        'move_eye_one_step_west',
         'move_eye_to_random_object',
         'move_hand_to_eye',
         'move_marker_to_eye',
