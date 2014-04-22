@@ -1605,7 +1605,7 @@ def imrl():
 
     print 'imrl finished'
 
-    saveobject(O, get_log_filename(prefix='O-') # persists O
+    saveobject(O, get_log_filename(prefix='O-')) # persists O
 
     # Returns to original configuration
     board.update_screen = True
