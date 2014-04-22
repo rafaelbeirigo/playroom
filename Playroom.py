@@ -1433,7 +1433,7 @@ def imrl():
     # Learning parameters
     alpha            = 0.1
     gamma            = 0.9
-    epsilon          = 0.99
+    epsilon          = 0.75
     tau              = 0.9
 
     steps = int(1e3)
@@ -1601,7 +1601,7 @@ def imrl():
             current_option = next_action
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
-                next_action = select_random_action(s2)
+                a2 = select_random_action(s2)
             else:
                 # greedy
                 a2 = get_action_from_option(s2, next_action)
