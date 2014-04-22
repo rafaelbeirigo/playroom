@@ -83,6 +83,11 @@ def turn_off(status_var):
         turn(status_var, 'OFF')
 
 
+def turn_bell_off():
+    if is_on(bell_sound):
+        bell_sound['state'] = 'OFF'
+
+
 def flick_switch():
     if is_on(light):
         turn_off(light)
@@ -245,9 +250,10 @@ def update_state():
 
     light_status = light['state']
     music_status = music['state']
+    bell_sound_status = bell_sound['state']
 
     state = (under_eye, under_hand, under_marker,
-             light_status, music_status)
+             light_status, music_status, bell_sound_status)
 
     return state
 
@@ -928,9 +934,9 @@ def alpha_sum(x, y, alpha):
 
 
 def position_pieces_like_article():
-    # move_piece_to_cell(ball, 1, 0)
+    move_piece_to_cell(ball, 1, 0)
 
-    # move_piece_to_cell(bell, 1, 4)
+    move_piece_to_cell(bell, 1, 4)
 
     move_piece_to_cell(blue_block, 4, 0)
 
@@ -1594,12 +1600,16 @@ def imrl():
         r_e = r_e2
         step += 1
 
+        # Sets bell_sound status
+        turn_bell_off()
+
     print 'imrl finished'
 
     saveobject(O, get_log_filename(prefix='O-') # persists O
 
     # Returns to original configuration
     board.update_screen = True
+
 
 root = tk.Tk()
 
@@ -1667,8 +1677,8 @@ right_frame.pack(side=tk.RIGHT)
 ####################
 # Non-agent Pieces #
 ####################
-# ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
-# bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
+ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
+bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
 blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
 red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
 switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
@@ -1685,7 +1695,7 @@ marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), ro
 # Pieces Lists #
 ################
 agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch, blue_block, red_block]
+non_agent_pieces = [switch, blue_block, red_block, ball, bell]
 
 all_pieces = agent_pieces + non_agent_pieces
 
