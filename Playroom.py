@@ -1633,9 +1633,9 @@ def imrl():
         print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
 
     print 'imrl finished'
-    print 'BETA: ' + O[current_option]['BETA'][s2]
-    print 's2: ' + str(s2)
-    print 'Ax: ' + O[current_option]['Ax'][s2]
+    print O[current_option]['BETA'][s2]
+    print str(s2)
+    print O[current_option]['Ax'][s2]
     
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
