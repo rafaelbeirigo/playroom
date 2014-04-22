@@ -981,6 +981,8 @@ def get_r_e():
     """Returns the extrinsic reward."""
     if is_on(bell_sound):
         return 1.0
+    else:
+        return 0.0
 
 
 def print_Q(Q):
