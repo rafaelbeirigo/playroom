@@ -1617,6 +1617,8 @@ def imrl():
         # Sets bell_sound status
         turn_bell_off()
 
+        print 'step: ' + str(step) + '; current_option' + str(current_option)
+
     print 'imrl finished'
 
     saveobject(O, get_log_filename(prefix='O-')) # persists O
