@@ -1609,7 +1609,7 @@ def imrl():
             current_option = next_action
             a2 = get_action_from_option(s2, next_action)
         else:
-            print 's2: ' + s2
+            print 's2: ' + str(s2)
             beta = get_BETA(current_option, s2)
             print 'BETA: ' + str(beta)
             current_option = None
