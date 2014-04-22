@@ -227,7 +227,7 @@ def log_r_i(r_i):
     global r_i_filename
 
     if r_i_filename == None:    # Tests if it is the first time the file will be opened
-        r_i_filename = get_log_filename('-r_i')
+        r_i_filename = get_log_filename(prefix='r_i')
 
     f = open(r_i_filename, 'a')
     f.write(str(step) + '\t' + \
@@ -983,9 +983,9 @@ def print_Q(Q):
         print
 
 
-def get_log_filename(suffix=''):
+def get_log_filename(prefix='', suffix=''):
     now_str = str(datetime.now())
-    filename = 'logs/' + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '.log'
+    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '.log'
     return filename
 
 
@@ -1594,7 +1594,9 @@ def imrl():
         r_e = r_e2
         step += 1
 
-    print O
+    print 'imrl finished'
+
+    saveobject(O, get_log_filename(prefix='O-') # persists O
 
     # Returns to original configuration
     board.update_screen = True
