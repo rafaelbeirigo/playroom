@@ -206,6 +206,7 @@ def is_salient_event():
         # If the variable step is equal to the current step, it means
         # the variable state was changed
         if variable['step'] == step:
+            print 'evento saliente veio de: ' + variable['name']
             return True
 
     return False
