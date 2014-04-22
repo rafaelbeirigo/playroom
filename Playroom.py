@@ -1633,7 +1633,7 @@ def imrl():
         print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
 
     print 'imrl finished'
-    print 'BETA: ' + O[current_option]['BETA']
+    print 'BETA: ' + O[current_option]['BETA'][s2]
     print 's2: ' + str(s2)
     print 'Ax: ' + O[current_option]['Ax'][s2]
     
