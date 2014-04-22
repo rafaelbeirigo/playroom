@@ -1617,7 +1617,7 @@ def imrl():
         # Sets bell_sound status
         turn_bell_off()
 
-        print 'step: ' + str(step) + '; current_option' + str(current_option)
+        print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
 
     print 'imrl finished'
 
