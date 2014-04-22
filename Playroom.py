@@ -1586,16 +1586,22 @@ def imrl():
                     # sets the new value
                     set_Q(s, o2, new_Q, o)
 
-        current_option = None
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
-        if current_option == None or get_BETA(current_option, s2) == 1: # Is an option being followed (that does not terminate on the current state)
+        if current_option == None:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
                 next_action = select_random_action(s2)
             else:
                 # greedy
                 next_action = select_best_action(s2)
+        elif get_BETA(current_option, s2) == 1:
             current_option = None # The option will stop being followed
+            if random() < epsilon:    # random() gives a number in the interval [0, 1).
+                # random
+                next_action = select_random_action(s2)
+            else:
+                # greedy
+                next_action = select_best_action(s2)
         else:
             next_action = current_option # continues to follow the option
 
