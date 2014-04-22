@@ -1586,6 +1586,10 @@ def imrl():
                     # sets the new value
                     set_Q(s, o2, new_Q, o)
 
+        print 's2: ' + str(s2)
+        beta = get_BETA(current_option, s2)
+        print 'BETA: ' + str(beta)
+
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         if current_option == None:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
@@ -1609,9 +1613,6 @@ def imrl():
             current_option = next_action
             a2 = get_action_from_option(s2, next_action)
         else:
-            print 's2: ' + str(s2)
-            beta = get_BETA(current_option, s2)
-            print 'BETA: ' + str(beta)
             current_option = None
             a2 = next_action
 
