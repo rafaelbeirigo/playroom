@@ -1603,10 +1603,6 @@ def imrl():
                 # greedy
                 next_action = select_best_action(s2)
         else:
-            print 's2: ' + str(s2)
-            beta = get_BETA(current_option, s2)
-            print 'BETA: ' + str(beta)
-
             next_action = current_option # continues to follow the option
 
         if is_option(next_action):
@@ -1630,13 +1626,13 @@ def imrl():
         # Sets bell_sound status
         turn_bell_off()
 
-        print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
+    #     print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
 
-    print 'imrl finished'
-    print O[current_option]['BETA'][s2]
-    print str(s2)
-    print O[current_option]['Ax'][s2]
-    print O[current_option]['Vx'][s2]
+    # print 'imrl finished'
+    # print O[current_option]['BETA'][s2]
+    # print str(s2)
+    # print O[current_option]['Ax'][s2]
+    # print O[current_option]['Vx'][s2]
     
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
