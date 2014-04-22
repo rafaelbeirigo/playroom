@@ -206,7 +206,6 @@ def is_salient_event():
         # If the variable step is equal to the current step, it means
         # the variable state was changed
         if variable['step'] == step:
-            print 'evento saliente veio de: ' + variable['name']
             return True
 
     return False
@@ -1436,7 +1435,7 @@ def imrl():
     epsilon          = 0.75
     tau              = 0.9
 
-    steps = int(1e3)
+    steps = int(10e6)
 
     # Log stuff
     r_i_filename = get_log_filename(prefix='r_i-')
@@ -1626,14 +1625,6 @@ def imrl():
         # Sets bell_sound status
         turn_bell_off()
 
-    #     print 'step: ' + str(step) + '; current_option' + str(current_option) + '; a2: ' + a2
-
-    # print 'imrl finished'
-    # print O[current_option]['BETA'][s2]
-    # print str(s2)
-    # print O[current_option]['Ax'][s2]
-    # print O[current_option]['Vx'][s2]
-    
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
     # Returns to original configuration
