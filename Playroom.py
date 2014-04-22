@@ -624,6 +624,8 @@ def execute_action(action, s=None):
             a = select_best_action(s, o)
             execute_action(a, s)
 
+    update_toy_monkey_sound_state()
+
 
 def update_action_buttons_state():
     update_available_actions()
@@ -1608,6 +1610,7 @@ def imrl():
 
         # Sets bell_sound status
         turn_bell_off()
+        update_toy_monkey_sound_state()
 
     print 'imrl finished'
 
