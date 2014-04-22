@@ -1594,7 +1594,7 @@ def imrl():
 
         # //— Determine next extrinsic reward
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
-        r_e2 = 0                # Initially always zero
+        r_e2 = get_r_e()
 
         # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
         s = s2
