@@ -1417,6 +1417,7 @@ def get_available_options(s):
 
 def imrl():
     global step
+    global r_i_filename
 
     # Saves resources
     board.update_screen = False
@@ -1430,8 +1431,8 @@ def imrl():
     steps = int(1e5)
 
     # Log stuff
-    filename = get_log_filename()
-    print 'Logging to: ' + filename
+    r_i_filename = get_log_filename(prefix='r_i-')
+    print 'Logging to: ' + r_i_filename
 
     # Git: commit (if that is the case) and tag (always succeed),
     # using the experiment's log filename. This way it is possible to
