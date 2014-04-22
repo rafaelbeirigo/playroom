@@ -1635,7 +1635,7 @@ def imrl():
     print 'imrl finished'
     print 'BETA: ' + O[current_option]['BETA']
     print 's2: ' + str(s2)
-    print 'Ax: ' + O[current_option]['Ax']
+    print 'Ax: ' + O[current_option]['Ax'][s2]
     
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
