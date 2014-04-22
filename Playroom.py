@@ -830,7 +830,7 @@ def set_Q(s, a, new_value, o=None):
 
         # Adds the action to the list of best actions
         add_Ax(s, a, o)
-    elif q == vx:
+    elif q > 0.0 and q == vx:
         # Adds the action to the list of best actions
         add_Ax(s, a, o)
 
