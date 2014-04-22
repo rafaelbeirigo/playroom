@@ -1610,7 +1610,7 @@ def imrl():
             a2 = get_action_from_option(s2, next_action)
         else:
             print 's2: ' + str(s2)
-            beta = get_BETA(current_option, s2)
+            beta = get_BETA(current_option, s2) == 1
             print 'BETA: ' + str(beta)
             current_option = None
             a2 = next_action
