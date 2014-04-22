@@ -232,7 +232,7 @@ def log_r_i(r_i):
     global r_i_filename
 
     if r_i_filename == None:    # Tests if it is the first time the file will be opened
-        r_i_filename = get_log_filename(prefix='r_i')
+        r_i_filename = get_log_filename(prefix='r_i-')
 
     f = open(r_i_filename, 'a')
     f.write(str(step) + '\t' + \
