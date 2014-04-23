@@ -1,18 +1,19 @@
 #!/bin/bash
 
-KWY_FILE=$1
-OUT_FILE=$KWY_FILE.out
+LOG_FILE=$1
 EPS_FILE=$KWY_FILE.eps
 JPG_FILE=$EPS_FILE.jpg;
 PNG_FILE=$EPS_FILE.png
 
+get_log () {
+    cp $LOG_FILE ./a.log
+}
+
 get_eps () {
-    echo 'Cating...'
-    cat $KWY_FILE | ./winsum 900 0.01 30 > 1.out
-    echo 'Copying...'
-    cp 1.out $OUT_FILE
+    echo 'Getting log'
+    get_log
     echo 'Gnuploting'
-    cat graph.gnuplot <(echo \"$OUT_FILE\") | gnuplot
+    gnuplot graph_ri.gnuplot
     echo 'Moving...'
     mv graph.eps $EPS_FILE
 }
@@ -48,3 +49,4 @@ plot () {
 plot
 gv --watch $EPS_FILE
 pkill plota.sh
+rm a.log
