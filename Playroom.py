@@ -222,7 +222,7 @@ def which_salient_event():
     return s_e
 
 
-def log_r_i(r_i):
+def log_r_i(r_i, s, s2, o, a):
     """Logs the r_i received at the current step."""
 
     global r_i_filename
@@ -233,7 +233,12 @@ def log_r_i(r_i):
     f = open(r_i_filename, 'a')
     f.write(str(step) + '\t' + \
             str(r_i) + '\t' + \
-            which_salient_event() + '\n')
+            which_salient_event() + '\n' + \
+            str(s) + '\t' + \
+            str(s2) + '\t' + \
+            str(o) + '\t' + \
+            str(a) + '\t'
+    )
     f.close()
 
 
@@ -1476,7 +1481,7 @@ def imrl():
             # //— set intrinsic reward value
             r_i2 = tau * ( 1 - get_P(o, s2, s) )
 
-            log_r_i(r_i2)
+            log_r_i(r_i2, s, s2, current_option, a)
         else:
             r_i2 = 0
 
