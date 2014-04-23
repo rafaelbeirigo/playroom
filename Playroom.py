@@ -1102,8 +1102,6 @@ def q_learning_simple():
             s2 = state                    # the new state, after the execution of the action
             r = get_reward()
 
-            Q_s_a_old = get_Q(s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
-
             # Makes sure that the goal is an absorbing state: if the
             # reward received is greater than zero the agent must have
             # reached the goal state (rewards are only awarded when
@@ -1123,18 +1121,17 @@ def q_learning_simple():
             ##########
             if current_option == 'flick_switch_option':
                 # Update the table entry for Q(s, flick_switch_option)
-                Q_s_o_old = get_Q(Q, s, current_option)
 
                 # Goal is an absorbing state
                 if r > 0:
                     Q_s2_o = 0
                 else:
-                    Q_s2_o = get_Q(Q, s2, current_option)
+                    Q_s2_o = get_Q(s2, current_option)
 
-                Q_s_o_new = (1.0 - alpha) * Q_s_o_old + \
-                                   alpha  * (r + gamma * Q_s2_o)
-
-                set_Q(Q, s, current_option, Q_s_o_new)
+                arg1 = get_Q(s, current_option)
+                arg2 = r + gamma * Q_s2_o
+                new_Q = alpha_sum(arg1, arg2, alpha)
+                set_Q(s, current_option, new_Q)
 
             step += 1
             global_step_count += 1
