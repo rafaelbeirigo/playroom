@@ -1432,7 +1432,7 @@ def imrl():
     # Learning parameters
     alpha            = 0.1
     gamma            = 0.9
-    epsilon          = 0.75
+    epsilon          = 0.1
     tau              = 0.9
 
     steps = int(5e5)
