@@ -1050,6 +1050,12 @@ def q_learning_simple():
     # track the version that generated each result
     git_commit_and_tag(filename[5:])
 
+    #########################
+    # Option initialization #
+    #########################
+    fix_O('flick_switch_option')
+    O['flick_switch_option']['Q'] = Q_flick_switch
+
     # "global_step_count" is used to keep track of the total number of
     # steps. The global variable "step" is reset at the beginning of
     # each episode
