@@ -891,12 +891,7 @@ def is_option(a):
 
 def select_random_action(s=None):
     update_available_actions(s)
-    a = choice(available_actions)
-
-    while is_option(a):
-        a = select_best_action(s, a)
-
-    return a
+    return choice(available_actions)
 
 
 def select_best_actions(s, o=None):
