@@ -96,7 +96,7 @@ def flick_switch():
 
 
 def flick_switch_option():
-    a = select_best_action(Q_flick_switch, map_state(state))
+    a = select_best_action(state, 'flick_switch_option')
     execute_action(a)
 
 
