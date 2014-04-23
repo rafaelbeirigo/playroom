@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LOG_FILE=$1
-EPS_FILE=$KWY_FILE.eps
+EPS_FILE=$LOG_FILE.eps
 JPG_FILE=$EPS_FILE.jpg;
 PNG_FILE=$EPS_FILE.png
 
