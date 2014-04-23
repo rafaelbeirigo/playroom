@@ -1458,12 +1458,6 @@ def imrl():
         execute_action(a, s)
         s2 = update_state()
 
-        # If following an option, adds (if it is not yet there) s2 to
-        # the option's initiation set
-        if current_option != None:
-            if get_BETA(current_option, s2) != 1:
-                add_I(current_option, s2)
-
         # Deal with special case if next state is salient
         if is_salient_event():        # If s_{t+1} is a salient event e
             o = state[3:]             # the option is described using the part of the state description relative to the statuses
