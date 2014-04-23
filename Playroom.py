@@ -1088,7 +1088,7 @@ def q_learning_simple():
                     a = select_random_action()
                 else:
                     # greedy
-                    a = select_best_action(Q, state)
+                    a = select_best_action(state)
 
                 # Tests if the selected action is an option
                 if a == 'flick_switch_option':
