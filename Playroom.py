@@ -1072,8 +1072,7 @@ def q_learning_simple():
             if current_option == 'flick_switch_option':
                 # option stops its execution with fixed probability
                 if is_off(light):
-                    a = select_best_action(Q_flick_switch,
-                                           map_state(state))
+                    a = select_best_action(state, current_option)
                 else:
                     current_option = None
 
