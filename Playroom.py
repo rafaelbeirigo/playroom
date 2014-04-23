@@ -1581,6 +1581,12 @@ def imrl():
                     set_Q(s, o2, new_Q, o)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
+        # If the option took the agent to a state that isn't in I yet,
+        # abandon the option
+        if current_option != None:
+            if not (s2 in get_I(current_option)):
+                current_option = None
+
         if current_option == None:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
