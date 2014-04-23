@@ -929,7 +929,7 @@ def set_random_initial_state():
 
 
 def alpha_sum(x, y, alpha):
-    return (1 - alpha) * x + alpha * y
+    return (1.0 - alpha) * x + alpha * y
 
 
 def position_pieces_like_article():
@@ -975,9 +975,9 @@ def setup_new_episode():
 
 def get_reward():
     if state_is_goal():
-        return 1
+        return 1.0
     else:
-        return 0
+        return 0.0
 
 
 def get_r_e():
@@ -1104,8 +1104,8 @@ def q_learning_simple():
             # reward received is greater than zero the agent must have
             # reached the goal state (rewards are only awarded when
             # the agent reaches the goal)
-            if r > 0:
-                Vx_s2 = 0
+            if r > 0.0:
+                Vx_s2 = 0.0
             else:
                 Vx_s2 = get_Vx(s2)
 
@@ -1125,8 +1125,8 @@ def q_learning_simple():
                 Q_s_o_old = get_Q(Q, s, current_option)
 
                 # Goal is an absorbing state
-                if r > 0:
-                    Q_s2_o = 0
+                if r > 0.0:
+                    Q_s2_o = 0.0
                 else:
                     Q_s2_o = get_Q(Q, s2, current_option)
 
@@ -1174,7 +1174,7 @@ def fix_1dic(dic, key):
     with zero"""
 
     if not (key in dic.keys()):
-        dic[key] = 0
+        dic[key] = 0.0
 
 
 def fix_2dic(dic, key1, key2):
@@ -1249,7 +1249,7 @@ def fix_O(o):
 
         # Creates an entry to the option's terminal value and
         # initialize it.
-        O[o]['TV'] = 1
+        O[o]['TV'] = 1.0
 
 
 def get_I(o):
@@ -1324,16 +1324,16 @@ def get_TV(o):
 
 def delta(a, b):
     if a == b:
-        return 1
+        return 1.0
     else:
-        return 0
+        return 0.0
 
 
 def get_sum_pvx(s, o):
     """Returns the sum used in
     //— SMDP-planning update of behavior action-value function"""
 
-    sum_pvx = 0
+    sum_pvx = 0.0
     for x in get_I(o):
         p_x_s = get_P(o, x, s)
 
@@ -1349,7 +1349,7 @@ def get_sum_pvxo(s, o2, o):
     //— Update option action-value functions
     Here o2 == o-prime from the article."""
 
-    sum_pvxo = 0
+    sum_pvxo = 0.0
     for x in get_I(o2):
         p_x_s = get_P(o2, x, s)
 
@@ -1369,7 +1369,7 @@ def fix_pieces_on_cell(row, col):
     yet, creates it with an empty set"""
 
     fix_2dic(pieces_on_cell, row, col)
-    if pieces_on_cell[row][col] == 0:
+    if pieces_on_cell[row][col] == 0.0:
         pieces_on_cell[row][col] = set() # corrects the initialization to put a set on the entry
 
 def add_pieces_on_cell(row, col, piece):
@@ -1449,8 +1449,8 @@ def imrl():
     # Variables initialization
     s = update_state()
     a = select_random_action()
-    r_e = 0
-    r_i = 0
+    r_e = 0.0
+    r_i = 0.0
     step = 1
     current_option = None
     for current_step in range(steps):
@@ -1471,14 +1471,14 @@ def imrl():
                 add_I(o, s)
 
                 # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                set_BETA(o, s2, 1)
+                set_BETA(o, s2, 1.0)
 
             # //— set intrinsic reward value
-            r_i2 = tau * ( 1 - get_P(o, s2, s) )
+            r_i2 = tau * ( 1.0 - get_P(o, s2, s) )
 
             log_r_i(r_i2, s, s2, current_option, a)
         else:
-            r_i2 = 0
+            r_i2 = 0.0
 
         # //- Update all option models
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
@@ -1499,7 +1499,7 @@ def imrl():
                     # arg2
                     beta_s2 = get_BETA(o, s2)
                     p_x_s2 = get_P(o, x, s2)
-                    arg2 = gamma * ( 1 - beta_s2 ) * p_x_s2 + \
+                    arg2 = gamma * ( 1.0 - beta_s2 ) * p_x_s2 + \
                            gamma * beta_s2 * delta(s2, x)
 
                     # calculates the new value
@@ -1515,7 +1515,7 @@ def imrl():
                 # arg2
                 beta_s2 = get_BETA(o, s2)
                 R_s2 = get_R(o, s2)
-                arg2 = r_e + gamma * ((1 - beta_s2) * R_s2)
+                arg2 = r_e + gamma * ((1.0 - beta_s2) * R_s2)
 
                 # calculates the new value
                 new_R = alpha_sum(arg1, arg2, alpha)
@@ -1558,7 +1558,7 @@ def imrl():
 
                 # calculates arg2
                 arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
-                           + gamma * (1 - get_BETA(o, s2)) * get_Vx(s2, o)
+                           + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
 
                 # calculates the new value
                 new_Q = alpha_sum(arg1, arg2, alpha)
@@ -1594,7 +1594,7 @@ def imrl():
             else:
                 # greedy
                 next_action = select_best_action(s2)
-        elif get_BETA(current_option, s2) == 1:
+        elif get_BETA(current_option, s2) == 1.0:
             current_option = None # The option will stop being followed
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
