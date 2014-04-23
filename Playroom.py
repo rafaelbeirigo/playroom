@@ -982,8 +982,8 @@ def get_reward():
 
 def get_r_e():
     """Returns the extrinsic reward."""
-    if is_on(bell_sound):
-        return 1.0
+    if is_on(toy_monkey_sound):
+        return 10.0
     else:
         return 0.0
 
@@ -1614,7 +1614,7 @@ def imrl():
 
         # //— Determine next extrinsic reward
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
-        r_e2 = 0
+        r_e2 = get_r_e()
 
         # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
         s = s2
