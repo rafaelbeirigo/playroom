@@ -1102,7 +1102,7 @@ def q_learning_simple():
             s2 = state                    # the new state, after the execution of the action
             r = get_reward()
 
-            Q_s_a_old = get_Q(Q, s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
+            Q_s_a_old = get_Q(s, a)   # current (will be the "old" one when updating Q) value of Q(s,a)
 
             # Makes sure that the goal is an absorbing state: if the
             # reward received is greater than zero the agent must have
@@ -1113,13 +1113,10 @@ def q_learning_simple():
             else:
                 Vx_s2 = get_Vx(s2)
 
-            # Update the table entry for Q(s,a)
-            Q_s_a_new = (1.0 - alpha) * Q_s_a_old + \
-                               alpha  * (r + gamma * Vx_s2)
-            set_Q(Q, s, a, Q_s_a_new)
-
-            if Q_s_a_new > get_Vx(s):
-                set_Vx(s, Q_s_a_new)
+            arg1 = get_Q(s, a)
+            arg2 = r + gamma * Vx_s2
+            new_Q = alpha_sum(arg1, arg2, alpha)
+            set_Q(s, a, new_Q)
 
             ##########
             # OPTION #
