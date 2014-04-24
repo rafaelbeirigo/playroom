@@ -240,7 +240,8 @@ def log_r_i(r_i, s, s2, current_option, o, a, existia):
             str(current_option) + '\t' + \
             str(o) + '\t' + \
             str(a) + '\t' + \
-            str(existia) + '\n'
+            str(existia) + '\t' + \
+            str(p) + '\n'
     )
     f.close()
 
