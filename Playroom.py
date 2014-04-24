@@ -497,8 +497,7 @@ def create_test_buttons():
 
     global imrl_button
 
-    imrl_button = tk.Button(test_buttons_frame, text='imrl',
-                            fg="white", bg="blue", command=imrl)
+    imrl_button = tk.Button(test_buttons_frame, text='imrl', fg="white", bg="blue", command=imrl_button_click)
     imrl_button.pack(side=tk.TOP)
 
     global random_actions_button
