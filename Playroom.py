@@ -1332,7 +1332,11 @@ def set_P(o, s2, s, new_value):
 
 
 def get_P(o, s2, s):
-    existia = s2 in O[o]['P'].keys() and s in O[o]['P'][s2].keys()
+    existia = False
+    if s2 in O[o]['P'].keys():
+        if s in O[o]['P'][s2].keys():
+            existia = True
+
     return get_2dic(O[o]['P'], s2, s), existia
 
 
