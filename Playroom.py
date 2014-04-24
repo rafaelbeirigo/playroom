@@ -238,7 +238,7 @@ def log_r_i(r_i, s, s2, o, a, existia):
             str(s2) + '\t' + \
             str(o) + '\t' + \
             str(a) + '\t' + \
-            str(get_P(o, s2, s)) + '\t' + \
+            str(get_P(o, s2, s)[0]) + '\t' + \
             str(existia) + '\n'
     )
     f.close()
