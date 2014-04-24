@@ -1463,7 +1463,7 @@ def imrl():
         s2 = update_state()
 
         # FOREHEADAAA
-        print current_step, s, s2, a, current_option
+        print current_option, current_step, s, s2, a
 
 
         # Deal with special case if next state is salient
