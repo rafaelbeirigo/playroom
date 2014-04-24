@@ -1301,6 +1301,10 @@ def set_BETA(o, s, new_value):
 def get_BETA(o, s):
     return get_1dic(O[o]['BETA'], s)
 
+def get_S(o):
+    """Returs the states already visited by the option."""
+    return list(get_I(o)) + O[o]['BETA'].keys()
+
 
 def set_R(o, s, new_value):
     set_1dic(O[o]['R'], s, new_value)
