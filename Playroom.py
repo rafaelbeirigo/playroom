@@ -222,7 +222,7 @@ def which_salient_event():
     return s_e
 
 
-def log_r_i(r_i, s, s2, o, a):
+def log_r_i(r_i, s, s2, o, a, existia):
     """Logs the r_i received at the current step."""
 
     global r_i_filename
@@ -237,7 +237,8 @@ def log_r_i(r_i, s, s2, o, a):
             str(s) + '\t' + \
             str(s2) + '\t' + \
             str(o) + '\t' + \
-            str(a) + '\n'
+            str(a) + '\t' + \
+            str(existia) + '\n'
     )
     f.close()
 
@@ -1330,7 +1331,8 @@ def set_P(o, s2, s, new_value):
 
 
 def get_P(o, s2, s):
-    return get_2dic(O[o]['P'], s2, s)
+    existia = s2 in O[o]['P'].keys() and s in O[o]['P'][s2].keys()
+    return get_2dic(O[o]['P'], s2, s), existia
 
 
 def get_TV(o):
@@ -1491,9 +1493,10 @@ def imrl():
                 set_BETA(o, s2, 1.0)
 
             # //— set intrinsic reward value
-            r_i2 = tau * ( 1.0 - get_P(o, s2, s) )
+            p = get_P(o, s2, s)
+            r_i2 = tau * ( 1.0 - p[0] )
 
-            log_r_i(r_i2, s, s2, current_option, a)
+            log_r_i(r_i2, s, s2, current_option, a, p[1])
         else:
             r_i2 = 0.0
 
