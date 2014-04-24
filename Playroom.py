@@ -1458,12 +1458,13 @@ def imrl():
     step = 1
     current_option = None
     for current_step in range(steps):
-        print current_step, s, s2, a, current_option
-
-
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
+
+        # FOREHEADAAA
+        print current_step, s, s2, a, current_option
+
 
         # Deal with special case if next state is salient
         if is_salient_event():        # If s_{t+1} is a salient event e
