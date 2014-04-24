@@ -1352,7 +1352,7 @@ def get_sum_pvx(s, o):
 
     sum_pvx = 0.0
     for x in S:
-        p_x_s = get_P(o, x, s)
+        p_x_s = get_P(o, x, s)[0]
 
         vx = get_Vx(x, o)
 
@@ -1368,7 +1368,7 @@ def get_sum_pvxo(s, o2, o):
 
     sum_pvxo = 0.0
     for x in S:
-        p_x_s = get_P(o2, x, s)
+        p_x_s = get_P(o2, x, s)[0]
 
         bx = get_BETA(o, x)
 
@@ -1514,7 +1514,7 @@ def imrl():
                 # for each state reachable by the option
                 for x in S:
                     # arg1
-                    arg1 = get_P(o, x, s)
+                    arg1 = get_P(o, x, s)[0]
 
                     # arg2
                     beta_s2 = get_BETA(o, s2)
