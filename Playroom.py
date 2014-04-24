@@ -1338,7 +1338,7 @@ def get_sum_pvx(s, o):
     //— SMDP-planning update of behavior action-value function"""
 
     sum_pvx = 0.0
-    for x in get_I(o):
+    for x in get_S(o):
         p_x_s = get_P(o, x, s)
 
         vx = get_Vx(x, o)
