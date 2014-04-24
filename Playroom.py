@@ -1458,6 +1458,9 @@ def imrl():
     step = 1
     current_option = None
     for current_step in range(steps):
+        print current_step, s, s2, a, current_option
+
+
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
