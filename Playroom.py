@@ -222,7 +222,7 @@ def which_salient_event():
     return s_e
 
 
-def log_r_i(r_i, s, s2, o, a, existia):
+def log_r_i(r_i, s, s2, current_option, o, a, existia):
     """Logs the r_i received at the current step."""
 
     global r_i_filename
@@ -237,6 +237,7 @@ def log_r_i(r_i, s, s2, o, a, existia):
             which_salient_event() + '\t' + \
             str(s) + '\t' + \
             str(s2) + '\t' + \
+            str(current_option) + '\t' + \
             str(o) + '\t' + \
             str(a) + '\t' + \
             str(existia) + '\n'
@@ -1501,7 +1502,7 @@ def imrl():
             p = get_P(o, s2, s)
             r_i2 = tau * ( 1.0 - p[0] )
 
-            log_r_i(r_i2, s, s2, current_option, a, p[1])
+            log_r_i(r_i2, s, s2, current_option, o, a, p[1])
         else:
             r_i2 = 0.0
 
