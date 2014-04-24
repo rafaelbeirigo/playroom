@@ -1164,6 +1164,7 @@ def q_learning_simple():
 # Playroom #
 ############
 O = {}
+S = set()
 pieces_on_cell = {}
 available_options = {}
 r_i_filename = None
@@ -1301,10 +1302,6 @@ def set_BETA(o, s, new_value):
 def get_BETA(o, s):
     return get_1dic(O[o]['BETA'], s)
 
-def get_S(o):
-    """Returs the states already visited by the option."""
-    return list(get_I(o)) + O[o]['BETA'].keys()
-
 
 def set_R(o, s, new_value):
     set_1dic(O[o]['R'], s, new_value)
@@ -1338,7 +1335,7 @@ def get_sum_pvx(s, o):
     //— SMDP-planning update of behavior action-value function"""
 
     sum_pvx = 0.0
-    for x in get_S(o):
+    for x in S:
         p_x_s = get_P(o, x, s)
 
         vx = get_Vx(x, o)
@@ -1354,7 +1351,7 @@ def get_sum_pvxo(s, o2, o):
     Here o2 == o-prime from the article."""
 
     sum_pvxo = 0.0
-    for x in get_S(o2):
+    for x in S:
         p_x_s = get_P(o2, x, s)
 
         bx = get_BETA(o, x)
@@ -1452,6 +1449,7 @@ def imrl():
 
     # Variables initialization
     s = update_state()
+    S.add(s)
     a = select_random_action()
     r_e = 0.0
     r_i = 0.0
@@ -1461,10 +1459,7 @@ def imrl():
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
-
-        # FOREHEADAAA
-        print current_option, current_step, s, s2, a
-
+        S.add(s2)
 
         # Deal with special case if next state is salient
         if is_salient_event():        # If s_{t+1} is a salient event e
@@ -1500,7 +1495,7 @@ def imrl():
             if len(my_Ax) == 0 or a in my_Ax:
                 # //— update option transition probability model
                 # for each state reachable by the option
-                for x in get_S(o):
+                for x in S:
                     # arg1
                     arg1 = get_P(o, x, s)
 
