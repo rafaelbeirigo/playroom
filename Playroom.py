@@ -785,6 +785,12 @@ def flick_switch_option_click():
     step += 1
     update_screen()
 
+def imrl_button_click():
+    """Responsible for the click of imrl button."""
+    import profile
+    profile.run('imrl()')
+
+
 ##############
 # Q-Learning #
 ##############
@@ -1436,7 +1442,7 @@ def imrl():
     epsilon          = 0.25
     tau              = 0.9
 
-    steps = int(5e5)
+    steps = int(100)
 
     # Log stuff
     r_i_filename = get_log_filename(prefix='r_i-')
