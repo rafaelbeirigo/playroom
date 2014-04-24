@@ -904,14 +904,22 @@ def select_best_actions(s, o=None):
     """Returns the best actions to the state 's' according to a 'Q'.
     If 'o' is provided, the 'Q' used is related to the option 'o'."""
 
-    my_Ax = which_Ax(o)
+    my_Q = which_Q(o)
 
-    fix_Ax(s, o)
+    # For each possible action in Q[s], gets its value
+    best_value = 0.0
+    my_Ax = []
+    if s in my_Q.keys():
+        for a in my_Q[s].keys():
+            if my_Q[s][a] > best_value:
+                best_value = my_Q[s][a]
+                my_Ax[:] = []
+                my_Ax.append(a)
 
-    if len(my_Ax[s]) == 0:         # there is no best action yet to the state
-        return get_available_actions(s)
+    if len(my_Ax) > 0:
+        return my_Ax
     else:
-        return list(my_Ax[s])
+        return get_available_actions(s)
 
 
 def get_action_from_option(s, o):
