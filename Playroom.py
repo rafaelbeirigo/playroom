@@ -1518,7 +1518,7 @@ def imrl():
 
                     # arg2
                     beta_s2 = get_BETA(o, s2)
-                    p_x_s2 = get_P(o, x, s2)
+                    p_x_s2 = get_P(o, x, s2)[0]
                     arg2 = gamma * ( 1.0 - beta_s2 ) * p_x_s2 + \
                            gamma * beta_s2 * delta(s2, x)
 
