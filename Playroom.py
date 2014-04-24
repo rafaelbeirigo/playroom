@@ -230,6 +230,7 @@ def log_r_i(r_i, s, s2, o, a, existia):
     if r_i_filename == None:    # Tests if it is the first time the file will be opened
         r_i_filename = get_log_filename(prefix='r_i-')
 
+    p = get_P(o, s2, s)[0]
     f = open(r_i_filename, 'a')
     f.write(str(step) + '\t' + \
             str(r_i) + '\t' + \
@@ -238,7 +239,6 @@ def log_r_i(r_i, s, s2, o, a, existia):
             str(s2) + '\t' + \
             str(o) + '\t' + \
             str(a) + '\t' + \
-            str(get_P(o, s2, s)[0]) + '\t' + \
             str(existia) + '\n'
     )
     f.close()
