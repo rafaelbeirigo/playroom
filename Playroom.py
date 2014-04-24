@@ -1506,7 +1506,7 @@ def imrl():
 
             # If a_t is greedy action for o in state s_t
             my_Ax = get_Ax(s, o)
-            if len(my_Ax) == 0 or a in my_Ax:
+            if True or len(my_Ax) == 0 or a in my_Ax:
                 # //— update option transition probability model
                 # for each state reachable by the option
                 for x in S:
