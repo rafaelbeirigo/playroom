@@ -873,10 +873,15 @@ def set_Vx(s, new_max, o=None):
 
 # Vx refers to V^*
 def get_Vx(s, o=None):
-    fix_Vx(s, o)
+    my_Q = which_Q(o)
 
-    my_Vx = which_Vx(o)
-    return my_Vx[s]
+    # For each possible action in Q[s], gets its value
+    best_value = 0.0
+    for a in my_Q[s].keys():
+        if my_Q[s][a] > best_value:
+            best_value = a
+
+    return best_value
 
 
 def state_is_goal():
