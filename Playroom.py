@@ -1354,7 +1354,7 @@ def get_sum_pvxo(s, o2, o):
     Here o2 == o-prime from the article."""
 
     sum_pvxo = 0.0
-    for x in get_I(o2):
+    for x in get_S(o2):
         p_x_s = get_P(o2, x, s)
 
         bx = get_BETA(o, x)
