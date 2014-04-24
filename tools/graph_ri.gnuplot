@@ -13,9 +13,11 @@ set multiplot layout 7,1
 # plot exp(x)
 # plot 1/x
 
-set xrange [0.0:*]
+set xrange [0.0:50000]
 set yrange [0.0:1.0]
+set format x "%2.1t"
 set format y "%2.1f"
+set xtics 50000
 set ytics (0.0, 0.5,1.0)
 
 set ylabel 'light_ON'
@@ -23,13 +25,13 @@ plot "< grep light_ON ./a.log" with impulses notitle
 set ylabel 'light_OFF'
 plot "< grep light_OFF ./a.log" with impulses notitle
 
+set ylabel 'bell_ON'
+plot "< grep bell_sound_ON ./a.log" with impulses notitle
+
 set ylabel 'music_ON'
 plot "< grep music_ON ./a.log" with impulses notitle
 set ylabel 'music_OFF'
 plot "< grep music_OFF ./a.log" with impulses notitle
-
-set ylabel 'bell_ON'
-plot "< grep bell_sound_ON ./a.log" with impulses notitle
 
 set ylabel 'toy_monkey_ON'
 plot "< grep toy_monkey_sound_ON ./a.log" with impulses notitle
