@@ -1254,6 +1254,9 @@ def fix_O(o):
         # Creates an entry to the option's Beta function
         O[o]['BETA'] = {}
 
+        # Creates an entry to the option's terminal states
+        O[o]['T'] = set()
+
         # Creates an entry to the option's Reward function
         O[o]['R'] = {}
 
