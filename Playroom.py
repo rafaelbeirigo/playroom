@@ -1496,7 +1496,7 @@ def imrl():
             if len(my_Ax) == 0 or a in my_Ax:
                 # //— update option transition probability model
                 # for each state reachable by the option
-                for x in get_I(o):
+                for x in get_S(o):
                     # arg1
                     arg1 = get_P(o, x, s)
 
