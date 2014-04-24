@@ -241,6 +241,7 @@ def log_r_i(r_i, s, s2, current_option, o, a, existia):
             str(o) + '\t' + \
             str(a) + '\t' + \
             str(existia) + '\t' + \
+            str(get_BETA(o, s2)) + '\t' + \
             str(p) + '\n'
     )
     f.close()
