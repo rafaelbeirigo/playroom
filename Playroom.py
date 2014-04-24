@@ -1234,6 +1234,11 @@ def get_2dic(dic, key1, key2):
     return dic[key1][key2]
 
 
+def get_T(o):
+    """Returns the terminal states for the option o."""
+    return O[o]['T']
+
+
 def fix_O(o):
     if not (o in O.keys()):
         # Creates an entry to the option
