@@ -877,9 +877,10 @@ def get_Vx(s, o=None):
 
     # For each possible action in Q[s], gets its value
     best_value = 0.0
-    for a in my_Q[s].keys():
-        if my_Q[s][a] > best_value:
-            best_value = a
+    if s in my_Q.keys():
+        for a in my_Q[s].keys():
+            if my_Q[s][a] > best_value:
+                best_value = my_Q[s][a]
 
     return best_value
 
