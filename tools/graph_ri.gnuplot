@@ -23,13 +23,13 @@ plot "< grep light_ON ./a.log" with impulses notitle
 set ylabel 'light_OFF'
 plot "< grep light_OFF ./a.log" with impulses notitle
 
-set ylabel 'bell_ON'
-plot "< grep bell_sound_ON ./a.log" with impulses notitle
-
 set ylabel 'music_ON'
 plot "< grep music_ON ./a.log" with impulses notitle
 set ylabel 'music_OFF'
 plot "< grep music_OFF ./a.log" with impulses notitle
+
+set ylabel 'bell_ON'
+plot "< grep bell_sound_ON ./a.log" with impulses notitle
 
 set ylabel 'toy_monkey_ON'
 plot "< grep toy_monkey_sound_ON ./a.log" with impulses notitle
