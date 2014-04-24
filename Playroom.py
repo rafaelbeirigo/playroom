@@ -1487,7 +1487,7 @@ def imrl():
 
         # Deal with special case if next state is salient
         if is_salient_event():        # If s_{t+1} is a salient event e
-            o = state[3:]             # the option is described using the part of the state description relative to the statuses
+            o = s2             # the option is described using the part of the state description relative to the statuses
 
             # If option for e, o_e , does not exist in O (skill-KB)
             if not (o in O.keys()):
