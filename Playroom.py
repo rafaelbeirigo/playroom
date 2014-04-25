@@ -1186,7 +1186,9 @@ def fix_2dic(dic, key1, key2):
     the entry does not exist in the dictionary, creates it
     initializing with zero"""
 
-    if not (key1 in dic.keys()):
+    try:
+        dummy = dic[key1]
+    except KeyError:
         dic[key1] = {}
 
     fix_1dic(dic[key1], key2)
