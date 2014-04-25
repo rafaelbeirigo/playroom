@@ -1817,7 +1817,7 @@ def create_x():
     central_frame = tk.Frame(root)
     central_frame.pack(side=tk.LEFT)
     global board
-    board = Board(central_frame)
+    board = Board(central_frame, rows=board_rows, columns=board_columns)
     board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
     ###############
