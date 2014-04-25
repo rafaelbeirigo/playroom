@@ -1652,6 +1652,12 @@ def imrl():
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
+                        action="store_true")
+    args = parser.parse_args()
+
     ####################
     # Non-agent Pieces #
     ####################
@@ -1719,7 +1725,11 @@ def main():
 
     position_pieces_like_article()
 
-    create_x()
+    if args.nox:
+        print "Will not run the graphical part. Running imrl..."
+        imrl()
+    else:
+        create_x()
 
 
 def create_x():
