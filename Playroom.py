@@ -11,7 +11,6 @@ from random import random
 from random import choice
 from time import sleep
 from itertools import product
-from datetime import datetime
 
 
 def saveobject(obj, filename):
@@ -991,9 +990,15 @@ def print_Q(Q):
 
 
 def get_log_filename(prefix='', suffix=''):
+    from datetime import datetime
+    from socket import gethostname
+
+    hostname = gethostname()
     now_str = str(datetime.now())
-    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '.log'
+    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
+
     return filename
+
 
 
 def git_commit_and_tag(text):
