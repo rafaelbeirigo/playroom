@@ -1657,13 +1657,6 @@ def imrl():
 def main():
     create_x()
 
-    ###############
-    # Right Frame #
-    ###############
-    global right_frame
-    right_frame = tk.Frame(root)
-    right_frame.pack(side=tk.RIGHT)
-
     ####################
     # Non-agent Pieces #
     ####################
@@ -1844,6 +1837,13 @@ def create_x():
     global board
     board = Board(central_frame)
     board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
+
+    ###############
+    # Right Frame #
+    ###############
+    global right_frame
+    right_frame = tk.Frame(root)
+    right_frame.pack(side=tk.RIGHT)
 
 
 if __name__ == '__main__':
