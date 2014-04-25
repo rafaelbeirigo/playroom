@@ -46,3 +46,6 @@ TAGS
 /tools/kwyzipper
 /tools/winsum
 /tools/1.out
+/tools/a.log
+
+logs*.tar.gz
