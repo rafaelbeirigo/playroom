@@ -809,12 +809,7 @@ def which_Q(o=None):
 
 
 def fix_Q(s, a, o=None):
-    my_Q = which_Q(o)
-    if not (s in my_Q.keys()):
-        my_Q[s] = {}
-
-    if not (a in my_Q[s].keys()):
-        my_Q[s][a] = Q_default_value
+    fix_2dic(which_Q(o), s, a)
 
 
 def set_Q(s, a, new_value, o=None):
@@ -861,9 +856,7 @@ def which_Vx(o=None):
 
 # Vx refers to V^*
 def fix_Vx(s, o=None):
-    my_Vx = which_Vx(o)
-    if not (s in my_Vx.keys()):
-        my_Vx[s] = Q_default_value
+    fix_1dic(which_Vx(o), s)
 
 
 # Vx refers to V^*
@@ -1227,7 +1220,9 @@ def get_2dic(dic, key1, key2):
 
 
 def fix_O(o):
-    if not (o in O.keys()):
+    try:
+        dummy = O[o]
+    except KeyError:
         # Creates an entry to the option
         O[o] = {}
 
@@ -1281,7 +1276,9 @@ def which_Ax(o=None):
 
 def fix_Ax(s, o=None):
     my_Ax = which_Ax(o)
-    if not (s in my_Ax.keys()):
+    try:
+        dummy = my_Ax[s]
+    except:
         my_Ax[s] = set()
 
 
@@ -1414,8 +1411,9 @@ def move_piece_to_cell(piece, row, col):
 
 def fix_available_options(s):
     """If the entry does not exist, creates it."""
-
-    if not (s in available_options.keys()):
+    try:
+        dummy = available_options[s]
+    except KeyError:
         available_options[s] = set()
 
 
@@ -1429,6 +1427,14 @@ def get_available_options(s):
     """Gets the available options on the state 's'."""
     fix_available_options(s)
     return available_options[s]
+
+def o_exists(o):
+    """Tests if there is an entry in O for the option o."""
+    try:
+        dummy = O[o]
+        return True
+    except KeyError:
+        return False
 
 
 def imrl():
@@ -1474,7 +1480,7 @@ def imrl():
             o = s2                    # The option is described by the salient state
 
             # If option for e, o_e , does not exist in O (skill-KB)
-            if not (o in O.keys()):
+            if not (o_exists(o)):
                 # Create option o_e in skill-KB;
                 fix_O(o)
 
