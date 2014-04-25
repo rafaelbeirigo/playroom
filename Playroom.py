@@ -1441,9 +1441,6 @@ def imrl():
     global step
     global r_i_filename
 
-    # Saves resources
-    board.update_screen = False
-
     # Learning parameters
     alpha            = 0.1
     gamma            = 0.9
@@ -1644,9 +1641,6 @@ def imrl():
         turn_bell_off()
 
     saveobject(O, get_log_filename(prefix='O-')) # persists O
-
-    # Returns to original configuration
-    board.update_screen = True
 
     sys.exit()
 
