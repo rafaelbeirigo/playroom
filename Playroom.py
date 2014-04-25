@@ -1660,27 +1660,27 @@ def main():
     ####################
     global ball
     ball = Piece(name = "ball", actions=['kick_ball'])
-    create_x()
     global bell
-    bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
+    bell = Piece(name = "bell", row=0, column=1)
     global blue_block
-    blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+    blue_block = Piece(name = "blue_block", row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
     global red_block
-    red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+    red_block = Piece(name = "red_block", row=1, column=0, actions=['press_red_block', 'push_red_block'])
     global switch
-    switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
+    switch = Piece(name = "switch", row=1, column=1, actions=['flick_switch'])
     global toy_monkey
-    toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
+    toy_monkey = Piece(name = "toy_monkey", row=1, column=3)
 
     ################
     # Agent Pieces #
     ################
     global hand
-    hand = Piece(name = "hand", image = tk.PhotoImage(file="img/hand.gif"), row=0, column=3)
+    hand = Piece(name = "hand", row=0, column=3)
     global eye
-    eye = Piece(name = "eye", image = tk.PhotoImage(file="img/eye.gif"), row=0, column=2)
+    eye = Piece(name = "eye", row=0, column=2)
     global marker
-    marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), row=1, column=2)
+    marker = Piece(name = "marker", row=1, column=2)
+    create_x()
 
     ################
     # Pieces Lists #
@@ -1848,7 +1848,18 @@ def create_x():
     # Non-agent Pieces #
     ####################
     ball.image=tk.PhotoImage(file="img/ball.gif")
+    bell.image=tk.PhotoImage(file="img/bell.gif")
+    blue_block.image = tk.PhotoImage(file="img/blue_block.gif")
+    red_block.image = tk.PhotoImage(file="img/red_block.gif")
+    switch.image = tk.PhotoImage(file="img/switch.gif")
+    toy_monkey.image = tk.PhotoImage(file="img/toy-monkey.gif")
 
+    ################
+    # Agent Pieces #
+    ################
+    hand.image = tk.PhotoImage(file="img/hand.gif")
+    eye.image = tk.PhotoImage(file="img/eye.gif")
+    marker.image = tk.PhotoImage(file="img/target.gif")
 
 
 if __name__ == '__main__':
