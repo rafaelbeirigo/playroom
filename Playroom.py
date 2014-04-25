@@ -1841,5 +1841,10 @@ def main():
     root.mainloop()
 
 
+def create_x():
+    """Deals with the graphical part."""
+    pass
+
+
 if __name__ == '__main__':
     main()
