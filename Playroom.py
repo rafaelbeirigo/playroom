@@ -1717,11 +1717,9 @@ def main():
     global available_actions
     available_actions = []
 
-    create_x()
-
     position_pieces_like_article()
 
-    update_screen()
+    create_x()
 
     root.mainloop()
 
@@ -1865,6 +1863,8 @@ def create_x():
     # Key shortcuts #
     #################
     root.bind_all('<Key>', key)
+
+    update_screen()
 
 
 if __name__ == '__main__':
