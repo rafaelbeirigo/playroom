@@ -1655,6 +1655,8 @@ def imrl():
 
 
 def main():
+    create_x()
+
     import Tkinter as tk
     global root
     root = tk.Tk()
