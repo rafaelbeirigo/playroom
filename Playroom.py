@@ -1175,7 +1175,9 @@ def fix_1dic(dic, key):
     entry does not exist in the dictionary, creates it initializing
     with zero"""
 
-    if not (key in dic.keys()):
+    try:
+        dummy = dic[key]
+    except KeyError:
         dic[key] = 0.0
 
 
