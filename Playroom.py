@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=UTF-8
 
+import sys
 import Tkinter as tk
 import pickle
 from Board import *
@@ -1637,6 +1638,7 @@ def imrl():
     # Returns to original configuration
     board.update_screen = True
 
+    sys.exit()
 
 root = tk.Tk()
 
