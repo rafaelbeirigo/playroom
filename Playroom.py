@@ -1355,13 +1355,12 @@ def get_sum_pvxo(s, o2, o):
     //— Update option action-value functions
     Here o2 == o-prime from the article."""
 
+    tv = get_TV(o)
     sum_pvxo = 0.0
     for x in S:
         p_x_s = get_P(o2, x, s)
 
         bx = get_BETA(o, x)
-
-        tv = get_TV(o)
 
         vx = get_Vx(x, o)
 
