@@ -1363,7 +1363,7 @@ def get_sum_pvxo(s, o2, o):
 
         tv = get_TV(o)
 
-        vx = get_Vx(s, o)
+        vx = get_Vx(x, o)
 
         sum_pvxo += p_x_s * (bx * tv + (1 - bx) * vx)
 
