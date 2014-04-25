@@ -1657,18 +1657,6 @@ def imrl():
 def main():
     create_x()
 
-    #########################
-    # State Frame and Lable #
-    #########################
-    global state_frame
-    state_frame = tk.Frame(root)
-    state_frame.pack(side=tk.TOP)
-    global state_label_text
-    state_label_text = tk.StringVar()
-    global state_label
-    state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
-    state_label.pack(side=tk.TOP)
-
     ##########################
     # Board Frame and itself #
     ##########################
@@ -1844,6 +1832,18 @@ def create_x():
     global step_count_label
     step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
     step_count_label.pack(side = tk.LEFT)
+
+    #########################
+    # State Frame and Lable #
+    #########################
+    global state_frame
+    state_frame = tk.Frame(root)
+    state_frame.pack(side=tk.TOP)
+    global state_label_text
+    state_label_text = tk.StringVar()
+    global state_label
+    state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
+    state_label.pack(side=tk.TOP)
 
 
 if __name__ == '__main__':
