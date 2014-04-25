@@ -115,10 +115,10 @@ def get_adj_squares(piece):
             column = piece.column + col_inc
 
             # only legal rows
-            if ( row >= 0 and row < board.rows ):
+            if ( row >= 0 and row < board_rows ):
 
                 # only legal columns
-                if ( column >= 0 and column < board.columns ):
+                if ( column >= 0 and column < board_columns ):
 
                     # not the piece square
                     if ( row_inc != 0 or col_inc != 0 ):
@@ -315,12 +315,12 @@ def move_piece(piece, direction):
 
     if new_row < 0:
         new_row = 0
-    if new_row > board.rows - 1:
-        new_row = board.rows - 1
+    if new_row > board_rows - 1:
+        new_row = board_rows - 1
     if new_col < 0:
         new_col = 0
-    if new_col > board.columns - 1:
-        new_col = board.columns - 1
+    if new_col > board_columns - 1:
+        new_col = board_columns - 1
 
     move_piece_to_cell(piece, new_row, new_col)
     board.placepiece(piece)
