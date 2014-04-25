@@ -2,7 +2,6 @@
 # coding=UTF-8
 
 import sys
-import Tkinter as tk
 import pickle
 from Board import *
 from Piece import *
@@ -1655,140 +1654,145 @@ def imrl():
     sys.exit()
 
 
-root = tk.Tk()
+def main():
+    import Tkinter as tk
+    root = tk.Tk()
 
-########################################################
-# Status Frame and Lables (Enviroment characteristics) #
-########################################################
-env_charact_frame = tk.Frame(root)
-env_charact_frame.pack(side = tk.TOP)
+    ########################################################
+    # Status Frame and Lables (Enviroment characteristics) #
+    ########################################################
+    env_charact_frame = tk.Frame(root)
+    env_charact_frame.pack(side = tk.TOP)
 
-light_label_text = tk.StringVar()
-light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
-light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
-light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
-light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
-light_label.pack(side = tk.LEFT)
+    light_label_text = tk.StringVar()
+    light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
+    light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
+    light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
+    light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
+    light_label.pack(side = tk.LEFT)
 
-bell_sound_label_text = tk.StringVar()
-bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
-bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
-bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
-bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-bell_sound_label.pack(side = tk.LEFT)
+    bell_sound_label_text = tk.StringVar()
+    bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
+    bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
+    bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
+    bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
+    bell_sound_label.pack(side = tk.LEFT)
 
-music_label_text = tk.StringVar()
-music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
-music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
-music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
-music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
-music_label.pack(side = tk.LEFT)
+    music_label_text = tk.StringVar()
+    music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
+    music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
+    music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
+    music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
+    music_label.pack(side = tk.LEFT)
 
-toy_monkey_sound_label_text = tk.StringVar()
-toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
-toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
-toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
-toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-toy_monkey_sound_label.pack(side = tk.LEFT)
+    toy_monkey_sound_label_text = tk.StringVar()
+    toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
+    toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
+    toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
+    toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
+    toy_monkey_sound_label.pack(side = tk.LEFT)
 
-step_count_label_text = tk.StringVar()
-step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
-step_count_label.pack(side = tk.LEFT)
+    step_count_label_text = tk.StringVar()
+    step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
+    step_count_label.pack(side = tk.LEFT)
 
-#########################
-# State Frame and Lable #
-#########################
-state_frame = tk.Frame(root)
-state_frame.pack(side=tk.TOP)
-state_label_text = tk.StringVar()
-state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
-state_label.pack(side=tk.TOP)
+    #########################
+    # State Frame and Lable #
+    #########################
+    state_frame = tk.Frame(root)
+    state_frame.pack(side=tk.TOP)
+    state_label_text = tk.StringVar()
+    state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
+    state_label.pack(side=tk.TOP)
 
-##########################
-# Board Frame and itself #
-##########################
-central_frame = tk.Frame(root)
-central_frame.pack(side=tk.LEFT)
-board = Board(central_frame)
-board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
+    ##########################
+    # Board Frame and itself #
+    ##########################
+    central_frame = tk.Frame(root)
+    central_frame.pack(side=tk.LEFT)
+    board = Board(central_frame)
+    board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
-###############
-# Right Frame #
-###############
-right_frame = tk.Frame(root)
-right_frame.pack(side=tk.RIGHT)
+    ###############
+    # Right Frame #
+    ###############
+    right_frame = tk.Frame(root)
+    right_frame.pack(side=tk.RIGHT)
 
-####################
-# Non-agent Pieces #
-####################
-ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
-bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
-blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
-red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
-switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
-toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
+    ####################
+    # Non-agent Pieces #
+    ####################
+    ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
+    bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
+    blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+    red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+    switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
+    toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
 
-################
-# Agent Pieces #
-################
-hand = Piece(name = "hand", image = tk.PhotoImage(file="img/hand.gif"), row=0, column=3)
-eye = Piece(name = "eye", image = tk.PhotoImage(file="img/eye.gif"), row=0, column=2)
-marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), row=1, column=2)
+    ################
+    # Agent Pieces #
+    ################
+    hand = Piece(name = "hand", image = tk.PhotoImage(file="img/hand.gif"), row=0, column=3)
+    eye = Piece(name = "eye", image = tk.PhotoImage(file="img/eye.gif"), row=0, column=2)
+    marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), row=1, column=2)
 
-################
-# Pieces Lists #
-################
-agent_pieces = [hand, eye, marker]
-non_agent_pieces = [switch, blue_block, red_block, ball, bell, toy_monkey]
+    ################
+    # Pieces Lists #
+    ################
+    agent_pieces = [hand, eye, marker]
+    non_agent_pieces = [switch, blue_block, red_block, ball, bell, toy_monkey]
 
-all_pieces = agent_pieces + non_agent_pieces
+    all_pieces = agent_pieces + non_agent_pieces
 
-for piece in non_agent_pieces:
-    board.addpiece(piece)
-for piece in agent_pieces:
-    board.addpiece(piece)
+    for piece in non_agent_pieces:
+        board.addpiece(piece)
+    for piece in agent_pieces:
+        board.addpiece(piece)
 
-state = ()
+    state = ()
 
-update_state()
+    update_state()
 
-all_possible_actions = {
-    'move_eye_to_hand':move_eye_to_hand,
-    'move_eye_to_marker':move_eye_to_marker,
-    'move_eye_one_step_north':move_eye_one_step_north,
-    'move_eye_one_step_south':move_eye_one_step_south,
-    'move_eye_one_step_east':move_eye_one_step_east,
-    'move_eye_one_step_west':move_eye_one_step_west,
-    'move_eye_to_random_object':move_eye_to_random_object,
-    'move_hand_to_eye':move_hand_to_eye,
-    'move_marker_to_eye':move_marker_to_eye,
-    'kick_ball':kick_ball,
-    'press_blue_block':press_blue_block,
-    'push_red_block':push_red_block,
-    'press_red_block':press_red_block,
-    'push_blue_block':push_blue_block,
-    'flick_switch':flick_switch,
-}
+    all_possible_actions = {
+        'move_eye_to_hand':move_eye_to_hand,
+        'move_eye_to_marker':move_eye_to_marker,
+        'move_eye_one_step_north':move_eye_one_step_north,
+        'move_eye_one_step_south':move_eye_one_step_south,
+        'move_eye_one_step_east':move_eye_one_step_east,
+        'move_eye_one_step_west':move_eye_one_step_west,
+        'move_eye_to_random_object':move_eye_to_random_object,
+        'move_hand_to_eye':move_hand_to_eye,
+        'move_marker_to_eye':move_marker_to_eye,
+        'kick_ball':kick_ball,
+        'press_blue_block':press_blue_block,
+        'push_red_block':push_red_block,
+        'press_red_block':press_red_block,
+        'push_blue_block':push_blue_block,
+        'flick_switch':flick_switch,
+    }
 
-# Buttons mostly used for test purposes
-create_test_buttons()
+    # Buttons mostly used for test purposes
+    create_test_buttons()
 
-# Each possible primitive action has a button associated to it and
-# they are all present in action_buttons, filled in
-# create_action_buttons
-action_buttons = []
-create_action_buttons()
+    # Each possible primitive action has a button associated to it and
+    # they are all present in action_buttons, filled in
+    # create_action_buttons
+    action_buttons = []
+    create_action_buttons()
 
-# Filled in update_available_actions
-available_actions = []
+    # Filled in update_available_actions
+    available_actions = []
 
-update_environment_labels()
+    update_environment_labels()
 
-# Associate keys to buttons
-root.bind_all('<Key>', key)
+    # Associate keys to buttons
+    root.bind_all('<Key>', key)
 
-position_pieces_like_article()
+    position_pieces_like_article()
 
-update_screen()
+    update_screen()
 
-root.mainloop()
+    root.mainloop()
+
+if __name__ == '__main__':
+    main()
