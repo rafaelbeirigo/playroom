@@ -1316,7 +1316,10 @@ def set_P(o, s2, s, new_value):
 
 
 def get_P(o, s2, s):
-    return get_2dic(O[o]['P'], s2, s)
+    try:
+        return O[o]['P'][s2][s]
+    except KeyError:
+        return 0
 
 
 def get_TV(o):
