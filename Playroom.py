@@ -129,7 +129,6 @@ def get_adj_squares(piece):
 def move_piece_to_square(piece, square):
     # each square is a tuple (row, column)
     move_piece_to_cell(piece, square[0], square[1])
-    board.placepiece(piece)
 
 
 def move_piece_rand_adj(piece):
@@ -261,7 +260,6 @@ def update_state():
 
 def move_piece_to_piece(piece_to_move, destination_piece):
     move_piece_to_cell(piece_to_move, destination_piece.row, destination_piece.column)
-    board.placepiece(piece_to_move)
 
 
 def move_eye_to_random_object():
@@ -323,7 +321,6 @@ def move_piece(piece, direction):
         new_col = board_columns - 1
 
     move_piece_to_cell(piece, new_row, new_col)
-    board.placepiece(piece)
 
 
 def move_piece_by_name(name, direction):
@@ -484,7 +481,8 @@ def update_screen():
     update_environment_labels()
     update_blocks_color()
     update_action_buttons_state()
-    # root.update_idletasks()
+    for piece in all_pieces:
+        board.placepiece(piece)
 
 
 def create_test_buttons():
@@ -917,7 +915,6 @@ def set_random_initial_state():
         board_square = choice(board_squares) # each board square is a tuple (row, column)
 
         move_piece_to_cell(piece, board_square[0], board_square[1])
-        board.placepiece(piece)
 
 
 def alpha_sum(x, y, alpha):
