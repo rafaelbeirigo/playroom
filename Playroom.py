@@ -1657,67 +1657,6 @@ def imrl():
 def main():
     create_x()
 
-    ########################################################
-    # Status Frame and Lables (Enviroment characteristics) #
-    ########################################################
-    global env_charact_frame
-    env_charact_frame = tk.Frame(root)
-    env_charact_frame.pack(side = tk.TOP)
-
-    global light_label_text
-    light_label_text = tk.StringVar()
-    global light_label_image_on
-    light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
-    global light_label_image_off
-    light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
-    global light_label_images
-    light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
-    global light_label
-    light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
-    light_label.pack(side = tk.LEFT)
-
-    global bell_sound_label_text
-    bell_sound_label_text = tk.StringVar()
-    global bell_sound_label_image_on
-    bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
-    global bell_sound_label_image_off
-    bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
-    global bell_sound_label_images
-    bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
-    global bell_sound_label
-    bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-    bell_sound_label.pack(side = tk.LEFT)
-
-    global music_label_text
-    music_label_text = tk.StringVar()
-    global music_label_image_on
-    music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
-    global music_label_image_off
-    music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
-    global music_label_images
-    music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
-    global music_label
-    music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
-    music_label.pack(side = tk.LEFT)
-
-    global toy_monkey_sound_label_text
-    toy_monkey_sound_label_text = tk.StringVar()
-    global toy_monkey_sound_label_image_on
-    toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
-    global toy_monkey_sound_label_image_off
-    toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
-    global toy_monkey_sound_label_images
-    toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
-    global toy_monkey_sound_label
-    toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
-    toy_monkey_sound_label.pack(side = tk.LEFT)
-
-    global step_count_label_text
-    step_count_label_text = tk.StringVar()
-    global step_count_label
-    step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
-    step_count_label.pack(side = tk.LEFT)
-
     #########################
     # State Frame and Lable #
     #########################
@@ -1845,8 +1784,66 @@ def create_x():
     global root
     root = tk.Tk()
 
+    ########################################################
+    # Status Frame and Lables (Enviroment characteristics) #
+    ########################################################
+    global env_charact_frame
+    env_charact_frame = tk.Frame(root)
+    env_charact_frame.pack(side = tk.TOP)
 
-    pass
+    global light_label_text
+    light_label_text = tk.StringVar()
+    global light_label_image_on
+    light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
+    global light_label_image_off
+    light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
+    global light_label_images
+    light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
+    global light_label
+    light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
+    light_label.pack(side = tk.LEFT)
+
+    global bell_sound_label_text
+    bell_sound_label_text = tk.StringVar()
+    global bell_sound_label_image_on
+    bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
+    global bell_sound_label_image_off
+    bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
+    global bell_sound_label_images
+    bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
+    global bell_sound_label
+    bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
+    bell_sound_label.pack(side = tk.LEFT)
+
+    global music_label_text
+    music_label_text = tk.StringVar()
+    global music_label_image_on
+    music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
+    global music_label_image_off
+    music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
+    global music_label_images
+    music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
+    global music_label
+    music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
+    music_label.pack(side = tk.LEFT)
+
+    global toy_monkey_sound_label_text
+    toy_monkey_sound_label_text = tk.StringVar()
+    global toy_monkey_sound_label_image_on
+    toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
+    global toy_monkey_sound_label_image_off
+    toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
+    global toy_monkey_sound_label_images
+    toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
+    global toy_monkey_sound_label
+    toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
+    toy_monkey_sound_label.pack(side = tk.LEFT)
+
+    global step_count_label_text
+    step_count_label_text = tk.StringVar()
+    global step_count_label
+    step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
+    step_count_label.pack(side = tk.LEFT)
 
 
 if __name__ == '__main__':
