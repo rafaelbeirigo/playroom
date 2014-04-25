@@ -1656,92 +1656,134 @@ def imrl():
 
 def main():
     import Tkinter as tk
+    global root
     root = tk.Tk()
 
     ########################################################
     # Status Frame and Lables (Enviroment characteristics) #
     ########################################################
+    global env_charact_frame
     env_charact_frame = tk.Frame(root)
     env_charact_frame.pack(side = tk.TOP)
 
+    global light_label_text
     light_label_text = tk.StringVar()
+    global light_label_image_on
     light_label_image_on = tk.PhotoImage(file='img/labels/light_on.gif')
+    global light_label_image_off
     light_label_image_off = tk.PhotoImage(file='img/labels/light_off.gif')
+    global light_label_images
     light_label_images = {'ON':light_label_image_on, 'OFF':light_label_image_off}
+    global light_label
     light_label = tk.Label( env_charact_frame, textvariable=light_label_text, relief=tk.RAISED, borderwidth=4, image = light_label_image_on )
     light_label.pack(side = tk.LEFT)
 
+    global bell_sound_label_text
     bell_sound_label_text = tk.StringVar()
+    global bell_sound_label_image_on
     bell_sound_label_image_on = tk.PhotoImage(file='img/labels/bell_on.gif')
+    global bell_sound_label_image_off
     bell_sound_label_image_off = tk.PhotoImage(file='img/labels/bell_off.gif')
+    global bell_sound_label_images
     bell_sound_label_images = {'ON':bell_sound_label_image_on, 'OFF':bell_sound_label_image_off}
+    global bell_sound_label
     bell_sound_label = tk.Label( env_charact_frame, textvariable=bell_sound_label_text, relief=tk.RAISED, borderwidth=4 )
     bell_sound_label.pack(side = tk.LEFT)
 
+    global music_label_text
     music_label_text = tk.StringVar()
+    global music_label_image_on
     music_label_image_on = tk.PhotoImage(file='img/labels/music_on.gif')
+    global music_label_image_off
     music_label_image_off = tk.PhotoImage(file='img/labels/music_off.gif')
+    global music_label_images
     music_label_images = {'ON':music_label_image_on, 'OFF':music_label_image_off}
+    global music_label
     music_label = tk.Label( env_charact_frame, textvariable=music_label_text, relief=tk.RAISED, borderwidth=4 )
     music_label.pack(side = tk.LEFT)
 
+    global toy_monkey_sound_label_text
     toy_monkey_sound_label_text = tk.StringVar()
+    global toy_monkey_sound_label_image_on
     toy_monkey_sound_label_image_on = tk.PhotoImage(file='img/labels/toy-monkey_on.gif')
+    global toy_monkey_sound_label_image_off
     toy_monkey_sound_label_image_off = tk.PhotoImage(file='img/labels/toy-monkey_off.gif')
+    global toy_monkey_sound_label_images
     toy_monkey_sound_label_images = {'ON':toy_monkey_sound_label_image_on, 'OFF':toy_monkey_sound_label_image_off}
+    global toy_monkey_sound_label
     toy_monkey_sound_label = tk.Label( env_charact_frame, textvariable=toy_monkey_sound_label_text, relief=tk.RAISED, borderwidth=4 )
     toy_monkey_sound_label.pack(side = tk.LEFT)
 
+    global step_count_label_text
     step_count_label_text = tk.StringVar()
+    global step_count_label
     step_count_label = tk.Label( env_charact_frame, textvariable=step_count_label_text, relief=tk.RAISED, borderwidth=4 )
     step_count_label.pack(side = tk.LEFT)
 
     #########################
     # State Frame and Lable #
     #########################
+    global state_frame
     state_frame = tk.Frame(root)
     state_frame.pack(side=tk.TOP)
+    global state_label_text
     state_label_text = tk.StringVar()
+    global state_label
     state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
     state_label.pack(side=tk.TOP)
 
     ##########################
     # Board Frame and itself #
     ##########################
+    global central_frame
     central_frame = tk.Frame(root)
     central_frame.pack(side=tk.LEFT)
+    global board
     board = Board(central_frame)
     board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
     ###############
     # Right Frame #
     ###############
+    global right_frame
     right_frame = tk.Frame(root)
     right_frame.pack(side=tk.RIGHT)
 
     ####################
     # Non-agent Pieces #
     ####################
+    global ball
     ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
+    global bell
     bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
+    global blue_block
     blue_block = Piece(name = "blue_block", image = tk.PhotoImage(file="img/blue_block.gif"), row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+    global red_block
     red_block = Piece(name = "red_block", image = tk.PhotoImage(file="img/red_block.gif"), row=1, column=0, actions=['press_red_block', 'push_red_block'])
+    global switch
     switch = Piece(name = "switch", image = tk.PhotoImage(file="img/switch.gif"), row=1, column=1, actions=['flick_switch'])
+    global toy_monkey
     toy_monkey = Piece(name = "toy_monkey", image = tk.PhotoImage(file="img/toy-monkey.gif"), row=1, column=3)
 
     ################
     # Agent Pieces #
     ################
+    global hand
     hand = Piece(name = "hand", image = tk.PhotoImage(file="img/hand.gif"), row=0, column=3)
+    global eye
     eye = Piece(name = "eye", image = tk.PhotoImage(file="img/eye.gif"), row=0, column=2)
+    global marker
     marker = Piece(name = "marker", image = tk.PhotoImage(file="img/target.gif"), row=1, column=2)
 
     ################
     # Pieces Lists #
     ################
+    global agent_pieces
     agent_pieces = [hand, eye, marker]
+    global non_agent_pieces
     non_agent_pieces = [switch, blue_block, red_block, ball, bell, toy_monkey]
 
+    global all_pieces
     all_pieces = agent_pieces + non_agent_pieces
 
     for piece in non_agent_pieces:
@@ -1749,10 +1791,12 @@ def main():
     for piece in agent_pieces:
         board.addpiece(piece)
 
+    global state
     state = ()
 
     update_state()
 
+    global all_possible_actions
     all_possible_actions = {
         'move_eye_to_hand':move_eye_to_hand,
         'move_eye_to_marker':move_eye_to_marker,
@@ -1777,10 +1821,12 @@ def main():
     # Each possible primitive action has a button associated to it and
     # they are all present in action_buttons, filled in
     # create_action_buttons
+    global action_buttons
     action_buttons = []
     create_action_buttons()
 
     # Filled in update_available_actions
+    global available_actions
     available_actions = []
 
     update_environment_labels()
