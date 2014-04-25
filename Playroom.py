@@ -1719,9 +1719,6 @@ def main():
 
     create_x()
 
-    # Associate keys to buttons
-    root.bind_all('<Key>', key)
-
     position_pieces_like_article()
 
     update_screen()
@@ -1863,6 +1860,11 @@ def create_x():
     create_action_buttons()
 
     update_environment_labels()
+
+    #################
+    # Key shortcuts #
+    #################
+    root.bind_all('<Key>', key)
 
 
 if __name__ == '__main__':
