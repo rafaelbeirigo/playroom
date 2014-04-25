@@ -1652,6 +1652,11 @@ def main():
                         action="store_true")
     args = parser.parse_args()
 
+    global board_rows
+    board_rows = 5
+    global board_columns
+    board_columns = 5
+
     ####################
     # Non-agent Pieces #
     ####################
