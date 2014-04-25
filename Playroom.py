@@ -1657,16 +1657,6 @@ def imrl():
 def main():
     create_x()
 
-    ##########################
-    # Board Frame and itself #
-    ##########################
-    global central_frame
-    central_frame = tk.Frame(root)
-    central_frame.pack(side=tk.LEFT)
-    global board
-    board = Board(central_frame)
-    board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
-
     ###############
     # Right Frame #
     ###############
@@ -1844,6 +1834,16 @@ def create_x():
     global state_label
     state_label = tk.Label( state_frame, textvariable=state_label_text, relief=tk.RAISED, borderwidth=4 )
     state_label.pack(side=tk.TOP)
+
+    ##########################
+    # Board Frame and itself #
+    ##########################
+    global central_frame
+    central_frame = tk.Frame(root)
+    central_frame.pack(side=tk.LEFT)
+    global board
+    board = Board(central_frame)
+    board.pack(side="left", fill="both", expand="true", padx=4, pady=4)
 
 
 if __name__ == '__main__':
