@@ -1657,10 +1657,6 @@ def imrl():
 def main():
     create_x()
 
-    import Tkinter as tk
-    global root
-    root = tk.Tk()
-
     ########################################################
     # Status Frame and Lables (Enviroment characteristics) #
     ########################################################
@@ -1845,6 +1841,11 @@ def main():
 
 def create_x():
     """Deals with the graphical part."""
+    import Tkinter as tk
+    global root
+    root = tk.Tk()
+
+
     pass
 
 
