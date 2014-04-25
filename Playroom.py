@@ -1721,8 +1721,6 @@ def main():
 
     create_x()
 
-    root.mainloop()
-
 
 def create_x():
     """Deals with the graphical part."""
@@ -1865,6 +1863,8 @@ def create_x():
     root.bind_all('<Key>', key)
 
     update_screen()
+
+    root.mainloop()
 
 
 if __name__ == '__main__':
