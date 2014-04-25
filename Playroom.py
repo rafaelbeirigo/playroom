@@ -1680,7 +1680,6 @@ def main():
     eye = Piece(name = "eye", row=0, column=2)
     global marker
     marker = Piece(name = "marker", row=1, column=2)
-    create_x()
 
     ################
     # Pieces Lists #
@@ -1693,10 +1692,7 @@ def main():
     global all_pieces
     all_pieces = agent_pieces + non_agent_pieces
 
-    for piece in non_agent_pieces:
-        board.addpiece(piece)
-    for piece in agent_pieces:
-        board.addpiece(piece)
+    create_x()
 
     global state
     state = ()
@@ -1860,6 +1856,14 @@ def create_x():
     hand.image = tk.PhotoImage(file="img/hand.gif")
     eye.image = tk.PhotoImage(file="img/eye.gif")
     marker.image = tk.PhotoImage(file="img/target.gif")
+
+    ###########################
+    # Add pieces to the board #
+    ###########################
+    for piece in non_agent_pieces:
+        board.addpiece(piece)
+    for piece in agent_pieces:
+        board.addpiece(piece)
 
 
 if __name__ == '__main__':
