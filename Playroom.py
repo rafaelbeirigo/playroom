@@ -1713,13 +1713,11 @@ def main():
         'flick_switch':flick_switch,
     }
 
-    create_x()
-
     # Filled in update_available_actions
     global available_actions
     available_actions = []
 
-    update_environment_labels()
+    create_x()
 
     # Associate keys to buttons
     root.bind_all('<Key>', key)
@@ -1864,6 +1862,7 @@ def create_x():
     action_buttons = []
     create_action_buttons()
 
+    update_environment_labels()
 
 
 if __name__ == '__main__':
