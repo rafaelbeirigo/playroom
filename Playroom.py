@@ -1689,8 +1689,6 @@ def main():
     global all_pieces
     all_pieces = agent_pieces + non_agent_pieces
 
-    create_x()
-
     global state
     state = ()
 
@@ -1715,15 +1713,7 @@ def main():
         'flick_switch':flick_switch,
     }
 
-    # Buttons mostly used for test purposes
-    create_test_buttons()
-
-    # Each possible primitive action has a button associated to it and
-    # they are all present in action_buttons, filled in
-    # create_action_buttons
-    global action_buttons
-    action_buttons = []
-    create_action_buttons()
+    create_x()
 
     # Filled in update_available_actions
     global available_actions
@@ -1861,6 +1851,19 @@ def create_x():
         board.addpiece(piece)
     for piece in agent_pieces:
         board.addpiece(piece)
+
+    ###########
+    # Buttons #
+    ###########
+    create_test_buttons()
+
+    # Each possible primitive action has a button associated to it and
+    # they are all present in action_buttons, filled in
+    # create_action_buttons
+    global action_buttons
+    action_buttons = []
+    create_action_buttons()
+
 
 
 if __name__ == '__main__':
