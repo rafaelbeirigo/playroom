@@ -1655,13 +1655,12 @@ def imrl():
 
 
 def main():
-    create_x()
-
     ####################
     # Non-agent Pieces #
     ####################
     global ball
-    ball = Piece(name = "ball", image=tk.PhotoImage(file="img/ball.gif"), actions=['kick_ball'])
+    ball = Piece(name = "ball", actions=['kick_ball'])
+    create_x()
     global bell
     bell = Piece(name = "bell", image=tk.PhotoImage(file="img/bell.gif"), row=0, column=1)
     global blue_block
@@ -1844,6 +1843,12 @@ def create_x():
     global right_frame
     right_frame = tk.Frame(root)
     right_frame.pack(side=tk.RIGHT)
+
+    ####################
+    # Non-agent Pieces #
+    ####################
+    ball.image=tk.PhotoImage(file="img/ball.gif")
+
 
 
 if __name__ == '__main__':
