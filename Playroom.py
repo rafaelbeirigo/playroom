@@ -943,9 +943,6 @@ def position_pieces_like_article():
 
     move_piece_to_cell(marker, 2, 4)
 
-    for piece in all_pieces:
-        board.placepiece(piece)
-
 
 def setup_new_episode():
     light['state'] = 'OFF'
