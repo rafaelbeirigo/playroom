@@ -1526,10 +1526,6 @@ def imrl():
     step = 1
     current_option = None
     for current_step in range(steps):
-        # Log
-        if args.log_step: log_step(s2, current_option, a2, r_i2)
-        if args.log_option_stack: log_option_stack()
-
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
@@ -1692,6 +1688,10 @@ def imrl():
 
         # Sets bell_sound status
         turn_bell_off()
+
+        # Log
+        if args.log_step: log_step(s2, current_option, a2, r_i2)
+        if args.log_option_stack: log_option_stack()
 
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
