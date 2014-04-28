@@ -1497,7 +1497,6 @@ def get_current_option(s2):
 
 
 def imrl():
-    global args
     global step
     global r_i_filename
 
@@ -1700,6 +1699,7 @@ def imrl():
 
 
 def main():
+    global args
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
