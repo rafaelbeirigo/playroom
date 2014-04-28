@@ -901,6 +901,7 @@ def select_best_actions(s, o=None):
 def get_action_from_option(s, o):
     a = choice(select_best_actions(s, o))
     while is_option(a):
+        option_stack.append(a)
         a = select_best_action(s, a)
     return a
 
