@@ -1434,12 +1434,23 @@ def o_exists(o):
     except KeyError:
         return False
 
+
+def get_top_stack(stack):
+    """Returns the item on top of the stack if it exists or None if the
+    stack is empty"""
+    try:
+        return stack[-1:][0] # Top of the stack
+    except IndexError:       # Stack is empty
+        return None
+
+
 option_stack = []
 def get_current_option(s2):
     """Returns an option from the option stack."""
 
-    current_option = option_stack[-1:] # Top of the stack
-    if current_option != []:
+    current_option = get_top_stack(option_stack)
+
+    if current_option != None:
         # Stack is not empty
         print current_option
         if get_BETA(current_option, s2) == 1.0 \
@@ -1447,10 +1458,7 @@ def get_current_option(s2):
             # s2 is terminal for the current_option or s2 does not
             # belong to the option: remove option from the stack.
             option_stack.pop()
-            current_option = option_stack[-1:]
-
-    if current_option == []:
-        current_option = None
+            current_option = get_top_stack(option_stack)
 
     return current_option
 
