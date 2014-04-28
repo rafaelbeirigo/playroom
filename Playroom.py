@@ -1441,6 +1441,7 @@ def get_current_option(s2):
     current_option = option_stack[-1:] # Top of the stack
     if current_option != []:
         # Stack is not empty
+        print current_option
         if get_BETA(current_option, s2) == 1.0 \
            or s2 not in get_I(current_option):
             # s2 is terminal for the current_option or s2 does not
