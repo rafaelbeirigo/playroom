@@ -1192,6 +1192,7 @@ S = set()
 pieces_on_cell = {}
 available_options = {}
 r_i_filename = None
+global args
 step_filename = None
 option_stack_filename = None
 
@@ -1525,6 +1526,10 @@ def imrl():
     step = 1
     current_option = None
     for current_step in range(steps):
+        # Log
+        if args.log_step: log_step()
+        if args.log_option_stack: log_option_stack()
+
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
@@ -1697,6 +1702,10 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
+                        action="store_true")
+    parser.add_argument("--log_step", help="Logs lots of information at each step",
+                        action="store_true")
+    parser.add_argument("--log_option_stack", help="Logs the option stack",
                         action="store_true")
     args = parser.parse_args()
 
