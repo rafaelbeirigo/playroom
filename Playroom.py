@@ -240,6 +240,37 @@ def log_r_i(r_i, s, s2, o, a):
     f.close()
 
 
+def log_step(s2, current_option, a2, r_i2):
+    """Logs data every step."""
+
+    global step_filename
+
+    if step_filename == None:    # Tests if it is the first time the file will be opened
+        step_filename = get_log_filename(prefix='step-')
+
+    f = open(step_filename, 'a')
+    f.write(str(s2) + '\t' + \
+            str(current_option) + '\t' + \
+            str(a2) + '\t' + \
+            str(r_i2) + '\t' + \
+            which_salient_event() + '\n'
+    )
+    f.close()
+
+
+def log_option_stack():
+    """Logs the option stack."""
+
+    global option_stack_filename
+
+    if option_stack_filename == None:    # Tests if it is the first time the file will be opened
+        option_stack_filename = get_log_filename(prefix='option_stack-')
+
+    f = open(option_stack_filename, 'a')
+    f.write(str(option_stack) + '\n')
+    f.close()
+
+
 def update_state():
     global state
 
@@ -1161,6 +1192,9 @@ S = set()
 pieces_on_cell = {}
 available_options = {}
 r_i_filename = None
+global args
+step_filename = None
+option_stack_filename = None
 
 def fix_1dic(dic, key):
     """ Fixes a one-dimension dictionary: receives a key and, if the
@@ -1655,15 +1689,24 @@ def imrl():
         # Sets bell_sound status
         turn_bell_off()
 
+        # Log
+        if args.log_step: log_step(s2, current_option, a2, r_i2)
+        if args.log_option_stack: log_option_stack()
+
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 
     sys.exit()
 
 
 def main():
+    global args
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
+                        action="store_true")
+    parser.add_argument("--log_step", help="Logs lots of information at each step",
+                        action="store_true")
+    parser.add_argument("--log_option_stack", help="Logs the option stack",
                         action="store_true")
     args = parser.parse_args()
 
