@@ -193,7 +193,7 @@ def same_cell_to_tuple(ag_piece):
     for piece in get_pieces_on_cell(ag_piece.row, ag_piece.column):
         if not ( piece in agent_pieces ):
             if ( is_block(piece) and is_off(light) ):
-                same_cell += ('gray_block',)
+                same_cell += ('gray_' + piece.name,)
             else:
                 same_cell += (piece.name,)
     return same_cell
