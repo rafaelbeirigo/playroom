@@ -1527,7 +1527,7 @@ def imrl():
     current_option = None
     for current_step in range(steps):
         # Log
-        if args.log_step: log_step()
+        if args.log_step: log_step(s2, current_option, a2, r_i2)
         if args.log_option_stack: log_option_stack()
 
         # Obtain next state s_{t+1}
