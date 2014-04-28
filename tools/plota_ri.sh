@@ -1,6 +1,7 @@
 #!/bin/bash
 
 LOG_FILE=$1
+SUFIX=$2
 EPS_FILE=$LOG_FILE.eps
 JPG_FILE=$EPS_FILE.jpg;
 PNG_FILE=$EPS_FILE.png
@@ -27,7 +28,7 @@ get_png () {
 }
 
 publish () {
-    scp $PNG_FILE 143.107.165.124:public_html/b.png
+    scp $PNG_FILE 143.107.165.124:public_html/b-$SUFIX.png
 }
 
 plot () {
