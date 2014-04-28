@@ -901,6 +901,7 @@ def select_best_actions(s, o=None):
 def get_action_from_option(s, o):
     a = choice(select_best_actions(s, o))
     while is_option(a):
+        option_stack.append(a)
         a = select_best_action(s, a)
     return a
 
@@ -1434,6 +1435,34 @@ def o_exists(o):
         return False
 
 
+def get_top_stack(stack):
+    """Returns the item on top of the stack if it exists or None if the
+    stack is empty"""
+    try:
+        return stack[-1:][0] # Top of the stack
+    except IndexError:       # Stack is empty
+        return None
+
+
+option_stack = []
+def get_current_option(s2):
+    """Returns an option from the option stack."""
+
+    current_option = get_top_stack(option_stack)
+
+    if current_option != None:
+        # Stack is not empty
+        print current_option
+        if get_BETA(current_option, s2) == 1.0 \
+           or s2 not in get_I(current_option):
+            # s2 is terminal for the current_option or s2 does not
+            # belong to the option: remove option from the stack.
+            option_stack.pop()
+            current_option = get_top_stack(option_stack)
+
+    return current_option
+
+
 def imrl():
     global step
     global r_i_filename
@@ -1593,11 +1622,7 @@ def imrl():
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
-        # abandon the option
-        if current_option != None:
-            if not (s2 in get_I(current_option)):
-                current_option = None
-
+        current_option = get_current_option(s2)
         if current_option == None:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
@@ -1605,22 +1630,16 @@ def imrl():
             else:
                 # greedy
                 next_action = select_best_action(s2)
-        elif get_BETA(current_option, s2) == 1.0:
-            current_option = None # The option will stop being followed
-            if random() < epsilon:    # random() gives a number in the interval [0, 1).
-                # random
-                next_action = select_random_action(s2)
-            else:
-                # greedy
-                next_action = select_best_action(s2)
+
+            if is_option(next_action):
+                option_stack.append(next_action)
+                current_option = next_action
         else:
             next_action = current_option # continues to follow the option
 
         if is_option(next_action):
-            current_option = next_action
             a2 = get_action_from_option(s2, next_action)
         else:
-            current_option = None
             a2 = next_action
 
         # //— Determine next extrinsic reward
