@@ -1497,6 +1497,7 @@ def get_current_option(s2):
 
 
 def imrl():
+    global args
     global step
     global r_i_filename
 
