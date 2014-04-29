@@ -1699,7 +1699,7 @@ def imrl():
         if args.log_option_stack: log_option_stack()
 
         # Persist data related to this experiment
-        if random() < 1e-5:
+        if random() < 1e-4:
             global ED_filename
             if ED_filename == None:
                 if r_i_filename == None:
