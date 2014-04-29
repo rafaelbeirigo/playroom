@@ -1195,6 +1195,7 @@ r_i_filename = None
 global args
 step_filename = None
 option_stack_filename = None
+ED_filename = None
 
 def fix_1dic(dic, key):
     """ Fixes a one-dimension dictionary: receives a key and, if the
@@ -1696,6 +1697,15 @@ def imrl():
         # Log
         if args.log_step: log_step(s2, current_option, a2, r_i2)
         if args.log_option_stack: log_option_stack()
+
+        # Persist data related to this experiment
+        if random() < 1e-4:
+            global ED_filename
+            if ED_filename == None:
+                if r_i_filename == None:
+                    r_i_filename = get_log_filename(prefix='r_i-')
+                ED_filename = r_i_filename + '.dat'
+            saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, S, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
 
     saveobject(O, get_log_filename(prefix='O-')) # persists O
 

@@ -13,7 +13,7 @@ set multiplot layout 7,1
 # plot exp(x)
 # plot 1/x
 
-set xrange [0.0:50000]
+set xrange [0.0:2e5]
 set yrange [0.0:1.0]
 set format x "%2.1t"
 set format y "%2.1f"
