@@ -1661,6 +1661,7 @@ def imrl():
             # random
             next_action = select_random_action(s2)
 
+            option_stack[:] = []
             if is_option(next_action):
                 option_stack.append(next_action)
                 current_option = next_action
