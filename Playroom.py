@@ -1704,7 +1704,7 @@ def imrl():
             if ED_filename == None:
                 if r_i_filename == None:
                     r_i_filename = get_log_filename(prefix='r_i-')
-                ED_filename = 'ED-' + r_i_filename
+                ED_filename = r_i_filename + '.dat'
             saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, S, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
 
     saveobject(O, get_log_filename(prefix='O-')) # persists O
