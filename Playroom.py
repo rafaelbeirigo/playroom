@@ -1255,9 +1255,10 @@ def get_2dic(dic, key1, key2):
     """Gets the value of a two-dimensional dictionary entry. If the
     entry does not exist, creates it with a value of zero."""
 
-    fix_2dic(dic, key1, key2)
-
-    return dic[key1][key2]
+    try:
+        return dic[key1][key2]
+    except KeyError:
+        return 0.0
 
 
 def fix_O(o):
