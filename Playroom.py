@@ -1245,9 +1245,10 @@ def get_1dic(dic, key):
     """Gets the value of a one-dimensional dictionary entry. If the
     entry does not exist, creates it with a value of zero."""
 
-    fix_1dic(dic, key)
-
-    return dic[key]
+    try:
+        return dic[key]
+    except KeyError:
+        return 0.0
 
 
 def get_2dic(dic, key1, key2):
