@@ -894,7 +894,11 @@ def set_Vx(s, new_max, o=None):
 
 # Vx refers to V^*
 def get_Vx(s, o=None):
-    my_Vx = which_Vx(o)
+    if o == None:
+        my_Vx = Vx
+    else:
+        my_Vx = O[o]['Vx']
+
     try:
         return my_Vx[s]
     except KeyError:
