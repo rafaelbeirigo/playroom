@@ -894,10 +894,11 @@ def set_Vx(s, new_max, o=None):
 
 # Vx refers to V^*
 def get_Vx(s, o=None):
-    fix_Vx(s, o)
-
     my_Vx = which_Vx(o)
-    return my_Vx[s]
+    try:
+        return my_Vx[s]
+    except KeyError:
+        return 0.0
 
 
 def state_is_goal():
