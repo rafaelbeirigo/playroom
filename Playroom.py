@@ -646,16 +646,10 @@ def get_available_actions(s=None):
 
 
 def execute_action(action, s=None):
-    if isinstance(action, str):
+    try:
         all_possible_actions[action]()
-    else:                       # it is an option (tuple)
-        if s == None:
-            print 'ERROR: s was not provided, no action will be executed this step'
-            print 'action: ' + str(action)
-        else:
-            o = action              # the provided action is an option
-            a = select_best_action(s, o)
-            execute_action(a, s)
+    except:                       # it is an option (tuple)
+        print 'ERROR (execute_action): could not execute the action ' + str(action)
 
     update_toy_monkey_sound_state()
 
