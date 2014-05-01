@@ -13,12 +13,12 @@ set multiplot layout 7,1
 # plot exp(x)
 # plot 1/x
 
-set xrange [0.0:0.5e5]
+set xrange [0.0:.5e5]
 set yrange [0.0:1.0]
-set format x "%2.1t"
+set format x "%2.0e"
 set format y "%2.1f"
-set xtics 50000
-set ytics (0.0, 0.5,1.0)
+set xtics .1e5
+set ytics (0.0,0.5,1.0)
 
 set ylabel 'light_ON'
 plot "< grep light_ON ./a.log" with impulses notitle
