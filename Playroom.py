@@ -1566,7 +1566,8 @@ def imrl():
         for o in O_keys: # For each option o != o_e in skill-KB (O)
             # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
             if s2 in get_I(o):
-                add_I(o, s)
+                if get_BETA(o, s) != 1:
+                    add_I(o, s)
 
             # If a_t is greedy action for o in state s_t
             if a in get_Ax(s, o):

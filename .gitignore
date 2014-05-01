@@ -49,3 +49,4 @@ TAGS
 /tools/a.log
 
 logs*.tar.gz
+/cython/
