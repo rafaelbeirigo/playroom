@@ -14,7 +14,7 @@ set multiplot layout 7,1
 # plot 1/x
 
 set xrange [0.0:5e5]
-set yrange [0.0:1.0]
+set yrange [-0.04:0.55]
 set format x "%2.0e"
 set format y "%2.1f"
 set xtics .5e5
