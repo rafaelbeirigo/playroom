@@ -1533,10 +1533,11 @@ def imrl():
         S.add(s2)
 
         # Deal with special case if next state is salient
+        o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
             o = s2                    # The option is described by the salient state
 
-            # If option for e, o_e , does not exist in O (skill-KB)
+            # If option for e, o_e, does not exist in O (skill-KB)
             if not (o_exists(o)):
                 # Create option o_e in skill-KB;
                 fix_O(o)
@@ -1547,17 +1548,19 @@ def imrl():
                 # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
                 set_BETA(o, s2, 1.0)
 
+                o_e = o                   # Used in "Update all option models", below
+
             # //— set intrinsic reward value
-            r_i2 = tau * ( 1.0 - get_P(o, s2, s) )
+            r_i2 = tau * (1.0 - get_P(o, s2, s))
 
             log_r_i(r_i2, s, s2, current_option, a)
         else:
             r_i2 = 0.0
 
         # //- Update all option models
-        for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow
-            # initiation set
+        O_keys = [o for o in O.keys() if o != o_e]
+        for o in O_keys: # For each option o != o_e in skill-KB (O)
+            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
             if s2 in get_I(o):
                 add_I(o, s)
 
