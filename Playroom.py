@@ -1557,6 +1557,10 @@ def imrl():
         else:
             r_i2 = 0.0
 
+        # //— Determine next extrinsic reward
+        # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
+        r_e2 = get_r_e()
+
         # //- Update all option models
         O_keys = [o for o in O.keys() if o != o_e]
         for o in O_keys: # For each option o != o_e in skill-KB (O)
@@ -1591,7 +1595,7 @@ def imrl():
                 # arg2
                 beta_s2 = get_BETA(o, s2)
                 R_s2 = get_R(o, s2)
-                arg2 = r_e + gamma * ((1.0 - beta_s2) * R_s2)
+                arg2 = r_e2 + gamma * ((1.0 - beta_s2) * R_s2)
 
                 # calculates the new value
                 new_R = alpha_sum(arg1, arg2, alpha)
@@ -1604,7 +1608,7 @@ def imrl():
         arg1 = get_Q(s, a)
 
         # arg2
-        arg2 = r_e + r_i + gamma * get_Vx(s2)
+        arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
 
         # calculates the new value
         new_Q = alpha_sum(arg1, arg2, alpha)
@@ -1633,8 +1637,8 @@ def imrl():
                 arg1 = get_Q(s, a, o)
 
                 # calculates arg2
-                arg2 = r_e + gamma * get_BETA(o, s2) * get_TV(o) \
-                           + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
+                arg2 = r_e2 + gamma * get_BETA(o, s2) * get_TV(o) \
+                            + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
 
                 # calculates the new value
                 new_Q = alpha_sum(arg1, arg2, alpha)
@@ -1682,10 +1686,6 @@ def imrl():
             a2 = get_action_from_option(s2, next_action)
         else:
             a2 = next_action
-
-        # //— Determine next extrinsic reward
-        # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
-        r_e2 = get_r_e()
 
         # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
         s = s2
