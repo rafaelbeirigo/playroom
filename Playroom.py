@@ -166,14 +166,21 @@ def on_same_cell(piece1, piece2):
 
 
 def get_actions_from_agent():
-    return [
+    actions = [
         'move_eye_to_hand',
         'move_eye_to_marker',
         'move_eye_to_random_object',
         'move_hand_to_eye',
         'move_marker_to_eye',
+    ]
+    if not args.no_cardinal:
+        actions += [
+            'move_eye_one_step_north',
+            'move_eye_one_step_south',
+            'move_eye_one_step_east',
+            'move_eye_one_step_west',
         ]
-
+    return actions
 
 def is_block(piece):
     return piece in [blue_block, red_block]
@@ -1730,6 +1737,8 @@ def main():
     parser.add_argument("--log_step", help="Logs lots of information at each step",
                         action="store_true")
     parser.add_argument("--log_option_stack", help="Logs the option stack",
+                        action="store_true")
+    parser.add_argument("--no_cardinal", help="The eye does not use the cardinal actions",
                         action="store_true")
     args = parser.parse_args()
 
