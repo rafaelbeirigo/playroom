@@ -1618,17 +1618,18 @@ def imrl():
 
         # //— SMDP-planning update of behavior action-value function
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            # calculates arg1
-            arg1 = get_Q(s, o)
+            if get_BETA(o, s) != 1.0:
+                # calculates arg1
+                arg1 = get_Q(s, o)
 
-            # calculates arg2
-            arg2 = get_R(o, s) + get_sum_pvx(s, o)
+                # calculates arg2
+                arg2 = get_R(o, s) + get_sum_pvx(s, o)
 
-            # calculates the new value
-            new_Q = alpha_sum(arg1, arg2, alpha)
+                # calculates the new value
+                new_Q = alpha_sum(arg1, arg2, alpha)
 
-            # sets the new value
-            set_Q(s, o, new_Q)
+                # sets the new value
+                set_Q(s, o, new_Q)
 
         # //— Update option action-value functions
         for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
