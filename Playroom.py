@@ -1647,19 +1647,19 @@ def imrl():
                 # sets the new value
                 set_Q(s, a, new_Q, o)
 
-            for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-                if (o != o2) and (s in get_I(o2)):
-                    # calculates arg1
-                    arg1 = get_Q(s, o2, o)
+                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+                    if (o != o2) and (s in get_I(o2)):
+                        # calculates arg1
+                        arg1 = get_Q(s, o2, o)
 
-                    # calculates arg2
-                    arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
+                        # calculates arg2
+                        arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
 
-                    # calculates the new value
-                    new_Q = alpha_sum(arg1, arg2, alpha)
+                        # calculates the new value
+                        new_Q = alpha_sum(arg1, arg2, alpha)
 
-                    # sets the new value
-                    set_Q(s, o2, new_Q, o)
+                        # sets the new value
+                        set_Q(s, o2, new_Q, o)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
