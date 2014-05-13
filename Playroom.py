@@ -1509,7 +1509,7 @@ def imrl():
     global r_i_filename
 
     # Learning parameters
-    alpha            = 0.05
+    alpha            = 0.02
     gamma            = 0.99
     epsilon          = 0.1
     tau              = 0.5
