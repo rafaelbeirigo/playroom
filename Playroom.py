@@ -1626,7 +1626,7 @@ def imrl():
 
         # //— SMDP-planning update of behavior action-value function
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            if get_BETA(o, s) != 1.0:
+            if s in get_I(o):
                 # calculates arg1
                 arg1 = get_Q(s, o)
 
