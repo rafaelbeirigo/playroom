@@ -1362,7 +1362,7 @@ def get_P(o, s2, s):
     try:
         return O[o]['P'][s2][s]
     except KeyError:
-        return 0
+        return 0.0
 
 
 def get_TV(o):
