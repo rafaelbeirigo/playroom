@@ -1341,7 +1341,10 @@ def set_R(o, s, new_value):
 
 
 def get_R(o, s):
-    return O[o]['R'][s]
+    try:
+        return O[o]['R'][s]
+    except KeyError:
+        return 0.0
 
 
 def set_P(o, s2, s, new_value):
