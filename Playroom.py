@@ -1384,9 +1384,17 @@ def get_sum_pvx(s, o):
 
     sum_pvx = 0.0
     for x in S:
-        p_x_s = get_P(o, x, s)
+        try:
+            p_x_s = O[o]['P'][x][s]
+        except KeyError:
+            # Here it can pass on because if the value does not exist
+            # it is zero by default, thus it does not affect the sum
+            continue
 
-        vx = get_Vx(x, o)
+        try:
+            vx = O[o]['Vx'][x]
+        except KeyError:
+            continue
 
         sum_pvx += p_x_s * vx
 
@@ -1401,11 +1409,20 @@ def get_sum_pvxo(s, o2, o):
     tv = get_TV(o)
     sum_pvxo = 0.0
     for x in S:
-        p_x_s = get_P(o2, x, s)
+        try:
+            p_x_s = O[o2]['P'][x][s]
+        except KeyError:
+            continue
 
-        bx = get_BETA(o, x)
+        try:
+            bx = O[o]['BETA'][x]
+        except KeyError:
+            bx = 0.0
 
-        vx = get_Vx(x, o)
+        try:
+            vx = O[o]['Vx'][x]
+        except KeyError:
+            vx = 0.0
 
         sum_pvxo += p_x_s * (bx * tv + (1 - bx) * vx)
 
