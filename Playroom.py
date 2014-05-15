@@ -870,10 +870,11 @@ def set_Q(s, a, new_value, o=None):
 
 
 def get_Q(s, a, o=None):
-    fix_Q(s, a, o)
-
     my_Q = which_Q(o)
-    return my_Q[s][a]
+    try:
+        return my_Q[s][a]
+    except KeyError:
+        return 0.0
 
 
 def which_Vx(o=None):
