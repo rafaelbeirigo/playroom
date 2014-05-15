@@ -889,11 +889,6 @@ def which_Vx(o=None):
 
 
 # Vx refers to V^*
-def fix_Vx(s, o=None):
-    fix_1dic(which_Vx(o), s)
-
-
-# Vx refers to V^*
 def set_Vx(s, new_max, o=None):
     my_Vx = which_Vx(o)
     my_Vx[s] = new_max
