@@ -1512,6 +1512,10 @@ def get_current_option(s2):
 def imrl():
     global step
     global r_i_filename
+    global step_filename
+    global option_stack_filename
+    global ED_filename
+    global args
 
     # Learning parameters
     alpha            = 0.02
@@ -1537,8 +1541,26 @@ def imrl():
     r_e = 0.0
     r_i = 0.0
     step = 1
+    initial_step = 0
     current_option = None
-    for current_step in range(steps):
+
+    # Sees if should open previous saved data from another experiment
+    if args.load:
+        global S
+        global option_stack
+        global Q
+        global O
+        global Vx
+        global Ax
+
+        [args, alpha, gamma, epsilon, tau, r_i_filename,
+         step_filename, option_stack_filename, ED_filename, s, s2, S,
+         a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack,
+         current_step, steps, Q, O, Vx, Ax] = loadobject(args.load[0])
+
+        initial_step = current_step + 1
+
+    for current_step in range(initial_step, steps):
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
@@ -1721,7 +1743,6 @@ def imrl():
 
         # Persist data related to this experiment
         if random() < 1e-4:
-            global ED_filename
             if ED_filename == None:
                 if r_i_filename == None:
                     r_i_filename = get_log_filename(prefix='r_i-')
@@ -1750,7 +1771,6 @@ def main():
     args = parser.parse_args()
 
     print args.load
-    sys.exit()
 
     global board_rows
     board_rows = 5
