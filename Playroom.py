@@ -1341,7 +1341,7 @@ def set_R(o, s, new_value):
 
 
 def get_R(o, s):
-    return get_1dic(O[o]['R'], s)
+    return O[o]['R'][s]
 
 
 def set_P(o, s2, s, new_value):
