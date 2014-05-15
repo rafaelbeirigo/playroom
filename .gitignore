@@ -50,3 +50,7 @@ TAGS
 
 logs*.tar.gz
 /cython/
+/1e5.prof
+/get_sum.c
+/get_sum.pyx
+/setup.py
