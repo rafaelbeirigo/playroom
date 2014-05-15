@@ -1339,7 +1339,10 @@ def set_BETA(o, s, new_value):
 
 
 def get_BETA(o, s):
-    return O[o]['BETA'][s]
+    try:
+        return O[o]['BETA'][s]
+    except KeyError:
+        return 0.0
 
 
 def set_R(o, s, new_value):
