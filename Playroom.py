@@ -1222,7 +1222,7 @@ def fix_2dic(dic, key1, key2):
     except KeyError:
         dic[key1] = {}
 
-    fix_1dic(dic[key1], key2)
+    dic[key1][key2] = 0.0
 
 
 def set_1dic(dic, key, new_value):
