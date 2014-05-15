@@ -1030,7 +1030,6 @@ def get_log_filename(prefix='', suffix=''):
     return filename
 
 
-
 def git_commit_and_tag(text):
     from subprocess import call
 
@@ -1313,8 +1312,10 @@ def fix_Ax(s, o=None):
 
 
 def get_Ax(s, o=None):
-    fix_Ax(s, o)
-    return which_Ax(o)[s]
+    try:
+        return which_Ax(o)[s]
+    except KeyError:
+        return set()
 
 
 def add_Ax(s, a, o=None):
@@ -1454,8 +1455,11 @@ def add_available_options(s, o):
 
 def get_available_options(s):
     """Gets the available options on the state 's'."""
-    fix_available_options(s)
-    return available_options[s]
+    try:
+        return available_options[s]
+    except KeyError:
+        return set()
+
 
 def o_exists(o):
     """Tests if there is an entry in O for the option o."""
