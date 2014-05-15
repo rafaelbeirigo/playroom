@@ -1527,6 +1527,7 @@ def get_current_option(s2):
 
 
 def imrl():
+    import get_sum
     global step
     global r_i_filename
     global step_filename
