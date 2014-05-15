@@ -1745,7 +1745,12 @@ def main():
                         action="store_true")
     parser.add_argument("--no_cardinal", help="The eye does not use the cardinal actions",
                         action="store_true")
+    parser.add_argument("--load", nargs='*', help="Loads saved data from previous experiment.")
+
     args = parser.parse_args()
+
+    print args.load
+    sys.exit()
 
     global board_rows
     board_rows = 5
