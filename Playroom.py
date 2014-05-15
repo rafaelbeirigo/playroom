@@ -10,7 +10,12 @@ from random import random
 from random import choice
 from time import sleep
 from itertools import product
+from numpy import *
 
+###############
+# NumPy stuff #
+###############
+board_matrix = zeros((5, 5), dtype=int32)
 
 def saveobject(obj, filename):
     with open(filename, 'wb') as output:
