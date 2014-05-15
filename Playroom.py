@@ -1532,6 +1532,7 @@ def imrl():
          current_step, steps, Q, O, Vx, Ax] = loadobject(args.load[0])
 
         initial_step = current_step + 1
+        step = initial_step
     else:
         # Learning parameters
         alpha            = 0.02
