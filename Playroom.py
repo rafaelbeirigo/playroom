@@ -1527,7 +1527,7 @@ def get_current_option(s2):
 
 
 def imrl():
-    import get_sum
+    from get_sum import get_sum_pvx_cython
     global step
     global r_i_filename
     global step_filename
@@ -1678,7 +1678,7 @@ def imrl():
                 arg1 = get_Q(s, o)
 
                 # calculates arg2
-                arg2 = get_R(o, s) + get_sum_pvx(s, o)
+                arg2 = get_R(o, s) + get_sum_pvx_cython(s, S, O[o]['P'], O[o]['Vx'])
 
                 # calculates the new value
                 new_Q = alpha_sum(arg1, arg2, alpha)
