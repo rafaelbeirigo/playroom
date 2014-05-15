@@ -1201,17 +1201,6 @@ step_filename = None
 option_stack_filename = None
 ED_filename = None
 
-def fix_1dic(dic, key):
-    """ Fixes a one-dimension dictionary: receives a key and, if the
-    entry does not exist in the dictionary, creates it initializing
-    with zero"""
-
-    try:
-        dummy = dic[key]
-    except KeyError:
-        dic[key] = 0.0
-
-
 def fix_2dic(dic, key1, key2):
     """ Fixes a two-dimension dictionary: receives the keys and, if
     the entry does not exist in the dictionary, creates it
