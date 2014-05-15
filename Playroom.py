@@ -1517,33 +1517,6 @@ def imrl():
     global ED_filename
     global args
 
-    # Learning parameters
-    alpha            = 0.02
-    gamma            = 0.99
-    epsilon          = 0.1
-    tau              = 0.5
-
-    steps = int(2e5)
-
-    # Log stuff
-    r_i_filename = get_log_filename(prefix='r_i-')
-    print 'Logging to: ' + r_i_filename
-
-    # Git: commit (if that is the case) and tag (always succeed),
-    # using the experiment's log filename. This way it is possible to
-    # track the version that generated each result
-    git_commit_and_tag(r_i_filename[5:])
-
-    # Variables initialization
-    s = update_state()
-    S.add(s)
-    a = select_random_action()
-    r_e = 0.0
-    r_i = 0.0
-    step = 1
-    initial_step = 0
-    current_option = None
-
     # Sees if should open previous saved data from another experiment
     if args.load:
         global S
@@ -1559,6 +1532,34 @@ def imrl():
          current_step, steps, Q, O, Vx, Ax] = loadobject(args.load[0])
 
         initial_step = current_step + 1
+    else:
+        # Learning parameters
+        alpha            = 0.02
+        gamma            = 0.99
+        epsilon          = 0.1
+        tau              = 0.5
+
+        steps = int(2e5)
+
+        # Variables initialization
+        s = update_state()
+        S.add(s)
+        a = select_random_action()
+        r_e = 0.0
+        r_i = 0.0
+        step = 1
+        initial_step = 0
+        current_option = None
+
+        # Log stuff
+        r_i_filename = get_log_filename(prefix='r_i-')
+
+    print 'Logging to: ' + r_i_filename
+
+    # Git: commit (if that is the case) and tag (always succeed),
+    # using the experiment's log filename. This way it is possible to
+    # track the version that generated each result
+    git_commit_and_tag(r_i_filename[5:])
 
     for current_step in range(initial_step, steps):
         # Obtain next state s_{t+1}
