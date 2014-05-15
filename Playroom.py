@@ -1580,12 +1580,12 @@ def imrl():
             if a in get_Ax(s, o):
                 # //— update option transition probability model
                 # for each state reachable by the option
+                beta_s2 = get_BETA(o, s2)
                 for x in S:
                     # arg1
                     arg1 = get_P(o, x, s)
 
                     # arg2
-                    beta_s2 = get_BETA(o, s2)
                     p_x_s2 = get_P(o, x, s2)
                     arg2 = gamma * ( 1.0 - beta_s2 ) * p_x_s2 + \
                            gamma * beta_s2 * delta(s2, x)
