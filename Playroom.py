@@ -1788,27 +1788,27 @@ def main():
     # Non-agent Pieces #
     ####################
     global ball
-    ball = Piece(name = "ball", actions=['kick_ball'])
+    ball = Piece(name = "ball", actions=['kick_ball'], value=power(2, 1))
     global bell
-    bell = Piece(name = "bell", row=0, column=1)
+    bell = Piece(name = "bell", row=0, column=1, value=power(2, 2))
     global blue_block
-    blue_block = Piece(name = "blue_block", row=0, column=4, actions=['press_blue_block', 'push_blue_block'])
+    blue_block = Piece(name = "blue_block", row=0, column=4, actions=['press_blue_block', 'push_blue_block'], value=power(2, 3))
     global red_block
-    red_block = Piece(name = "red_block", row=1, column=0, actions=['press_red_block', 'push_red_block'])
+    red_block = Piece(name = "red_block", row=1, column=0, actions=['press_red_block', 'push_red_block'], value=power(2, 4))
     global switch
-    switch = Piece(name = "switch", row=1, column=1, actions=['flick_switch'])
+    switch = Piece(name = "switch", row=1, column=1, actions=['flick_switch'], value=power(2, 5))
     global toy_monkey
-    toy_monkey = Piece(name = "toy_monkey", row=1, column=3)
+    toy_monkey = Piece(name = "toy_monkey", row=1, column=3, value=power(2, 6))
 
     ################
     # Agent Pieces #
     ################
     global hand
-    hand = Piece(name = "hand", row=0, column=3)
+    hand = Piece(name = "hand", row=0, column=3, value=power(2, 0))
     global eye
-    eye = Piece(name = "eye", row=0, column=2)
+    eye = Piece(name = "eye", row=0, column=2, value=power(2, 6))
     global marker
-    marker = Piece(name = "marker", row=1, column=2)
+    marker = Piece(name = "marker", row=1, column=2, value=power(2,12))
 
     ################
     # Pieces Lists #
