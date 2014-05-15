@@ -1333,7 +1333,7 @@ def set_BETA(o, s, new_value):
 
 
 def get_BETA(o, s):
-    return get_1dic(O[o]['BETA'], s)
+    return O[o]['BETA'][s]
 
 
 def set_R(o, s, new_value):
