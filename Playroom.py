@@ -105,7 +105,7 @@ def flick_switch():
         turn_off(light)
     else:
         turn_on(light)
-
+    update_blocks_bits()
 
 def flick_switch_option():
     a = select_best_action(Q_flick_switch, map_state(state))
@@ -514,6 +514,14 @@ def update_environment_labels():
                                  '([eye:'    + str(under_eye) +' ' + '(' + str(get_pieces_on_cell(eye.row, eye.column)) + ')],'
                                  '[hand:'   + str(under_hand) +'], ' +
                                  '[marker:' + str(under_marker) +'])')
+
+
+def update_blocks_bits():
+    """Updates the board_matrix bits related to the blocks according to
+    the light state."""
+    for piece in [blue_block, red_block]:
+        board_matrix[piece.row][piece.column][piece.value] = is_on(light)
+        board_matrix[piece.row][piece.column][6] = not(is_on(light))
 
 
 def update_blocks_color():
@@ -1450,7 +1458,7 @@ def get_pieces_on_cell(row, col):
     i = 0
     pieces_on_cell = []
     for bit in board_matrix[row][col][:-4]:
-        if bit: pieces_on_cell.append(non_agent_pieces[i].name)
+        if bit: pieces_on_cell.append(non_agent_pieces[i])
         i += 1
     return pieces_on_cell
 
@@ -1859,6 +1867,7 @@ def main():
     available_actions = []
 
     position_pieces_like_article()
+    update_blocks_bits()
 
     if args.nox:
         print "Will not run the graphical part. Running imrl..."
