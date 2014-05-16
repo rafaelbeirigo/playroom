@@ -1436,15 +1436,13 @@ def fix_pieces_on_cell(row, col):
 def add_pieces_on_cell(row, col, piece):
     """Adds the piece to the set correspondig to [row][col]."""
 
-    board_matrix[row][col] += piece.value
-    pieces_on_cell[row][col].add(piece)
+    board_matrix[row][col][piece.value] = True
 
 
 def del_pieces_on_cell(row, col, piece):
     """Removes a piece from the set corresponding to [row][col]."""
 
-    fix_pieces_on_cell(row, col)
-    pieces_on_cell[row][col].discard(piece)
+    board_matrix[row][col][piece.value] = False
 
 
 def get_pieces_on_cell(row, col):
