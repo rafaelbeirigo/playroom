@@ -1136,7 +1136,7 @@ def q_learning_simple():
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
                 # new state s2
-                if random() < epsilon:    # random() gives a number in the interval [0, 1).
+                if random.random() < epsilon:    # random() gives a number in the interval [0, 1).
                     # random
                     a = select_random_action()
                 else:
@@ -1720,7 +1720,7 @@ def imrl():
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
         current_option = get_current_option(s2)
-        if random() < epsilon:    # random() gives a number in the interval [0, 1).
+        if random.random() < epsilon:    # random() gives a number in the interval [0, 1).
             # random
             next_action = select_random_action(s2)
 
@@ -1763,7 +1763,7 @@ def imrl():
         if args.log_option_stack: log_option_stack()
 
         # Persist data related to this experiment
-        if random() < 1e-4:
+        if random.random() < 1e-4:
             if ED_filename == None:
                 if r_i_filename == None:
                     r_i_filename = get_log_filename(prefix='r_i-')
