@@ -509,7 +509,7 @@ def update_environment_labels():
     under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
 
     state_label_text.set('State: ' + str(state) + ' ' +
-                                 '([eye:'    + str(under_eye) +' ' + '(' + str(get_pieces_on_cell(eye.row, eye.column)) + ')],'
+                                 '([eye:'    + str(under_eye) +'], '
                                  '[hand:'   + str(under_hand) +'], ' +
                                  '[marker:' + str(under_marker) +'])')
 
