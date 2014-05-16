@@ -1811,11 +1811,11 @@ def main():
     # Agent Pieces #
     ################
     global hand
-    hand = Piece(name = "hand", row=0, column=3, value=-1)
+    hand = Piece(name = "hand", row=0, column=3, value=7)
     global eye
-    eye = Piece(name = "eye", row=0, column=2, value=-2)
+    eye = Piece(name = "eye", row=0, column=2, value=8)
     global marker
-    marker = Piece(name = "marker", row=1, column=2, value=-1)
+    marker = Piece(name = "marker", row=1, column=2, value=9)
 
     ################
     # Pieces Lists #
