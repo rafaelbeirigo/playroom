@@ -17,6 +17,14 @@ from numpy import *
 ###############
 board_matrix = zeros((5, 5), dtype=int32)
 
+
+def bool2int(x):
+    y = 0
+    for i,j in enumerate(x):
+        if j: y += 1<<i
+    return y
+
+
 def saveobject(obj, filename):
     with open(filename, 'wb') as output:
         pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
@@ -1428,7 +1436,7 @@ def fix_pieces_on_cell(row, col):
 def add_pieces_on_cell(row, col, piece):
     """Adds the piece to the set correspondig to [row][col]."""
 
-    fix_pieces_on_cell(row, col)
+    board_matrix[row][col] += piece.value
     pieces_on_cell[row][col].add(piece)
 
 
