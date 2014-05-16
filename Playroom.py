@@ -15,7 +15,7 @@ from numpy import *
 ###############
 # NumPy stuff #
 ###############
-board_matrix = zeros((5, 5), dtype=int32)
+board_matrix = zeros((5, 5, 6), dtype=bool)
 
 
 def bool2int(x):
