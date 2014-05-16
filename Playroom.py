@@ -511,7 +511,7 @@ def update_environment_labels():
     under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
 
     state_label_text.set('State: ' + str(state) + ' ' +
-                                 '([eye:'    + str(under_eye) +'], ' +
+                                 '([eye:'    + str(under_eye) +' ' + '(' + str(get_pieces_on_cell(eye.row, eye.column)) + ')],'
                                  '[hand:'   + str(under_hand) +'], ' +
                                  '[marker:' + str(under_marker) +'])')
 
@@ -1449,9 +1449,10 @@ def get_pieces_on_cell(row, col):
     """Gets a set of the pieces present on [row][col] on the board"""
     i = 0
     pieces_on_cell = []
-    for bit in board_matrix[row][col]:
-        if bit: pieces_on_cell.append(agent_pieces[i])
+    for bit in board_matrix[row][col][:-4]:
+        if bit: pieces_on_cell.append(non_agent_pieces[i].name)
         i += 1
+    return pieces_on_cell
 
 def move_piece_to_cell(piece, row, col):
     """Moves a piece to [row][col] on the board and updates pieces_on_cell
