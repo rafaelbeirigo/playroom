@@ -305,8 +305,6 @@ def update_state():
 
     statuses = bool2int(array([light_status, music_status, bell_sound_status, toy_monkey_sound_status]))<<21
 
-    state = (under_eye, under_hand, under_marker,
-             light_status, music_status, bell_sound_status, toy_monkey_sound_status)
     state = under_eye + under_hand + under_marker + statuses
 
     return state
