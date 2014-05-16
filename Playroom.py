@@ -15,7 +15,7 @@ from numpy import *
 ###############
 # NumPy stuff #
 ###############
-board_matrix = zeros((5, 5, 6), dtype=bool)
+board_matrix = zeros((5, 5, 9), dtype=bool)
 
 
 def bool2int(x):
@@ -294,7 +294,8 @@ def log_option_stack():
 def update_state():
     global state
 
-    under_eye = same_cell_to_tuple(eye)
+#    under_eye = bool2int(board_matrix[eye.row][eye.column])
+    under_eye = board_matrix[eye.row][eye.column]
     under_hand = same_cell_to_tuple(hand)
     under_marker = same_cell_to_tuple(marker)
 
@@ -1812,7 +1813,7 @@ def main():
     global hand
     hand = Piece(name = "hand", row=0, column=3, value=-1)
     global eye
-    eye = Piece(name = "eye", row=0, column=2, value=-1)
+    eye = Piece(name = "eye", row=0, column=2, value=-2)
     global marker
     marker = Piece(name = "marker", row=1, column=2, value=-1)
 
