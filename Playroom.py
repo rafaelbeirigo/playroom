@@ -6,7 +6,6 @@ import pickle
 from Board import *
 from Piece import *
 from random import randint
-from random import random
 from random import choice
 from time import sleep
 from itertools import product
