@@ -1822,7 +1822,7 @@ def main():
     # Pieces Lists #
     ################
     global agent_pieces
-    agent_pieces = [hand, eye, marker]
+    agent_pieces = [eye, hand, marker]
     global non_agent_pieces
     non_agent_pieces = [ball, bell, blue_block, red_block, switch, toy_monkey]
 
@@ -1830,7 +1830,7 @@ def main():
     all_pieces = agent_pieces + non_agent_pieces
 
     global state
-    state = ()
+    state = 0
 
     update_state()
 
