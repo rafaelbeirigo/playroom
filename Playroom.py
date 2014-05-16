@@ -15,7 +15,7 @@ from numpy import *
 ###############
 # NumPy stuff #
 ###############
-board_matrix = zeros((5, 5, 9), dtype=bool)
+board_matrix = zeros((5, 5, 10), dtype=bool)
 
 
 def bool2int(x):
@@ -294,19 +294,22 @@ def log_option_stack():
 def update_state():
     global state
 
-#    under_eye = bool2int(board_matrix[eye.row][eye.column])
-    under_eye = board_matrix[eye.row][eye.column]
-    under_hand = same_cell_to_tuple(hand)
-    under_marker = same_cell_to_tuple(marker)
+    under_eye = bool2int(board_matrix[eye.row][eye.column][:-3])
+    under_hand = bool2int(board_matrix[hand.row][hand.column][:-3])<<7
+    under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
 
-    light_status = light['state']
-    music_status = music['state']
-    bell_sound_status = bell_sound['state']
-    toy_monkey_sound_status = toy_monkey_sound['state']
+    light_status = is_on(light)
+    music_status = is_on(music)
+    bell_sound_status = is_on(bell_sound)
+    toy_monkey_sound_status = is_on(toy_monkey_sound)
+
+    statuses = bool2int(array([light_status, music_status, bell_sound_status, toy_monkey_sound_status]))<<21
 
     state = (under_eye, under_hand, under_marker,
              light_status, music_status, bell_sound_status, toy_monkey_sound_status)
+    state_int = under_eye + under_hand + under_marker + statuses
 
+    print state_int
     return state
 
 
