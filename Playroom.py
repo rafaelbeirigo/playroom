@@ -1429,14 +1429,6 @@ def get_sum_pvxo(s, o2, o):
     return sum_pvxo
 
 
-def fix_pieces_on_cell(row, col):
-    """Fixes the entry for pieces_on_cell[row][col]: if it does not exist
-    yet, creates it with an empty set"""
-
-    fix_2dic(pieces_on_cell, row, col)
-    if pieces_on_cell[row][col] == 0.0:
-        pieces_on_cell[row][col] = set() # corrects the initialization to put a set on the entry
-
 def add_pieces_on_cell(row, col, piece):
     """Adds the piece to the set correspondig to [row][col]."""
 
@@ -1451,7 +1443,6 @@ def del_pieces_on_cell(row, col, piece):
 
 def get_pieces_on_cell(row, col):
     """Gets a set of the pieces present on [row][col] on the board"""
-    fix_pieces_on_cell(row, col)
     return pieces_on_cell[row][col]
 
 
