@@ -307,9 +307,8 @@ def update_state():
 
     state = (under_eye, under_hand, under_marker,
              light_status, music_status, bell_sound_status, toy_monkey_sound_status)
-    state_int = under_eye + under_hand + under_marker + statuses
+    state = under_eye + under_hand + under_marker + statuses
 
-    print state_int
     return state
 
 
@@ -507,9 +506,14 @@ def update_environment_labels():
 
     step_count_label_text.set('Steps: ' + str(step))
 
-    state_label_text.set('State: [eye:'    + str(state[0]) +'], ' +
-                                '[hand:'   + str(state[1]) +'], ' +
-                                '[marker:' + str(state[2]) +']')
+    under_eye = bool2int(board_matrix[eye.row][eye.column][:-3])
+    under_hand = bool2int(board_matrix[hand.row][hand.column][:-3])<<7
+    under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
+
+    state_label_text.set('State: ' + str(state) + ' ' +
+                                 '([eye:'    + str(under_eye) +'], ' +
+                                 '[hand:'   + str(under_hand) +'], ' +
+                                 '[marker:' + str(under_marker) +'])')
 
 
 def update_blocks_color():
@@ -1443,8 +1447,11 @@ def del_pieces_on_cell(row, col, piece):
 
 def get_pieces_on_cell(row, col):
     """Gets a set of the pieces present on [row][col] on the board"""
-    return pieces_on_cell[row][col]
-
+    i = 0
+    pieces_on_cell = []
+    for bit in board_matrix[row][col]:
+        if bit: pieces_on_cell.append(agent_pieces[i])
+        i += 1
 
 def move_piece_to_cell(piece, row, col):
     """Moves a piece to [row][col] on the board and updates pieces_on_cell
@@ -1804,10 +1811,10 @@ def main():
     ################
     # Agent Pieces #
     ################
-    global hand
-    hand = Piece(name = "hand", row=0, column=3, value=7)
     global eye
-    eye = Piece(name = "eye", row=0, column=2, value=8)
+    eye = Piece(name = "eye", row=0, column=2, value=7)
+    global hand
+    hand = Piece(name = "hand", row=0, column=3, value=8)
     global marker
     marker = Piece(name = "marker", row=1, column=2, value=9)
 
@@ -1817,7 +1824,7 @@ def main():
     global agent_pieces
     agent_pieces = [hand, eye, marker]
     global non_agent_pieces
-    non_agent_pieces = [switch, blue_block, red_block, ball, bell, toy_monkey]
+    non_agent_pieces = [ball, bell, blue_block, red_block, switch, toy_monkey]
 
     global all_pieces
     all_pieces = agent_pieces + non_agent_pieces
