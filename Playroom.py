@@ -10,6 +10,7 @@ from random import choice
 from time import sleep
 from itertools import product
 from numpy import *
+import scipy
 
 ###############
 # NumPy stuff #
