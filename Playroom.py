@@ -1309,7 +1309,7 @@ def fix_O(o):
 
         # Creates an entry to the option's transition probability
         # model
-        O[o]['P'] = {}
+        O[o]['P'] = scipy.sparse.csr_matrix((1<<25, 1<<25), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
