@@ -11,6 +11,7 @@ from time import sleep
 from itertools import product
 from numpy import *
 import scipy
+import scipy.sparse
 
 ###############
 # NumPy stuff #
