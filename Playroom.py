@@ -1385,10 +1385,7 @@ def get_R(o, s):
 
 
 def set_P(o, s2, s, new_value):
-    P = O[o]['P']
-    P = P.tolil()
-    P[s2, s] = new_value
-    P = P.tocsr()
+    O[o]['P'][s2, s] = new_value
 
 
 def get_P(o, s2, s):
