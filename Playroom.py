@@ -1309,7 +1309,7 @@ def fix_O(o):
 
         # Creates an entry to the option's transition probability
         # model
-        O[o]['P'] = scipy.sparse.lil_matrix((1<<25, 1<<25), dtype=scipy.float32)
+        O[o]['P'] = scipy.sparse.csr_matrix((1<<25, 1<<25), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
@@ -1385,7 +1385,10 @@ def get_R(o, s):
 
 
 def set_P(o, s2, s, new_value):
-    O[o]['P'][s2, s] = new_value
+    P = O[o]['P']
+    P = P.tolil()
+    P[s2, s] = new_value
+    P = P.tocsr()
 
 
 def get_P(o, s2, s):
