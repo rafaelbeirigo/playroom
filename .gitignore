@@ -54,3 +54,6 @@ logs*.tar.gz
 /get_sum.c
 /get_sum.pyx
 /setup.py
+
+# Profiling
+/prof/
