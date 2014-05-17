@@ -1558,7 +1558,7 @@ def imrl():
         epsilon          = 0.1
         tau              = 0.5
 
-        steps = int(1e3)
+        steps = int(1e4)
 
         # Variables initialization
         s = update_state()
