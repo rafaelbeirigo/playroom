@@ -1309,7 +1309,7 @@ def fix_O(o):
 
         # Creates an entry to the option's transition probability
         # model
-        O[o]['P'] = scipy.sparse.csr_matrix((1<<25, 1<<25), dtype=scipy.float32)
+        O[o]['P'] = scipy.sparse.dok_matrix((1<<25, 1<<25), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
@@ -1389,7 +1389,7 @@ def set_P(o, s2, s, new_value):
 
 
 def get_P(o, s2, s):
-    return O[o]['P'][s2, s]
+    return 0.0
 
 
 def get_TV(o):
@@ -1627,21 +1627,47 @@ def imrl():
             if a in get_Ax(s, o):
                 # //— update option transition probability model
                 # for each state reachable by the option
-                beta_s2 = get_BETA(o, s2)
-                for x in S:
-                    # arg1
-                    arg1 = get_P(o, x, s)
 
-                    # arg2
-                    p_x_s2 = get_P(o, x, s2)
-                    arg2 = gamma * ( 1.0 - beta_s2 ) * p_x_s2 + \
-                           gamma * beta_s2 * delta(s2, x)
+                # maybe use get_row() here
+                P = O[o]['P']
+                beta = get_BETA(o, s2)
 
-                    # calculates the new value
-                    new_p = alpha_sum(arg1, arg2, alpha)
+                if beta == 1.0:
+                    # vetor com tudo zero, menos a posição de s2
+                    J = scipy.sparse.csr_matrix((1, 1<<25), dtype = scipy.float32)
+                    # maybe use eye() here - vetor-"identidade",
+                    # escolhendo (dá?) a posição do valor não-nulo e
+                    # esse valor sendo gamma (confirmar se é esse o
+                    # valor correto)
 
-                    # sets the new value
-                    set_P(o, x, s, new_p)
+                    # ou isso:
+                    # row = array([0,0,1,2,2,2])
+                    # col = array([0,2,2,0,1,2])
+                    # data = array([1,2,3,4,5,6])
+                    # csr_matrix( (data,(row,col)), shape=(3,3) ).todense()
+
+                    # ou isso:
+                    # setdiag() (ver direito como funciona (dá pra setar um único elemento?))
+                    # J[0, s2] = 1.0
+                else:
+                    J = P[s2].copy()
+
+                try:
+                    # P[s] = P[s] #(1.0 - alpha) * P[s] # + alpha * gamma * J
+
+                    # maybe eliminate_zeros() ? (save some space?)
+                    # maybe prune() ? (idem)
+                    pass
+                except IndexError:
+                    print "Caganeira podre!"
+                    print "s: ", str(s)
+                    if beta == 1.0:
+                        print "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUM"
+                    else:
+                        print "ZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERO"
+                    print "beta: ", beta
+
+                del(J)
 
                 # //— update option reward model
                 # arg1
@@ -1789,8 +1815,6 @@ def main():
     parser.add_argument("--load", nargs='*', help="Loads saved data from previous experiment.")
 
     args = parser.parse_args()
-
-    print args.load
 
     global board_rows
     board_rows = 5
