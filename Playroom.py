@@ -23,7 +23,7 @@ def allzerobutpos(r, c, s):
     row =  array([r])
     col =  array([c])
     data = array([1.0])
-    return csr_matrix((data, (row,col)), shape=s)
+    return scipy.sparse.csr_matrix((data, (row,col)), shape=s)
 
 
 def allzerobutrow(m, r, reposition=None):
