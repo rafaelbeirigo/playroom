@@ -12,6 +12,7 @@ from itertools import product
 from numpy import *
 import scipy
 import scipy.sparse
+import time
 
 ###############
 # NumPy stuff #
@@ -319,18 +320,20 @@ def log_option_stack():
 def update_state():
     global state
 
-    under_eye = bool2int(board_matrix[eye.row][eye.column][:-3])
-    under_hand = bool2int(board_matrix[hand.row][hand.column][:-3])<<7
-    under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
+    be = board_matrix[eye.row][eye.column]
+    bh = board_matrix[hand.row][hand.column]
+    bm = board_matrix[marker.row][marker.column]
 
-    light_status = is_on(light)
-    music_status = is_on(music)
-    bell_sound_status = is_on(bell_sound)
-    toy_monkey_sound_status = is_on(toy_monkey_sound)
+    undereye = scipy.concatenate((be[:1], be[2:5]))
+    underhand = scipy.concatenate((bh[:1], bh[2:5]))
+    undermarker = bm[1:2]
 
-    statuses = bool2int(array([light_status, music_status, bell_sound_status, toy_monkey_sound_status]))<<21
+    status = []
+    for ev in environment_variables:
+        status.append(is_on(ev))
 
-    state = under_eye + under_hand + under_marker + statuses
+    statea  = scipy.concatenate((undereye, underhand, undermarker, status))
+    state = bool2int(statea)
 
     return state
 
@@ -1333,7 +1336,9 @@ def fix_O(o):
 
         # Creates an entry to the option's transition probability
         # model
-        O[o]['P'] = scipy.sparse.csr_matrix((1<<25, 1<<25), dtype=scipy.float32)
+        #O[o]['P'] = scipy.sparse.rand(1<<25, 1<<25, density=0.01, format='csr', dtype=scipy.float32)
+        s = 13
+        O[o]['P'] = scipy.sparse.csr_matrix((1<<s, 1<<s), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
@@ -1649,21 +1654,25 @@ def imrl():
                     add_I(o, s)
 
             # If a_t is greedy action for o in state s_t
-            if a in get_Ax(s, o):
+            if True or a in get_Ax(s, o):
                 # //— update option transition probability model
                 # for each state reachable by the option
                 P = O[o]['P']
                 beta = get_BETA(o, s2)
 
+                print time.time()
                 if beta == 0.0:
-                    P2 = allrowbutzero(P, s) + \
-                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutrow(P, s2, s)
+                    P2 = (1 - alpha) * P
+                    P3 = alpha * gamma * P
                 else:
-                    P2 = allrowbutzero(P, s) + \
-                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutpos(s, s2, P.shape)
-                del P
-                P = P2.copy()
+                    P2 = (1 - alpha) * P
+                    P3 = alpha * gamma * P
+                print time.time()
+
+                print P3[s, s2]
                 del P2
+                del P3
+                print "--------------------------"
 
                 # //— update option reward model
                 # arg1
