@@ -19,6 +19,30 @@ import scipy.sparse
 board_matrix = zeros((5, 5, 10), dtype=bool)
 
 
+def allzerobutpos(r, c, s):
+    row =  array([r])
+    col =  array([c])
+    data = array([1.0])
+    return csr_matrix((data, (row,col)), shape=s)
+
+
+def allzerobutrow(m, r, reposition=None):
+    if reposition == None:
+        z = allzerobutpos(r, r, m.shape)
+    else:
+        z = allzerobutpos(reposition, r, m.shape)
+    n = z * m
+    del z
+    return n
+
+
+def allrowbutzero(m, r):
+    n = allzerobutrow(m, r)
+    o = m - n
+    del n
+    return o
+
+
 def bool2int(x):
     y = 0
     for i,j in enumerate(x):
