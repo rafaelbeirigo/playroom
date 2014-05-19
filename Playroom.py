@@ -22,7 +22,7 @@ board_matrix = zeros((5, 5, 10), dtype=bool)
 def allzerobutpos(r, c, s):
     row =  array([r])
     col =  array([c])
-    data = array([1.0])
+    data = array([1.0], dtype=scipy.float32)
     return scipy.sparse.csr_matrix((data, (row,col)), shape=s)
 
 
@@ -1413,7 +1413,7 @@ def set_P(o, s2, s, new_value):
 
 
 def get_P(o, s2, s):
-    return 0.0
+    return O[o]['P'][s, s2]
 
 
 def get_TV(o):
@@ -1613,20 +1613,21 @@ def imrl():
         # Deal with special case if next state is salient
         o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
-            o = s2                    # The option is described by the salient state
+            # o = s2                    # The option is described by the salient state
+            o = bool2int(array([is_on(light), is_on(music), is_on(bell_sound), is_on(toy_monkey_sound)]))
 
             # If option for e, o_e, does not exist in O (skill-KB)
             if not (o_exists(o)):
                 # Create option o_e in skill-KB;
                 fix_O(o)
 
-                # Add s_t to I^{o_e} // initialize initiation set
-                add_I(o, s)
-
-                # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-                set_BETA(o, s2, 1.0)
-
                 o_e = o                   # Used in "Update all option models", below
+
+            # Add s_t to I^{o_e} // initialize initiation set
+            add_I(o, s)
+
+            # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
+            set_BETA(o, s2, 1.0)
 
             # //— set intrinsic reward value
             r_i2 = tau * (1.0 - get_P(o, s2, s))
@@ -1651,15 +1652,18 @@ def imrl():
             if a in get_Ax(s, o):
                 # //— update option transition probability model
                 # for each state reachable by the option
-
-                # maybe use get_row() here
                 P = O[o]['P']
                 beta = get_BETA(o, s2)
 
-                if beta == 1.0:
-                    pass
+                if beta == 0.0:
+                    P2 = allrowbutzero(P, s) + \
+                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutrow(P, s2, s)
                 else:
-                    pass
+                    P2 = allrowbutzero(P, s) + \
+                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutpos(s, s2, P.shape)
+                del P
+                P = P2.copy()
+                del P2
 
                 # //— update option reward model
                 # arg1
@@ -1689,50 +1693,50 @@ def imrl():
         # sets the new value
         set_Q(s, a, new_Q)
 
-        # //— SMDP-planning update of behavior action-value function
-        for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            if s in get_I(o):
-                # calculates arg1
-                arg1 = get_Q(s, o)
+        # # //— SMDP-planning update of behavior action-value function
+        # for o in O.keys(): # For each option o = o_e in skill-KB (O)
+        #     if s in get_I(o):
+        #         # calculates arg1
+        #         arg1 = get_Q(s, o)
 
-                # calculates arg2
-                arg2 = get_R(o, s) + get_sum_pvx(s, o)
+        #         # calculates arg2
+        #         arg2 = get_R(o, s) + get_sum_pvx(s, o)
 
-                # calculates the new value
-                new_Q = alpha_sum(arg1, arg2, alpha)
+        #         # calculates the new value
+        #         new_Q = alpha_sum(arg1, arg2, alpha)
 
-                # sets the new value
-                set_Q(s, o, new_Q)
+        #         # sets the new value
+        #         set_Q(s, o, new_Q)
 
-        # //— Update option action-value functions
-        for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-            if s in get_I(o):
-                # calculates arg1
-                arg1 = get_Q(s, a, o)
+        # # //— Update option action-value functions
+        # for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
+        #     if s in get_I(o):
+        #         # calculates arg1
+        #         arg1 = get_Q(s, a, o)
 
-                # calculates arg2
-                arg2 = r_e2 + gamma * get_BETA(o, s2) * get_TV(o) \
-                            + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
+        #         # calculates arg2
+        #         arg2 = r_e2 + gamma * get_BETA(o, s2) * get_TV(o) \
+        #                     + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
 
-                # calculates the new value
-                new_Q = alpha_sum(arg1, arg2, alpha)
+        #         # calculates the new value
+        #         new_Q = alpha_sum(arg1, arg2, alpha)
 
-                # sets the new value
-                set_Q(s, a, new_Q, o)
+        #         # sets the new value
+        #         set_Q(s, a, new_Q, o)
 
-                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-                    if (o != o2) and (s in get_I(o2)):
-                        # calculates arg1
-                        arg1 = get_Q(s, o2, o)
+        #         for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+        #             if (o != o2) and (s in get_I(o2)):
+        #                 # calculates arg1
+        #                 arg1 = get_Q(s, o2, o)
 
-                        # calculates arg2
-                        arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
+        #                 # calculates arg2
+        #                 arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
 
-                        # calculates the new value
-                        new_Q = alpha_sum(arg1, arg2, alpha)
+        #                 # calculates the new value
+        #                 new_Q = alpha_sum(arg1, arg2, alpha)
 
-                        # sets the new value
-                        set_Q(s, o2, new_Q, o)
+        #                 # sets the new value
+        #                 set_Q(s, o2, new_Q, o)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
