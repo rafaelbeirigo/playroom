@@ -1333,7 +1333,7 @@ def fix_O(o):
 
         # Creates an entry to the option's transition probability
         # model
-        O[o]['P'] = scipy.sparse.dok_matrix((1<<25, 1<<25), dtype=scipy.float32)
+        O[o]['P'] = scipy.sparse.csr_matrix((1<<25, 1<<25), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
@@ -1657,7 +1657,9 @@ def imrl():
                 beta = get_BETA(o, s2)
 
                 if beta == 1.0:
+                    pass
                 else:
+                    pass
 
                 # //— update option reward model
                 # arg1
