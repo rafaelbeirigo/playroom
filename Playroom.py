@@ -1657,41 +1657,7 @@ def imrl():
                 beta = get_BETA(o, s2)
 
                 if beta == 1.0:
-                    # vetor com tudo zero, menos a posição de s2
-                    J = scipy.sparse.csr_matrix((1, 1<<25), dtype = scipy.float32)
-                    # maybe use eye() here - vetor-"identidade",
-                    # escolhendo (dá?) a posição do valor não-nulo e
-                    # esse valor sendo gamma (confirmar se é esse o
-                    # valor correto)
-
-                    # ou isso:
-                    # row = array([0,0,1,2,2,2])
-                    # col = array([0,2,2,0,1,2])
-                    # data = array([1,2,3,4,5,6])
-                    # csr_matrix( (data,(row,col)), shape=(3,3) ).todense()
-
-                    # ou isso:
-                    # setdiag() (ver direito como funciona (dá pra setar um único elemento?))
-                    # J[0, s2] = 1.0
                 else:
-                    J = P[s2].copy()
-
-                try:
-                    # P[s] = P[s] #(1.0 - alpha) * P[s] # + alpha * gamma * J
-
-                    # maybe eliminate_zeros() ? (save some space?)
-                    # maybe prune() ? (idem)
-                    pass
-                except IndexError:
-                    print "Caganeira podre!"
-                    print "s: ", str(s)
-                    if beta == 1.0:
-                        print "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUM"
-                    else:
-                        print "ZEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEERO"
-                    print "beta: ", beta
-
-                del(J)
 
                 # //— update option reward model
                 # arg1
