@@ -1654,25 +1654,22 @@ def imrl():
                     add_I(o, s)
 
             # If a_t is greedy action for o in state s_t
-            if True or a in get_Ax(s, o):
+            # if current_step % 100 or a in get_Ax(s, o):
+            if True:
                 # //— update option transition probability model
                 # for each state reachable by the option
                 P = O[o]['P']
                 beta = get_BETA(o, s2)
 
-                print time.time()
                 if beta == 0.0:
-                    P2 = (1 - alpha) * P
-                    P3 = alpha * gamma * P
+                    P2 = allrowbutzero(P, s) + \
+                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutrow(P, s2, s)
                 else:
-                    P2 = (1 - alpha) * P
-                    P3 = alpha * gamma * P
-                print time.time()
-
-                print P3[s, s2]
+                    P2 = allrowbutzero(P, s) + \
+                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutpos(s, s2, P.shape)
+                del P
+                P = P2.copy()
                 del P2
-                del P3
-                print "--------------------------"
 
                 # //— update option reward model
                 # arg1
@@ -1689,18 +1686,18 @@ def imrl():
                 # sets the new value
                 set_R(o, s, new_R)
 
-        # //— Q-learning update of behavior action-value function
-        # arg1
-        arg1 = get_Q(s, a)
+        # # //— Q-learning update of behavior action-value function
+        # # arg1
+        # arg1 = get_Q(s, a)
 
-        # arg2
-        arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
+        # # arg2
+        # arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
 
-        # calculates the new value
-        new_Q = alpha_sum(arg1, arg2, alpha)
+        # # calculates the new value
+        # new_Q = alpha_sum(arg1, arg2, alpha)
 
-        # sets the new value
-        set_Q(s, a, new_Q)
+        # # sets the new value
+        # set_Q(s, a, new_Q)
 
         # # //— SMDP-planning update of behavior action-value function
         # for o in O.keys(): # For each option o = o_e in skill-KB (O)
