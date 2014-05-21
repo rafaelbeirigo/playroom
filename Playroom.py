@@ -878,9 +878,10 @@ def flick_switch_option_click():
 ##############
 # Q-Learning #
 ##############
-Q = scipy.sparse.csr_matrix((1<<13, 15), dtype=scipy.float32)
-Vx = scipy.sparse.csc_matrix((1<<s, 1), dtype=scipy.float32)
-Ax = scipy.sparse.csc_matrix((1<<s, 1), dtype=scipy.int8)
+sbits=13
+Q = scipy.sparse.csr_matrix((1<<sbits, 15), dtype=scipy.float32)
+Vx = scipy.sparse.csc_matrix((1<<sbits, 1), dtype=scipy.float32)
+Ax = {}
 
 Q_default_value = 0.0
 
@@ -1537,7 +1538,7 @@ def get_top_stack(stack):
     try:
         return stack[-1:][0] # Top of the stack
     except IndexError:       # Stack is empty
-        return None
+        return 0
 
 
 option_stack = []
@@ -1546,7 +1547,7 @@ def get_current_option(s2):
 
     current_option = get_top_stack(option_stack)
 
-    if current_option != None:
+    if current_option != 0:
         # Stack is not empty
         if get_BETA(current_option, s2) == 1.0 \
            or s2 not in get_I(current_option):
@@ -1599,7 +1600,7 @@ def imrl():
         r_i = 0.0
         step = 1
         initial_step = 0
-        current_option = None
+        current_option = 0
 
         # Log stuff
         r_i_filename = get_log_filename(prefix='r_i-')
@@ -1773,17 +1774,17 @@ def imrl():
                 option_stack.append(next_action)
                 current_option = next_action
             else:
-                current_option = None
+                current_option = 0
         else:
             # greedy
-            if current_option == None:
+            if current_option == 0:
                 next_action = select_best_action(s2)
 
                 if is_option(next_action):
                     option_stack.append(next_action)
                     current_option = next_action
                 else:
-                    current_option = None
+                    current_option = 0
             else:
                 next_action = current_option # continues to follow the option
 
