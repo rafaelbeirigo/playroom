@@ -878,10 +878,11 @@ def flick_switch_option_click():
 ##############
 # Q-Learning #
 ##############
-Q = {}
+Q = scipy.sparse.csr_matrix((1<<13, 15), dtype=scipy.float32)
+Vx = scipy.sparse.csc_matrix((1<<s, 1), dtype=scipy.float32)
+Ax = scipy.sparse.csc_matrix((1<<s, 1), dtype=scipy.int8)
+
 Q_default_value = 0.0
-Vx = {}
-Ax = {}
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
@@ -1258,6 +1259,7 @@ global args
 step_filename = None
 option_stack_filename = None
 ED_filename = None
+
 
 def fix_2dic(dic, key1, key2):
     """ Fixes a two-dimension dictionary: receives the keys and, if
@@ -1660,8 +1662,7 @@ def imrl():
                 ##################################################
                 # //— update option transition probability model #
                 ##################################################
-                P = O[o]['P'].copy()
-                del O[o]['P']
+                P = O[o]['P']
 
                 if get_BETA(o, s2) == 0.0:
                     pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
