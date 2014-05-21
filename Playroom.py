@@ -1645,7 +1645,9 @@ def imrl():
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
         r_e2 = get_r_e()
 
-        # //- Update all option models
+        ################################
+        # //- Update all option models #
+        ################################
         O_keys = [o for o in O.keys() if o != o_e]
         for o in O_keys: # For each option o != o_e in skill-KB (O)
             # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
@@ -1654,24 +1656,38 @@ def imrl():
                     add_I(o, s)
 
             # If a_t is greedy action for o in state s_t
-            # if current_step % 100 or a in get_Ax(s, o):
             if True:
-                # //— update option transition probability model
-                # for each state reachable by the option
-                P = O[o]['P']
-                beta = get_BETA(o, s2)
+                ##################################################
+                # //— update option transition probability model #
+                ##################################################
+                P = O[o]['P'].copy()
+                del O[o]['P']
 
-                if beta == 0.0:
-                    P2 = allrowbutzero(P, s) + \
-                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutrow(P, s2, s)
+                if get_BETA(o, s2) == 0.0:
+                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
                 else:
-                    P2 = allrowbutzero(P, s) + \
-                         (1 - alpha) * allzerobutrow(P, s) + alpha * gamma * allzerobutpos(s, s2, P.shape)
-                del P
-                P = P2.copy()
-                del P2
+                    row =  scipy.array([0])
+                    col =  scipy.array([s2])
+                    data = scipy.array([1], dtype=P.dtype)
+                    pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
+                    del row, col, data
+                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
+                    del pd
 
-                # //— update option reward model
+                stack = []
+                if s > 0: top = P[:s, :]; stack.append([top])
+                stack.append([pr])
+                if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
+
+                fmt, dtp = P.format, P.dtype
+                del P
+                O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
+                for item in stack: del item
+                del stack
+
+                ##################################
+                # //— update option reward model #
+                ##################################
                 # arg1
                 arg1 = get_R(o, s)
 
