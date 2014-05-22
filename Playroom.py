@@ -1704,18 +1704,20 @@ def imrl():
                 # sets the new value
                 set_R(o, s, new_R)
 
-        # # //— Q-learning update of behavior action-value function
-        # # arg1
-        # arg1 = get_Q(s, a)
+        ###########################################################
+        # //— Q-learning update of behavior action-value function #
+        ###########################################################
+        # arg1
+        arg1 = get_Q(s, a)
 
-        # # arg2
-        # arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
+        # arg2
+        arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
 
-        # # calculates the new value
-        # new_Q = alpha_sum(arg1, arg2, alpha)
+        # calculates the new value
+        new_Q = alpha_sum(arg1, arg2, alpha)
 
-        # # sets the new value
-        # set_Q(s, a, new_Q)
+        # sets the new value
+        set_Q(s, a, new_Q)
 
         # # //— SMDP-planning update of behavior action-value function
         # for o in O.keys(): # For each option o = o_e in skill-KB (O)
