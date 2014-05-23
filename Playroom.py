@@ -1321,28 +1321,30 @@ def fix_O(o):
         O[o] = {}
 
         # Creates an entry to the option's Q-table
-        O[o]['Q'] = {}
+        O[o]['Q'] = numpy.matrix(scipy.zeros((1<<sbits, 1<<abits),
+                                             dtype=scipy.float32), dtype=scipy.float32)
 
         # Creates an entry to the option's initiation set
         O[o]['I'] = set()
 
         # Creates an entry to the option's V^*
-        O[o]['Vx'] = {}
+        O[o]['Vx'] = numpy.matrix(scipy.zeros((1<<sbits, 1),
+                                              dtype=scipy.float32), dtype=scipy.float32)
 
         # Creates an entry to the option's A^*
         O[o]['Ax'] = {}
 
         # Creates an entry to the option's Beta function
-        O[o]['BETA'] = {}
+        O[o]['BETA'] = numpy.matrix(scipy.zeros((1<<sbits, 1),
+                                                dtype=scipy.int8), dtype=scipy.int8)
 
         # Creates an entry to the option's Reward function
-        O[o]['R'] = {}
+        O[o]['R'] = numpy.matrix(scipy.zeros((1<<sbits, 1),
+                                              dtype=scipy.float32), dtype=scipy.float32)
 
         # Creates an entry to the option's transition probability
         # model
-        #O[o]['P'] = scipy.sparse.rand(1<<25, 1<<25, density=0.01, format='csr', dtype=scipy.float32)
-        s = 13
-        O[o]['P'] = scipy.sparse.csr_matrix((1<<s, 1<<s), dtype=scipy.float32)
+        O[o]['P'] = scipy.sparse.csr_matrix((1<<sbits, 1<<sbits), dtype=scipy.float32)
 
         # Creates an entry to the option's terminal value and
         # initialize it.
