@@ -1691,17 +1691,17 @@ def imrl():
         #         for item in stack: del item
         #         del stack
 
-                ##################################
-                # //— update option reward model #
-                ##################################
-                # Gets some nice abbreviations
-                R = O[o]['R']
-                Bs2 = float(O[o]['BETA'][s2, 0])
+                # ##################################
+                # # //— update option reward model #
+                # ##################################
+                # # Gets some nice abbreviations
+                # R = O[o]['R']
+                # Bs2 = float(O[o]['BETA'][s2, 0])
 
-                # Calculates and sets the new value
-                x = R[s, 0]
-                y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
-                R[s, 0] = alpha_sum(x, y, alpha)
+                # # Calculates and sets the new value
+                # x = R[s, 0]
+                # y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
+                # R[s, 0] = alpha_sum(x, y, alpha)
 
 
         ###########################################################
