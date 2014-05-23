@@ -1651,75 +1651,87 @@ def imrl():
         ################################
         # //- Update all option models #
         ################################
-        O_keys = [o for o in O.keys() if o != o_e]
-        for o in O_keys: # For each option o != o_e in skill-KB (O)
-            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
-            if s2 in get_I(o):
-                if get_BETA(o, s) != 1.0:
-                    add_I(o, s)
+        # O_keys = [o for o in O.keys() if o != o_e]
+        # for o in O_keys: # For each option o != o_e in skill-KB (O)
+        #     # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
+        #     if s2 in get_I(o):
+        #         if get_BETA(o, s) != 1.0:
+        #             add_I(o, s)
 
-            # If a_t is greedy action for o in state s_t
-            if True:
-                ##################################################
-                # //— update option transition probability model #
-                ##################################################
-                P = O[o]['P']
+        #     # If a_t is greedy action for o in state s_t
+        #     if True:
+        #         ##################################################
+        #         # //— update option transition probability model #
+        #         ##################################################
+        #         P = O[o]['P']
 
-                if get_BETA(o, s2) == 0.0:
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
-                else:
-                    row =  scipy.array([0])
-                    col =  scipy.array([s2])
-                    data = scipy.array([1], dtype=P.dtype)
-                    pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
-                    del row, col, data
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
-                    del pd
+        #         if get_BETA(o, s2) == 0.0:
+        #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
+        #         else:
+        #             row =  scipy.array([0])
+        #             col =  scipy.array([s2])
+        #             data = scipy.array([1], dtype=P.dtype)
+        #             pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
+        #             del row, col, data
+        #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
+        #             del pd
 
-                stack = []
-                if s > 0: top = P[:s, :]; stack.append([top])
-                stack.append([pr])
-                if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
+        #         stack = []
+        #         if s > 0: top = P[:s, :]; stack.append([top])
+        #         stack.append([pr])
+        #         if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
 
-                fmt, dtp = P.format, P.dtype
-                del P
-                O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
-                for item in stack: del item
-                del stack
+        #         fmt, dtp = P.format, P.dtype
+        #         del P
+        #         O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
+        #         for item in stack: del item
+        #         del stack
 
-                ##################################
-                # //— update option reward model #
-                ##################################
-                # arg1
-                arg1 = get_R(o, s)
+        #         ##################################
+        #         # //— update option reward model #
+        #         ##################################
+        #         # arg1
+        #         arg1 = get_R(o, s)
 
-                # arg2
-                beta_s2 = get_BETA(o, s2)
-                R_s2 = get_R(o, s2)
-                arg2 = r_e2 + gamma * ((1.0 - beta_s2) * R_s2)
+        #         # arg2
+        #         beta_s2 = get_BETA(o, s2)
+        #         R_s2 = get_R(o, s2)
+        #         arg2 = r_e2 + gamma * ((1.0 - beta_s2) * R_s2)
 
-                # calculates the new value
-                new_R = alpha_sum(arg1, arg2, alpha)
+        #         # calculates the new value
+        #         new_R = alpha_sum(arg1, arg2, alpha)
 
-                # sets the new value
-                set_R(o, s, new_R)
+        #         # sets the new value
+        #         set_R(o, s, new_R)
 
         ###########################################################
         # //— Q-learning update of behavior action-value function #
         ###########################################################
-        # arg1
-        arg1 = get_Q(s, a)
+        # Calculates the new value of Q(s, a)
+        ai = all_possible_actions_int[a]
+        q = (1.0 - alpha) * Q[s, ai] 
+        q += (alpha) * (r_e + r_i + gamma * Vx[s2, 0])
 
-        # arg2
-        arg2 = r_e2 + r_i2 + gamma * get_Vx(s2)
+        # Gets the row Q(s) and updates the position related to 'a'
+        newrow = Q.getrow(s).tolil()
+        newrow[0, ai] = q
 
-        # calculates the new value
-        new_Q = alpha_sum(arg1, arg2, alpha)
+        # Collects the blocks to build the new 'Q'
+        stack = []
+        if s > 0: top = Q[:s, :]; stack.append([top])
+        stack.append([newrow])
+        if s < Q.shape[0] - 1: bottom = Q[s+1:,:]; stack.append([bottom])
 
-        # sets the new value
-        set_Q(s, a, new_Q)
+        # Saves some memory by deleting 'Q' before creating a new one
+        fmt, dtp = Q.format, Q.dtype
+        del Q
 
-        # # //— SMDP-planning update of behavior action-value function
+        # Creates a new 'Q'
+        Q = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
+        for item in stack: del item
+        del stack
+
+        # //— SMDP-planning update of behavior action-value function
         # for o in O.keys(): # For each option o = o_e in skill-KB (O)
         #     if s in get_I(o):
         #         # calculates arg1
@@ -1902,6 +1914,25 @@ def main():
         'press_red_block':press_red_block,
         'push_blue_block':push_blue_block,
         'flick_switch':flick_switch,
+    }
+
+    global all_possible_actions_int
+    all_possible_actions_int = {
+        'move_eye_to_hand':0,
+        'move_eye_to_marker':1,
+        'move_eye_one_step_north':2,
+        'move_eye_one_step_south':3,
+        'move_eye_one_step_east':4,
+        'move_eye_one_step_west':5,
+        'move_eye_to_random_object':6,
+        'move_hand_to_eye':7,
+        'move_marker_to_eye':8,
+        'kick_ball':9,
+        'press_blue_block':10,
+        'push_red_block':11,
+        'press_red_block':12,
+        'push_blue_block':13,
+        'flick_switch':14,
     }
 
     # Filled in update_available_actions
