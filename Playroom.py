@@ -9,7 +9,7 @@ from random import randint
 from random import choice
 from time import sleep
 from itertools import product
-from numpy import *
+import numpy
 import scipy
 import scipy.sparse
 import time
@@ -17,13 +17,13 @@ import time
 ###############
 # NumPy stuff #
 ###############
-board_matrix = zeros((5, 5, 10), dtype=bool)
+board_matrix = scipy.zeros((5, 5, 10), dtype=bool)
 
 
 def allzerobutpos(r, c, s):
-    row =  array([r])
-    col =  array([c])
-    data = array([1.0], dtype=scipy.float32)
+    row =  numpy.array([r])
+    col =  numpy.array([c])
+    data = numpy.array([1.0], dtype=scipy.float32)
     return scipy.sparse.csr_matrix((data, (row,col)), shape=s)
 
 
@@ -879,8 +879,9 @@ def flick_switch_option_click():
 # Q-Learning #
 ##############
 sbits=13
-Q = scipy.sparse.csr_matrix((1<<sbits, 15), dtype=scipy.float32)
-Vx = scipy.sparse.csc_matrix((1<<sbits, 1), dtype=scipy.float32)
+abits=4
+Q = numpy.matrix(scipy.zeros((1<<sbits, 1<<abits), dtype=scipy.float32), dtype=scipy.float32)
+Vx = numpy.matrix(scipy.zeros((1<<sbits, 1), dtype=scipy.float32), dtype=scipy.float32)
 Ax = {}
 
 Q_default_value = 0.0
@@ -1622,7 +1623,7 @@ def imrl():
         o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
             # o = s2                    # The option is described by the salient state
-            o = bool2int(array([is_on(light), is_on(music), is_on(bell_sound), is_on(toy_monkey_sound)]))
+            o = bool2int(numpy.array([is_on(light), is_on(music), is_on(bell_sound), is_on(toy_monkey_sound)]))
 
             # If option for e, o_e, does not exist in O (skill-KB)
             if not (o_exists(o)):
@@ -1648,6 +1649,7 @@ def imrl():
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
         r_e2 = get_r_e()
 
+
         ################################
         # //- Update all option models #
         ################################
@@ -1668,9 +1670,9 @@ def imrl():
         #         if get_BETA(o, s2) == 0.0:
         #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
         #         else:
-        #             row =  scipy.array([0])
-        #             col =  scipy.array([s2])
-        #             data = scipy.array([1], dtype=P.dtype)
+        #             row =  numpy.array([0])
+        #             col =  numpy.array([s2])
+        #             data = numpy.array([1], dtype=P.dtype)
         #             pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
         #             del row, col, data
         #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
@@ -1704,32 +1706,28 @@ def imrl():
         #         # sets the new value
         #         set_R(o, s, new_R)
 
+
         ###########################################################
         # //— Q-learning update of behavior action-value function #
         ###########################################################
         # Calculates the new value of Q(s, a)
         ai = all_possible_actions_int[a]
-        q = (1.0 - alpha) * Q[s, ai] 
-        q += (alpha) * (r_e + r_i + gamma * Vx[s2, 0])
+        Q[s, ai] = (1.0 - alpha) * Q[s, ai] + \
+                   (alpha) * (r_e + r_i + gamma * Vx[s2, 0])
+        
+        # Eventually updates Vx(s) and Ax(s)
+        if Q[s, ai] > 0.0:
+            if Q[s, ai] > Vx[s, 0]:
+                Vx[s, 0] = Q[s, ai]
 
-        # Gets the row Q(s) and updates the position related to 'a'
-        newrow = Q.getrow(s).tolil()
-        newrow[0, ai] = q
+                try:
+                    Ax[s].clear()
+                except KeyError:
+                    Ax[s] = set()
+                Ax[s].add(a)
+            elif Q[s, ai] == Vx[s, 0]:
+                Ax[s].add(a)
 
-        # Collects the blocks to build the new 'Q'
-        stack = []
-        if s > 0: top = Q[:s, :]; stack.append([top])
-        stack.append([newrow])
-        if s < Q.shape[0] - 1: bottom = Q[s+1:,:]; stack.append([bottom])
-
-        # Saves some memory by deleting 'Q' before creating a new one
-        fmt, dtp = Q.format, Q.dtype
-        del Q
-
-        # Creates a new 'Q'
-        Q = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
-        for item in stack: del item
-        del stack
 
         # //— SMDP-planning update of behavior action-value function
         # for o in O.keys(): # For each option o = o_e in skill-KB (O)
@@ -1779,7 +1777,7 @@ def imrl():
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
         current_option = get_current_option(s2)
-        if random.random() < epsilon:    # random() gives a number in the interval [0, 1).
+        if scipy.random.random() < epsilon:    # random() gives a number in the interval [0, 1).
             # random
             next_action = select_random_action(s2)
 
