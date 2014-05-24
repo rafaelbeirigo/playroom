@@ -879,7 +879,7 @@ def flick_switch_option_click():
 # Q-Learning #
 ##############
 sbits=13
-abits=4
+abits = 5
 Q = numpy.matrix(scipy.zeros((1<<sbits, 1<<abits), dtype=scipy.float32), dtype=scipy.float32)
 Vx = numpy.matrix(scipy.zeros((1<<sbits, 1), dtype=scipy.float32), dtype=scipy.float32)
 Ax = {}
@@ -1624,8 +1624,9 @@ def imrl():
         # Deal with special case if next state is salient
         o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
-            # o = s2                    # The option is described by the salient state
-            o = bool2int(numpy.array([is_on(light), is_on(music), is_on(bell_sound), is_on(toy_monkey_sound)]))
+            o = bool2int(numpy.array([is_on(light), is_on(music),
+                                      is_on(bell_sound), is_on(toy_monkey_sound)]))
+            o += len(all_possible_actions) + 1
 
             # If option for e, o_e, does not exist in O (skill-KB)
             if not (o_exists(o)):
@@ -1726,20 +1727,20 @@ def imrl():
                 Ax[s].add(a)
 
 
-        # //— SMDP-planning update of behavior action-value function
-        # for o in O.keys(): # For each option o = o_e in skill-KB (O)
-        #     if s in get_I(o):
-        #         # calculates arg1
-        #         arg1 = get_Q(s, o)
+        ##############################################################
+        # //— SMDP-planning update of behavior action-value function #
+        ##############################################################
+        for o in O.keys(): # For each option o = o_e in skill-KB (O)
+            if s in get_I(o):
+                # Gets some nice abbreviations
+                R = O[o]['R']
+                P = O[o]['P']
 
-        #         # calculates arg2
-        #         arg2 = get_R(o, s) + get_sum_pvx(s, o)
+                # Calculates and sets the new value
+                x = Q[s, o]
+                y = R[s, 0] + P.getrow(s).dot(Vx)
+                Q[s, o] = alpha_sum(x, y, alpha)
 
-        #         # calculates the new value
-        #         new_Q = alpha_sum(arg1, arg2, alpha)
-
-        #         # sets the new value
-        #         set_Q(s, o, new_Q)
 
         # # //— Update option action-value functions
         # for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
