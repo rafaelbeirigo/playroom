@@ -1562,6 +1562,21 @@ def get_current_option(s2):
     return current_option
 
 
+def update_vxax(myQ, myVx, myAx, s, a):
+    ai = all_possible_actions_int[a]
+    if myQ[s, ai] > 0.0:
+        if myQ[s, ai] > myVx[s, 0]:
+            myVx[s, 0] = myQ[s, ai]
+
+            try:
+                myAx[s].clear()
+            except KeyError:
+                myAx[s] = set()
+            myAx[s].add(a)
+        elif myQ[s, ai] == myVx[s, 0]:
+            myAx[s].add(a)
+
+
 def imrl():
     global step
     global r_i_filename
@@ -1656,53 +1671,55 @@ def imrl():
         ################################
         # //- Update all option models #
         ################################
-        # O_keys = [o for o in O.keys() if o != o_e]
-        # for o in O_keys: # For each option o != o_e in skill-KB (O)
-        #     # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
-        #     if s2 in get_I(o):
-        #         if get_BETA(o, s) != 1.0:
-        #             add_I(o, s)
+        O_keys = [o for o in O.keys() if o != o_e]
+        for o in O_keys: # For each option o != o_e in skill-KB (O)
+            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
+            if s2 in get_I(o):
+                if get_BETA(o, s) != 1.0:
+                    add_I(o, s)
 
-        #     # If a_t is greedy action for o in state s_t
-        #     if True:
-        #         ##################################################
-        #         # //— update option transition probability model #
-        #         ##################################################
-        #         P = O[o]['P']
+            # If a_t is greedy action for o in state s_t
+            try: As = O[o]['Ax'][s]
+            except KeyError: As = set()
+            if a in As:
+                ##################################################
+                # //— update option transition probability model #
+                ##################################################
+                P = O[o]['P']
 
-        #         if get_BETA(o, s2) == 0.0:
-        #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
-        #         else:
-        #             row =  numpy.array([0])
-        #             col =  numpy.array([s2])
-        #             data = numpy.array([1], dtype=P.dtype)
-        #             pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
-        #             del row, col, data
-        #             pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
-        #             del pd
+                if get_BETA(o, s2) == 0.0:
+                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
+                else:
+                    row =  numpy.array([0])
+                    col =  numpy.array([s2])
+                    data = numpy.array([1], dtype=P.dtype)
+                    pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
+                    del row, col, data
+                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
+                    del pd
 
-        #         stack = []
-        #         if s > 0: top = P[:s, :]; stack.append([top])
-        #         stack.append([pr])
-        #         if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
+                stack = []
+                if s > 0: top = P[:s, :]; stack.append([top])
+                stack.append([pr])
+                if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
 
-        #         fmt, dtp = P.format, P.dtype
-        #         del P
-        #         O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
-        #         for item in stack: del item
-        #         del stack
+                fmt, dtp = P.format, P.dtype
+                del P
+                O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
+                for item in stack: del item
+                del stack
 
-                # ##################################
-                # # //— update option reward model #
-                # ##################################
-                # # Gets some nice abbreviations
-                # R = O[o]['R']
-                # Bs2 = float(O[o]['BETA'][s2, 0])
+                ##################################
+                # //— update option reward model #
+                ##################################
+                # Gets some nice abbreviations
+                R = O[o]['R']
+                Bs2 = float(O[o]['BETA'][s2, 0])
 
-                # # Calculates and sets the new value
-                # x = R[s, 0]
-                # y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
-                # R[s, 0] = alpha_sum(x, y, alpha)
+                # Calculates and sets the new value
+                x = R[s, 0]
+                y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
+                R[s, 0] = alpha_sum(x, y, alpha)
 
 
         ###########################################################
@@ -1712,19 +1729,7 @@ def imrl():
         ai = all_possible_actions_int[a]
         Q[s, ai] = (1.0 - alpha) * Q[s, ai] + \
                    (alpha) * (r_e + r_i + gamma * Vx[s2, 0])
-        
-        # Eventually updates Vx(s) and Ax(s)
-        if Q[s, ai] > 0.0:
-            if Q[s, ai] > Vx[s, 0]:
-                Vx[s, 0] = Q[s, ai]
-
-                try:
-                    Ax[s].clear()
-                except KeyError:
-                    Ax[s] = set()
-                Ax[s].add(a)
-            elif Q[s, ai] == Vx[s, 0]:
-                Ax[s].add(a)
+        update_vxax(Q, Vx, Ax, s, a)
 
 
         ##############################################################
@@ -1742,21 +1747,27 @@ def imrl():
                 Q[s, o] = alpha_sum(x, y, alpha)
 
 
-        # # //— Update option action-value functions
-        # for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-        #     if s in get_I(o):
-        #         # calculates arg1
-        #         arg1 = get_Q(s, a, o)
+        ############################################
+        # //— Update option action-value functions #
+        ############################################
+        for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
+            if s in get_I(o):
+                # Gets some nice abbreviations
+                Qo = O[o]['Q']
+                Vo = O[o]['Vx']
+                Ao = O[o]['Ax']
+                Beta_s2 = float(O[o]['BETA'][s2, 0])
+                ai = all_possible_actions_int[a]
 
-        #         # calculates arg2
-        #         arg2 = r_e2 + gamma * get_BETA(o, s2) * get_TV(o) \
-        #                     + gamma * (1.0 - get_BETA(o, s2)) * get_Vx(s2, o)
+                # Calculates and sets the new value
+                x = Qo[s, ai]
+                if Beta_s2 == 1.0:
+                    y = r_e2 + gamma * O[o]['TV']
+                else:
+                    y = r_e2 + gamma * Vo[s2, 0]
+                Qo[s, ai] = alpha_sum(x, y, alpha)
+                update_vxax(Qo, Vo, Ao, s, a)
 
-        #         # calculates the new value
-        #         new_Q = alpha_sum(arg1, arg2, alpha)
-
-        #         # sets the new value
-        #         set_Q(s, a, new_Q, o)
 
         #         for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
         #             if (o != o2) and (s in get_I(o2)):
