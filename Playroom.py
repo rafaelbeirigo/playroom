@@ -1630,7 +1630,7 @@ def imrl():
     # # track the version that generated each result
     # git_commit_and_tag(r_i_filename[5:])
 
-    for current_step in range(initial_step, steps):
+    for current_step in xrange(initial_step, steps):
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
