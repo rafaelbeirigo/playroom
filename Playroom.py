@@ -221,6 +221,7 @@ def get_actions_from_agent():
         ]
     return actions
 
+
 def is_block(piece):
     return piece in [blue_block, red_block]
 
@@ -532,14 +533,30 @@ def update_environment_labels():
 
     step_count_label_text.set('Steps: ' + str(step))
 
-    under_eye = bool2int(board_matrix[eye.row][eye.column][:-3])
-    under_hand = bool2int(board_matrix[hand.row][hand.column][:-3])<<7
-    under_marker = bool2int(board_matrix[marker.row][marker.column][:-3])<<14
+
+    ##############################################
+    # Estado como é construído em update_state() #
+    ##############################################
+    be = board_matrix[eye.row][eye.column]
+    bh = board_matrix[hand.row][hand.column]
+    bm = board_matrix[marker.row][marker.column]
+
+    undereye = scipy.concatenate((be[:1], be[2:5]))
+    underhand = scipy.concatenate((bh[:1], bh[2:5]))
+    undermarker = bm[1:2]
+
+    status = []
+    for ev in environment_variables:
+        status.append(is_on(ev))
+
+    statea  = scipy.concatenate((undereye, underhand, undermarker, status))
+    state = bool2int(statea)
 
     state_label_text.set('State: ' + str(state) + ' ' +
-                                 '([eye:'    + str(under_eye) +'], '
-                                 '[hand:'   + str(under_hand) +'], ' +
-                                 '[marker:' + str(under_marker) +'])')
+                                 '([eye:'    + str(undereye) +'], '
+                                 '[hand:'   + str(underhand) +'], ' +
+                                 '[marker:' + str(undermarker) +'], ' +
+                                 '[status:' + str(status) +'])')
 
 
 def update_blocks_bits():
