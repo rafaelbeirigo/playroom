@@ -44,7 +44,7 @@ plot () {
 	echo 'Publishing image file...'
 	publish
 	echo 'Done.'
-	sleep 1
+	sleep 60
     done
 }
 

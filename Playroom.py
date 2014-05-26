@@ -1607,7 +1607,7 @@ def imrl():
         step = initial_step
     else:
         # Learning parameters
-        alpha            = 0.02
+        alpha            = 0.1
         gamma            = 0.99
         epsilon          = 0.1
         tau              = 0.5
