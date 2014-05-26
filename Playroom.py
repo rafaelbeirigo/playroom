@@ -1745,6 +1745,7 @@ def imrl():
                 x = Q[s, o]
                 y = R[s, 0] + P.getrow(s).dot(Vx)
                 Q[s, o] = alpha_sum(x, y, alpha)
+                update_vxax(Q, Vx, Ax, s, a, o)
 
 
         ############################################
