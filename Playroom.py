@@ -1562,8 +1562,12 @@ def get_current_option(s2):
     return current_option
 
 
-def update_vxax(myQ, myVx, myAx, s, a):
-    ai = all_possible_actions_int[a]
+def update_vxax(myQ, myVx, myAx, s, a, o=None):
+    if o is None:
+        ai = all_possible_actions_int[a]
+    else:
+        a = o
+        ai = o
     if myQ[s, ai] > 0.0:
         if myQ[s, ai] > myVx[s, 0]:
             myVx[s, 0] = myQ[s, ai]
@@ -1757,32 +1761,32 @@ def imrl():
                 Qo = O[o]['Q']
                 Vo = O[o]['Vx']
                 Ao = O[o]['Ax']
-                Beta_s2 = float(O[o]['BETA'][s2, 0])
+                TV = O[o]['TV']
+                Beta_o = O[o]['BETA']
+                Beta_s2 = float(Beta_o[s2, 0])
+                V2 = numpy.where(Beta_o, TV, Vo)
                 ai = all_possible_actions_int[a]
 
                 # Calculates and sets the new value
                 x = Qo[s, ai]
                 if Beta_s2 == 1.0:
-                    y = r_e2 + gamma * O[o]['TV']
+                    y = r_e2 + gamma * TV
                 else:
                     y = r_e2 + gamma * Vo[s2, 0]
                 Qo[s, ai] = alpha_sum(x, y, alpha)
                 update_vxax(Qo, Vo, Ao, s, a)
 
+                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+                    if (o != o2) and (s in get_I(o2)):
+                        # Gets some nice abbreviations
+                        Po2 = O[o2]['P']
+                        Ro2 = O[o2]['R']
 
-        #         for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-        #             if (o != o2) and (s in get_I(o2)):
-        #                 # calculates arg1
-        #                 arg1 = get_Q(s, o2, o)
-
-        #                 # calculates arg2
-        #                 arg2 = get_R(o2, s) + get_sum_pvxo(s, o2, o)
-
-        #                 # calculates the new value
-        #                 new_Q = alpha_sum(arg1, arg2, alpha)
-
-        #                 # sets the new value
-        #                 set_Q(s, o2, new_Q, o)
+                        # Calculates and sets the new value
+                        x = Qo[s, o2]
+                        y = Ro2[s, 0] + Po2.getrow(s).dot(V2)
+                        Qo[s, o2] = alpha_sum(x, y, alpha)
+                        update_vxax(Qo, Vo, Ao, s, a, o2)
 
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
         # If the option took the agent to a state that isn't in I yet,
