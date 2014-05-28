@@ -1546,20 +1546,31 @@ def get_top_stack(stack):
 
 option_stack = []
 def get_current_option(s2):
-    """Returns an option from the option stack."""
+    """Resolves the option stack and eventually returns an option.
 
-    current_option = get_top_stack(option_stack)
+    The strategy to abandon an option is "bottom-up" in relation to
+    salient events:
 
-    if current_option != 0:
-        # Stack is not empty
-        if get_BETA(current_option, s2) == 1.0 \
-           or s2 not in get_I(current_option):
-            # s2 is terminal for the current_option or s2 does not
-            # belong to the option: remove option from the stack.
-            option_stack.pop()
-            current_option = get_top_stack(option_stack)
+    The function goes through the option stack from the oldest one to
+    the newest one (from the bottom to the top).  If the current state
+    is a salient event to an option, this option is removed from the
+    stack, along with all the other options (if any) that are newer
+    than this one.
 
-    return current_option
+    """
+
+    # 'current' is the status combination of the current state
+    current = bool2int(numpy.array([is_on(light), is_on(music),
+                                    is_on(bell_sound),
+                                    is_on(toy_monkey_sound)])) +
+                                    len(all_possible_actions) + 1
+
+    # 'target' is the status combination that the option 'wants'
+    for target in option_stack:
+        if target == current:
+            del option_stack[target:]
+
+    return get_top_stack(option_stack)
 
 
 def update_vxax(myQ, myVx, myAx, s, a, o=None):
