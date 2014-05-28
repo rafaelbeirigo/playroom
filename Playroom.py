@@ -1562,7 +1562,7 @@ def get_current_option(s2):
     # 'current' is the status combination of the current state
     current = bool2int(numpy.array([is_on(light), is_on(music),
                                     is_on(bell_sound),
-                                    is_on(toy_monkey_sound)])) +
+                                    is_on(toy_monkey_sound)])) + \
                                     len(all_possible_actions) + 1
 
     # 'target' is the status combination that the option 'wants'
