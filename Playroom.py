@@ -1802,31 +1802,24 @@ def imrl():
                         Qo[s, o2] = alpha_sum(x, y, alpha)
                         update_vxax(Qo, Vo, Ao, s, a, o2)
 
-        # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action
-        # If the option took the agent to a state that isn't in I yet,
+        #################################################################################
+        # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action #
+        #################################################################################
         current_option = get_current_option(s2)
-        if scipy.random.random() < epsilon:    # random() gives a number in the interval [0, 1).
-            # random
-            next_action = select_random_action(s2)
 
-            option_stack[:] = []
+        if current_option == 0:
+            if scipy.random.random() < epsilon:    # random() gives a number in the interval [0, 1).
+                # random
+                next_action = select_random_action(s2)
+            else:
+                # greedy
+                next_action = select_best_action(s2)
+
             if is_option(next_action):
                 option_stack.append(next_action)
                 current_option = next_action
-            else:
-                current_option = 0
         else:
-            # greedy
-            if current_option == 0:
-                next_action = select_best_action(s2)
-
-                if is_option(next_action):
-                    option_stack.append(next_action)
-                    current_option = next_action
-                else:
-                    current_option = 0
-            else:
-                next_action = current_option # continues to follow the option
+            next_action = current_option
 
         if is_option(next_action):
             a2 = get_action_from_option(s2, next_action)
