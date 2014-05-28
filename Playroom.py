@@ -996,10 +996,19 @@ def select_best_actions(s, o=None):
 
 
 def get_action_from_option(s, o):
-    a = choice(select_best_actions(s, o))
+    epsilon = 0.01
+
+    if scipy.random.random() < epsilon:
+        # random
+        a = select_random_action(s)
+    else:
+        # greedy
+        a = choice(select_best_actions(s, o))
+
     while is_option(a):
         option_stack.append(a)
-        a = select_best_action(s, a)
+        a = get_action_from_option(s, a)
+
     return a
 
 
