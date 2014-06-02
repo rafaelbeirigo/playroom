@@ -996,7 +996,7 @@ def select_best_actions(s, o=None):
 
 
 def get_action_from_option(s, o):
-    epsilon = 0.01
+    epsilon = 0.3
 
     if scipy.random.random() < epsilon:
         # random
@@ -1706,48 +1706,44 @@ def imrl():
                 if get_BETA(o, s) != 1.0:
                     add_I(o, s)
 
-            # If a_t is greedy action for o in state s_t
-            try: As = O[o]['Ax'][s]
-            except KeyError: As = set()
-            if a in As:
-                ##################################################
-                # //— update option transition probability model #
-                ##################################################
-                P = O[o]['P']
+            ##################################################
+            # //— update option transition probability model #
+            ##################################################
+            P = O[o]['P']
 
-                if get_BETA(o, s2) == 0.0:
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
-                else:
-                    row =  numpy.array([0])
-                    col =  numpy.array([s2])
-                    data = numpy.array([1], dtype=P.dtype)
-                    pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
-                    del row, col, data
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
-                    del pd
+            if get_BETA(o, s2) == 0.0:
+                pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
+            else:
+                row =  numpy.array([0])
+                col =  numpy.array([s2])
+                data = numpy.array([1], dtype=P.dtype)
+                pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
+                del row, col, data
+                pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
+                del pd
 
-                stack = []
-                if s > 0: top = P[:s, :]; stack.append([top])
-                stack.append([pr])
-                if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
+            stack = []
+            if s > 0: top = P[:s, :]; stack.append([top])
+            stack.append([pr])
+            if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
 
-                fmt, dtp = P.format, P.dtype
-                del P
-                O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
-                for item in stack: del item
-                del stack
+            fmt, dtp = P.format, P.dtype
+            del P
+            O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
+            for item in stack: del item
+            del stack
 
-                ##################################
-                # //— update option reward model #
-                ##################################
-                # Gets some nice abbreviations
-                R = O[o]['R']
-                Bs2 = float(O[o]['BETA'][s2, 0])
+            ##################################
+            # //— update option reward model #
+            ##################################
+            # Gets some nice abbreviations
+            R = O[o]['R']
+            Bs2 = float(O[o]['BETA'][s2, 0])
 
-                # Calculates and sets the new value
-                x = R[s, 0]
-                y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
-                R[s, 0] = alpha_sum(x, y, alpha)
+            # Calculates and sets the new value
+            x = R[s, 0]
+            y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
+            R[s, 0] = alpha_sum(x, y, alpha)
 
 
         ###########################################################
