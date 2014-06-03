@@ -1721,6 +1721,8 @@ def imrl():
                 del row, col, data
                 pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
                 del pd
+                
+            modificação 2
 
             stack = []
             if s > 0: top = P[:s, :]; stack.append([top])
