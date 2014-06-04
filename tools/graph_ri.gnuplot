@@ -13,11 +13,12 @@ set multiplot layout 7,1
 # plot exp(x)
 # plot 1/x
 
-set xrange [0-1e5:10e6+1e5]
+#set xrange [0-1e4:.5e6+1e4]
+set xrange [0-1e5:2e6+1e5]
 set yrange [-0.04:0.55]
 set format x "%2.1e"
 set format y "%2.1f"
-set xtics 1e6
+set xtics 2.5e5
 set ytics (0.0,0.5,1.0)
 
 set ylabel 'light_ON'
