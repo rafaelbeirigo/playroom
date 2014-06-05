@@ -694,17 +694,17 @@ def create_action_buttons():
     action_buttons.append(flick_switch_option_button)
 
 
-def update_available_actions(s=None):
+def update_available_actions(s=None, allowoptions=True):
     global available_actions
 
-    available_actions = get_available_actions(s)
+    available_actions = get_available_actions(s, allowoptions)
 
 
-def get_available_actions(s=None):
-    if s == None:
-        return get_actions_from_agent() + get_actions_from_pieces()
-    else:
+def get_available_actions(s=None, allowoptions=True):
+    if allowoptions:
         return get_actions_from_agent() + get_actions_from_pieces() + list(get_available_options(s))
+    else:
+        return get_actions_from_agent() + get_actions_from_pieces()
 
 
 def execute_action(action, s=None):
@@ -976,12 +976,12 @@ def is_option(a):
     return not(isinstance(a, str))
 
 
-def select_random_action(s=None):
-    update_available_actions(s)
+def select_random_action(s=None, allowoptions=True):
+    update_available_actions(s, allowoptions)
     return choice(available_actions)
 
 
-def select_best_actions(s, o=None):
+def select_best_actions(s, o=None, allowoptions=True):
     """Returns the best actions to the state 's' according to a 'Q'.
     If 'o' is provided, the 'Q' used is related to the option 'o'."""
 
@@ -990,7 +990,7 @@ def select_best_actions(s, o=None):
     fix_Ax(s, o)
 
     if len(my_Ax[s]) == 0:         # there is no best action yet to the state
-        return get_available_actions(s)
+        return get_available_actions(s, allowoptions)
     else:
         return list(my_Ax[s])
 
@@ -1012,8 +1012,8 @@ def get_action_from_option(s, o):
     return a
 
 
-def select_best_action(s, o=None):
-    return choice(select_best_actions(s, o))
+def select_best_action(s, o=None, allowoptions=True):
+    return choice(select_best_actions(s, o, allowoptions))
 
 
 def set_random_initial_state():
@@ -1816,10 +1816,10 @@ def imrl():
         if current_option == 0:
             if scipy.random.random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
-                next_action = select_random_action(s2)
+                next_action = select_random_action(s2, allowoptions=False)
             else:
                 # greedy
-                next_action = select_best_action(s2)
+                next_action = select_best_action(s2, allowoptions=False)
 
             if is_option(next_action):
                 option_stack.append(next_action)
