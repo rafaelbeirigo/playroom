@@ -1667,9 +1667,7 @@ def imrl():
         # Deal with special case if next state is salient
         o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
-            o = bool2int(numpy.array([is_on(light), is_on(music),
-                                      is_on(bell_sound), is_on(toy_monkey_sound)]))
-            o += len(all_possible_actions) + 1
+            o = s2
 
             # If option for e, o_e, does not exist in O (skill-KB)
             if not (o_exists(o)):
