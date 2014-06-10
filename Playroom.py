@@ -1650,9 +1650,9 @@ def imrl():
 
     print 'Logging to: ' + r_i_filename
 
-    # # Git: commit (if that is the case) and tag (always succeed),
-    # # using the experiment's log filename. This way it is possible to
-    # # track the version that generated each result
+    # Git: commit (if that is the case) and tag (always succeed),
+    # using the experiment's log filename. This way it is possible to
+    # track the version that generated each result
     git_commit_and_tag(r_i_filename[5:])
 
     for current_step in xrange(initial_step, steps):
