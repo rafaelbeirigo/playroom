@@ -1685,7 +1685,7 @@ def imrl():
             set_BETA(o, s2, 1.0)
 
             # //— set intrinsic reward value
-            r_i2 = 0.0 # tau * (1.0 - get_P(o, s2, s))
+            r_i2 = 0.5 # tau * (1.0 - get_P(o, s2, s))
 
             log_r_i(r_i2, s, s2, current_option, a)
         else:
