@@ -1763,54 +1763,54 @@ def imrl():
         ##############################################################
         # //— SMDP-planning update of behavior action-value function #
         ##############################################################
-        for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            if s in get_I(o):
-                # Gets some nice abbreviations
-                R = O[o]['R']
-                P = O[o]['P']
+        # for o in O.keys(): # For each option o = o_e in skill-KB (O)
+        #     if s in get_I(o):
+        #         # Gets some nice abbreviations
+        #         R = O[o]['R']
+        #         P = O[o]['P']
 
-                # Calculates and sets the new value
-                x = Q[s, o]
-                y = R[s, 0] + P.getrow(s).dot(Vx)
-                Q[s, o] = alpha_sum(x, y, alpha)
-                update_vxax(Q, Vx, Ax, s, a, o)
+        #         # Calculates and sets the new value
+        #         x = Q[s, o]
+        #         y = R[s, 0] + P.getrow(s).dot(Vx)
+        #         Q[s, o] = alpha_sum(x, y, alpha)
+        #         update_vxax(Q, Vx, Ax, s, a, o)
 
 
         ############################################
         # //— Update option action-value functions #
         ############################################
-        for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-            if s in get_I(o):
-                # Gets some nice abbreviations
-                Qo = O[o]['Q']
-                Vo = O[o]['Vx']
-                Ao = O[o]['Ax']
-                TV = O[o]['TV']
-                Beta_o = O[o]['BETA']
-                Beta_s2 = float(Beta_o[s2, 0])
-                V2 = numpy.where(Beta_o, TV, Vo)
-                ai = all_possible_actions_int[a]
+        # for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
+        #     if s in get_I(o):
+        #         # Gets some nice abbreviations
+        #         Qo = O[o]['Q']
+        #         Vo = O[o]['Vx']
+        #         Ao = O[o]['Ax']
+        #         TV = O[o]['TV']
+        #         Beta_o = O[o]['BETA']
+        #         Beta_s2 = float(Beta_o[s2, 0])
+        #         V2 = numpy.where(Beta_o, TV, Vo)
+        #         ai = all_possible_actions_int[a]
 
-                # Calculates and sets the new value
-                x = Qo[s, ai]
-                if Beta_s2 == 1.0:
-                    y = r_e2 + gamma * TV
-                else:
-                    y = r_e2 + gamma * Vo[s2, 0]
-                Qo[s, ai] = alpha_sum(x, y, alpha)
-                update_vxax(Qo, Vo, Ao, s, a)
+        #         # Calculates and sets the new value
+        #         x = Qo[s, ai]
+        #         if Beta_s2 == 1.0:
+        #             y = r_e2 + gamma * TV
+        #         else:
+        #             y = r_e2 + gamma * Vo[s2, 0]
+        #         Qo[s, ai] = alpha_sum(x, y, alpha)
+        #         update_vxax(Qo, Vo, Ao, s, a)
 
-                for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-                    if (o != o2) and (s in get_I(o2)):
-                        # Gets some nice abbreviations
-                        Po2 = O[o2]['P']
-                        Ro2 = O[o2]['R']
+        #         for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
+        #             if (o != o2) and (s in get_I(o2)):
+        #                 # Gets some nice abbreviations
+        #                 Po2 = O[o2]['P']
+        #                 Ro2 = O[o2]['R']
 
-                        # Calculates and sets the new value
-                        x = Qo[s, o2]
-                        y = Ro2[s, 0] + Po2.getrow(s).dot(V2)
-                        Qo[s, o2] = alpha_sum(x, y, alpha)
-                        update_vxax(Qo, Vo, Ao, s, a, o2)
+        #                 # Calculates and sets the new value
+        #                 x = Qo[s, o2]
+        #                 y = Ro2[s, 0] + Po2.getrow(s).dot(V2)
+        #                 Qo[s, o2] = alpha_sum(x, y, alpha)
+        #                 update_vxax(Qo, Vo, Ao, s, a, o2)
 
         #################################################################################
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action #
