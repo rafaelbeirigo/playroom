@@ -701,10 +701,7 @@ def update_available_actions(s=None):
 
 
 def get_available_actions(s=None):
-    if s == None:
-        return get_actions_from_agent() + get_actions_from_pieces()
-    else:
-        return get_actions_from_agent() + get_actions_from_pieces() + list(get_available_options(s))
+    return get_actions_from_agent() + get_actions_from_pieces()
 
 
 def execute_action(action, s=None):
