@@ -1696,7 +1696,9 @@ def imrl():
 
             # //— set intrinsic reward value
             P = O[o]['P']
-            # aqui!!!
+
+            fix_P(o, s)
+
             r_i2 = tau * (1.0 - get_P(o, s2, s))
             log_r_i(r_i2, s, s2, current_option, a)
         else:
