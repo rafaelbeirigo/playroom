@@ -1817,6 +1817,8 @@ def imrl():
                         Po2 = O[o2]['P']
                         Ro2 = O[o2]['R']
 
+                        fix_P(o2, s)
+
                         # Calculates and sets the new value
                         x = Qo[s, o2]
                         y = Ro2[s, 0] + Po2[s].dot(V2)
