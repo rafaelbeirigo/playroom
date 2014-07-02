@@ -1809,7 +1809,7 @@ def imrl():
 
                         # Calculates and sets the new value
                         x = Qo[s, o2]
-                        y = Ro2[s, 0] + Po2.getrow(s).dot(V2)
+                        y = Ro2[s, 0] + Po2[s].dot(V2)
                         Qo[s, o2] = alpha_sum(x, y, alpha)
                         update_vxax(Qo, Vo, Ao, s, a, o2)
 
