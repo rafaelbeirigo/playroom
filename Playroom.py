@@ -1778,6 +1778,8 @@ def imrl():
                 R = O[o]['R']
                 P = O[o]['P']
 
+                fix_P(o, s)
+
                 # Calculates and sets the new value
                 x = Q[s, o]
                 y = R[s, 0] + P[s].dot(Vx)
