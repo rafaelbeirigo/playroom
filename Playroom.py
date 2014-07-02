@@ -320,7 +320,7 @@ def log_option_stack():
 def log_time(totaltime):
     """Logs the execution time."""
 
-    time_filename = "time-" + r_i_filename.replace("logs/", "")
+    time_filename = "logs/time-" + r_i_filename.replace("logs/", "")
 
     f = open(time_filename, 'a')
     f.write(str(totaltime) + '\n')
