@@ -1725,13 +1725,14 @@ def imrl():
                 if get_BETA(o, s2) == 0.0:
                     pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
                 else:
-                    row =  numpy.array([0])
-                    col =  numpy.array([s2])
-                    data = numpy.array([1], dtype=P.dtype)
-                    pd = scipy.sparse.coo_matrix((data, (row,col)), shape=(1,P.shape[1])).astype(P.dtype).tocsr()
-                    del row, col, data
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * pd
-                    del pd
+                    pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits),
+                                                      dtype=scipy.float32),
+                                          dtype=scipy.float32)
+                    pdelta[0, s2] = 1.0
+
+                    pr = (1.0 - alpha) * P[s] + alpha * gamma * pdelta
+
+                    del pdelta
 
                 stack = []
                 if s > 0: top = P[:s, :]; stack.append([top])
