@@ -317,6 +317,16 @@ def log_option_stack():
     f.close()
 
 
+def log_time(totaltime):
+    """Logs the execution time."""
+
+    time_filename = "time-" + r_i_filename
+
+    f = open(time_filename, 'a')
+    f.write(str(totaltime) + '\n')
+    f.close()
+
+
 def update_state():
     global state
 
@@ -1620,6 +1630,8 @@ def imrl():
     global ED_filename
     global args
 
+    starttime = time.time()
+
     # Sees if should open previous saved data from another experiment
     if args.load:
         global S
@@ -1873,6 +1885,9 @@ def imrl():
         #     saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, S, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
 
     # saveobject(O, get_log_filename(prefix='O-')) # persists O
+
+    totaltime = time.time() - starttime
+    log_time(totaltime)
 
     sys.exit()
 
