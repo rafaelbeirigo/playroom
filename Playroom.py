@@ -1723,7 +1723,7 @@ def imrl():
                 P = O[o]['P']
 
                 if get_BETA(o, s2) == 0.0:
-                    pr = (1.0 - alpha) * P.getrow(s) + alpha * gamma * P.getrow(s2)
+                    pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
                 else:
                     row =  numpy.array([0])
                     col =  numpy.array([s2])
