@@ -1734,16 +1734,9 @@ def imrl():
 
                     del pdelta
 
-                stack = []
-                if s > 0: top = P[:s, :]; stack.append([top])
-                stack.append([pr])
-                if s < P.shape[0] - 1: bottom = P[s+1:,:]; stack.append([bottom])
-
-                fmt, dtp = P.format, P.dtype
-                del P
-                O[o]['P'] = scipy.sparse.bmat(stack, format=fmt, dtype=dtp)
-                for item in stack: del item
-                del stack
+                del P[s]
+                P[s] = pr.copy()
+                del pr
 
                 ##################################
                 # //— update option reward model #
