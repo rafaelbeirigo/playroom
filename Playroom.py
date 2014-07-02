@@ -1728,6 +1728,8 @@ def imrl():
                 ##################################################
                 P = O[o]['P']
 
+                fix_P(o, s)
+
                 if get_BETA(o, s2) == 0.0:
                     pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
                 else:
