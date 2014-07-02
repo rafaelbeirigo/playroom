@@ -900,6 +900,16 @@ def which_Q(o=None):
         return O[o]['Q']
 
 
+def fix_P(o, s):
+    P = O[o]['P']
+    try:
+        dummy = P[s]
+    except KeyError:
+        P[s] = numpy.matrix(scipy.zeros((1, 1<<sbits),
+                                        dtype=scipy.float32),
+                            dtype=scipy.float32)
+
+
 def fix_Q(s, a, o=None):
     fix_2dic(which_Q(o), s, a)
 
@@ -1686,14 +1696,8 @@ def imrl():
 
             # //— set intrinsic reward value
             P = O[o]['P']
-            try:
-                dummy = P[s]
-            except KeyError:
-                P[s] = numpy.matrix(scipy.zeros((1, 1<<sbits),
-                                                dtype=scipy.float32),
-                                    dtype=scipy.float32)
-
-            r_i2 = tau * (1.0 - P[s][0, s2])
+            # aqui!!!
+            r_i2 = tau * (1.0 - get_P(o, s2, s))
             log_r_i(r_i2, s, s2, current_option, a)
         else:
             r_i2 = 0.0
