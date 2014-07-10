@@ -1865,7 +1865,7 @@ def imrl():
         # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
         s = s2
         a = a2
-        r_i = r_i2
+        # r_i = r_i2
         r_e = r_e2
         step += 1
 
