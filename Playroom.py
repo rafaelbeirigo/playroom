@@ -1721,55 +1721,55 @@ def imrl():
         r_e2 = get_r_e()
 
 
-        ################################
-        # //- Update all option models #
-        ################################
-        O_keys = [o for o in O.keys() if o != o_e]
-        for o in O_keys: # For each option o != o_e in skill-KB (O)
-            # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
-            if s2 in get_I(o):
-                if get_BETA(o, s) != 1.0:
-                    add_I(o, s)
+        # ################################
+        # # //- Update all option models #
+        # ################################
+        # O_keys = [o for o in O.keys() if o != o_e]
+        # for o in O_keys: # For each option o != o_e in skill-KB (O)
+        #     # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
+        #     if s2 in get_I(o):
+        #         if get_BETA(o, s) != 1.0:
+        #             add_I(o, s)
 
-            # If a_t is greedy action for o in state s_t
-            try: As = O[o]['Ax'][s]
-            except KeyError: As = set()
-            if a in As:
-                ##################################################
-                # //— update option transition probability model #
-                ##################################################
-                P = O[o]['P']
+        #     # If a_t is greedy action for o in state s_t
+        #     try: As = O[o]['Ax'][s]
+        #     except KeyError: As = set()
+        #     if a in As:
+        #         ##################################################
+        #         # //— update option transition probability model #
+        #         ##################################################
+        #         P = O[o]['P']
 
-                fix_P(o, s)
-                fix_P(o, s2)
+        #         fix_P(o, s)
+        #         fix_P(o, s2)
 
-                if get_BETA(o, s2) == 0.0:
-                    pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
-                else:
-                    pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits),
-                                                      dtype=scipy.float32),
-                                          dtype=scipy.float32)
-                    pdelta[0, s2] = 1.0
+        #         if get_BETA(o, s2) == 0.0:
+        #             pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
+        #         else:
+        #             pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits),
+        #                                               dtype=scipy.float32),
+        #                                   dtype=scipy.float32)
+        #             pdelta[0, s2] = 1.0
 
-                    pr = (1.0 - alpha) * P[s] + alpha * gamma * pdelta
+        #             pr = (1.0 - alpha) * P[s] + alpha * gamma * pdelta
 
-                    del pdelta
+        #             del pdelta
 
-                del P[s]
-                P[s] = pr.copy()
-                del pr
+        #         del P[s]
+        #         P[s] = pr.copy()
+        #         del pr
 
-                ##################################
-                # //— update option reward model #
-                ##################################
-                # Gets some nice abbreviations
-                R = O[o]['R']
-                Bs2 = float(O[o]['BETA'][s2, 0])
+        #         ##################################
+        #         # //— update option reward model #
+        #         ##################################
+        #         # Gets some nice abbreviations
+        #         R = O[o]['R']
+        #         Bs2 = float(O[o]['BETA'][s2, 0])
 
-                # Calculates and sets the new value
-                x = R[s, 0]
-                y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
-                R[s, 0] = alpha_sum(x, y, alpha)
+        #         # Calculates and sets the new value
+        #         x = R[s, 0]
+        #         y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
+        #         R[s, 0] = alpha_sum(x, y, alpha)
 
 
         ###########################################################
