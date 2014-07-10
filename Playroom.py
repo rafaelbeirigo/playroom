@@ -1711,7 +1711,7 @@ def imrl():
 
             fix_P(o, s)
 
-            r_i2 = 0.0 #tau * (1.0 - P[s][0, s2])
+            r_i2 = tau * (1.0 - P[s][0, s2])
             log_r_i(r_i2, s, s2, current_option, a)
         else:
             r_i2 = 0.0
