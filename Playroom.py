@@ -1686,35 +1686,35 @@ def imrl():
         if current_option != 0:
             add_I(current_option, s2)
 
-        # Deal with special case if next state is salient
-        o_e = None
-        if is_salient_event():        # If s_{t+1} is a salient event e
-            o = bool2int(numpy.array([is_on(light), is_on(music),
-                                      is_on(bell_sound), is_on(toy_monkey_sound)]))
-            o += len(all_possible_actions) + 1
+        # # Deal with special case if next state is salient
+        # o_e = None
+        # if is_salient_event():        # If s_{t+1} is a salient event e
+        #     o = bool2int(numpy.array([is_on(light), is_on(music),
+        #                               is_on(bell_sound), is_on(toy_monkey_sound)]))
+        #     o += len(all_possible_actions) + 1
 
-            # If option for e, o_e, does not exist in O (skill-KB)
-            if not (o_exists(o)):
-                # Create option o_e in skill-KB;
-                fix_O(o)
+        #     # If option for e, o_e, does not exist in O (skill-KB)
+        #     if not (o_exists(o)):
+        #         # Create option o_e in skill-KB;
+        #         fix_O(o)
 
-                o_e = o                   # Used in "Update all option models", below
+        #         o_e = o                   # Used in "Update all option models", below
 
-            # Add s_t to I^{o_e} // initialize initiation set
-            add_I(o, s)
+        #     # Add s_t to I^{o_e} // initialize initiation set
+        #     add_I(o, s)
 
-            # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-            set_BETA(o, s2, 1.0)
+        #     # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
+        #     set_BETA(o, s2, 1.0)
 
-            # //— set intrinsic reward value
-            P = O[o]['P']
+        #     # //— set intrinsic reward value
+        #     P = O[o]['P']
 
-            fix_P(o, s)
+        #     fix_P(o, s)
 
-            r_i2 = 0.0 #tau * (1.0 - P[s][0, s2])
-            log_r_i(r_i2, s, s2, current_option, a)
-        else:
-            r_i2 = 0.0
+        #     r_i2 = 0.0 #tau * (1.0 - P[s][0, s2])
+        #     log_r_i(r_i2, s, s2, current_option, a)
+        # else:
+        #     r_i2 = 0.0
 
         # //— Determine next extrinsic reward
         # Set r^e_{t+1} to the extrinsic reward for transition s_t, a_t → s_{t+1}
