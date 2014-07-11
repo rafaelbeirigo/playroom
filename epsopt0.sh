@@ -1,7 +1,7 @@
 #!/bin/bash
 
 roda () {
-    for epsopt in 0.0 0.0003 0.003 0.03 0.6
+    for epsopt in 0.0 0.0003
     do
 	for i in {1..100}
 	do
