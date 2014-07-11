@@ -1116,7 +1116,7 @@ def get_log_filename(prefix='', suffix=''):
 
     hostname = gethostname()
     now_str = str(datetime.now())
-    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
+    filename = 'logs/epsopt/' + str(epsilonoption) + '/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
 
     return filename
 
@@ -1656,7 +1656,7 @@ def imrl():
         epsilon          = 0.1
         tau              = 0.5
 
-        steps = int(5e5)
+        steps = int(5)
 
         # Variables initialization
         s = update_state()
