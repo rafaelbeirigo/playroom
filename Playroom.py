@@ -918,7 +918,7 @@ def fix_P(o, s):
         P[s] = numpy.matrix(scipy.zeros((1, 1<<sbits),
                                         dtype=scipy.float32),
                             dtype=scipy.float32)
-
+        P[s, s] = 1.0
 
 def fix_Q(s, a, o=None):
     fix_2dic(which_Q(o), s, a)
