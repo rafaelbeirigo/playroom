@@ -13,13 +13,6 @@ roda () {
 	do
 	    python Playroom.py --nox --no_cardinal --epsopt=$epsopt
 	done
-
-
-	LOGS="logs/*.log"
-	if [ -e  $LOGS ]
-	then
-	    mv $LOGS $FOLDER
-	fi
     done
 }
 
