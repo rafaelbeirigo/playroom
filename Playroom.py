@@ -321,7 +321,8 @@ def log_option_stack():
 def log_time(totaltime):
     """Logs the execution time."""
 
-    time_filename = "logs/time-" + r_i_filename.replace("logs/", "")
+    prefix = "logs/epsopt/" + str(epsilonoption) + "/"
+    time_filename = prefix + "time-" + r_i_filename.replace(prefix, "")
 
     f = open(time_filename, 'a')
     f.write(str(totaltime) + '\n')
@@ -1117,7 +1118,7 @@ def get_log_filename(prefix='', suffix=''):
 
     hostname = gethostname()
     now_str = str(datetime.now())
-    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
+    filename = 'logs/epsopt/' + str(epsilonoption) + '/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
 
     return filename
 
