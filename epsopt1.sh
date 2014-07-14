@@ -1,7 +1,7 @@
 #!/bin/bash
 
 roda () {
-    for epsopt in  0.003 0.03
+    for epsopt in 0.03
     do
 	FOLDER="logs/epsopt/$epsopt"
 	if ! [ -e $FOLDER ]
