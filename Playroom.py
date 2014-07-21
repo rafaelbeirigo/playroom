@@ -1096,7 +1096,7 @@ def get_reward():
 def get_r_e():
     """Returns the extrinsic reward."""
     if is_on(toy_monkey_sound) and toy_monkey_sound['step'] == step:
-        return 10.0
+        return 1e3
     else:
         return 0.0
 
