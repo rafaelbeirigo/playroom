@@ -32,23 +32,12 @@ publish () {
 }
 
 plot () {
-    i=0
-    while [ true ]
-    do
-	i=`expr $i + 1`
-	echo $i
-	echo 'Getting eps file...'
-	get_eps
-	echo 'Getting image file...'
-	get_png
-	echo 'Publishing image file...'
-	publish
-	echo 'Done.'
-	sleep 60
-    done
+    echo 'Getting eps file...'
+    get_eps
+    echo 'Getting image file...'
+    get_png
+    rm $EPS_FILE
 }
 
 plot
-gv --watch $EPS_FILE
-pkill plota.sh
 rm a.log
