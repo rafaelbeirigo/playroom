@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # coding=UTF-8
 
+# Utiliza ações cardinais (só pra comitar e separar as tags desse
+# experimento)
+
 import sys
 import pickle
 from Board import *
