@@ -1016,7 +1016,7 @@ def select_best_actions(s, o=None):
 
 
 def get_action_from_option(s, o):
-    epsilon = 0.3
+    epsilon = 0.8
 
     if scipy.random.random() < epsilon:
         # random
