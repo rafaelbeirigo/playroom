@@ -1810,9 +1810,7 @@ def imrl():
                 Vo = O[o]['Vx']
                 Ao = O[o]['Ax']
                 TV = O[o]['TV']
-                Beta_o = O[o]['BETA']
-                Beta_s2 = float(Beta_o[s2, 0])
-                V2 = numpy.where(Beta_o, TV, Vo)
+                Beta_s2 = float(O[o]['BETA'][s2, 0])
                 ai = all_possible_actions_int[a]
 
                 # Calculates and sets the new value
@@ -1829,6 +1827,11 @@ def imrl():
                         # Gets some nice abbreviations
                         Po2 = O[o2]['P']
                         Ro2 = O[o2]['R']
+
+                        Beta_o2 = O[o2]['BETA']
+                        TV2 = O[o2]['TV']
+                        Vo2 = O[o2]['Vx']
+                        V2 = numpy.where(Beta_o2, TV2, Vo2)
 
                         fix_P(o2, s)
 
