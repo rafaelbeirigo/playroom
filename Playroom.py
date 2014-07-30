@@ -1748,7 +1748,6 @@ def imrl():
         ############################################
         for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
             if s in get_I(o):
-                # Gets some nice abbreviations
                 Qo = O[o]['Q']
                 Vo = O[o]['Vx']
                 Ao = O[o]['Ax']
@@ -1758,13 +1757,11 @@ def imrl():
                 V2 = numpy.where(Beta_o, TV, Vo)
                 ai = all_possible_actions_int[a]
 
-                # Calculates and sets the new value
-                x = Qo[s, ai]
+                Qo[s, ai] *= (1 - alpha)
                 if Beta_s2 == 1.0:
-                    y = r_e2 + gamma * TV
+                    Qo[s, ai] += alpha * (r_e2 + gamma * TV)
                 else:
-                    y = r_e2 + gamma * Vo[s2, 0]
-                Qo[s, ai] = alpha_sum(x, y, alpha)
+                    Qo[s, ai] += alpha * (r_e2 + gamma * Vo[s2, 0])
                 update_vxax(Qo, Vo, Ao, s, a)
 
                 for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
