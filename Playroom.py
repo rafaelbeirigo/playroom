@@ -1766,17 +1766,13 @@ def imrl():
 
                 for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
                     if (o != o2) and (s in get_I(o2)):
-                        # Gets some nice abbreviations
-                        Po2 = O[o2]['P']
-                        Ro2 = O[o2]['R']
-
                         fix_P(o2, s)
+                        Po2 = O[o2]['P']; Ro2 = O[o2]['R']
 
-                        # Calculates and sets the new value
-                        x = Qo[s, o2]
-                        y = Ro2[s, 0] + Po2[s].dot(V2)
-                        Qo[s, o2] = alpha_sum(x, y, alpha)
+                        Qo[s, o2] *= (1 - alpha)
+                        Qo[s, o2] += alpha * (Ro2[s, 0] + Po2[s].dot(V2))
                         update_vxax(Qo, Vo, Ao, s, a, o2)
+
 
         #################################################################################
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action #
