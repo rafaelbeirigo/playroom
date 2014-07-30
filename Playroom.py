@@ -1700,47 +1700,33 @@ def imrl():
                 ##################################################
                 # //— update option transition probability model #
                 ##################################################
-                P = O[o]['P']
-
-                fix_P(o, s)
-                fix_P(o, s2)
-
-                if get_BETA(o, s2) == 0.0:
-                    pr = (1.0 - alpha) * P[s] + alpha * gamma * P[s2]
+                fix_P(o, s); fix_P(o, s2)
+                O[o]['P'][s] *= (1 - alpha)
+                if O[o]['BETA'][s2, 0] == 0.0:
+                    O[o]['P'][s] += alpha * gamma * O[o]['P'][s2]
                 else:
-                    pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits),
-                                                      dtype=scipy.float32),
-                                          dtype=scipy.float32)
+                    pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits), dtype=scipy.float32), dtype=scipy.float32)
                     pdelta[0, s2] = 1.0
-
-                    pr = (1.0 - alpha) * P[s] + alpha * gamma * pdelta
-
+                    O[o]['P'][s] += alpha * gamma * pdelta
                     del pdelta
-
-                del P[s]
-                P[s] = pr.copy()
-                del pr
 
                 ##################################
                 # //— update option reward model #
                 ##################################
-                # Gets some nice abbreviations
                 R = O[o]['R']
-                Bs2 = float(O[o]['BETA'][s2, 0])
-
-                # Calculates and sets the new value
-                x = R[s, 0]
-                y = r_e2 + gamma * (1.0 - Bs2) * R[s2, 0]
-                R[s, 0] = alpha_sum(x, y, alpha)
+                R[s, 0] *= (1 - alpha)
+                if O[o]['BETA'][s2, 0] == 0.0:
+                    R[s, 0] += alpha * (r_e2 + gamma * R[s2, 0])
+                else:
+                    R[s, 0] += alpha * r_e2
 
 
         ###########################################################
         # //— Q-learning update of behavior action-value function #
         ###########################################################
-        # Calculates the new value of Q(s, a)
         ai = all_possible_actions_int[a]
-        Q[s, ai] = (1.0 - alpha) * Q[s, ai] + \
-                   (alpha) * (r_e + r_i + gamma * Vx[s2, 0])
+        Q[s, ai] *= (1.0 - alpha)
+        Q[s, ai] += alpha * (r_e + r_i + gamma * Vx[s2, 0])
         update_vxax(Q, Vx, Ax, s, a)
 
 
