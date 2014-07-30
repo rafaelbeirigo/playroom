@@ -1701,13 +1701,14 @@ def imrl():
                 # //— update option transition probability model #
                 ##################################################
                 fix_P(o, s); fix_P(o, s2)
-                O[o]['P'][s] *= (1 - alpha)
+                P = O[o]['P']
+                P[s] *= (1 - alpha)
                 if O[o]['BETA'][s2, 0] == 0.0:
-                    O[o]['P'][s] += alpha * gamma * O[o]['P'][s2]
+                    P[s] += alpha * gamma * P[s2]
                 else:
                     pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits), dtype=scipy.float32), dtype=scipy.float32)
                     pdelta[0, s2] = 1.0
-                    O[o]['P'][s] += alpha * gamma * pdelta
+                    P[s] += alpha * gamma * pdelta
                     del pdelta
 
                 ##################################
