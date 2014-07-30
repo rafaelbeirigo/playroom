@@ -1736,16 +1736,10 @@ def imrl():
         ##############################################################
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
             if s in get_I(o):
-                # Gets some nice abbreviations
-                R = O[o]['R']
-                P = O[o]['P']
-
                 fix_P(o, s)
-
-                # Calculates and sets the new value
-                x = Q[s, o]
-                y = R[s, 0] + P[s].dot(Vx)
-                Q[s, o] = alpha_sum(x, y, alpha)
+                R = O[o]['R']; P = O[o]['P']
+                Q[s, o] *= (1 - alpha)
+                Q[s, o] += alpha * (R[s, 0] + P[s].dot(Vx))
                 update_vxax(Q, Vx, Ax, s, a, o)
 
 
