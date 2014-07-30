@@ -1282,7 +1282,6 @@ def q_learning_simple():
 # Playroom #
 ############
 O = {}
-S = set()
 pieces_on_cell = {}
 available_options = {}
 r_i_filename = None
@@ -1467,40 +1466,6 @@ def delta(a, b):
         return 0.0
 
 
-def get_sum_pvx(s, o):
-    """Returns the sum used in
-    //— SMDP-planning update of behavior action-value function"""
-
-    sum_pvx = 0.0
-    for x in S:
-        p_x_s = get_P(o, x, s)
-
-        vx = get_Vx(x, o)
-
-        sum_pvx += p_x_s * vx
-
-    return sum_pvx
-
-
-def get_sum_pvxo(s, o2, o):
-    """Returns the sum used in
-    //— Update option action-value functions
-    Here o2 == o-prime from the article."""
-
-    tv = get_TV(o)
-    sum_pvxo = 0.0
-    for x in S:
-        p_x_s = get_P(o2, x, s)
-
-        bx = get_BETA(o, x)
-
-        vx = get_Vx(x, o)
-
-        sum_pvxo += p_x_s * (bx * tv + (1 - bx) * vx)
-
-    return sum_pvxo
-
-
 def add_pieces_on_cell(row, col, piece):
     """Adds the piece to the set correspondig to [row][col]."""
 
@@ -1634,7 +1599,6 @@ def imrl():
 
     # Sees if should open previous saved data from another experiment
     if args.load:
-        global S
         global option_stack
         global Q
         global O
@@ -1642,8 +1606,8 @@ def imrl():
         global Ax
 
         [args, alpha, gamma, epsilon, tau, r_i_filename,
-         step_filename, option_stack_filename, ED_filename, s, s2, S,
-         a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack,
+         step_filename, option_stack_filename, ED_filename, s, s2, a,
+         a2, r_e, r_e2, r_i, r_i2, current_option, option_stack,
          current_step, steps, Q, O, Vx, Ax] = loadobject(args.load[0])
 
         initial_step = current_step + 1
@@ -1659,7 +1623,6 @@ def imrl():
 
         # Variables initialization
         s = update_state()
-        S.add(s)
         a = select_random_action()
         r_e = 0.0
         r_i = 0.0
@@ -1681,7 +1644,6 @@ def imrl():
         # Obtain next state s_{t+1}
         execute_action(a, s)
         s2 = update_state()
-        S.add(s2)
 
         if current_option != 0:
             add_I(current_option, s2)
@@ -1882,7 +1844,7 @@ def imrl():
         #         if r_i_filename == None:
         #             r_i_filename = get_log_filename(prefix='r_i-')
         #         ED_filename = r_i_filename + '.dat'
-        #     saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, S, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
+        #     saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
 
     # saveobject(O, get_log_filename(prefix='O-')) # persists O
 
