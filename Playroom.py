@@ -1416,17 +1416,6 @@ def clear_Ax(s, o=None):
     which_Ax(o)[s].clear()
 
 
-def set_BETA(o, s, new_value):
-    set_1dic(O[o]['BETA'], s, new_value)
-
-
-def get_BETA(o, s):
-    try:
-        return O[o]['BETA'][s]
-    except KeyError:
-        return 0.0
-
-
 def set_R(o, s, new_value):
     set_1dic(O[o]['R'], s, new_value)
 
@@ -1641,7 +1630,7 @@ def imrl():
             O[o]['I'][s, 0] = 1
 
             # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
-            set_BETA(o, s2, 1.0)
+            O[o]['BETA'][s2, 0] = 1
 
             # //— set intrinsic reward value
             P = O[o]['P']
@@ -1665,7 +1654,7 @@ def imrl():
         for o in O_keys: # For each option o != o_e in skill-KB (O)
             # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
             if O[o]['I'][s2, 0]:
-                if O[o]['BETA'][s, 0] != 1.0:
+                if not O[o]['BETA'][s, 0]:
                     O[o]['I'][s, 0] = 1
 
             # If a_t is greedy action for o in state s_t
@@ -1678,7 +1667,7 @@ def imrl():
                 fix_P(o, s); fix_P(o, s2)
                 P = O[o]['P']
                 P[s] *= (1 - alpha)
-                if O[o]['BETA'][s2, 0] == 0.0:
+                if not O[o]['BETA'][s2, 0]:
                     P[s] += alpha * gamma * P[s2]
                 else:
                     pdelta = numpy.matrix(scipy.zeros((1, 1<<sbits), dtype=scipy.float32), dtype=scipy.float32)
@@ -1691,7 +1680,7 @@ def imrl():
                 ##################################
                 R = O[o]['R']
                 R[s, 0] *= (1 - alpha)
-                if O[o]['BETA'][s2, 0] == 0.0:
+                if not O[o]['BETA'][s2, 0]:
                     R[s, 0] += alpha * (r_e2 + gamma * R[s2, 0])
                 else:
                     R[s, 0] += alpha * r_e2
@@ -1733,10 +1722,10 @@ def imrl():
                 ai = all_possible_actions_int[a]
 
                 Qo[s, ai] *= (1 - alpha)
-                if Beta_s2 == 1.0:
-                    Qo[s, ai] += alpha * (r_e2 + gamma * TV)
-                else:
+                if not Beta_s2:
                     Qo[s, ai] += alpha * (r_e2 + gamma * Vo[s2, 0])
+                else:
+                    Qo[s, ai] += alpha * (r_e2 + gamma * TV)
                 update_vxax(Qo, Vo, Ao, s, a)
 
                 for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
