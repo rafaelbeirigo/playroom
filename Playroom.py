@@ -1354,7 +1354,8 @@ def fix_O(o):
                                              dtype=scipy.float32), dtype=scipy.float32)
 
         # Creates an entry to the option's initiation set
-        O[o]['I'] = set()
+        O[o]['I'] = numpy.matrix(scipy.zeros((1<<sbits, 1),
+                                             dtype=scipy.int8), dtype=scipy.int8)
 
         # Creates an entry to the option's V^*
         O[o]['Vx'] = numpy.matrix(scipy.zeros((1<<sbits, 1),
