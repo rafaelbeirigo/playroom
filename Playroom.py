@@ -1753,7 +1753,7 @@ def imrl():
                 Ao = O[o]['Ax']
                 TV = O[o]['TV']
                 Beta_o = O[o]['BETA']
-                Beta_s2 = float(Beta_o[s2, 0])
+                Beta_s2 = Beta_o[s2, 0]
                 V2 = numpy.where(Beta_o, TV, Vo)
                 ai = all_possible_actions_int[a]
 
