@@ -1381,10 +1381,6 @@ def fix_O(o):
         O[o]['TV'] = 1.0
 
 
-def get_I(o):
-    return O[o]['I']
-
-
 def add_I(o, s):
     get_I(o).add(s)
 
@@ -1675,7 +1671,7 @@ def imrl():
         O_keys = [o for o in O.keys() if o != o_e]
         for o in O_keys: # For each option o != o_e in skill-KB (O)
             # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
-            if s2 in get_I(o):
+            if O[o]['I'][s2, 0]:
                 if O[o]['BETA'][s, 0] != 1.0:
                     add_I(o, s)
 
@@ -1721,7 +1717,7 @@ def imrl():
         # //— SMDP-planning update of behavior action-value function #
         ##############################################################
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            if s in get_I(o):
+            if O[o]['I'][s, 0]:
                 fix_P(o, s)
                 R = O[o]['R']; P = O[o]['P']
                 Q[s, o] *= (1 - alpha)
@@ -1733,7 +1729,7 @@ def imrl():
         # //— Update option action-value functions #
         ############################################
         for o in O.keys(): # For each option o ∈ O such that s_t ∈ I^o
-            if s in get_I(o):
+            if O[o]['I'][s, 0]:
                 Qo = O[o]['Q']
                 Vo = O[o]['Vx']
                 Ao = O[o]['Ax']
@@ -1751,7 +1747,7 @@ def imrl():
                 update_vxax(Qo, Vo, Ao, s, a)
 
                 for o2 in O.keys(): # For each option o2 ∈ O such that s_t ∈ I^o2 and o != o2
-                    if (o != o2) and (s in get_I(o2)):
+                    if (o != o2) and (O[o2]['I'][s, 0]):
                         fix_P(o2, s)
                         Po2 = O[o2]['P']; Ro2 = O[o2]['R']
 
