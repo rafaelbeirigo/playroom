@@ -1598,41 +1598,25 @@ def imrl():
 
     starttime = time.time()
 
-    # Sees if should open previous saved data from another experiment
-    if args.load:
-        global option_stack
-        global Q
-        global O
-        global Vx
-        global Ax
+    # Learning parameters
+    alpha            = 0.1
+    gamma            = 0.99
+    epsilon          = 0.1
+    tau              = 0.5
 
-        [args, alpha, gamma, epsilon, tau, r_i_filename,
-         step_filename, option_stack_filename, ED_filename, s, s2, a,
-         a2, r_e, r_e2, r_i, r_i2, current_option, option_stack,
-         current_step, steps, Q, O, Vx, Ax] = loadobject(args.load[0])
+    steps = int(5e5)
 
-        initial_step = current_step + 1
-        step = initial_step
-    else:
-        # Learning parameters
-        alpha            = 0.1
-        gamma            = 0.99
-        epsilon          = 0.1
-        tau              = 0.5
+    # Variables initialization
+    s = update_state()
+    a = select_random_action()
+    r_e = 0.0
+    r_i = 0.0
+    step = 1
+    initial_step = 0
+    current_option = 0
 
-        steps = int(5e5)
-
-        # Variables initialization
-        s = update_state()
-        a = select_random_action()
-        r_e = 0.0
-        r_i = 0.0
-        step = 1
-        initial_step = 0
-        current_option = 0
-
-        # Log stuff
-        r_i_filename = get_log_filename(prefix='r_i-')
+    # Log stuff
+    r_i_filename = get_log_filename(prefix='r_i-')
 
     print 'Logging to: ' + r_i_filename
 
@@ -1813,16 +1797,6 @@ def imrl():
         # Log
         if args.log_step: log_step(s2, current_option, a2, r_i2)
         if args.log_option_stack: log_option_stack()
-
-        # # Persist data related to this experiment
-        # if random() < 1e-4:
-        #     if ED_filename == None:
-        #         if r_i_filename == None:
-        #             r_i_filename = get_log_filename(prefix='r_i-')
-        #         ED_filename = r_i_filename + '.dat'
-        #     saveobject([args, alpha, gamma, epsilon, tau, r_i_filename, step_filename, option_stack_filename, ED_filename, s, s2, a, a2, r_e, r_e2, r_i, r_i2, current_option, option_stack, current_step, steps, Q, O, Vx, Ax], ED_filename)
-
-    # saveobject(O, get_log_filename(prefix='O-')) # persists O
 
     totaltime = time.time() - starttime
     log_time(totaltime)
