@@ -1381,13 +1381,6 @@ def fix_O(o):
         O[o]['TV'] = 1.0
 
 
-def add_I(o, s):
-    get_I(o).add(s)
-
-    # Add o to the list of available options in s
-    add_available_options(s, o)
-
-
 def which_Ax(o=None):
     """Returns A^*.  If the option key is provided, the A^* refers to an
     option."""
@@ -1628,7 +1621,7 @@ def imrl():
         s2 = update_state()
 
         if current_option != 0:
-            add_I(current_option, s2)
+            O[current_option]['I'][s2, 0] = 1 # Add s2 to current option's I
 
         # Deal with special case if next state is salient
         o_e = None
@@ -1645,7 +1638,7 @@ def imrl():
                 o_e = o                   # Used in "Update all option models", below
 
             # Add s_t to I^{o_e} // initialize initiation set
-            add_I(o, s)
+            O[o]['I'][s, 0] = 1
 
             # Set β^{o_e}(s_{t+1}) = 1 // set termination probability
             set_BETA(o, s2, 1.0)
@@ -1673,7 +1666,7 @@ def imrl():
             # If s_{t+1} ∈ I^o , then add s_t to I^o // grow initiation set
             if O[o]['I'][s2, 0]:
                 if O[o]['BETA'][s, 0] != 1.0:
-                    add_I(o, s)
+                    O[o]['I'][s, 0] = 1
 
             # If a_t is greedy action for o in state s_t
             try: As = O[o]['Ax'][s]
