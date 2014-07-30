@@ -7,6 +7,7 @@ from Board import *
 from Piece import *
 from random import randint
 from random import choice
+from random import random
 from time import sleep
 from itertools import product
 import numpy
@@ -1018,7 +1019,7 @@ def select_best_actions(s, o=None):
 def get_action_from_option(s, o):
     epsilon = 0.3
 
-    if scipy.random.random() < epsilon:
+    if random() < epsilon:
         # random
         a = select_random_action(s)
     else:
@@ -1197,7 +1198,7 @@ def q_learning_simple():
                 # Following epsilon-greedy strategy, Select an action a
                 # and execute it. Receive immediate reward r. Observe the
                 # new state s2
-                if random.random() < epsilon:    # random() gives a number in the interval [0, 1).
+                if random() < epsilon:    # random() gives a number in the interval [0, 1).
                     # random
                     a = select_random_action()
                 else:
@@ -1781,7 +1782,7 @@ def imrl():
         current_option = get_current_option(s2)
 
         if current_option == 0:
-            if scipy.random.random() < epsilon:    # random() gives a number in the interval [0, 1).
+            if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
                 next_action = select_random_action(s2)
             else:
@@ -1814,7 +1815,7 @@ def imrl():
         if args.log_option_stack: log_option_stack()
 
         # # Persist data related to this experiment
-        # if random.random() < 1e-4:
+        # if random() < 1e-4:
         #     if ED_filename == None:
         #         if r_i_filename == None:
         #             r_i_filename = get_log_filename(prefix='r_i-')
