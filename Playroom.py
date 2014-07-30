@@ -1562,7 +1562,7 @@ def get_current_option(s2):
     # 'target' is the status combination that the option 'wants'
     i = 0
     for target in option_stack:
-        if target == current:
+        if current == target:
             del option_stack[i:]
         i += 1
     return get_top_stack(option_stack)
