@@ -1750,7 +1750,6 @@ def imrl():
                 next_action = select_best_action(s2)
 
             if is_option(next_action):
-                option_stack.append(next_action)
                 current_option = next_action
         else:
             next_action = current_option
