@@ -1697,12 +1697,11 @@ def imrl():
         # //— SMDP-planning update of behavior action-value function #
         ##############################################################
         for o in O.keys(): # For each option o = o_e in skill-KB (O)
-            if O[o]['I'][s, 0]:
-                fix_P(o, s)
-                R = O[o]['R']; P = O[o]['P']
-                Q[s, o] *= (1 - alpha)
-                Q[s, o] += alpha * (R[s, 0] + P[s].dot(Vx))
-                update_vxax(Q, Vx, Ax, s, a, o)
+            fix_P(o, s)
+            R = O[o]['R']; P = O[o]['P']
+            Q[s, o] *= (1 - alpha)
+            Q[s, o] += alpha * (R[s, 0] + P[s].dot(Vx))
+            update_vxax(Q, Vx, Ax, s, a, o)
 
 
         ############################################
