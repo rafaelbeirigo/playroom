@@ -1496,15 +1496,6 @@ def o_exists(o):
         return False
 
 
-def get_top_stack(stack):
-    """Returns the item on top of the stack if it exists or None if the
-    stack is empty"""
-    try:
-        return stack[-1:][0] # Top of the stack
-    except IndexError:       # Stack is empty
-        return 0
-
-
 def resolve_current_option(current_option):
     """Resolves an option termination given the current e."""
 
