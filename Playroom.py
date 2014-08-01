@@ -1505,7 +1505,6 @@ def get_top_stack(stack):
         return 0
 
 
-option_stack = []
 def resolve_current_option(current_option):
     """Resolves an option termination given the current e."""
 
