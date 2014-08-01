@@ -1021,7 +1021,7 @@ def select_best_actions(s, o=None):
 def get_action_from_option(s, o):
     global epsilonoption
 
-    if random() < epsilon:
+    if random() < epsilonoption:
         # random
         a = select_random_action(s)
     else:
