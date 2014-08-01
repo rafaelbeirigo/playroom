@@ -308,7 +308,7 @@ def log_step(s2, current_option, a2, r_i2):
 def log_time(totaltime):
     """Logs the execution time."""
 
-    prefix = "logs/epsopt/" + str(epsilonoption) + "/"
+    prefix = "logs/"
     time_filename = prefix + "time-" + r_i_filename.replace(prefix, "")
 
     f = open(time_filename, 'a')
