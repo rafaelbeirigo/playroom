@@ -1700,22 +1700,16 @@ def imrl():
         current_option = resolve_current_option(current_option)
 
         if current_option:
-            next_action = current_option
+            a2 = get_action_from_option(s2, current_option)
         else:
-            if random() < epsilon:    # random() gives a number in the interval [0, 1).
-                # random
-                next_action = select_random_action(s2)
+            if random() < epsilon:
+                a2 = select_random_action(s2)
             else:
-                # greedy
-                next_action = select_best_action(s2)
+                a2 = select_best_action(s2)
 
-            if is_option(next_action):
-                current_option = next_action
-
-        if is_option(next_action):
-            a2 = get_action_from_option(s2, next_action)
-        else:
-            a2 = next_action
+            if is_option(a2):
+                current_option = a2
+                a2 = get_action_from_option(s2, a2)
 
         # Set st ← st+1 ; at ← at+1 ; r^e_t ← r^e_{t+1} ; r^i_t ← r^i_{t+1}
         s = s2
