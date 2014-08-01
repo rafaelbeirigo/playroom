@@ -1699,7 +1699,9 @@ def imrl():
         #################################################################################
         current_option = resolve_current_option(current_option)
 
-        if current_option == 0:
+        if current_option:
+            next_action = current_option
+        else:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
                 # random
                 next_action = select_random_action(s2)
@@ -1709,8 +1711,6 @@ def imrl():
 
             if is_option(next_action):
                 current_option = next_action
-        else:
-            next_action = current_option
 
         if is_option(next_action):
             a2 = get_action_from_option(s2, next_action)
