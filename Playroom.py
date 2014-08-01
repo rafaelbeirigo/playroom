@@ -1751,7 +1751,7 @@ def imrl():
         #################################################################################
         # Choose a_{t+1} using epsilon-greedy policy w.r.to Q_B // — Choose next action #
         #################################################################################
-        current_option = get_current_option(s2)
+        current_option = resolve_current_option(current_option)
 
         if current_option == 0:
             if random() < epsilon:    # random() gives a number in the interval [0, 1).
