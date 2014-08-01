@@ -1096,7 +1096,7 @@ def get_log_filename(prefix='', suffix=''):
 
     hostname = gethostname()
     now_str = str(datetime.now())
-    filename = 'logs/epsopt/' + str(epsilonoption) + '/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
+    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
 
     return filename
 
