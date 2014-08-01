@@ -1006,14 +1006,7 @@ def select_best_actions(s, o=None):
 
 
 def get_action_from_option(s, o):
-    global epsilonoption
-
-    if random() < epsilonoption:
-        # random
-        a = select_random_action(s)
-    else:
-        # greedy
-        a = choice(select_best_actions(s, o))
+    a = choice(select_best_actions(s, o))
 
     while is_option(a):
         a = get_action_from_option(s, a)
