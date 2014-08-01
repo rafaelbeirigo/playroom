@@ -1724,7 +1724,6 @@ def imrl():
 
 def main():
     global args
-    global epsilonoption
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
@@ -1734,16 +1733,8 @@ def main():
     parser.add_argument("--no_cardinal", help="The eye does not use the cardinal actions",
                         action="store_true")
     parser.add_argument("--load", nargs='*', help="Loads saved data from previous experiment.")
-    parser.add_argument("--epsopt", nargs='*', help="Epsilon used by the option scheme.")
 
     args = parser.parse_args()
-
-    if args.epsopt:
-        epsilonoption = float(args.epsopt[0])
-    else:
-        epsilonoption = 0.3
-
-    print 'Using', epsilonoption, 'as epsilonoption'
 
     global board_rows
     board_rows = 5
