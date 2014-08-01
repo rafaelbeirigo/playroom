@@ -1276,7 +1276,6 @@ available_options = {}
 r_i_filename = None
 global args
 step_filename = None
-option_stack_filename = None
 ED_filename = None
 
 
@@ -1543,7 +1542,6 @@ def imrl():
     global step
     global r_i_filename
     global step_filename
-    global option_stack_filename
     global ED_filename
     global args
 
@@ -1741,7 +1739,6 @@ def imrl():
 
         # Log
         if args.log_step: log_step(s2, current_option, a2, r_i2)
-        if args.log_option_stack: log_option_stack()
 
     totaltime = time.time() - starttime
     log_time(totaltime)
@@ -1757,8 +1754,6 @@ def main():
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
                         action="store_true")
     parser.add_argument("--log_step", help="Logs lots of information at each step",
-                        action="store_true")
-    parser.add_argument("--log_option_stack", help="Logs the option stack",
                         action="store_true")
     parser.add_argument("--no_cardinal", help="The eye does not use the cardinal actions",
                         action="store_true")
