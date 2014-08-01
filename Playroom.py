@@ -305,19 +305,6 @@ def log_step(s2, current_option, a2, r_i2):
     f.close()
 
 
-def log_option_stack():
-    """Logs the option stack."""
-
-    global option_stack_filename
-
-    if option_stack_filename == None:    # Tests if it is the first time the file will be opened
-        option_stack_filename = get_log_filename(prefix='option_stack-')
-
-    f = open(option_stack_filename, 'a')
-    f.write(str(option_stack) + '\n')
-    f.close()
-
-
 def log_time(totaltime):
     """Logs the execution time."""
 
