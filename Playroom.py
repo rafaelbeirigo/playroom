@@ -1549,6 +1549,19 @@ def get_current_option(s2):
     return get_top_stack(option_stack)
 
 
+def resolve_current_option(current_option):
+    """Resolves an option termination given the current e."""
+
+    current_e = bool2int(numpy.array([is_on(light), is_on(music),
+                                      is_on(bell_sound),
+                                      is_on(toy_monkey_sound)])) + \
+                                      len(all_possible_actions) + 1
+    if current_option == current_e:
+        return 0
+    else:
+        return current_option
+
+
 def update_vxax(myQ, myVx, myAx, s, a, o=None):
     if o is None:
         ai = all_possible_actions_int[a]
