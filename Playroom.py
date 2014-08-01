@@ -887,7 +887,6 @@ Q_default_value = 0.0
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
-epsilonoption = 0.0
 
 def which_Q(o=None):
     """Returns the correct Q table depending on the variable o:
