@@ -1611,9 +1611,6 @@ def imrl():
         execute_action(a, s)
         s2 = update_state()
 
-        if current_option != 0:
-            O[current_option]['I'][s2, 0] = 1 # Add s2 to current option's I
-
         # Deal with special case if next state is salient
         o_e = None
         if is_salient_event():        # If s_{t+1} is a salient event e
