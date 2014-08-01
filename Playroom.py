@@ -1507,35 +1507,6 @@ def get_top_stack(stack):
 
 
 option_stack = []
-def get_current_option(s2):
-    """Resolves the option stack and eventually returns an option.
-
-    The strategy to abandon an option is "bottom-up" in relation to
-    salient events:
-
-    The function goes through the option stack from the oldest one to
-    the newest one (from the bottom to the top).  If the current state
-    is a salient event to an option, this option is removed from the
-    stack, along with all the other options (if any) that are newer
-    than this one.
-
-    """
-
-    # 'current' is the status combination of the current state
-    current = bool2int(numpy.array([is_on(light), is_on(music),
-                                    is_on(bell_sound),
-                                    is_on(toy_monkey_sound)])) + \
-                                    len(all_possible_actions) + 1
-
-    # 'target' is the status combination that the option 'wants'
-    for i in range(len(option_stack)-1, -1, -1):
-        target = option_stack[i]
-        if current == target:
-            del option_stack[i:]
-        i += 1
-    return get_top_stack(option_stack)
-
-
 def resolve_current_option(current_option):
     """Resolves an option termination given the current e."""
 
