@@ -1542,8 +1542,8 @@ def get_current_option(s2):
                                     len(all_possible_actions) + 1
 
     # 'target' is the status combination that the option 'wants'
-    i = 0
-    for target in option_stack:
+    for i in range(len(option_stack)-1, -1, -1):
+        target = option_stack[i]
         if current == target:
             del option_stack[i:]
         i += 1
