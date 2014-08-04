@@ -320,7 +320,8 @@ def log_option_stack():
 def log_time(totaltime):
     """Logs the execution time."""
 
-    time_filename = "logs/time-" + r_i_filename.replace("logs/", "")
+    prefix = "logs/epsopt-td/" + str(epsilonoption) + "/"
+    time_filename = prefix + "time-" + r_i_filename.replace(prefix, "")
 
     f = open(time_filename, 'a')
     f.write(str(totaltime) + '\n')
@@ -898,6 +899,7 @@ Q_default_value = 0.0
 
 Q_flick_switch = loadobject('flick_switch_option.q')
 
+epsilonoption = 0.0
 
 def which_Q(o=None):
     """Returns the correct Q table depending on the variable o:
@@ -1016,9 +1018,9 @@ def select_best_actions(s, o=None):
 
 
 def get_action_from_option(s, o):
-    epsilon = 0.3
+    global epsilonoption
 
-    if scipy.random.random() < epsilon:
+    if scipy.random.random() < epsilonoption:
         # random
         a = select_random_action(s)
     else:
@@ -1115,7 +1117,7 @@ def get_log_filename(prefix='', suffix=''):
 
     hostname = gethostname()
     now_str = str(datetime.now())
-    filename = 'logs/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
+    filename = 'logs/epsopt-td/' + str(epsilonoption) + '/' + prefix + now_str.replace(':', '-')[:19].replace(' ', '_') + suffix + '-' + hostname + '.log'
 
     return filename
 
@@ -1894,6 +1896,7 @@ def imrl():
 
 def main():
     global args
+    global epsilonoption
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--nox", help="Does not use the X (graphical) part (runs imrl)",
@@ -1905,8 +1908,16 @@ def main():
     parser.add_argument("--no_cardinal", help="The eye does not use the cardinal actions",
                         action="store_true")
     parser.add_argument("--load", nargs='*', help="Loads saved data from previous experiment.")
+    parser.add_argument("--epsopt", nargs='*', help="Epsilon used by the option scheme.")
 
     args = parser.parse_args()
+
+    if args.epsopt:
+        epsilonoption = float(args.epsopt[0])
+    else:
+        epsilonoption = 0.3
+
+    print 'Using', epsilonoption, 'as epsilonoption'
 
     global board_rows
     board_rows = 5
