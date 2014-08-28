@@ -1,9 +1,9 @@
 #!/bin/bash
 
 roda () {
-    for epsopt in 0.1
+    for epsopt in 0.0 0.1 0.2 0.3
     do
-	FOLDER="logs/epsopt/$epsopt"
+	FOLDER="logs/epsopt-sempilha/$epsopt"
 	if ! [ -e $FOLDER ]
 	then
 	    mkdir -p $FOLDER
