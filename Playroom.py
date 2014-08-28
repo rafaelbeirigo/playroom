@@ -1028,7 +1028,6 @@ def get_action_from_option(s, o):
         a = choice(select_best_actions(s, o))
 
     while is_option(a):
-        option_stack.append(a)
         a = get_action_from_option(s, a)
 
     return a
