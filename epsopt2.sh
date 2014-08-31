@@ -1,7 +1,7 @@
 #!/bin/bash
 
 roda () {
-    for epsopt in 0.7 0.8
+    for epsopt in 0.8
     do
 	FOLDER="logs/epsopt-sempilha/$epsopt"
 	if ! [ -e $FOLDER ]
